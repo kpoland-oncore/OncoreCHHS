@@ -1,4 +1,5 @@
 # Developer Instructions
+[README](README.md) > DEVELOPER
 _Work In Progress_
 
 ## Git
@@ -53,6 +54,7 @@ Do this after you have committed.
 ```
 git push
 ```
+TODO you will be prompted for github username and password, how to cache these?
 
 explain what status does
 ```git status```
