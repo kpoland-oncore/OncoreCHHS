@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# OncoreCHHS
-=======
 # OncoreCHHS
 Oncore CHHS Prototype
 
@@ -16,7 +13,3 @@ Oncore CHHS Prototype
 
 ## Developer Instructions
 [Developer Instructions](DEVELOPER.md)
-
-
-_kyle testing commit pivotal tracker integration_
->>>>>>> 64d9af9e22d7274a5e0ca97b0428139c3eb4d2e4
