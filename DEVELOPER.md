@@ -12,6 +12,7 @@ _Work In Progress_
 ```
 git config --global user.name "Kyle Poland"
 git config --global user.email kyle.poland@oncorellc.com
+git config --global credential.helper store
 git config --global core.editor "'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -nosession"
 ```
 or for the serious
@@ -60,7 +61,7 @@ Do this after you have committed.
 ```
 git push
 ```
-TODO you will be prompted for github username and password, how to cache these?
+You will be prompted for GitHub credentials on the first push, provide your github username (kpoland-oncore), and password. The `git config --global credential.helper store` told git to save your credentials for future use.  They are kept plaintext in `.git-credentials` so there is probably a better way.
 
 explain what status does
 ```git status```
