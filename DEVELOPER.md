@@ -3,6 +3,14 @@
 
 _Work In Progress_
 
+## VMWare - to run the developer image
+TODO Royce (or Kyle if not Royce) instructions on buying/downloading/installing VMWare player
+
+Royce uploaded the VMWare developer image to OneDrive: https://oncore.sharepoint.com/sites/oncorechhs/_layouts/15/guestaccess.aspx?guestaccesstoken=TkHr6YH3Gbqm60xhSGrKwtlF6tmzN4EcuB1IrlaNTXs%3d&docid=2_0d74d12013bfc4ba1b485e6cfa626811a
+
+## Vagrant
+TODO Kyle
+
 ## Git
 [Git getting started guide](https://git-scm.com/book/en/v2/Getting-Started-The-Command-Line)
 
