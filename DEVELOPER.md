@@ -1,9 +1,11 @@
 # Developer Instructions
 [README](README.md) > DEVELOPER
+
 _Work In Progress_
 
 ## Git
 [Git getting started guide](https://git-scm.com/book/en/v2/Getting-Started-The-Command-Line)
+
 ```git help <command>```
 
 ### Setup
@@ -47,6 +49,10 @@ Example: 'implement #119506207'
 Or provide the comment on the command line with "-m"
 ```
 git commit -m "implement #119506207"
+```
+And the best form with automatic adding changes as well
+```
+git commit -a -m "implement #119506207"
 ```
 
 ### Pushing
