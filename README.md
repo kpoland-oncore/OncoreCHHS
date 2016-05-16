@@ -13,3 +13,6 @@ Oncore CHHS Prototype
 
 ## Developer Instructions
 [Developer Instructions](DEVELOPER.md)
+
+## Builds
+http://40.118.132.241/jenkins/
