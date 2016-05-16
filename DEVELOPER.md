@@ -15,7 +15,6 @@ _ISSUE_: [Kyle] for Vagrant to use VMWare you have to buy both VMWare $150-$250 
 
 ## Git
 [Git getting started guide](https://git-scm.com/book/en/v2/Getting-Started-The-Command-Line)
-
 ```git help <command>```
 
 ### Setup
