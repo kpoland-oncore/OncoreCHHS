@@ -4,12 +4,14 @@
 _Work In Progress_
 
 ## VMWare - to run the developer image
-TODO Royce (or Kyle if not Royce) instructions on buying/downloading/installing VMWare player
+**TODO Royce (or Kyle if not Royce)** instructions on buying/downloading/installing VMWare player
 
 Royce uploaded the VMWare developer image to OneDrive: https://oncore.sharepoint.com/sites/oncorechhs/_layouts/15/guestaccess.aspx?guestaccesstoken=TkHr6YH3Gbqm60xhSGrKwtlF6tmzN4EcuB1IrlaNTXs%3d&docid=2_0d74d12013bfc4ba1b485e6cfa626811a
+_ISSUE_: [Kyle] for Vagrant to use VMWare you have to buy both VMWare $150-$250 and a Vagrant plugin $79. They recommend only using VMWare Workstation Pro, not Player. Vagrant uses VirtualBox by default with no paid plugin.
 
 ## Vagrant
-TODO Kyle
+**TODO Kyle**
+1. Download and install Vagrant: https://www.vagrantup.com/downloads.html
 
 ## Git
 [Git getting started guide](https://git-scm.com/book/en/v2/Getting-Started-The-Command-Line)
@@ -52,8 +54,14 @@ Or when committing, add a "-a" flag to commit to automatically add all untracked
 ```
 git commit
 ```
-This launches your editor of choice to record a commit comment. Include the Pivitol Tracker #ITEMNUMBER to automatically add a comment to the story.
-Example: 'implement #119506207'
+This launches your editor of choice to record a commit comment.
+
+Include the Pivotal Tracker #ITEMNUMBER inside [] to automatically add a comment to the story. This adds a comment to the story/chore and will automatically start the story/chore if not already started.
+Example: '[#119506207]'
+Example more than one ITEMNUMBER: '[#119506207 #119504595]'
+
+Use words like "fixed", "completed", or "finished" in the []s to automatically finish the story/feature or accept the chore in Pivotal.
+Example: '[fixed #119506207] fix junits for module'
 
 Or provide the comment on the command line with "-m"
 ```
