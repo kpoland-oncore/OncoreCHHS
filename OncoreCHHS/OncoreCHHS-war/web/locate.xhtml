@@ -7,13 +7,14 @@
       xmlns:f="http://java.sun.com/jsf/core">
 
 
-
-    <ui:param name="managedBean" value="#{homeManagedBean}"/>
-
-
-
-
     <ui:composition template="/facelets/templates/main_layout.xhtml">
+
+        <ui:param name="managedBean" value="#{homeManagedBean}"/>
+
+
+        <ui:define name="title">
+            <title>CHHS Foster Care Services | Locate</title>
+        </ui:define>
 
         <ui:define name="content">
 
@@ -27,8 +28,8 @@
                     <div class="row">
 
                         <!-- Content -->
-                     
-                        
+
+
                         under construction
 
                     </div>

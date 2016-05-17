@@ -12,43 +12,44 @@
 
 
     <ui:composition>
-        
-         <!-- Header -->
-                <div id="header">
+
+        <!-- Header -->
+        <div id="header">
+            <div class="container">
+
+                <!-- Logo -->
+                <h1><a href="#" id="logo">CHHS Foster Care Services</a></h1>
+
+                <!-- Nav -->
+                <nav id="nav">
+                    <ul>
+
+
+                        <li><p:commandLink id="homeLink" action="#{managedBean.handleHeaderNavigationClickEvent('index')}" value="Home" update="@form"/></li>
+                        <li><p:commandLink id="myprofileLink" action="#{managedBean.handleHeaderNavigationClickEvent('myprofile')}" value="My Profile" update="@form"/></li>
+                        <li><p:commandLink id="locateLink" action="#{managedBean.handleHeaderNavigationClickEvent('locate')}" value="Locate" update="@form"/></li>
+                        <li><p:commandLink id="messagesLink" action="#{managedBean.handleHeaderNavigationClickEvent('messages')}" value="Messages" update="@form"/></li>
+                         
+
+                    </ul>
+                </nav>
+
+
+                <!-- Banner -->
+                <div id="banner">
                     <div class="container">
+                        <section>
+                            <header class="major">
+                                <h2>Welcome to CHHS Foster Care Services!</h2>
 
-                        <!-- Logo -->
-                        <h1><a href="#" id="logo">CHHS Foster Care Services</a></h1>
-
-                        <!-- Nav -->
-                        <nav id="nav">
-                            <ul>
-                                
-                                
-                                
-                                <li><h:outputLink id="homeLink" value="#{managedBean.handleHeaderNavigationClickEvent('index')}">Home</h:outputLink></li>
-                                <li><a href="myprofile.html">My Profile</a></li>
-                                <li><a href="locate.html">Locate Services</a></li>
-                                <li><a href="messages.html">Messages</a></li>
-                            </ul>
-                        </nav>
-
-
-                        <!-- Banner -->
-                        <div id="banner">
-                            <div class="container">
-                                <section>
-                                    <header class="major">
-                                        <h2>Welcome to CHHS Foster Care Services!</h2>
-
-                                        <a href="#" class="button alt">Sign Up</a>
-                                    </header>
-                                </section>			
-                            </div>
-                        </div>
-
+                                <a href="#" class="button alt">Sign Up</a>
+                            </header>
+                        </section>			
                     </div>
                 </div>
+
+            </div>
+        </div>
 
     </ui:composition>
 
