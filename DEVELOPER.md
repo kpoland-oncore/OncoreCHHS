@@ -80,3 +80,12 @@ You will be prompted for GitHub credentials on the first push, provide your gith
 
 explain what status does
 ```git status```
+
+## Working with GitHub in Netbeans
+1. First until get used to using Git backup frequently
+2. It is generally best to follow the following pattern,  Pull->Push
+3. So you have opened Netbeans for today’s work,  first thing you should do is right click the top project in the Netbeans navigator, which will be OncoreCHHS, execute a Git Pull command.
+4. Do your work…  commit your changes to your local repository by executing a Git→Commit. NOT a Git→Remote→Commit.   This checks in your changes to your local Git.
+5. You think you are ready to push you local changes to the rest of the team… 
+1. First run another Git→Remote→Pull to sync up any changes to your repository.   If you get prompted to rebase or merge, you want to select the merge option. 
+2. Assuming you have already checked in your changes to your local repository (#4 above) then you are ready to push your changes.  Select Git→Remote→Push
