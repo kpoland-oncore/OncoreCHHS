@@ -23,39 +23,13 @@
  */
 package com.oncore.chss.web.profile;
 
-import com.oncore.chss.web.base.BaseManagedBean;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Named;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.oncore.chss.web.base.AbstractBaseManagedBean;
 
 /**
  *
  * @author oncore
  */
-@Named("profileDataManagedBean")
-@RequestScoped
-public class ProfileDataManagedBean extends BaseManagedBean implements AbstractProfileDataManagedBean {
-
-    @Override
-    @PostConstruct
-    public void initialize() {
-        LOG.debug("Initializing ProfileDataManagedBean: " + this.getClass().hashCode());
-    }
-
-    @Override
-    @PreDestroy
-    public void destroy() {
-        LOG.debug("Destroying ProfileDataManagedBean: " + this.getClass().hashCode());
-    }
-
-    @Override
-    public ProfileBean findProfileByUserName(String userName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private final Logger LOG = LogManager.getLogger(ProfileDataManagedBean.class);
-
+public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
+    
+    public ProfileBean findProfileByUserName(String userName);
 }
