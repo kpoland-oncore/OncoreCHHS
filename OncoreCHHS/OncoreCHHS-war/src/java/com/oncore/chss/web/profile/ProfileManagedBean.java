@@ -21,38 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.base;
+package com.oncore.chss.web.profile;
 
-import com.oncore.chhs.navigation.NavigationManagedBean;
-import java.io.Serializable;
-import javax.inject.Inject;
+import com.oncore.chss.web.base.BaseManagedBean;
+import com.oncore.chss.web.home.HomeManagedBean;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.inject.Named;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
  * @author oncore
  */
-public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serializable {
+@Named("profileManagedBean")
+@ViewScoped
+public class ProfileManagedBean extends BaseManagedBean {
 
     @Override
-    public abstract void initialize();
-
-    @Override
-    public abstract void destroy();
-
-    /**
-     * The <code>handleHeaderNavigationClickEvent</code> method handles the
-     * click event on the header navigation links such as Home, MyProfile,
-     * Locate Services, and Messages.
-     *
-     * @param target the source link identifier
-     *
-     * @return a target URL
-     */
-    public String handleHeaderNavigationClickEvent(String target) {
-        return this.navigationManagedBean.navigateToLink(target, Boolean.FALSE);
+    @PostConstruct
+    public void initialize() {
+        LOG.debug("Initializing ProfileManagedBean: " + this.getClass().hashCode());
     }
 
-    @Inject
-    NavigationManagedBean navigationManagedBean;
+    @Override
+    @PreDestroy
+    public void destroy() {
+        LOG.debug("Destroying ProfileManagedBean: " + this.getClass().hashCode());
+    }
+
+    private final Logger LOG = LogManager.getLogger(ProfileManagedBean.class);
 
 }

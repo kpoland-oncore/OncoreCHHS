@@ -27,7 +27,6 @@ import com.oncore.chhs.navigation.NavigationManagedBean;
 import com.oncore.chss.web.base.BaseManagedBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -53,6 +52,6 @@ public class HomeManagedBean extends BaseManagedBean {
         LOG.debug("Destroying HomeManagedBean: " + this.getClass().hashCode());
     }
    
-    private final Logger LOG = LogManager.getLogger(NavigationManagedBean.class);
+    private final Logger LOG = LogManager.getLogger(HomeManagedBean.class);
 
 }

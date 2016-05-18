@@ -23,36 +23,15 @@
  */
 package com.oncore.chss.web.base;
 
-import com.oncore.chhs.navigation.NavigationManagedBean;
-import java.io.Serializable;
-import javax.inject.Inject;
-
 /**
  *
  * @author oncore
  */
-public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serializable {
-
-    @Override
-    public abstract void initialize();
-
-    @Override
-    public abstract void destroy();
-
-    /**
-     * The <code>handleHeaderNavigationClickEvent</code> method handles the
-     * click event on the header navigation links such as Home, MyProfile,
-     * Locate Services, and Messages.
-     *
-     * @param target the source link identifier
-     *
-     * @return a target URL
-     */
-    public String handleHeaderNavigationClickEvent(String target) {
-        return this.navigationManagedBean.navigateToLink(target, Boolean.FALSE);
-    }
-
-    @Inject
-    NavigationManagedBean navigationManagedBean;
-
+public interface AbstractBaseManagedBean {
+    
+    public void initialize();
+    
+    public void destroy();
+    
+    
 }
