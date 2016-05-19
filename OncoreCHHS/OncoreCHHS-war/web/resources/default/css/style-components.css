@@ -1,0 +1,631 @@
+/*
+The MIT License
+
+Copyright 2016 oncore.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+*/
+/* 
+    Created on : May 19, 2016, 9:52:15 AM
+    Author     : oncore
+*/
+
+
+
+
+
+
+
+.form_label_20_left {
+      width: 20%;
+      font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: 0em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_20_input {
+      width: 20%;
+      font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+      margin-right: -0.1em;
+}
+
+.form_label_20_more_tp_input {
+      width: 20%;
+      font-size: 1em;
+      float: left;
+      padding-top: .7em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+      margin-right: -0.1em;
+}
+
+.form_label_20_no_tp {
+      width: 20%;
+      font-size: 1em;
+      float: left;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+     line-height: 1.2em
+}
+
+.form_label_25{
+      width: 25%;
+      font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_25_input{
+      width: 25%;
+      font-size: 1em;
+      float: left;
+      padding-left: .9em;
+      padding-top: .2em;
+      padding-right: .5em;
+      vertical-align: middle;
+      margin-right: -0.1em;
+      word-break: break-all;
+      line-height: 1.2em;
+}
+
+.form_label_25_more_padding {
+ font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: 2.15em;
+      padding-right: 1.09em;
+      vertical-align: middle;
+}
+
+.form_label_25_less_padding {
+ font-size: 1em;
+      float: left;
+      padding-top: .7em;
+      padding-left: 1.0em;
+      padding-right: 1.09em;
+      vertical-align: middle;
+}
+
+.form_label_30 {
+      width: 30%;
+      font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_30_input {
+      width: 30%;
+      font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+      margin-right: -0.1em;
+      line-height: 1.2em;
+}
+
+.form_label_30_input_lh {
+      width: 30%;
+      font-size: 1em;
+      float: left;
+      line-height:1em;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+      margin-right: -0.1em;
+}
+
+.form_label_35 {
+      width: 35%;
+      font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_35_input {
+      width: 35%;
+      font-size: 1em;
+      float: left;
+      line-height:1.0em;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+      margin-right:  -0.1em;
+}
+
+.form_label_40 {
+      width: 40%;
+      font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_45 {
+      width: 45%;
+      font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+      line-height:1.2em;
+}
+
+.form_label_48 {
+      width: 49%;
+      font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_48_input {
+      width: 49%;
+      font-size: 1em;
+      float: left;
+      padding-top: .2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+      margin-right: -0.1em;
+      line-height:1em;
+}
+
+.form_label_pad_lf {
+padding-left: 0.9em !important;
+}
+
+
+/*
+ * Label position for use on composite components
+ * where the label is required and you are mixing
+ * composite components with non composite 
+ * components. For example, you need to place a 
+ * composite component immediately above or below
+ * static text produced by an h:outputText component.
+ * Using these settings the composite component label
+ * will align properly with the non-composite component.
+ */
+ 
+ .form_label_1_lf {
+      width: 1%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+ .form_label_1_lf_less_margin {
+      width: 1%;
+      font-size: 1em;
+      margin-left: -2.75em;
+      padding-top: 1.2em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_14_lf_left_adjust {
+      width: 14%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.89em;
+      padding-top: 0em;
+      padding-left: 1.88em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+/* Fix to form_label_15_lf on Tax Year Note */
+.tax_year_note_label_fix {
+margin-left: -2em !important;
+}
+
+.form_label_15_lf {
+      width: 15%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+
+.form_label_15_lf_indent {
+      font-size: 1em;
+      float: left;
+      margin-left: -.6em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_bold_15_lf {
+      width: 15%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: 1.213em;
+      padding-right: .15em;
+      vertical-align: middle;
+      font-weight: bold;
+}
+
+
+.form_label_20_lf {
+      width: 20%;
+      font-size: 1em;
+      float: left;
+      margin-left: -0.8em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_20_lf2 {
+      width: 20%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.1em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_25_lf {
+      width: 25%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_30_lf {
+      width: 30%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.30em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_35_lf {
+      width: 35%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_40_lf {
+      width: 40%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: .8em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_45_lf {
+      width: 45%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_50_lf {
+      width: 50%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_55_lf {
+      width: 52%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_60_lf {
+      width: 60%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_60_lf2 {
+      width: 60%;
+      font-size: 1em;
+      float: left;
+      margin-left: -0.8em;
+      padding-top: 0em;
+      padding-left: .9em;
+      padding-right: .5em;
+      vertical-align: middle;
+}
+
+.form_label_85_nr {
+      width: 85%;
+      font-size: 1em;
+      padding-top: 0em;
+      vertical-align: middle;
+      padding-left: 1.5em;
+}
+
+.form_label_bold_20_lf {
+      width: 15%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: -1.9em;
+      padding-left: 1.213em;
+      padding-right: 1.15em;
+      vertical-align: middle;
+      font-weight: bold;
+}
+
+
+.form_label_bold_50_lf {
+      width: 50%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: 1.213em;
+      padding-right: .15em;
+      vertical-align: middle;
+      font-weight: bold;
+}
+
+.form_label_bold_55_lf{
+      width: 52%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: 1.213em;
+      padding-right: .15em;
+      vertical-align: middle;
+      font-weight: bold;
+}
+
+.form_label_bold_60_lf {
+      width: 60%;
+      font-size: 1em;
+      float: left;
+      margin-left: -1.35em;
+      padding-top: 0em;
+      padding-left: 1.213em;
+      padding-right: .15em;
+      vertical-align: middle;
+      font-weight: bold;
+}
+
+.margin_top {
+      margin-top: 10%;
+}
+
+.margin_bottom {
+      margin-top: 10%;
+}
+
+/*
+ * Label position for use on composite components
+ * where the label is not required and you are mixing
+ * composite components with other composite 
+ * components
+ */
+ 
+ .form_label_1_nr {
+      width: 1%;
+      font-size: 1em;
+      float: left;
+      margin-right: -4em;
+      padding-top: 0em;
+      padding-left: 1.15em;
+      padding-right: -1em;
+      vertical-align: middle;
+}
+.form_label_no_nr {
+      font-size: 1em;
+      float: left;
+      margin-right: -4em;
+      padding-top: 0em;
+      padding-right: -1em;
+      vertical-align: middle;
+}
+.form_label_no_right_mar_nr {
+      font-size: 1em;
+      float: left;
+      padding-top: 0em;
+      padding-right: -1em;
+      vertical-align: middle;
+}
+
+.form_label_5_nr {
+      width: 5%;
+      font-size: 1em;
+      float: left;
+      margin-right: -4em;
+      padding-top: 0em;
+      padding-left: 1.15em;
+      padding-right: -1em;
+      vertical-align: middle;
+}
+
+.form_label_10_nr {
+      width: 10%;
+      font-size: 1em;
+      float: left;
+      margin-right: -4em;
+      padding-top: 0em;
+      padding-left: 1.15em;
+      padding-right: -1em;
+      vertical-align: middle;
+}
+
+.form_label_15_nr {
+      width: 15%;
+      font-size: 1em;
+      float: left;
+      margin-right: -1.75em;
+      padding-top: 0em;
+      padding-left: 2.15em;
+      padding-right: .9em;
+      vertical-align: middle;
+}
+
+.form_label_15_nr_left_adjust {
+      width: 15%;
+      font-size: 1em;
+      float: left;
+      margin-right: -1.75em;
+      padding-top: 0em;
+      padding-left: 1em;
+      padding-right: .9em;
+      vertical-align: middle;
+}
+
+.form_label_20_nr {
+      width: 20%;
+      font-size: 1em;
+      float: left;
+      margin-right: -1.75em;
+      padding-top: 0em;
+      padding-left: 2.15em;
+      padding-right: .9em;
+      vertical-align: middle;
+}
+.form_label_20_nr_right{
+      width: 20%;
+      font-size: 1em;
+      float: left;
+      margin-right: -1em;
+      padding-top: 0em;
+      padding-left: 2.15em;
+      padding-right: .9em;
+      vertical-align: middle;
+}
+.form_label_20_nr_wb {
+      width: 20%;
+      font-size: 1em;
+      float: left;
+      margin-right: -1.75em;
+      padding-top: 0em;
+      padding-left: 2.15em;
+      padding-right: .9em;
+      vertical-align: middle;
+      word-wrap: break-word;
+}
+
+.form_label_20_left_nr {
+      width: 20%;
+      font-size: 1em;
+      float: left;
+      margin-right: -1.75em;
+      padding-top: 0em;
+      padding-left: 1em;
+      padding-right: .9em;
+      vertical-align: middle;
+}
+
+.form_field{
+    margin-bottom: 0.6em;
+}
+
+.component_float_right{
+    float: right;
+}
+
+.outerButtonGroupPanel{
+    padding: 0;
+    width: 100%;
+}
+
+.innerButtonGroup{
+    padding: 0;
+    float: left;
+}
+
+.buttonGroup{
+    margin-right: 1em !important;
+}

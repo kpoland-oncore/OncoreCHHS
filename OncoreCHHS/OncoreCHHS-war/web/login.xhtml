@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:onc="http://java.sun.com/jsf/composite/onc"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+
+
+
+    <ui:composition template="/facelets/templates/reduced_layout.xhtml">
+
+        <ui:param name="managedBean" value="#{loginManagedBean}"/>
+        <ui:param name="managedBeanContent" value="#{loginManagedBean.loginBean}"/>
+
+
+        <ui:define name="title">
+            <title>CHHS Foster Care Services | Login</title>
+        </ui:define>
+
+        <ui:define name="content">
+
+            <!-- Main -->
+            <div id="main" class="wrapper style1">
+                <section class="container">
+                    <a name="skip_main_content"/>
+                    <header class="major">
+                        <h2>Login</h2>
+
+                    </header>
+
+                    <p:messages id="messges" showSummary="true" showDetail="false"
+                                autoUpdate="true" globalOnly="true" display="text"
+                                escape="false"/>
+
+                    <div class="row">
+
+
+                        <onc:inputText id="userNameTxt"
+                                       label="User Name:"
+                                       labelStyleClass="form_label_15"
+                                       requiredLabel="true"
+                                       maxLength="45"
+                                       size="25"
+                                       immediate="true"
+                                       errAlt=""
+                                       errMsgRendered="false"
+                                       value="#{managedBeanContent.userName}"/>
+ 
+                    </div>
+                    
+                    
+                    <div class="row">
+                        
+                          <p:outputPanel layout="block" id="outerButtonPnl">
+
+                            <p:outputPanel id="cancelButtonPnl" layout="block"
+                                           styleClass="innerButtonGroup">
+                                <p:commandButton id="cancelBtn" value="Cancel" 
+                                                 styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
+                                                 oncomplete="PF('feedbackWdg').hide()"
+                                                 action="#{navigationManagedBean.navigateToLink('index', false)}"/>
+                            </p:outputPanel>
+                            <p:outputPanel id="loginButtonPnl" layout="block"
+                                           styleClass="innerButtonGroup">
+                                <p:commandButton id="loginBtn" value="Login" 
+                                                 styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
+                                                 oncomplete="PF('feedbackWdg').hide()"
+                                                 action="#{managedBean.handleLoginButtonClickEvent()}"/>
+                            </p:outputPanel>
+                            <p:blockUI block="loginButtonPnl" trigger="loginBtn"/>
+                        </p:outputPanel>
+                        
+                        
+                    </div>
+
+                </section>
+
+            </div>
+        </ui:define>
+
+    </ui:composition>
+
+
+</html>

@@ -21,40 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.base;
+package com.oncore.chss.web.login;
 
-import com.oncore.chhs.navigation.NavigationManagedBean;
-import java.io.Serializable;
-import javax.inject.Inject;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Named;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
  * @author oncore
  */
-public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serializable {
+@Named("loginDataManagedBean")
+@RequestScoped
+public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
 
+    
     @Override
-    public abstract void initialize();
-
-    @Override
-    public abstract void destroy();
-
-    /**
-     * The <code>handleHeaderNavigationClickEvent</code> method handles the
-     * click event on the header navigation links such as Home, MyProfile,
-     * Locate Services, and Messages.
-     *
-     * @param target the source link identifier
-     *
-     * @return a target URL
-     */
-    public String handleHeaderNavigationClickEvent(String target) {
-        return this.navigationManagedBean.navigateToLink(target, Boolean.FALSE);
+    public Boolean authenticateUser(LoginBean loginBean) {
+        
+        //TODO: tie in web service
+        return true;
     }
 
-    @Inject
-    protected NavigationManagedBean navigationManagedBean;
+    @Override
+    @PostConstruct
+    public void initialize() {
+        LOG.debug("Initializing LoginDataManagedBean: " + this.getClass().hashCode());
+    }
 
-    public static final String FORM_NAME = "chssForm:";
-    
+    @Override
+    @PreDestroy
+    public void destroy() {
+        LOG.debug("Destroying LoginDataManagedBean: " + this.getClass().hashCode());
+    }
+
+    private final Logger LOG = LogManager.getLogger(LoginDataManagedBean.class);
 }

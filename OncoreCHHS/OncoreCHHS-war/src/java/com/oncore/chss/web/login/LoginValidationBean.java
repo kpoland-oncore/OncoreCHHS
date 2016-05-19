@@ -21,36 +21,50 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.profile;
+package com.oncore.chss.web.login;
 
-import com.oncore.chss.web.base.BaseManagedBean;
+import com.oncore.chhs.utils.FacesUtilities;
+import com.oncore.chss.web.base.BaseValidationBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
  * @author oncore
  */
-@Named("profileManagedBean")
-@ViewScoped
-public class ProfileManagedBean extends BaseManagedBean {
+@Named("loginValidationBean")
+@RequestScoped
+public class LoginValidationBean extends BaseValidationBean {
 
     @Override
     @PostConstruct
     public void initialize() {
-        LOG.debug("Initializing ProfileManagedBean: " + this.getClass().hashCode());
+        LOG.debug("Initializing LoginValidationBean: " + this.getClass().hashCode());
     }
 
     @Override
     @PreDestroy
     public void destroy() {
-        LOG.debug("Destroying ProfileManagedBean: " + this.getClass().hashCode());
+        LOG.debug("Destroying LoginValidationBean: " + this.getClass().hashCode());
     }
 
-    private final Logger LOG = LogManager.getLogger(ProfileManagedBean.class);
+    public Boolean validateUserName(String userName, String componentId) {
+        Boolean isError = Boolean.FALSE;
+
+        if (StringUtils.isBlank(userName)) {
+            FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
+            isError = Boolean.TRUE;
+        }
+
+        return isError;
+    }
+
+    private final Logger LOG = LogManager.getLogger(LoginValidationBean.class);
 
 }

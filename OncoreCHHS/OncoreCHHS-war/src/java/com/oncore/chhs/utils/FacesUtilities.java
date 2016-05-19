@@ -21,40 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.base;
+package com.oncore.chhs.utils;
 
-import com.oncore.chhs.navigation.NavigationManagedBean;
-import java.io.Serializable;
-import javax.inject.Inject;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author oncore
  */
-public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serializable {
+public final class FacesUtilities {
 
-    @Override
-    public abstract void initialize();
-
-    @Override
-    public abstract void destroy();
-
-    /**
-     * The <code>handleHeaderNavigationClickEvent</code> method handles the
-     * click event on the header navigation links such as Home, MyProfile,
-     * Locate Services, and Messages.
-     *
-     * @param target the source link identifier
-     *
-     * @return a target URL
-     */
-    public String handleHeaderNavigationClickEvent(String target) {
-        return this.navigationManagedBean.navigateToLink(target, Boolean.FALSE);
+    public static void requredFieldError(FacesContext context, String componentId) {
+        FacesMessage message = new FacesMessage();
+        message.setSummary("Field is Required");
+        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+        context.addMessage(componentId, message);
+        context.renderResponse();
     }
 
-    @Inject
-    protected NavigationManagedBean navigationManagedBean;
-
-    public static final String FORM_NAME = "chssForm:";
-    
+    public static void createPageLevelError(FacesContext context) {
+        FacesMessage message = new FacesMessage();
+        message.setSummary("There are validation errors. Please correct the errors before proceeding.");
+        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+        context.addMessage(null, message);
+        context.renderResponse();
+    }
 }

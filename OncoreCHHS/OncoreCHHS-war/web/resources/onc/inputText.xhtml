@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:p="http://primefaces.org/ui"
+      xmlns:cc="http://java.sun.com/jsf/composite">
+
+    <!--
+    The MIT License
+    
+    Copyright 2016 oncore.
+    
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+    
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+    
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+    -->
+    <!-- 
+        Created on : May 19, 2016, 9:52:15 AM
+        Author     : oncore
+    -->
+
+    <cc:interface>
+        <!-- Standard Properties -->
+        <cc:attribute name="id" required="false" />
+        <cc:attribute name="rendered" required="false" default="true" />
+        <cc:attribute name="value" required="true" />
+        <cc:attribute name="immediate" required="false" default="false" />
+        <cc:attribute name="disabled" required="false" default="false" />
+        <cc:attribute name="label" required="true" />
+        <cc:attribute name="maxlength" required="false" default="20"/>
+        <cc:attribute name="readonly" required="false" default="false"/>
+        <cc:attribute name="size" required="false" default="20"/>
+        <cc:attribute name="style" required="false" default=""/>
+        <cc:attribute name="styleClass" required="false" default="nostyle" />
+        <cc:attribute name="divStyle" required="false" default=""/>
+        <cc:attribute name="type" required="false" default="text"/>
+        <cc:attribute name="title" required="false" default="" />
+        <!-- End Standard Properties -->
+        <!-- Custom Properties -->
+        <cc:attribute name="labelStyleClass" required="false" default="nostyle" />
+        <cc:attribute name="labelStyle" required="false" default="" />
+        <cc:attribute name="requiredLabel" required="true" />
+        <cc:attribute name="errMsgRendered" required="true" />
+        <cc:attribute name="errAlt" required="false" default=""/>
+        <cc:attribute name="converter" required="false" default=""/>
+        <cc:attribute name="hintText" required="false" default=""/>
+        <cc:attribute name="hintTextStyle" required="false" default=""/>
+        <!-- End Custom Properties -->
+    </cc:interface>
+
+    <cc:implementation>
+
+        <p:outputLabel for="#{cc.attrs.id}" style="#{cc.attrs.labelStyle}">
+            <h:panelGroup layout="block" styleClass="form_field" style="#{cc.attrs.divStyle}"
+                          id="#{cc.attrs.id}_pnl" rendered="#{cc.attrs.rendered}">
+                <!-- Label -->
+                <h:panelGroup styleClass="#{cc.attrs.labelStyleClass}" layout="block">
+                    <h:panelGroup styleClass="required" rendered="#{cc.attrs.requiredLabel}">*</h:panelGroup>
+                    <h:outputText value="#{cc.attrs.label}"></h:outputText>
+                </h:panelGroup>
+                <!-- End Label -->
+                <!-- Input Text Box -->
+
+                <p:inputText 
+                    id="#{cc.attrs.id}"
+                    rendered="#{cc.attrs.rendered}"
+                    value="#{cc.attrs.value}"
+                    autocomplete="off"
+                    immediate="#{cc.attrs.immediate}"
+                    disabled="#{cc.attrs.disabled}"
+                    label="#{cc.attrs.label}"
+                    maxlength="#{cc.attrs.maxlength}"
+                    readonly="#{cc.attrs.readonly}"
+                    size="#{cc.attrs.size}"
+                    title="Field has validation error"
+                    style="#{cc.attrs.style}"
+                    styleClass="#{cc.attrs.styleClass}">
+                    <!-- Converter -->
+                    <c:if test="#{cc.attrs.converter ne ''}">
+                        <f:converter converterId="#{cc.attrs.converter}" for="#{cc.attrs.id}" />
+                    </c:if>
+                    <!-- End Converter -->
+
+                </p:inputText>
+
+
+                <!-- Hint Text -->
+                <c:if test="#{not empty cc.attrs.hintText}">
+                    <h:outputText value=" #{cc.attrs.hintText}"  style="#{cc.attrs.hintTextStyle}" />
+                </c:if> 
+                <!-- End Hint Text -->
+            </h:panelGroup>
+
+            <!-- Error Message, displays just below the input box -->
+            <h:panelGroup styleClass="form_field" layout="block">
+                <h:panelGroup styleClass="#{cc.attrs.labelStyleClass}" layout="block">
+                    <h:outputText value=""  />
+                </h:panelGroup>
+
+                <h:panelGroup layout="block">
+                    <div class="quarter_spacer"/>
+                    <p:message for="#{cc.attrs.id}" showDetail="true" showSummary="false" display="text"/>
+                </h:panelGroup>
+            </h:panelGroup>
+            <!-- End Error Message -->
+        </p:outputLabel>
+
+    </cc:implementation>
+</html>
+
+

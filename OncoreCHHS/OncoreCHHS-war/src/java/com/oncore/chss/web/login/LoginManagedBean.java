@@ -21,11 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.profile;
+package com.oncore.chss.web.login;
 
+import com.oncore.chhs.utils.FacesUtilities;
 import com.oncore.chss.web.base.BaseManagedBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,22 +38,57 @@ import org.omnifaces.cdi.ViewScoped;
  *
  * @author oncore
  */
-@Named("profileManagedBean")
+@Named("loginManagedBean")
 @ViewScoped
-public class ProfileManagedBean extends BaseManagedBean {
+public class LoginManagedBean extends BaseManagedBean {
 
     @Override
     @PostConstruct
     public void initialize() {
-        LOG.debug("Initializing ProfileManagedBean: " + this.getClass().hashCode());
+        LOG.debug("Initializing LoginManagedBean: " + this.getClass().hashCode());
     }
 
     @Override
     @PreDestroy
     public void destroy() {
-        LOG.debug("Destroying ProfileManagedBean: " + this.getClass().hashCode());
+        LOG.debug("Destroying LoginManagedBean: " + this.getClass().hashCode());
     }
 
-    private final Logger LOG = LogManager.getLogger(ProfileManagedBean.class);
+    public String handleLoginButtonClickEvent() {
+        String page = null;
+
+        if (this.loginValidationBean.validateUserName(this.getLoginBean().getUserName(), FORM_NAME + "userNameTxt")) {
+            FacesUtilities.createPageLevelError(FacesContext.getCurrentInstance());
+        } else if (this.loginDataManagedBean.authenticateUser(loginBean)) {
+            page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
+        }
+
+        return page;
+
+    }
+
+    /**
+     * @return the loginBean
+     */
+    public LoginBean getLoginBean() {
+        return loginBean;
+    }
+
+    /**
+     * @param loginBean the loginBean to set
+     */
+    public void setLoginBean(LoginBean loginBean) {
+        this.loginBean = loginBean;
+    }
+
+    @Inject
+    LoginDataManagedBean loginDataManagedBean;
+
+    @Inject
+    LoginValidationBean loginValidationBean;
+
+    private LoginBean loginBean = new LoginBean();
+
+    private final Logger LOG = LogManager.getLogger(LoginManagedBean.class);
 
 }

@@ -21,40 +21,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.base;
+package com.oncore.chss.web.login;
 
-import com.oncore.chhs.navigation.NavigationManagedBean;
-import java.io.Serializable;
-import javax.inject.Inject;
+import com.oncore.chss.web.base.AbstractBaseManagedBean;
 
 /**
  *
  * @author oncore
  */
-public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serializable {
-
-    @Override
-    public abstract void initialize();
-
-    @Override
-    public abstract void destroy();
-
+public interface AbstractLoginDataManagedBean extends AbstractBaseManagedBean{
+    
     /**
-     * The <code>handleHeaderNavigationClickEvent</code> method handles the
-     * click event on the header navigation links such as Home, MyProfile,
-     * Locate Services, and Messages.
-     *
-     * @param target the source link identifier
-     *
-     * @return a target URL
+     * The <code>authenticateUser</code> method determines if a user exists 
+     * matching the user name.
+     * 
+     * @param loginBean a populated <code>LoginBean</code> object
+     * 
+     * @return true if the user exists, false if otherwise
      */
-    public String handleHeaderNavigationClickEvent(String target) {
-        return this.navigationManagedBean.navigateToLink(target, Boolean.FALSE);
-    }
-
-    @Inject
-    protected NavigationManagedBean navigationManagedBean;
-
-    public static final String FORM_NAME = "chssForm:";
+    public Boolean authenticateUser(LoginBean loginBean);
     
 }

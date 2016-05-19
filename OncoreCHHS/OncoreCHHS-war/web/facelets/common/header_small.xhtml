@@ -15,7 +15,6 @@
 
         <!-- Header -->
         <div id="header">
-            
             <div class="container">
 
                 <!-- Logo -->
@@ -25,34 +24,16 @@
                 <nav id="nav">
                     <ul>
 
-
                         <li><p:commandLink id="homeLink" action="#{managedBean.handleHeaderNavigationClickEvent('index')}" value="Home" update="@form"/></li>
                         <li><p:commandLink id="myprofileLink" action="#{managedBean.handleHeaderNavigationClickEvent('myprofile')}" value="My Profile" update="@form"/></li>
                         <li><p:commandLink id="locateLink" action="#{managedBean.handleHeaderNavigationClickEvent('locate')}" value="Locate" update="@form"/></li>
                         <li><p:commandLink id="messagesLink" action="#{managedBean.handleHeaderNavigationClickEvent('messages')}" value="Messages" update="@form"/></li>
-                        <li><p:commandLink id="loginLink" action="#{managedBean.handleHeaderNavigationClickEvent('login')}" value="Login" update="@form"/></li>
-                          
 
                     </ul>
                 </nav>
 
-
-                <!-- Banner -->
-                <div id="banner">
-                    <div class="container">
-                        <section>
-                            <header class="major">
-                                <h2>Welcome to CHHS Foster Care Services!</h2>
-
-                                <a href="#" class="button alt">Sign Up</a>
-                            </header>
-                        </section>			
-                    </div>
-                </div>
-
             </div>
         </div>
-
     </ui:composition>
 
 
