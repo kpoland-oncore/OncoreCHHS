@@ -2,6 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/messages.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/myprofile.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/css/style.css</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/locate.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/faq.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chss/web/base/BaseBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/facelets/common/header.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chss/web/home/HomeManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chss/web/base/BaseManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/facelets/templates/common_layout.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chss/web/profile/AbstractProfileDataManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/index.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chss/web/profile/ProfileManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chss/web/profile/ProfileDataManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chss/web/profile/ProfileBean.java</file>
+        </group>
     </open-files>
 </project-private>
