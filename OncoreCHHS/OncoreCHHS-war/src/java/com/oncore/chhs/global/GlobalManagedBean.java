@@ -21,14 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.navigation;
+package com.oncore.chhs.global;
 
 import com.oncore.chss.web.base.BaseManagedBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,49 +35,53 @@ import org.apache.logging.log4j.Logger;
  *
  * @author oncore
  */
-@Named("navigationManagedBean")
+@Named("globalManagedBean")
 @SessionScoped
-public class NavigationManagedBean extends BaseManagedBean {
+public class GlobalManagedBean extends BaseManagedBean {
 
     @Override
     @PostConstruct
     public void initialize() {
-        LOG.debug("Initializing NavigationManagedBean: " + this.getClass().hashCode());
+        LOG.debug("Initializing GlobalManagedBean: " + this.getClass().hashCode());
     }
 
     @Override
     @PreDestroy
     public void destroy() {
-        LOG.debug("Destroying NavigationManagedBean: " + this.getClass().hashCode());
+        LOG.debug("Destroying GlobalManagedBean: " + this.getClass().hashCode());
     }
 
     /**
-     * The <code>navigateToLink</code> method passes control from one page to
-     * another using JSF's built in navigation management.
-     *
-     * @param target a target JSF page or external address
-     * @param isExternal true if the target is an external address, false
-     * otherwise
-     * @return a fully qualified address
+     * @return the authenticated
      */
-    public String navigateToLink(String target, boolean isExternal) {
-        String address = null;
-
-        // This is were we would normally implement some advanced features
-        // like bread crumb tracking
-        if (StringUtils.isNotBlank(target)) {
-
-            if (isExternal) {
-                // perhaps close out the session or perform other security checks
-                // or cleanup
-                ;
-            } else {
-                address = target + "?faces-redirect=true";
-            }
-        }
-
-        return address;
+    public Boolean getAuthenticated() {
+        return authenticated;
     }
 
-    private final Logger LOG = LogManager.getLogger(NavigationManagedBean.class);
+    /**
+     * @param authenticated the authenticated to set
+     */
+    public void setAuthenticated(Boolean authenticated) {
+        this.authenticated = authenticated;
+    }
+
+    /**
+     * @return the loginText
+     */
+    public String getLoginText() {
+        return loginText;
+    }
+
+    /**
+     * @param loginText the loginText to set
+     */
+    public void setLoginText(String loginText) {
+        this.loginText = loginText;
+    }
+
+    private Boolean authenticated = Boolean.FALSE;
+    private String loginText = "Login";
+
+    private final Logger LOG = LogManager.getLogger(GlobalManagedBean.class);
+
 }

@@ -60,6 +60,8 @@ public class LoginManagedBean extends BaseManagedBean {
         if (this.loginValidationBean.validateUserName(this.getLoginBean().getUserName(), FORM_NAME + "userNameTxt")) {
             FacesUtilities.createPageLevelError(FacesContext.getCurrentInstance());
         } else if (this.loginDataManagedBean.authenticateUser(loginBean)) {
+            this.globalMangedBean.setAuthenticated(Boolean.TRUE);
+            this.globalMangedBean.setLoginText("Welcome John Doe");
             page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
         }
 

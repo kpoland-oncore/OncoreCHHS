@@ -29,49 +29,34 @@ THE SOFTWARE.
 
 
 
-
-
-
-.form_label_20_left {
-      width: 20%;
-      font-size: 1em;
-      float: left;
-      padding-top: .2em;
-      padding-left: 0em;
-      padding-right: .5em;
-      vertical-align: middle;
+.cleaner{
+    clear: both;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    float: none;
 }
 
-.form_label_20_input {
-      width: 20%;
+ 
+ .form_label_15{
+      width: 15%;
       font-size: 1em;
       float: left;
       padding-top: .2em;
       padding-left: .9em;
       padding-right: .5em;
       vertical-align: middle;
-      margin-right: -0.1em;
 }
 
-.form_label_20_more_tp_input {
+ .form_label_20{
       width: 20%;
       font-size: 1em;
       float: left;
-      padding-top: .7em;
+      padding-top: .2em;
       padding-left: .9em;
       padding-right: .5em;
       vertical-align: middle;
-      margin-right: -0.1em;
-}
-
-.form_label_20_no_tp {
-      width: 20%;
-      font-size: 1em;
-      float: left;
-      padding-left: .9em;
-      padding-right: .5em;
-      vertical-align: middle;
-     line-height: 1.2em
 }
 
 .form_label_25{
@@ -154,6 +139,7 @@ THE SOFTWARE.
       font-size: 1em;
       float: left;
       padding-top: .2em;
+      padding-bottom: .2em;
       padding-left: .9em;
       padding-right: .5em;
       vertical-align: middle;
