@@ -21,13 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.entities;
+package com.oncore.chhs.web.entities;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,7 +49,6 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  * @author oncore
  */
-@Cacheable(false)
 @Entity
 @Table(name = "USERS")
 @XmlRootElement
@@ -277,7 +275,7 @@ public class Users implements Serializable {
 
     @Override
     public String toString() {
-        return "com.oncore.chhs.entities.Users[ usrUid=" + usrUid + " ]";
+        return "com.oncore.chhs.web.entities.Users[ usrUid=" + usrUid + " ]";
     }
     
 }

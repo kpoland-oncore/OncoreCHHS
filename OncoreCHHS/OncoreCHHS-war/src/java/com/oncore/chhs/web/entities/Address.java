@@ -21,12 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.entities;
+package com.oncore.chhs.web.entities;
 
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,7 +47,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author oncore
  */
-@Cacheable(false)
 @Entity
 @Table(name = "ADDRESS")
 @XmlRootElement
@@ -298,7 +296,7 @@ public class Address implements Serializable {
 
     @Override
     public String toString() {
-        return "com.oncore.chhs.entities.Address[ adrUid=" + adrUid + " ]";
+        return "com.oncore.chhs.web.entities.Address[ adrUid=" + adrUid + " ]";
     }
     
 }

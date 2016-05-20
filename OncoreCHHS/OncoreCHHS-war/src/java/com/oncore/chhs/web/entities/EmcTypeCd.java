@@ -21,58 +21,63 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.entities;
+package com.oncore.chhs.web.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author oncore
  */
-@Cacheable(false)
 @Entity
-@Table(name = "CONTACT")
+@Table(name = "EMC_TYPE_CD")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Contact.findAll", query = "SELECT c FROM Contact c"),
-    @NamedQuery(name = "Contact.findByEmcUid", query = "SELECT c FROM Contact c WHERE c.emcUid = :emcUid"),
-    @NamedQuery(name = "Contact.findByEmcValue", query = "SELECT c FROM Contact c WHERE c.emcValue = :emcValue"),
-    @NamedQuery(name = "Contact.findByCreateUserId", query = "SELECT c FROM Contact c WHERE c.createUserId = :createUserId"),
-    @NamedQuery(name = "Contact.findByCreateTs", query = "SELECT c FROM Contact c WHERE c.createTs = :createTs"),
-    @NamedQuery(name = "Contact.findByUpdateUserId", query = "SELECT c FROM Contact c WHERE c.updateUserId = :updateUserId"),
-    @NamedQuery(name = "Contact.findByUpdateTs", query = "SELECT c FROM Contact c WHERE c.updateTs = :updateTs")})
-public class Contact implements Serializable {
+    @NamedQuery(name = "EmcTypeCd.findAll", query = "SELECT e FROM EmcTypeCd e"),
+    @NamedQuery(name = "EmcTypeCd.findByCode", query = "SELECT e FROM EmcTypeCd e WHERE e.code = :code"),
+    @NamedQuery(name = "EmcTypeCd.findByShortDesc", query = "SELECT e FROM EmcTypeCd e WHERE e.shortDesc = :shortDesc"),
+    @NamedQuery(name = "EmcTypeCd.findByLongDesc", query = "SELECT e FROM EmcTypeCd e WHERE e.longDesc = :longDesc"),
+    @NamedQuery(name = "EmcTypeCd.findByCreateUserId", query = "SELECT e FROM EmcTypeCd e WHERE e.createUserId = :createUserId"),
+    @NamedQuery(name = "EmcTypeCd.findByCreateTs", query = "SELECT e FROM EmcTypeCd e WHERE e.createTs = :createTs"),
+    @NamedQuery(name = "EmcTypeCd.findByUpdateUserId", query = "SELECT e FROM EmcTypeCd e WHERE e.updateUserId = :updateUserId"),
+    @NamedQuery(name = "EmcTypeCd.findByUpdateTs", query = "SELECT e FROM EmcTypeCd e WHERE e.updateTs = :updateTs")})
+public class EmcTypeCd implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "EMC_UID")
-    private Integer emcUid;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 256)
-    @Column(name = "EMC_VALUE")
-    private String emcValue;
+    @Size(min = 1, max = 4)
+    @Column(name = "CODE")
+    private String code;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 64)
+    @Column(name = "SHORT_DESC")
+    private String shortDesc;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 128)
+    @Column(name = "LONG_DESC")
+    private String longDesc;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 32)
@@ -93,43 +98,48 @@ public class Contact implements Serializable {
     @Column(name = "UPDATE_TS")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTs;
-    @JoinColumn(name = "EMC_TYPE_CD", referencedColumnName = "CODE")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private EmcTypeCd emcTypeCd;
-    @JoinColumn(name = "USR_UID_FK", referencedColumnName = "USR_UID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Users usrUidFk;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "emcTypeCd", fetch = FetchType.LAZY)
+    private List<Contact> contactList;
 
-    public Contact() {
+    public EmcTypeCd() {
     }
 
-    public Contact(Integer emcUid) {
-        this.emcUid = emcUid;
+    public EmcTypeCd(String code) {
+        this.code = code;
     }
 
-    public Contact(Integer emcUid, String emcValue, String createUserId, Date createTs, String updateUserId, Date updateTs) {
-        this.emcUid = emcUid;
-        this.emcValue = emcValue;
+    public EmcTypeCd(String code, String shortDesc, String longDesc, String createUserId, Date createTs, String updateUserId, Date updateTs) {
+        this.code = code;
+        this.shortDesc = shortDesc;
+        this.longDesc = longDesc;
         this.createUserId = createUserId;
         this.createTs = createTs;
         this.updateUserId = updateUserId;
         this.updateTs = updateTs;
     }
 
-    public Integer getEmcUid() {
-        return emcUid;
+    public String getCode() {
+        return code;
     }
 
-    public void setEmcUid(Integer emcUid) {
-        this.emcUid = emcUid;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getEmcValue() {
-        return emcValue;
+    public String getShortDesc() {
+        return shortDesc;
     }
 
-    public void setEmcValue(String emcValue) {
-        this.emcValue = emcValue;
+    public void setShortDesc(String shortDesc) {
+        this.shortDesc = shortDesc;
+    }
+
+    public String getLongDesc() {
+        return longDesc;
+    }
+
+    public void setLongDesc(String longDesc) {
+        this.longDesc = longDesc;
     }
 
     public String getCreateUserId() {
@@ -164,37 +174,30 @@ public class Contact implements Serializable {
         this.updateTs = updateTs;
     }
 
-    public EmcTypeCd getEmcTypeCd() {
-        return emcTypeCd;
+    @XmlTransient
+    public List<Contact> getContactList() {
+        return contactList;
     }
 
-    public void setEmcTypeCd(EmcTypeCd emcTypeCd) {
-        this.emcTypeCd = emcTypeCd;
-    }
-
-    public Users getUsrUidFk() {
-        return usrUidFk;
-    }
-
-    public void setUsrUidFk(Users usrUidFk) {
-        this.usrUidFk = usrUidFk;
+    public void setContactList(List<Contact> contactList) {
+        this.contactList = contactList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (emcUid != null ? emcUid.hashCode() : 0);
+        hash += (code != null ? code.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Contact)) {
+        if (!(object instanceof EmcTypeCd)) {
             return false;
         }
-        Contact other = (Contact) object;
-        if ((this.emcUid == null && other.emcUid != null) || (this.emcUid != null && !this.emcUid.equals(other.emcUid))) {
+        EmcTypeCd other = (EmcTypeCd) object;
+        if ((this.code == null && other.code != null) || (this.code != null && !this.code.equals(other.code))) {
             return false;
         }
         return true;
@@ -202,7 +205,7 @@ public class Contact implements Serializable {
 
     @Override
     public String toString() {
-        return "com.oncore.chhs.entities.Contact[ emcUid=" + emcUid + " ]";
+        return "com.oncore.chhs.web.entities.EmcTypeCd[ code=" + code + " ]";
     }
     
 }

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.entities;
+package com.oncore.chhs.web.entities;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -204,7 +204,7 @@ public class AdrCountryCd implements Serializable {
 
     @Override
     public String toString() {
-        return "com.oncore.chhs.entities.AdrCountryCd[ code=" + code + " ]";
+        return "com.oncore.chhs.web.entities.AdrCountryCd[ code=" + code + " ]";
     }
     
 }

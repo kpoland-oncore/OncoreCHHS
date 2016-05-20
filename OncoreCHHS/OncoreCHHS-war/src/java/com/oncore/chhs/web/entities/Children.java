@@ -21,12 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.entities;
+package com.oncore.chhs.web.entities;
 
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,46 +47,39 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author oncore
  */
-@Cacheable(false)
 @Entity
-@Table(name = "MESSAGES")
+@Table(name = "CHILDREN")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Messages.findAll", query = "SELECT m FROM Messages m"),
-    @NamedQuery(name = "Messages.findByMsgUid", query = "SELECT m FROM Messages m WHERE m.msgUid = :msgUid"),
-    @NamedQuery(name = "Messages.findByMsgFrom", query = "SELECT m FROM Messages m WHERE m.msgFrom = :msgFrom"),
-    @NamedQuery(name = "Messages.findByMsgTo", query = "SELECT m FROM Messages m WHERE m.msgTo = :msgTo"),
-    @NamedQuery(name = "Messages.findByMsgText", query = "SELECT m FROM Messages m WHERE m.msgText = :msgText"),
-    @NamedQuery(name = "Messages.findByMsgToUserInd", query = "SELECT m FROM Messages m WHERE m.msgToUserInd = :msgToUserInd"),
-    @NamedQuery(name = "Messages.findByMsgCreatedTs", query = "SELECT m FROM Messages m WHERE m.msgCreatedTs = :msgCreatedTs"),
-    @NamedQuery(name = "Messages.findByCreateUserId", query = "SELECT m FROM Messages m WHERE m.createUserId = :createUserId"),
-    @NamedQuery(name = "Messages.findByCreateTs", query = "SELECT m FROM Messages m WHERE m.createTs = :createTs"),
-    @NamedQuery(name = "Messages.findByUpdateUserId", query = "SELECT m FROM Messages m WHERE m.updateUserId = :updateUserId"),
-    @NamedQuery(name = "Messages.findByUpdateTs", query = "SELECT m FROM Messages m WHERE m.updateTs = :updateTs")})
-public class Messages implements Serializable {
+    @NamedQuery(name = "Children.findAll", query = "SELECT c FROM Children c"),
+    @NamedQuery(name = "Children.findByCldUid", query = "SELECT c FROM Children c WHERE c.cldUid = :cldUid"),
+    @NamedQuery(name = "Children.findByCldFirstname", query = "SELECT c FROM Children c WHERE c.cldFirstname = :cldFirstname"),
+    @NamedQuery(name = "Children.findByCldMiddlename", query = "SELECT c FROM Children c WHERE c.cldMiddlename = :cldMiddlename"),
+    @NamedQuery(name = "Children.findByCldLastname", query = "SELECT c FROM Children c WHERE c.cldLastname = :cldLastname"),
+    @NamedQuery(name = "Children.findByCldAge", query = "SELECT c FROM Children c WHERE c.cldAge = :cldAge"),
+    @NamedQuery(name = "Children.findByCreateUserId", query = "SELECT c FROM Children c WHERE c.createUserId = :createUserId"),
+    @NamedQuery(name = "Children.findByCreateTs", query = "SELECT c FROM Children c WHERE c.createTs = :createTs"),
+    @NamedQuery(name = "Children.findByUpdateUserId", query = "SELECT c FROM Children c WHERE c.updateUserId = :updateUserId"),
+    @NamedQuery(name = "Children.findByUpdateTs", query = "SELECT c FROM Children c WHERE c.updateTs = :updateTs")})
+public class Children implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "MSG_UID")
-    private Integer msgUid;
+    @Column(name = "CLD_UID")
+    private Integer cldUid;
     @Size(max = 45)
-    @Column(name = "MSG_FROM")
-    private String msgFrom;
+    @Column(name = "CLD_FIRSTNAME")
+    private String cldFirstname;
     @Size(max = 45)
-    @Column(name = "MSG_TO")
-    private String msgTo;
+    @Column(name = "CLD_MIDDLENAME")
+    private String cldMiddlename;
     @Size(max = 45)
-    @Column(name = "MSG_TEXT")
-    private String msgText;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "MSG_TO_USER_IND")
-    private boolean msgToUserInd;
-    @Column(name = "MSG_CREATED_TS")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date msgCreatedTs;
+    @Column(name = "CLD_LASTNAME")
+    private String cldLastname;
+    @Column(name = "CLD_AGE")
+    private Integer cldAge;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 32)
@@ -112,68 +104,59 @@ public class Messages implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Users usrUidFk;
 
-    public Messages() {
+    public Children() {
     }
 
-    public Messages(Integer msgUid) {
-        this.msgUid = msgUid;
+    public Children(Integer cldUid) {
+        this.cldUid = cldUid;
     }
 
-    public Messages(Integer msgUid, boolean msgToUserInd, String createUserId, Date createTs, String updateUserId, Date updateTs) {
-        this.msgUid = msgUid;
-        this.msgToUserInd = msgToUserInd;
+    public Children(Integer cldUid, String createUserId, Date createTs, String updateUserId, Date updateTs) {
+        this.cldUid = cldUid;
         this.createUserId = createUserId;
         this.createTs = createTs;
         this.updateUserId = updateUserId;
         this.updateTs = updateTs;
     }
 
-    public Integer getMsgUid() {
-        return msgUid;
+    public Integer getCldUid() {
+        return cldUid;
     }
 
-    public void setMsgUid(Integer msgUid) {
-        this.msgUid = msgUid;
+    public void setCldUid(Integer cldUid) {
+        this.cldUid = cldUid;
     }
 
-    public String getMsgFrom() {
-        return msgFrom;
+    public String getCldFirstname() {
+        return cldFirstname;
     }
 
-    public void setMsgFrom(String msgFrom) {
-        this.msgFrom = msgFrom;
+    public void setCldFirstname(String cldFirstname) {
+        this.cldFirstname = cldFirstname;
     }
 
-    public String getMsgTo() {
-        return msgTo;
+    public String getCldMiddlename() {
+        return cldMiddlename;
     }
 
-    public void setMsgTo(String msgTo) {
-        this.msgTo = msgTo;
+    public void setCldMiddlename(String cldMiddlename) {
+        this.cldMiddlename = cldMiddlename;
     }
 
-    public String getMsgText() {
-        return msgText;
+    public String getCldLastname() {
+        return cldLastname;
     }
 
-    public void setMsgText(String msgText) {
-        this.msgText = msgText;
+    public void setCldLastname(String cldLastname) {
+        this.cldLastname = cldLastname;
     }
 
-    public boolean getMsgToUserInd() {
-        return msgToUserInd;
+    public Integer getCldAge() {
+        return cldAge;
     }
 
-    public void setMsgToUserInd(boolean msgToUserInd) {
-        this.msgToUserInd = msgToUserInd;
-    }
-
-    public Date getMsgCreatedTs() {
-        return msgCreatedTs;
-    }
-
-    public void setMsgCreatedTs(Date msgCreatedTs) {
-        this.msgCreatedTs = msgCreatedTs;
+    public void setCldAge(Integer cldAge) {
+        this.cldAge = cldAge;
     }
 
     public String getCreateUserId() {
@@ -219,18 +202,18 @@ public class Messages implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (msgUid != null ? msgUid.hashCode() : 0);
+        hash += (cldUid != null ? cldUid.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Messages)) {
+        if (!(object instanceof Children)) {
             return false;
         }
-        Messages other = (Messages) object;
-        if ((this.msgUid == null && other.msgUid != null) || (this.msgUid != null && !this.msgUid.equals(other.msgUid))) {
+        Children other = (Children) object;
+        if ((this.cldUid == null && other.cldUid != null) || (this.cldUid != null && !this.cldUid.equals(other.cldUid))) {
             return false;
         }
         return true;
@@ -238,7 +221,7 @@ public class Messages implements Serializable {
 
     @Override
     public String toString() {
-        return "com.oncore.chhs.entities.Messages[ msgUid=" + msgUid + " ]";
+        return "com.oncore.chhs.web.entities.Children[ cldUid=" + cldUid + " ]";
     }
     
 }
