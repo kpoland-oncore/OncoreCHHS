@@ -23,8 +23,11 @@
  */
 package com.oncore.chss.web.login;
 
+import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.web.services.UsersFacadeREST;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import org.apache.logging.log4j.LogManager;
@@ -38,25 +41,37 @@ import org.apache.logging.log4j.Logger;
 @RequestScoped
 public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
 
+    @EJB
+    private UsersFacadeREST usersFacadeREST;
     
     @Override
-    public Boolean authenticateUser(LoginBean loginBean) {
-        
-        //TODO: tie in web service
-        return true;
-    }
+    public Users authenticateUser(LoginBean loginBean) {
 
+        Users users = null;
+        
+        try {
+            
+            users = usersFacadeREST.find(1);
+            
+        } catch (Exception ex) {
+            //TODO: make error handling more robust
+            LOG.error(ex);
+        }
+        
+        return users;
+    }
+    
     @Override
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing LoginDataManagedBean: " + this.getClass().hashCode());
     }
-
+    
     @Override
     @PreDestroy
     public void destroy() {
         LOG.debug("Destroying LoginDataManagedBean: " + this.getClass().hashCode());
     }
-
+    
     private final Logger LOG = LogManager.getLogger(LoginDataManagedBean.class);
 }

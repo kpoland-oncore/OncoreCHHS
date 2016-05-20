@@ -23,6 +23,7 @@
  */
 package com.oncore.chss.web.login;
 
+import com.oncore.chhs.web.entities.Users;
 import com.oncore.chss.web.base.AbstractBaseManagedBean;
 
 /**
@@ -37,8 +38,8 @@ public interface AbstractLoginDataManagedBean extends AbstractBaseManagedBean{
      * 
      * @param loginBean a populated <code>LoginBean</code> object
      * 
-     * @return true if the user exists, false if otherwise
+     * @return a populated <code>Users</code> object if found, null otherwise
      */
-    public Boolean authenticateUser(LoginBean loginBean);
+    public Users authenticateUser(LoginBean loginBean);
     
 }

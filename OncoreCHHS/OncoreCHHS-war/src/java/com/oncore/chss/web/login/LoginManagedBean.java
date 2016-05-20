@@ -24,6 +24,7 @@
 package com.oncore.chss.web.login;
 
 import com.oncore.chhs.utils.FacesUtilities;
+import com.oncore.chhs.web.entities.Users;
 import com.oncore.chss.web.base.BaseManagedBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -65,10 +66,18 @@ public class LoginManagedBean extends BaseManagedBean {
 
         if (this.loginValidationBean.validateUserName(this.getLoginBean().getUserName(), FORM_NAME + "userNameTxt")) {
             FacesUtilities.createPageLevelError(FacesContext.getCurrentInstance());
-        } else if (this.loginDataManagedBean.authenticateUser(loginBean)) {
-            this.globalMangedBean.setAuthenticated(Boolean.TRUE);
-            this.globalMangedBean.setLoginText("Welcome John Doe");
-            page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
+        } else {
+            Users users = this.loginDataManagedBean.authenticateUser(loginBean);
+
+            if (users != null) {
+                this.globalMangedBean.setAuthenticated(Boolean.TRUE);
+                this.globalMangedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
+                page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
+            }
+            else
+            {
+                 FacesUtilities.createPageLevelError(FacesContext.getCurrentInstance());
+            }
         }
 
         return page;
