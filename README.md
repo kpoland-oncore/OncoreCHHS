@@ -15,4 +15,4 @@ Oncore CHHS Prototype
 [Developer Instructions](DEVELOPER.md)
 
 ## Builds
-http://40.118.132.241/jenkins/
+http://oncorechhsjenkins.westus.cloudapp.azure.com/jenkins
