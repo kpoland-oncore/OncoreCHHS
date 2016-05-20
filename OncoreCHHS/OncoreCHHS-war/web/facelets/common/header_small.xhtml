@@ -23,12 +23,23 @@
                 <!-- Nav -->
                 <nav id="nav">
                     <ul>
+                         <!--
                         <li><p:commandLink id="homeLink" action="#{managedBean.handleHeaderNavigationClickEvent('index')}" value="Home" ajax="false"  /></li>
                         <li><p:commandLink id="myprofileLink" action="#{managedBean.handleHeaderNavigationClickEvent('myprofile')}" value="My Profile" ajax="false"   /></li>
-                        <li><p:commandLink id="locateLink" action="#{managedBean.handleHeaderNavigationClickEvent('locate')}" value="Locate" ajax="false"  /></li>
+                        <li><h:commandLink id="locateLink" action="#{managedBean.handleHeaderNavigationClickEvent('locate')}" value="Locate" /></li>
                         <li><p:commandLink id="messagesLink" action="#{managedBean.handleHeaderNavigationClickEvent('messages')}" value="Messages" ajax="false"  /></li>
-                        <li><p:commandLink id="loginLink" rendered="#{!globalManagedBean.authenticated}" action="#{managedBean.handleHeaderNavigationClickEvent('login')}" value="#{globalManagedBean.loginText}" ajax="false"  /></li>
-                        <li><p:commandLink id="loginLink2" rendered="#{globalManagedBean.authenticated}" action="#{managedBean.handleHeaderNavigationClickEvent('')}" value="#{globalManagedBean.loginText}" ajax="false"  /></li>
+                        -->
+                           
+                        <li><b><a href="index.xhtml">Home</a></b></li>
+                        <li><b><a href="myprofile.xhtml">My Profile</a></b></li>
+                        <li><b><a href="locate.xhtml">Locate Services</a></b></li>
+                        <li><b><a href="messages.xhtml">Messages</a></b></li>
+                         
+                        
+                        <li><b><p:commandLink id="loginLink" rendered="#{!globalManagedBean.authenticated}" action="#{managedBean.handleHeaderNavigationClickEvent('login')}" value="#{globalManagedBean.loginText}" ajax="false"  /></b></li>
+                        <li><b><p:commandLink id="loginLink2" rendered="#{globalManagedBean.authenticated}" action="#{managedBean.handleHeaderNavigationClickEvent('')}" value="#{globalManagedBean.loginText}" ajax="false"  /></b></li>
+                        
+                        
                     </ul>
                 </nav>
 

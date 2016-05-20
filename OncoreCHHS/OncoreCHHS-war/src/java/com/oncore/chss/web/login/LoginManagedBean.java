@@ -54,6 +54,12 @@ public class LoginManagedBean extends BaseManagedBean {
         LOG.debug("Destroying LoginManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     * The <code>handleLoginButtonClickEvent</code> method handles the click
+     * event generated from the login button on the login page.
+     *
+     * @return a qualified URL or null if an exception occurs
+     */
     public String handleLoginButtonClickEvent() {
         String page = null;
 

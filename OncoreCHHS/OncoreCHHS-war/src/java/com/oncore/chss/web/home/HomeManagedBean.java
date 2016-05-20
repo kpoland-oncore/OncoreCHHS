@@ -23,7 +23,6 @@
  */
 package com.oncore.chss.web.home;
 
-import com.oncore.chhs.navigation.NavigationManagedBean;
 import com.oncore.chss.web.base.BaseManagedBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;

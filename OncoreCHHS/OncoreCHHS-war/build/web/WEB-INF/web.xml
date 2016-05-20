@@ -47,11 +47,6 @@
         <param-value>true</param-value>
     </context-param>
 
-    <context-param>
-        <param-name>org.apache.myfaces.RESOURCE_MAX_TIME_EXPIRES</param-name>
-        <param-value>28800000</param-value> <!-- 8 hours -->
-    </context-param>
-
 
     <context-param>
         <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
@@ -75,10 +70,6 @@
         <param-value>true</param-value>
     </context-param>
 
-    <context-param>
-        <param-name>filterForNormalOperation</param-name>
-        <param-value>true</param-value>
-    </context-param>
 
 
     <!-- JSF OPTIMIZATIONS -->
@@ -87,38 +78,13 @@
         <param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
         <param-value>65535</param-value>
     </context-param>
-
-    <context-param>
-        <param-name>org.apache.faces.STATE_SAVING_METHOD</param-name>
-        <param-value>server</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>org.apache.myfaces.COMPRESS_STATE_IN_SESSION</param-name>
-        <param-value>false</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>org.apache.myfaces.SERIALIZE_STATE_IN_SESSION</param-name>
-        <param-value>false</param-value>
-    </context-param>
-    <context-param>
-        <param-name>org.apache.myfaces.NUMBER_OF_VIEWS_IN_SESSION</param-name>
-        <param-value>35</param-value>
-    </context-param>
-
-    <context-param>
-        <param-name>org.apache.myfaces.CONFIG_REFRESH_PERIOD</param-name>
-        <param-value>-1</param-value>
-    </context-param>
+ 
 
     <context-param>
         <param-name>org.omnifaces.VIEW_SCOPE_MANAGER_MAX_ACTIVE_VIEW_SCOPES</param-name>
-        <param-value>35</param-value>
+        <param-value>200</param-value>
     </context-param>
-
-
-
+    
     <!-- END OPTIMIZATIONS -->
     <context-param>
         <param-name>primefaces.THEME</param-name>
