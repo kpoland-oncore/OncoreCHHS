@@ -24,8 +24,16 @@
 package com.oncore.chhs.web.profile;
 
 import com.oncore.chhs.web.base.BaseManagedBean;
+import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
+import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.login.AbstractLoginDataManagedBean;
+import com.oncore.chhs.web.login.LoginBean;
+import com.oncore.chhs.web.utils.FacesUtilities;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -50,6 +58,73 @@ public class ProfileManagedBean extends BaseManagedBean {
     public void destroy() {
         LOG.debug("Destroying ProfileManagedBean: " + this.getClass().hashCode());
     }
+
+    /**
+     * The <code>handleRegisterButtonClickEvent</code> method handles the click
+     * event from the register button on the register screen.
+     * 
+     * @return null if there is an exception, index if the operation is successful
+     */
+    public String handleRegisterButtonClickEvent()
+    {
+         String page = null;
+
+        try {
+            if (this.profileValidationBean.validateUserName(this.getProfileBean().getUserName(), FORM_NAME + "userNameTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else {
+                // determine if user already exists
+                LoginBean loginBean = new LoginBean();
+                loginBean.setUserName(this.getProfileBean().getUserName());
+                Users users = this.loginDataManagedBean.authenticateUser(loginBean);
+ 
+                if (users == null) {
+                    users = this.loginDataManagedBean.createUser(profileBean);
+                    this.profileDataManagedBean.createProfile(profileBean, users);
+                    
+                    this.globalManagedBean.setAuthenticated(Boolean.TRUE);
+                    this.globalManagedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
+                    this.globalManagedBean.setAuthenticatedUser(users);
+                    page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
+                } else {
+                    FacesUtilities.createPageLevelCustomError(FacesContext.getCurrentInstance(), "The user name provided has already been taken. Please try a different user name.");
+                }
+            }
+        } catch (WebServiceException wx) {
+            LOG.error(wx);
+            FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
+        }
+
+        return page;
+    }
+    
+    
+    
+    
+    /**
+     * @return the profileBean
+     */
+    public ProfileBean getProfileBean() {
+        return profileBean;
+    }
+
+    /**
+     * @param profileBean the profileBean to set
+     */
+    public void setProfileBean(ProfileBean profileBean) {
+        this.profileBean = profileBean;
+    }
+
+    @Inject
+    AbstractProfileDataManagedBean profileDataManagedBean;
+    
+    @Inject
+    AbstractLoginDataManagedBean loginDataManagedBean;
+    
+    @Inject
+    ProfileValidationBean profileValidationBean;
+    
+    private ProfileBean profileBean = new ProfileBean();
 
     private final Logger LOG = LogManager.getLogger(ProfileManagedBean.class);
 

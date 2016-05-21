@@ -15,22 +15,21 @@
 
     <ui:composition template="/facelets/templates/reduced_layout.xhtml">
 
-        <ui:param name="managedBean" value="#{loginManagedBean}"/>
-        <ui:param name="managedBeanContent" value="#{loginManagedBean.loginBean}"/>
-
+        <ui:param name="managedBean" value="#{profileManagedBean}"/>
+        <ui:param name="managedBeanContent" value="#{profileManagedBean.profileBean}"/>
 
         <ui:define name="title">
-            <title>CHHS Foster Care Services | Login</title>
+            <title>CHHS Foster Care Services | Register</title>
         </ui:define>
 
-        <ui:define name="content">
+       <ui:define name="content">
 
             <!-- Main -->
             <div id="main" class="wrapper style1">
                 <section class="container">
                     <a name="skip_main_content"/>
                     <header class="major">
-                        <h2>Login</h2>
+                        <h2>Register</h2>
 
                     </header>
 
@@ -55,6 +54,7 @@
  
                     </div>
                     
+                    <ui:include src="/facelets/profile/common_profile_content.xhtml"/>
                     
                     <div class="row">
                         
@@ -67,14 +67,14 @@
                                                  oncomplete="PF('feedbackWdg').hide()"
                                                  action="#{navigationManagedBean.navigateToLink('index', false)}"/>
                             </p:outputPanel>
-                            <p:outputPanel id="loginButtonPnl" layout="block"
+                            <p:outputPanel id="registerButtonPnl" layout="block"
                                            styleClass="innerButtonGroup">
-                                <p:commandButton id="loginBtn" value="Login" 
+                                <p:commandButton id="registerBtn" value="Register" 
                                                  styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
                                                  oncomplete="PF('feedbackWdg').hide()"
-                                                 action="#{managedBean.handleLoginButtonClickEvent()}"/>
+                                                 action="#{managedBean.handleRegisterButtonClickEvent()}"/>
                             </p:outputPanel>
-                            <p:blockUI block="loginButtonPnl" trigger="loginBtn"/>
+                            <p:blockUI block="registerButtonPnl" trigger="registerBtn"/>
                         </p:outputPanel>
                         
                         

@@ -104,7 +104,7 @@ public class LoginManagedBean extends BaseManagedBean {
     }
 
     @Inject
-    LoginDataManagedBean loginDataManagedBean;
+    AbstractLoginDataManagedBean loginDataManagedBean;
 
     @Inject
     LoginValidationBean loginValidationBean;

@@ -25,8 +25,10 @@ package com.oncore.chhs.web.login;
 
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.profile.ProfileBean;
 import com.oncore.chhs.web.services.UsersFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
@@ -46,6 +48,33 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
     @EJB
     private UsersFacadeREST usersFacadeREST;
 
+    
+     @Override
+    public Users createUser(ProfileBean profileBean) throws WebServiceException {
+        
+        Users users = new Users();
+        
+        try {
+            
+            users.setCreateUserId(profileBean.getUserName());
+            users.setCreateTs(new Date());
+            users.setUpdateUserId(profileBean.getUserName());
+            users.setUpdateTs(new Date());
+            users.setUsrFirstname(profileBean.getFirstName());
+            users.setUsrMiddlename(profileBean.getMiddleName());
+            users.setUsrLastname(profileBean.getLastName());
+            users.setUsrUserId(profileBean.getUserName());
+            
+            usersFacadeREST.create(users);
+            
+        } catch (Exception ex) {
+            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+        }
+
+        return users;
+    }
+    
+    
     @Override
     public Users authenticateUser(LoginBean loginBean) throws WebServiceException {
 
@@ -73,4 +102,6 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
     }
 
     private final Logger LOG = LogManager.getLogger(LoginDataManagedBean.class);
+
+   
 }

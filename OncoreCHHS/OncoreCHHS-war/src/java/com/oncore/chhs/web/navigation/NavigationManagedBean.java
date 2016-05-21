@@ -24,9 +24,13 @@
 package com.oncore.chhs.web.navigation;
 
 import com.oncore.chhs.web.base.BaseManagedBean;
+import java.io.IOException;
+import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
@@ -71,7 +75,13 @@ public class NavigationManagedBean extends BaseManagedBean {
             if (isExternal) {
                 // perhaps close out the session or perform other security checks
                 // or cleanup
-                ;
+                address = target;
+                ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+                try {
+                    ec.redirect(address);
+                } catch (IOException ex) {
+                    LOG.error(ex);
+                }
             } else {
                 address = target + "?faces-redirect=true";
             }
