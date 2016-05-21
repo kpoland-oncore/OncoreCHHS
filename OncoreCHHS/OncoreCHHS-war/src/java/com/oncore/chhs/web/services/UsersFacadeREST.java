@@ -28,6 +28,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -81,6 +82,21 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     }
 
     @GET
+    @Path("{userId}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Users findByUserId(@PathParam("userId") String userId) {
+        Users users = null;
+
+        List<Users> usersResult = (List<Users>) em.createNamedQuery("Users.findByUsrUserId").setParameter("usrUserId", userId).getResultList();
+
+        if (usersResult != null && usersResult.size() == 1) {
+            users = usersResult.get(0);
+        }
+
+        return users;
+    }
+
+    @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Users> findAll() {
@@ -105,5 +121,5 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

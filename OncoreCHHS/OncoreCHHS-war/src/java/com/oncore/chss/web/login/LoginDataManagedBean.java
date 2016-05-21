@@ -43,35 +43,33 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
 
     @EJB
     private UsersFacadeREST usersFacadeREST;
-    
+
     @Override
     public Users authenticateUser(LoginBean loginBean) {
 
         Users users = null;
-        
+
         try {
-            
-            users = usersFacadeREST.find(1);
-            
+            users = usersFacadeREST.findByUserId(loginBean.getUserName());
         } catch (Exception ex) {
             //TODO: make error handling more robust
             LOG.error(ex);
         }
-        
+
         return users;
     }
-    
+
     @Override
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing LoginDataManagedBean: " + this.getClass().hashCode());
     }
-    
+
     @Override
     @PreDestroy
     public void destroy() {
         LOG.debug("Destroying LoginDataManagedBean: " + this.getClass().hashCode());
     }
-    
+
     private final Logger LOG = LogManager.getLogger(LoginDataManagedBean.class);
 }
