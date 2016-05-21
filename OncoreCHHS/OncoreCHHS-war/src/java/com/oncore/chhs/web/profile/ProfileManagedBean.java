@@ -21,17 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.base;
+package com.oncore.chhs.web.profile;
+
+import com.oncore.chhs.web.base.BaseManagedBean;
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.inject.Named;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
  * @author oncore
  */
-public interface AbstractBaseManagedBean {
-    
-    public void initialize();
-    
-    public void destroy();
-    
-    
+@Named("profileManagedBean")
+@ViewScoped
+public class ProfileManagedBean extends BaseManagedBean {
+
+    @Override
+    @PostConstruct
+    public void initialize() {
+        LOG.debug("Initializing ProfileManagedBean: " + this.getClass().hashCode());
+    }
+
+    @Override
+    @PreDestroy
+    public void destroy() {
+        LOG.debug("Destroying ProfileManagedBean: " + this.getClass().hashCode());
+    }
+
+    private final Logger LOG = LogManager.getLogger(ProfileManagedBean.class);
+
 }

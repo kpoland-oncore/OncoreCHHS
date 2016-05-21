@@ -21,25 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.login;
+package com.oncore.chhs.web.utils;
 
-import com.oncore.chhs.web.entities.Users;
-import com.oncore.chss.web.base.AbstractBaseManagedBean;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author oncore
  */
-public interface AbstractLoginDataManagedBean extends AbstractBaseManagedBean{
-    
+public final class ErrorUtils {
+
     /**
-     * The <code>authenticateUser</code> method determines if a user exists 
-     * matching the user name.
+     * The <code>getStackTrace</code> method returns a readable
+     * string representation of a stacktrace.
      * 
-     * @param loginBean a populated <code>LoginBean</code> object
+     * @param t a throwable exception
      * 
-     * @return a populated <code>Users</code> object if found, null otherwise
+     * @return a formated String
      */
-    public Users authenticateUser(LoginBean loginBean);
-    
+    public static String getStackTrace(Throwable t) {
+        StringBuilder builder = new StringBuilder();
+
+        StackTraceElement[] elements = t.getStackTrace();
+
+        for (StackTraceElement element : elements) {
+            if (StringUtils.isNotBlank(element.toString())) {
+                builder.append(element.toString()).append("\n");
+            }
+        }
+
+        return builder.toString();
+    }
 }

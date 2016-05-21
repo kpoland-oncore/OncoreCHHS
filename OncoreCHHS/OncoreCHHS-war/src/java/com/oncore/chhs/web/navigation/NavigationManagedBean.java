@@ -21,9 +21,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.navigation;
+package com.oncore.chhs.web.navigation;
 
-import com.oncore.chss.web.base.BaseManagedBean;
+import com.oncore.chhs.web.base.BaseManagedBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;

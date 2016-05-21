@@ -21,9 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.profile;
+package com.oncore.chhs.web.profile;
 
-import com.oncore.chss.web.base.BaseManagedBean;
+import com.oncore.chhs.web.base.BaseManagedBean;
+import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.web.exceptions.WebServiceException;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
@@ -52,10 +54,39 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
     }
 
     @Override
-    public ProfileBean findProfileByUserName(String userName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ProfileBean findProfileByUserId(Integer userId) throws WebServiceException{
+        
+        
+        //TODO: tie in service
+        
+        ProfileBean profileBean = new ProfileBean();
+        
+        profileBean.setAddressLine1("101 Test Street");
+        profileBean.setAddressLine2("Suite 100");
+        profileBean.setCity("Folsom");
+        profileBean.setState("CA");
+        profileBean.setZip("95630");
+        profileBean.setPhone("9168761122");
+        profileBean.setEmail("testme@testingemail.com");
+        profileBean.setFirstName("John");
+        profileBean.setMiddleName("Joe");
+        profileBean.setLastName("Smith");
+        profileBean.setUserName("testuser");
+        
+        
+        return profileBean;
     }
 
     private final Logger LOG = LogManager.getLogger(ProfileDataManagedBean.class);
+
+    @Override
+    public void createProfile(ProfileBean profileBean, Users user) throws WebServiceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateProfile(ProfileBean profileBean) throws WebServiceException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
 }

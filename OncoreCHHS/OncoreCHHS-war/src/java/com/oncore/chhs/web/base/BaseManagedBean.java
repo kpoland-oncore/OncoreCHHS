@@ -21,14 +21,44 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.base;
+package com.oncore.chhs.web.base;
+
+import com.oncore.chhs.web.global.GlobalManagedBean;
+import com.oncore.chhs.web.navigation.NavigationManagedBean;
+import java.io.Serializable;
+import javax.inject.Inject;
 
 /**
  *
  * @author oncore
  */
-public abstract class BaseValidationBean extends BaseManagedBean{
+public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serializable {
 
-    // COMMON VALIDATORS LIKE NAMES AND PHONE NUMBERS WILL GO HERE
-  
+    @Override
+    public abstract void initialize();
+
+    @Override
+    public abstract void destroy();
+
+    /**
+     * The <code>handleHeaderNavigationClickEvent</code> method handles the
+     * click event on the header navigation links such as Home, MyProfile,
+     * Locate Services, and Messages.
+     *
+     * @param target the source link identifier
+     *
+     * @return a target URL
+     */
+    public String handleHeaderNavigationClickEvent(String target) {
+        return this.navigationManagedBean.navigateToLink(target, Boolean.FALSE);
+    }
+
+    @Inject
+    protected NavigationManagedBean navigationManagedBean;
+
+    @Inject
+    protected GlobalManagedBean globalManagedBean;
+
+    public static final String FORM_NAME = "chssForm:";
+
 }

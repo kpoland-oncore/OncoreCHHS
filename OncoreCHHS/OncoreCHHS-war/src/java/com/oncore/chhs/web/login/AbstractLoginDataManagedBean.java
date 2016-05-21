@@ -21,15 +21,26 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.profile;
+package com.oncore.chhs.web.login;
 
-import com.oncore.chss.web.base.AbstractBaseManagedBean;
+import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.base.AbstractBaseManagedBean;
 
 /**
  *
  * @author oncore
  */
-public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
+public interface AbstractLoginDataManagedBean extends AbstractBaseManagedBean{
     
-    public ProfileBean findProfileByUserName(String userName);
+    /**
+     * The <code>authenticateUser</code> method determines if a user exists 
+     * matching the user name.
+     * 
+     * @param loginBean a populated <code>LoginBean</code> object
+     * @throws WebServiceException
+     * @return a populated <code>Users</code> object if found, null otherwise
+     */
+    public Users authenticateUser(LoginBean loginBean) throws WebServiceException;
+    
 }

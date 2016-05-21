@@ -21,11 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.login;
+package com.oncore.chhs.web.login;
 
-import com.oncore.chhs.utils.FacesUtilities;
+import com.oncore.chhs.web.utils.FacesUtilities;
 import com.oncore.chhs.web.entities.Users;
-import com.oncore.chss.web.base.BaseManagedBean;
+import com.oncore.chhs.web.base.BaseManagedBean;
+import com.oncore.chhs.web.exceptions.WebServiceException;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
@@ -64,20 +65,24 @@ public class LoginManagedBean extends BaseManagedBean {
     public String handleLoginButtonClickEvent() {
         String page = null;
 
-        if (this.loginValidationBean.validateUserName(this.getLoginBean().getUserName(), FORM_NAME + "userNameTxt")) {
-            FacesUtilities.createPageLevelError(FacesContext.getCurrentInstance());
-        } else {
-            Users users = this.loginDataManagedBean.authenticateUser(loginBean);
+        try {
+            if (this.loginValidationBean.validateUserName(this.getLoginBean().getUserName(), FORM_NAME + "userNameTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else {
+                Users users = this.loginDataManagedBean.authenticateUser(loginBean);
 
-            if (users != null) {
-                this.globalMangedBean.setAuthenticated(Boolean.TRUE);
-                this.globalMangedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
-                page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
+                if (users != null) {
+                    this.globalManagedBean.setAuthenticated(Boolean.TRUE);
+                    this.globalManagedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
+                    this.globalManagedBean.setAuthenticatedUser(users);
+                    page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
+                } else {
+                    FacesUtilities.createPageLevelCustomError(FacesContext.getCurrentInstance(), "The user name provided was not found.");
+                }
             }
-            else
-            {
-                 FacesUtilities.createPageLevelError(FacesContext.getCurrentInstance());
-            }
+        } catch (WebServiceException wx) {
+            LOG.error(wx);
+            FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
         }
 
         return page;

@@ -21,44 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.base;
-
-import com.oncore.chhs.global.GlobalManagedBean;
-import com.oncore.chhs.navigation.NavigationManagedBean;
-import java.io.Serializable;
-import javax.inject.Inject;
+package com.oncore.chhs.web.exceptions;
 
 /**
  *
  * @author oncore
  */
-public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serializable {
-
-    @Override
-    public abstract void initialize();
-
-    @Override
-    public abstract void destroy();
+public class WebServiceException extends Exception {
 
     /**
-     * The <code>handleHeaderNavigationClickEvent</code> method handles the
-     * click event on the header navigation links such as Home, MyProfile,
-     * Locate Services, and Messages.
-     *
-     * @param target the source link identifier
-     *
-     * @return a target URL
+     * Creates a new instance of <code>WebServiceException</code> without detail
+     * message.
      */
-    public String handleHeaderNavigationClickEvent(String target) {
-        return this.navigationManagedBean.navigateToLink(target, Boolean.FALSE);
+    public WebServiceException() {
     }
 
-    @Inject
-    protected NavigationManagedBean navigationManagedBean;
-
-    @Inject
-    protected GlobalManagedBean globalMangedBean;
-
-    public static final String FORM_NAME = "chssForm:";
-
+    /**
+     * Constructs an instance of <code>WebServiceException</code> with the
+     * specified detail message.
+     *
+     * @param msg the detail message.
+     */
+    public WebServiceException(String msg) {
+        super(msg);
+    }
 }

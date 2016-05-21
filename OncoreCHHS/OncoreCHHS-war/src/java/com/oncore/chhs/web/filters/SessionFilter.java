@@ -23,8 +23,7 @@
  */
 package com.oncore.chhs.web.filters;
 
-import com.oncore.chhs.global.GlobalManagedBean;
-import com.oncore.chss.web.login.LoginDataManagedBean;
+import com.oncore.chhs.web.global.GlobalManagedBean;
 import java.io.IOException;
 import java.util.Date;
 import javax.faces.application.ResourceHandler;

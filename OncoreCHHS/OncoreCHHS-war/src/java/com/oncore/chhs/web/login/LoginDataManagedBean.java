@@ -21,12 +21,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.global;
+package com.oncore.chhs.web.login;
 
-import com.oncore.chss.web.base.BaseManagedBean;
+import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.services.UsersFacadeREST;
+import com.oncore.chhs.web.utils.ErrorUtils;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.SessionScoped;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -35,53 +39,38 @@ import org.apache.logging.log4j.Logger;
  *
  * @author oncore
  */
-@Named("globalManagedBean")
-@SessionScoped
-public class GlobalManagedBean extends BaseManagedBean {
+@Named("loginDataManagedBean")
+@RequestScoped
+public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
+
+    @EJB
+    private UsersFacadeREST usersFacadeREST;
+
+    @Override
+    public Users authenticateUser(LoginBean loginBean) throws WebServiceException {
+
+        Users users = null;
+
+        try {
+            users = usersFacadeREST.findByUserId(loginBean.getUserName());
+        } catch (Exception ex) {
+            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+        }
+
+        return users;
+    }
 
     @Override
     @PostConstruct
     public void initialize() {
-        LOG.debug("Initializing GlobalManagedBean: " + this.getClass().hashCode());
+        LOG.debug("Initializing LoginDataManagedBean: " + this.getClass().hashCode());
     }
 
     @Override
     @PreDestroy
     public void destroy() {
-        LOG.debug("Destroying GlobalManagedBean: " + this.getClass().hashCode());
+        LOG.debug("Destroying LoginDataManagedBean: " + this.getClass().hashCode());
     }
 
-    /**
-     * @return the authenticated
-     */
-    public Boolean getAuthenticated() {
-        return authenticated;
-    }
-
-    /**
-     * @param authenticated the authenticated to set
-     */
-    public void setAuthenticated(Boolean authenticated) {
-        this.authenticated = authenticated;
-    }
-
-    /**
-     * @return the loginText
-     */
-    public String getLoginText() {
-        return loginText;
-    }
-
-    /**
-     * @param loginText the loginText to set
-     */
-    public void setLoginText(String loginText) {
-        this.loginText = loginText;
-    }
-
-    private Boolean authenticated = Boolean.FALSE;
-    private String loginText = "Login";
-
-    private final Logger LOG = LogManager.getLogger(GlobalManagedBean.class);
-
+    private final Logger LOG = LogManager.getLogger(LoginDataManagedBean.class);
 }

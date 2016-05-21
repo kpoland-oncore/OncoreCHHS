@@ -21,10 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.login;
+package com.oncore.chhs.web.login;
 
-import com.oncore.chhs.utils.FacesUtilities;
-import com.oncore.chss.web.base.BaseValidationBean;
+import com.oncore.chhs.web.utils.FacesUtilities;
+import com.oncore.chhs.web.base.BaseValidationBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;

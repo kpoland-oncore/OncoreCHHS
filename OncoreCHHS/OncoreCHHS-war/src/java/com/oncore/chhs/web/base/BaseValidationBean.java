@@ -21,30 +21,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.utils;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+package com.oncore.chhs.web.base;
 
 /**
  *
  * @author oncore
  */
-public final class FacesUtilities {
+public abstract class BaseValidationBean extends BaseManagedBean{
 
-    public static void requredFieldError(FacesContext context, String componentId) {
-        FacesMessage message = new FacesMessage();
-        message.setSummary("Field is Required");
-        message.setSeverity(FacesMessage.SEVERITY_ERROR);
-        context.addMessage(componentId, message);
-        context.renderResponse();
-    }
-
-    public static void createPageLevelError(FacesContext context) {
-        FacesMessage message = new FacesMessage();
-        message.setSummary("There are validation errors. Please correct the errors before proceeding.");
-        message.setSeverity(FacesMessage.SEVERITY_ERROR);
-        context.addMessage(null, message);
-        context.renderResponse();
-    }
+    // COMMON VALIDATORS LIKE NAMES AND PHONE NUMBERS WILL GO HERE
+  
 }

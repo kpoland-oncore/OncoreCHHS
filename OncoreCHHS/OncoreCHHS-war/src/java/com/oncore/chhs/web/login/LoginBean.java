@@ -21,36 +21,31 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chss.web.home;
+package com.oncore.chhs.web.login;
 
-import com.oncore.chss.web.base.BaseManagedBean;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.inject.Named;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.omnifaces.cdi.ViewScoped;
+import com.oncore.chhs.web.base.BaseBean;
 
 /**
  *
  * @author oncore
  */
-@Named("homeManagedBean")
-@ViewScoped
-public class HomeManagedBean extends BaseManagedBean {
+public class LoginBean extends BaseBean{
+    
+    private String userName;
 
-    @Override
-    @PostConstruct
-    public void initialize() {
-        LOG.debug("Initializing HomeManagedBean: " + this.getClass().hashCode());
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName;
     }
 
-    @Override
-    @PreDestroy
-    public void destroy() {
-        LOG.debug("Destroying HomeManagedBean: " + this.getClass().hashCode());
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
-   
-    private final Logger LOG = LogManager.getLogger(HomeManagedBean.class);
-
+    
+    
 }
