@@ -13,9 +13,8 @@
 
 
     <ui:composition>
-        <div class="row">
-
-
+        
+            <div class="row">
             <onc:inputText id="firstNameTxt"
                            label="First Name:"
                            labelStyleClass="form_label_35"
@@ -26,8 +25,117 @@
                            errAlt=""
                            errMsgRendered="false"
                            value="#{managedBeanContent.firstName}"/>
-
-        </div>
+            </div>
+            
+            <div class="row">
+            
+             <onc:inputText id="middleNameTxt"
+                           label="Middle Name:"
+                           labelStyleClass="form_label_35"
+                           requiredLabel="true"
+                           maxLength="45"
+                           size="25"
+                           immediate="true"
+                           errAlt=""
+                           errMsgRendered="false"
+                           value="#{managedBeanContent.middleName}"/>
+            </div>
+            
+            <div class="row">
+             
+              <onc:inputText id="lastNameTxt"
+                           label="Last Name:"
+                           labelStyleClass="form_label_35"
+                           requiredLabel="true"
+                           maxLength="45"
+                           size="25"
+                           immediate="true"
+                           errAlt=""
+                           errMsgRendered="false"
+                           value="#{managedBeanContent.lastName}"/>
+            </div>
+            
+            
+            <div class="row">
+              
+              
+               <onc:inputText id="addressLine1Txt"
+                           label="Address Line:"
+                           labelStyleClass="form_label_35"
+                           requiredLabel="true"
+                           maxLength="128"
+                           size="35"
+                           immediate="true"
+                           errAlt=""
+                           errMsgRendered="false"
+                           value="#{managedBeanContent.addressLine1}"/>
+              
+            </div>
+            
+            <div class="row">
+               
+               <onc:inputText id="addressLine2Txt"
+                           label="Address Line(cont):"
+                           labelStyleClass="form_label_35"
+                           requiredLabel="true"
+                           maxLength="128"
+                           size="35"
+                           immediate="true"
+                           errAlt=""
+                           errMsgRendered="false"
+                           value="#{managedBeanContent.addressLine2}"/>
+               
+            </div>
+            
+            <div class="row">
+               
+               <onc:inputText id="cityTxt"
+                           label="City:"
+                           labelStyleClass="form_label_35"
+                           requiredLabel="true"
+                           maxLength="64"
+                           size="25"
+                           immediate="true"
+                           errAlt=""
+                           errMsgRendered="false"
+                           value="#{managedBeanContent.city}"/>
+              
+            </div>
+            
+          
+<!--             sssss
+             <p:selectOneMenu
+                 id="xxxx"
+                 value="#{profileManagedBean.profileBean.state}">
+                 <f:selectItem itemLabel="Select One" itemValue="" />
+                 <f:selectItem itemLabel="akaskdfka" itemValue="adk"/>
+                 <f:selectItems value="#{applicationManagedBean.states}"
+                                var="states"
+                                itemLabel="#{states.description}"
+                                itemValue="#{states.value}"/>
+             </p:selectOneMenu>-->
+                 
+             
+         
+        
+        
+<!--            <div class="row">
+                <onc:selectOneMenu
+                    id="statesList"
+                    label="States:"
+                    labelStyleClass="form_label_35"
+                    requiredLabel="true"
+                    errAlt=""
+                    errMsgRendered="false"
+                    value="#{managedBeanContent.state}"
+                    selValue="#{applicationManagedBean.states}"
+                    selVar="state"
+                    selItemValue="#{state}"
+                    selItemLabel="#{state.name}"/>
+                   
+            </div>-->
+              
+ 
     </ui:composition>
 
 
