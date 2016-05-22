@@ -81,6 +81,21 @@ public class AdrCountryCdFacadeREST extends AbstractFacade<AdrCountryCd> {
     }
 
     @GET
+    @Path("{adrCountryCd}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public AdrCountryCd findByCode(@PathParam("adrCountryCd") String adrCountryCd) {
+        AdrCountryCd adrCountryCdEntity = null;
+
+        List<AdrCountryCd> adrCountryCdResult = (List<AdrCountryCd>) em.createNamedQuery("AdrCountryCd.findByCode").setParameter("code", adrCountryCd).getResultList();
+
+        if (adrCountryCdResult != null && adrCountryCdResult.size() == 1) {
+            adrCountryCdEntity = adrCountryCdResult.get(0);
+        }
+
+        return adrCountryCdEntity;
+    }
+
+    @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<AdrCountryCd> findAll() {
@@ -105,5 +120,5 @@ public class AdrCountryCdFacadeREST extends AbstractFacade<AdrCountryCd> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

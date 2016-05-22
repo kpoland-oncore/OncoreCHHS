@@ -24,12 +24,26 @@
 package com.oncore.chhs.web.profile;
 
 import com.oncore.chhs.web.base.BaseManagedBean;
+import com.oncore.chhs.web.entities.Address;
+import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.services.AddressFacadeREST;
+import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
+import com.oncore.chhs.web.services.ContactFacadeREST;
+import com.oncore.chhs.web.services.EmcTypeCdFacadeREST;
+import com.oncore.chhs.web.services.UsersFacadeREST;
+import com.oncore.chhs.web.utils.ErrorUtils;
+import com.oncore.chhs.web.utils.helper.ProfileHelper;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,6 +54,22 @@ import org.apache.logging.log4j.Logger;
 @Named("profileDataManagedBean")
 @RequestScoped
 public class ProfileDataManagedBean extends BaseManagedBean implements AbstractProfileDataManagedBean {
+
+    private final Logger LOG = LogManager.getLogger(ProfileDataManagedBean.class);
+    @EJB
+    private UsersFacadeREST usersFacadeREST;
+
+    @EJB
+    private AddressFacadeREST addressFacadeREST;
+
+    @EJB
+    private ContactFacadeREST contactFacadeREST;
+
+    @EJB
+    private AdrStateCdFacadeREST adrStateCdFacadeREST;
+
+    @EJB
+    private EmcTypeCdFacadeREST emcTypeCdFacadeREST;
 
     @Override
     @PostConstruct
@@ -54,39 +84,119 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
     }
 
     @Override
-    public ProfileBean findProfileByUserId(Integer userId) throws WebServiceException{
-        
-        
-        //TODO: tie in service
-        
-        ProfileBean profileBean = new ProfileBean();
-        
-        profileBean.setAddressLine1("101 Test Street");
-        profileBean.setAddressLine2("Suite 100");
-        profileBean.setCity("Folsom");
-        profileBean.setState("CA");
-        profileBean.setZip("95630");
-        profileBean.setPhone("9168761122");
-        profileBean.setEmail("testme@testingemail.com");
-        profileBean.setFirstName("John");
-        profileBean.setMiddleName("Joe");
-        profileBean.setLastName("Smith");
-        profileBean.setUserName("testuser");
-        
-        
+    public ProfileBean findProfileByUserUid(Integer userUid) throws WebServiceException {
+
+        ProfileBean profileBean = null;
+
+        try {
+            Users users = this.usersFacadeREST.find(userUid);
+
+            if (users != null) {
+                profileBean = ProfileHelper.buildProfile(users);
+            }
+
+        } catch (Exception ex) {
+            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+        }
+
         return profileBean;
     }
 
-    private final Logger LOG = LogManager.getLogger(ProfileDataManagedBean.class);
-
     @Override
     public void createProfile(ProfileBean profileBean, Users user) throws WebServiceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            boolean isUpdateUser = false;
+
+            if (StringUtils.isNotBlank(profileBean.getAddressLine1())) {
+                if (null == user.getAddressList()) {
+                    user.setAddressList(new ArrayList<>());
+                }
+
+                Address address = ProfileHelper.convertProfileBeanToAddressEntity(profileBean, this.adrStateCdFacadeREST);
+                address.setUsrUidFk(user);
+
+                user.getAddressList().add(address);
+
+                this.addressFacadeREST.create(address);
+            }
+
+            if (StringUtils.isNotBlank(profileBean.getPhone())) {
+                if (null == user.getContactList()) {
+                    user.setContactList(new ArrayList<>());
+                }
+
+                Contact contact = ProfileHelper.convertProfileBeanToContactEntity(profileBean, this.emcTypeCdFacadeREST);
+                contact.setUsrUidFk(user);
+
+                user.getContactList().add(contact);
+
+                this.contactFacadeREST.create(contact);
+            }
+
+            if (isUpdateUser) {
+                this.usersFacadeREST.edit(user.getUsrUid(), user);
+            }
+
+        } catch (Exception ex) {
+            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+        }
     }
 
     @Override
     public void updateProfile(ProfileBean profileBean) throws WebServiceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            if (null != profileBean) {
+                Users user = this.usersFacadeREST.findByUserId(profileBean.getUserName());
+
+                if (user != null) {
+                    this.updateAddress(profileBean, user.getAddressList());
+                    this.updateContact(profileBean, user.getContactList());
+                }
+            }
+        } catch (Exception ex) {
+            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+        }
     }
 
+    /**
+     * Updates the Address for the user.
+     *
+     * @param profileBean
+     * @param addresses
+     */
+    private void updateAddress(ProfileBean profileBean, List<Address> addresses) {
+        if (StringUtils.isNotBlank(profileBean.getAddressLine1())) {
+            if (CollectionUtils.isNotEmpty(addresses)) {
+
+                Address address = addresses.get(0);
+
+                ProfileHelper.mapProfileBeanToAddressEntity(profileBean, address, this.adrStateCdFacadeREST);
+                this.addressFacadeREST.edit(address);
+            }
+        }
+    }
+
+    /**
+     * Updates the Contact for the user.
+     *
+     * @param profileBean
+     * @param contacts
+     */
+    private void updateContact(ProfileBean profileBean, List<Contact> contacts) {
+        if (CollectionUtils.isNotEmpty(contacts)) {
+            for (Contact contactToUpdate : contacts) {
+                if (StringUtils.isNotBlank(profileBean.getPhone())) {
+                    if (StringUtils.equals(profileBean.getPhoneType(), contactToUpdate.getEmcTypeCd().getCode()) && StringUtils.equals(profileBean.getPhone(), contactToUpdate.getEmcValue())) {
+                        ProfileHelper.mapProfileBeanToContactEntity(profileBean, contactToUpdate, this.emcTypeCdFacadeREST);
+                        this.contactFacadeREST.edit(contactToUpdate);
+                    }
+                }
+
+//                if (StringUtils.isNotBlank(profileBean.getEmail())) {
+//                    ProfileHelper.mapProfileBeanToContactEntity(profileBean, contactToUpdate, this.emcTypeCdFacadeREST);
+//                    this.contactFacadeREST.edit(contactToUpdate);
+//                }
+            }
+        }
+    }
 }
