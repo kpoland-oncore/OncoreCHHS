@@ -57,10 +57,10 @@
 
 
                 <!-- EXAMPLE FEEDBACK SPINNER -->
-                <p:dialog id="feedback" widgetVar="feedbackWdg" modal="true" height="25%" width="25%" closable="false" style="background: white;"
+                <p:dialog id="feedback" widgetVar="feedbackWdg" modal="true" height="20%" width="20%" position="center" closable="false" style="background: white;"
                           maximizable="false" resizable="false" showHeader="false" appendTo="@(form)">
                     <p:outputPanel id="overlay" layout="block">
-                        <h:graphicImage value="images/spinner.gif" style="padding-right: 1em;" alt=" "></h:graphicImage>
+                        <h:graphicImage value="images/spinner.gif" alt="feedback spinner"></h:graphicImage>
                         <h:outputText value="Processing...."></h:outputText>
                     </p:outputPanel>
                 </p:dialog>
@@ -68,11 +68,20 @@
 
 
 
-                <!-- EXAMPLE CONFIRMATION DIALOG -->
+                <!-- COMMON CONFIRMATION DIALOG -->
                 <p:confirmDialog id="dirtyDlg" message="You must save or cancel your changes before leaving."
                                  header="Unsaved Changes Warning" closable="false" severity="alert" modal="true" appendTo="@(form)"
                                  widgetVar="dirtyDlgWdg">
                     <p:commandButton value="OK" onclick="PF('dirtyDlgWdg').hide()" />
+                </p:confirmDialog>
+                <!-- ======================== -->
+                
+                
+                 <!-- COMMON SAVE CONFIRMATION DIALOG -->
+                <p:confirmDialog id="saveDlg" message="Your changes have been successfully saved."
+                                 header="Save Confirmation" closable="false" severity="info" modal="true" appendTo="@(form)"
+                                 widgetVar="saveDlgWdg">
+                    <p:commandButton value="OK" onclick="PF('saveDlgWdg').hide()" action="#{navigationManagedBean.navigateToLink('index', false)}" />
                 </p:confirmDialog>
                 <!-- ======================== -->
 

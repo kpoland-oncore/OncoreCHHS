@@ -24,7 +24,10 @@
 package com.oncore.chhs.web.profile;
 
 import com.oncore.chhs.web.base.BaseValidationBean;
+import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.FacesUtilities;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
@@ -77,6 +80,28 @@ public class ProfileValidationBean extends BaseValidationBean {
         } else if (!StringUtils.isAlphanumericSpace(value)) {
             FacesUtilities.invalidFormatError(FacesContext.getCurrentInstance(), componentId);
             isError = Boolean.TRUE;
+        }
+
+        return isError;
+    }
+
+    public Boolean validateEmailAddress(String value, String componentId) {
+        Boolean isError = Boolean.FALSE;
+
+        if (StringUtils.isNotBlank(value)) {
+
+            try {
+                if (!Pattern.matches("[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}", value)) {
+                    FacesUtilities.invalidEmailFormatError(FacesContext.getCurrentInstance(), componentId);
+                    isError = Boolean.TRUE;
+                }
+            } catch (PatternSyntaxException px) {
+                LOG.warn(ErrorUtils.getStackTrace(px));
+                isError = Boolean.TRUE;
+            } catch (Exception ex) {
+                LOG.warn(ErrorUtils.getStackTrace(ex));
+                isError = Boolean.TRUE;
+            }
         }
 
         return isError;

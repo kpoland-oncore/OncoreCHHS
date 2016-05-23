@@ -25,6 +25,8 @@ package com.oncore.chhs.web.utils;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import org.apache.commons.collections4.CollectionUtils;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -35,6 +37,7 @@ public final class FacesUtilities {
     public static void requredFieldError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
         message.setSummary("Field is Required");
+        message.setDetail("Field is Required");
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(componentId, message);
         context.renderResponse();
@@ -43,6 +46,7 @@ public final class FacesUtilities {
     public static void invalidFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
         message.setSummary("Value entered must be letters, numbers, or spaces.");
+        message.setDetail("Value entered must be letters, numbers, or spaces.");
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(componentId, message);
         context.renderResponse();
@@ -51,6 +55,7 @@ public final class FacesUtilities {
     public static void invalidAlphaFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
         message.setSummary("Value entered must be letters or spaces.");
+        message.setDetail("Value entered must be letters or spaces.");
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(componentId, message);
         context.renderResponse();
@@ -78,5 +83,34 @@ public final class FacesUtilities {
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(null, message);
         context.renderResponse();
+    }
+
+    public static void invalidEmailFormatError(FacesContext context, String componentId) {
+        FacesMessage message = new FacesMessage();
+        message.setSummary("The email addressed entered is not a valid format.");
+        message.setDetail("The email addressed entered is not a valid format.");
+        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+        context.addMessage(componentId, message);
+        context.renderResponse();
+    }
+    
+    public static void removeMessages()
+    {
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        if(CollectionUtils.isNotEmpty(context.getMessageList()))
+        {
+            context.getMessageList().clear();
+        }
+    }
+    
+    public static void runJavaScript(String script)
+    {
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        
+        if(requestContext != null)
+        {
+            requestContext.execute(script);
+        }
     }
 }

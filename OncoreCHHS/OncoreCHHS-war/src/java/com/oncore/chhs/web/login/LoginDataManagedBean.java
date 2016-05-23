@@ -64,6 +64,7 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
             users.setUsrMiddlename(profileBean.getMiddleName());
             users.setUsrLastname(profileBean.getLastName());
             users.setUsrUserId(profileBean.getUserName());
+            users.setUsrPassword("notused");
             
             usersFacadeREST.create(users);
             

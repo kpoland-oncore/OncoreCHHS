@@ -21,42 +21,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.web.base;
+package com.oncore.chhs.web.enums;
 
-import com.oncore.chhs.web.utils.FacesUtilities;
-import javax.faces.context.FacesContext;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author oncore
  */
-public abstract class BaseValidationBean extends BaseManagedBean{
+public enum ContactTypeEnum {
 
-   public Boolean validateUserName(String userName, String componentId) {
-        Boolean isError = Boolean.FALSE;
+    HOME_PHONE("HPH"),
+    MOBILE_PHONE("MPH"),
+    SMS_TEXT("SMS"),
+    WORK_PHONE("WPH");
 
-        if (StringUtils.isBlank(userName)) {
-            FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
-        }
-        else if(!StringUtils.isAlphanumericSpace(userName))
-        {
-            FacesUtilities.invalidFormatError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
-        }
-
-        return isError;
+    ContactTypeEnum(String value) {
+        this.value = value;
     }
-  
-    public Boolean validateRequiredField(String value, String componentId) {
-        Boolean isError = Boolean.FALSE;
 
-        if (StringUtils.isBlank(value)) {
-            FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
-        }
-
-        return isError;
+    /**
+     * @return the value
+     */
+    public String getValue() {
+        return value;
     }
+
+    /**
+     * @param value the value to set
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public Boolean equals(String value) {
+        return StringUtils.equals(this.getValue(), value);
+    }
+
+    public Boolean equals(ContactTypeEnum value) {
+        return StringUtils.equals(this.getValue(), value.getValue());
+    }
+    
+    private String value;
+
 }
