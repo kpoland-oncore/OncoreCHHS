@@ -48,6 +48,7 @@ THE SOFTWARE.
       padding-bottom: .5em;
       padding-left: .9em;
       vertical-align: middle;
+      background: transparent !important;
 }
 
 .column_1_class{

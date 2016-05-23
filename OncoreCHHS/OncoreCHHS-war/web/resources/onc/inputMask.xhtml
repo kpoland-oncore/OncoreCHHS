@@ -66,8 +66,8 @@
 
 
 
-        <div class="row">
-            <p:panelGrid id="#{cc.attrs.id}_pnl" columns="2" columnClasses="column_1_class,column_2_class">
+        
+            <p:panelGrid id="#{cc.attrs.id}_pnl" columns="2" columnClasses="column_1_class,column_2_class" role="presentation">
              
                 <p:outputLabel for="#{cc.attrs.id}" styleClass="#{cc.attrs.labelStyleClass}">
                     <h:outputText value="#{cc.attrs.label}" rendered="#{!cc.attrs.requiredLabel}"/> 
@@ -99,7 +99,7 @@
                
 
             </p:panelGrid>
-        </div>
+       
 
 
 
