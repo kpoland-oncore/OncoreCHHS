@@ -54,17 +54,7 @@ public class LoginValidationBean extends BaseValidationBean {
         LOG.debug("Destroying LoginValidationBean: " + this.getClass().hashCode());
     }
 
-    public Boolean validateUserName(String userName, String componentId) {
-        Boolean isError = Boolean.FALSE;
-
-        if (StringUtils.isBlank(userName)) {
-            FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
-        }
-
-        return isError;
-    }
-
+   
     private final Logger LOG = LogManager.getLogger(LoginValidationBean.class);
 
 }

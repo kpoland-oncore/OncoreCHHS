@@ -23,12 +23,30 @@
  */
 package com.oncore.chhs.web.base;
 
+import com.oncore.chhs.web.utils.FacesUtilities;
+import javax.faces.context.FacesContext;
+import org.apache.commons.lang3.StringUtils;
+
 /**
  *
  * @author oncore
  */
 public abstract class BaseValidationBean extends BaseManagedBean{
 
-    // COMMON VALIDATORS LIKE NAMES AND PHONE NUMBERS WILL GO HERE
+   public Boolean validateUserName(String userName, String componentId) {
+        Boolean isError = Boolean.FALSE;
+
+        if (StringUtils.isBlank(userName)) {
+            FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
+            isError = Boolean.TRUE;
+        }
+        else if(!StringUtils.isAlphanumericSpace(userName))
+        {
+            FacesUtilities.invalidFormatError(FacesContext.getCurrentInstance(), componentId);
+            isError = Boolean.TRUE;
+        }
+
+        return isError;
+    }
   
 }

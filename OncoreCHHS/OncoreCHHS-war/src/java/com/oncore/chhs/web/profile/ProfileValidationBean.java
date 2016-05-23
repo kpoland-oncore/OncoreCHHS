@@ -23,8 +23,8 @@
  */
 package com.oncore.chhs.web.profile;
 
-import com.oncore.chhs.web.utils.FacesUtilities;
 import com.oncore.chhs.web.base.BaseValidationBean;
+import com.oncore.chhs.web.utils.FacesUtilities;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
@@ -54,11 +54,28 @@ public class ProfileValidationBean extends BaseValidationBean {
         LOG.debug("Destroying LoginValidationBean: " + this.getClass().hashCode());
     }
 
-    public Boolean validateUserName(String userName, String componentId) {
+    public Boolean validateName(String name, String componentId) {
         Boolean isError = Boolean.FALSE;
 
-        if (StringUtils.isBlank(userName)) {
+        if (StringUtils.isBlank(name)) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
+            isError = Boolean.TRUE;
+        } else if (!StringUtils.isAlphaSpace(name)) {
+            FacesUtilities.invalidAlphaFormatError(FacesContext.getCurrentInstance(), componentId);
+            isError = Boolean.TRUE;
+        }
+
+        return isError;
+    }
+
+    public Boolean validateAddressData(String value, String componentId) {
+        Boolean isError = Boolean.FALSE;
+
+        if (StringUtils.isBlank(value)) {
+            FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
+            isError = Boolean.TRUE;
+        } else if (!StringUtils.isAlphanumericSpace(value)) {
+            FacesUtilities.invalidFormatError(FacesContext.getCurrentInstance(), componentId);
             isError = Boolean.TRUE;
         }
 

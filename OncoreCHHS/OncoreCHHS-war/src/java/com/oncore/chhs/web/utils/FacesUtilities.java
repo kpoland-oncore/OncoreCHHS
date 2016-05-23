@@ -40,6 +40,22 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    public static void invalidFormatError(FacesContext context, String componentId) {
+        FacesMessage message = new FacesMessage();
+        message.setSummary("Value entered must be letters, numbers, or spaces.");
+        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+        context.addMessage(componentId, message);
+        context.renderResponse();
+    }
+
+    public static void invalidAlphaFormatError(FacesContext context, String componentId) {
+        FacesMessage message = new FacesMessage();
+        message.setSummary("Value entered must be letters or spaces.");
+        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+        context.addMessage(componentId, message);
+        context.renderResponse();
+    }
+
     public static void createPageLevelValidationError(FacesContext context) {
         FacesMessage message = new FacesMessage();
         message.setSummary("There are validation errors. Please correct the errors before proceeding.");

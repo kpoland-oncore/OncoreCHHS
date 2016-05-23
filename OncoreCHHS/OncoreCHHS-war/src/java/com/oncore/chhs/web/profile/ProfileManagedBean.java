@@ -72,6 +72,12 @@ public class ProfileManagedBean extends BaseManagedBean {
         try {
             if (this.profileValidationBean.validateUserName(this.getProfileBean().getUserName(), FORM_NAME + "userNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), FORM_NAME + "firstNameTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), FORM_NAME + "lastNameTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), FORM_NAME + "middleNameTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
             } else {
                 // determine if user already exists
                 LoginBean loginBean = new LoginBean();
