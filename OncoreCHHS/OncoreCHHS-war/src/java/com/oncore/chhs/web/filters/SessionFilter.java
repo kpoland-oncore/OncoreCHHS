@@ -28,7 +28,9 @@ import java.io.IOException;
 import java.util.Date;
 import javax.faces.application.ResourceHandler;
 import javax.inject.Inject;
+import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -43,8 +45,19 @@ import org.apache.logging.log4j.Logger;
  * @author oncore
  */
 @WebFilter(filterName = "sessionFilter", urlPatterns = {"/*"})
-public class SessionFilter {
+public class SessionFilter implements Filter {
 
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
+    public void destroy() {
+
+    }
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
 
@@ -55,7 +68,7 @@ public class SessionFilter {
             Boolean isResourceRequest = httpRequest.getRequestURI().startsWith(httpRequest.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER);
             Boolean isSessionValid = (httpRequest.getRequestedSessionId() != null) && !httpRequest.isRequestedSessionIdValid();
 
-            if (isSessionValid) {
+//            if (isSessionValid) {
 
                 if (!isResourceRequest) {
                     if (isLogoutRequest) {
@@ -64,20 +77,19 @@ public class SessionFilter {
                         httpRequest.getSession(false).invalidate();
                         httpRequest.logout();
 
-                        httpResponse.sendRedirect("index");
+                        httpResponse.sendRedirect("sessionexpired.xhtml");
                     } else {
                         httpResponse.setHeader("Cache-Control", "private, max-age=432000, no-cache");
                         httpResponse.setHeader("Pragma", "no-cache");
                         httpResponse.setDateHeader("Last-Modified", (new Date()).getTime());
 
-                        this.globalManagedBean.setAuthenticated(Boolean.TRUE);
                     }
                 }
 
-                if (!httpResponse.isCommitted()) {
-                    chain.doFilter(httpRequest, httpResponse);
-                }
+//            }
 
+            if (!httpResponse.isCommitted()) {
+                chain.doFilter(httpRequest, httpResponse);
             }
 
         } catch (IOException ix) {
@@ -95,4 +107,5 @@ public class SessionFilter {
     GlobalManagedBean globalManagedBean;
 
     private final Logger LOG = LogManager.getLogger(SessionFilter.class);
+
 }

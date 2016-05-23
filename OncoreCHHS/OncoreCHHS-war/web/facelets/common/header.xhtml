@@ -18,6 +18,7 @@
             
             <div class="container">
 
+                <a class="skip-main" href="#main">Skip to main content</a>
                 <!-- Logo -->
                 <h1><a href="#" id="logo">CHHS Foster Care Services</a></h1>
 
@@ -34,10 +35,24 @@
                         <li><b><a href="myprofile.xhtml">My Profile</a></b></li>
                         <li><b><a href="locate.xhtml">Locate Services</a></b></li>
                         <li><b><a href="messages.xhtml">Messages</a></b></li>
-                         
-                        <li><b><p:commandLink id="loginLink" rendered="#{!globalManagedBean.authenticated}" action="#{managedBean.handleHeaderNavigationClickEvent('login')}" value="#{globalManagedBean.loginText}" ajax="false"  /></b></li>
-                        <li><b><p:commandLink id="loginLink2" rendered="#{globalManagedBean.authenticated}" action="#{managedBean.handleHeaderNavigationClickEvent('')}" value="#{globalManagedBean.loginText}" ajax="false"  /></b></li>
+                        
+                        <c:choose>
                             
+                            <c:when test="#{!globalManagedBean.authenticated}">
+                                <li><b><a href="login.xhtml"><h:outputText value="#{globalManagedBean.loginText}"/></a></b></li>
+                            </c:when>
+                            
+                            <c:otherwise>
+                                
+                                
+                                <!--<li><b><p:commandLink id="loginLink2" action="#{managedBean.handleHeaderNavigationClickEvent('logout')}" value="Logout" ajax="false"  /></b></li>-->
+                            
+                                <li><b><a href="logout.xhtml"><h:outputText value="Logout"/></a></b></li>
+                                <li><b><a href="#"><h:outputText value="#{globalManagedBean.loginText}"/></a></b></li>
+                            </c:otherwise>
+                            
+                        </c:choose>
+                        
                         
                     </ul>
                 </nav>
