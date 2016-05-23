@@ -23,14 +23,11 @@
  */
 package com.oncore.chhs.web.login;
 
-import com.oncore.chhs.web.utils.FacesUtilities;
 import com.oncore.chhs.web.base.BaseValidationBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
