@@ -37,34 +37,38 @@
                     <p:messages id="messges" showSummary="true" showDetail="false"
                                 autoUpdate="true" globalOnly="true" display="text"
                                 escape="false"/>
- 
+
+
+
+                    <onc:inputText_1 id="userNameTxt"
+                                     label="User Name:"
+                                     labelStyleClass="form_label"
+                                     inputStyleClass="input_float_left"
+                                     requiredLabel="true"
+                                     maxlength="45"
+                                     size="20"
+                                     immediate="true"
+                                     errAlt=""
+                                     errMsgRendered="false"
+                                     value="#{managedBeanContent.userName}"/>
+
+
+                    
+                    
+                    
+                     
+                    
+                    
+                    
                     
                     <div class="row">
 
-
-                        <onc:inputText id="userNameTxt"
-                                       label="User Name:"
-                                       labelStyleClass="form_label_35"
-                                       requiredLabel="true"
-                                       maxLength="45"
-                                       size="25"
-                                       immediate="true"
-                                       errAlt=""
-                                       errMsgRendered="false"
-                                       value="#{managedBeanContent.userName}"/>
- 
-                    </div>
-                    
-                    
-                    <div class="row">
-                        
-                          <p:outputPanel layout="block" id="outerButtonPnl">
+                        <p:outputPanel layout="block" id="outerButtonPnl">
 
                             <p:outputPanel id="cancelButtonPnl" layout="block"
                                            styleClass="innerButtonGroup">
                                 <p:commandButton id="cancelBtn" value="Cancel" 
-                                                 styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
-                                                 oncomplete="PF('feedbackWdg').hide()"
+                                                 styleClass="buttonGroup" 
                                                  action="#{navigationManagedBean.navigateToLink('index', false)}"/>
                             </p:outputPanel>
                             <p:outputPanel id="loginButtonPnl" layout="block"
@@ -76,8 +80,8 @@
                             </p:outputPanel>
                             <p:blockUI block="loginButtonPnl" trigger="loginBtn"/>
                         </p:outputPanel>
-                        
-                        
+
+
                     </div>
 
                 </section>

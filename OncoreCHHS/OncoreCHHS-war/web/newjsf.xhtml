@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:onc="http://java.sun.com/jsf/composite/onc"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+<!--        <onc:selectOneMenu
+                    id="statesList"
+                    label="States:"
+                    labelStyleClass="form_label_35"
+                    requiredLabel="true"
+                    errAlt=""
+                    errMsgRendered="false"
+                    value="#{profileManagedBean.profileBean.state}"
+                    selValue="#{applicationManagedBean.states}"
+                    selVar="state"
+                    selItemValue="#{state.value}"
+                    selItemLabel="#{state.description}"/>-->
+        
+        
+        
+        <p:outputLabel for="console" value="Basic:" />
+        <p:selectOneMenu id="console" value="#{profileManagedBean.profileBean.state}" style="width:125px">
+            <f:selectItem itemLabel="Select One" itemValue="" />
+            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+        </p:selectOneMenu>
+    </h:body>
+</html>
+

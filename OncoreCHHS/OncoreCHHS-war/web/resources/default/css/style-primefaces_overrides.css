@@ -28,10 +28,10 @@ THE SOFTWARE.
 
 .ui-panelgrid{
     border: none !important;
-    background: red !important;
+    background: white !important;
 }
 
 .ui-panelgrid tr, .ui-panelgrid td{
     border: 0 !important;
-    background-color: transparent !important;
+    background-color: white !important;
 }

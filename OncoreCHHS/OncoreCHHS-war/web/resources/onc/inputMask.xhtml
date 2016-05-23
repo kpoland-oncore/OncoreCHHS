@@ -42,7 +42,8 @@
         <cc:attribute name="immediate" required="false" default="false" />
         <cc:attribute name="disabled" required="false" default="false" />
         <cc:attribute name="label" required="true" />
-        <cc:attribute name="maxlength" required="false"/>
+        <cc:attribute name="mask" required="true"/>
+        <cc:attribute name="placeHolder" required="true"/>
         <cc:attribute name="readonly" required="false" default="false"/>
         <cc:attribute name="size" required="false"/>
         <cc:attribute name="style" required="false" default=""/>
@@ -75,7 +76,7 @@
                 
                 
                 
-                <p:inputText 
+                <p:inputMask 
                     id="#{cc.attrs.id}"
                     rendered="#{cc.attrs.rendered}"
                     value="#{cc.attrs.value}"
@@ -83,23 +84,13 @@
                     immediate="#{cc.attrs.immediate}"
                     disabled="#{cc.attrs.disabled}"
                     label="#{cc.attrs.label}"
-                    maxlength="#{cc.attrs.maxlength}"
+                    mask="#{cc.attrs.mask}"
+                    placeHolder="#{cc.attrs.placeHolder}"
                     readonly="#{cc.attrs.readonly}"
                     size="#{cc.attrs.size}"
                     inputStyleClass="#{cc.attrs.inputStyleClass}"
-                     >
-
-                    <!-- Converter -->
-                    <c:if test="#{cc.attrs.converter ne ''}">
-                        <f:converter converterId="#{cc.attrs.converter}" for="#{cc.attrs.id}" />
-                    </c:if>
-                    <!-- End Converter -->
-
-                </p:inputText>
-
-               
-                
-                 
+                    />
+  
                 <h:outputText/>
                 
                 

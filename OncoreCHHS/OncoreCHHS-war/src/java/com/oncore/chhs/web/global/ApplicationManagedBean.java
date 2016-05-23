@@ -24,13 +24,20 @@
 package com.oncore.chhs.web.global;
 
 import com.oncore.chhs.web.base.BaseManagedBean;
+import com.oncore.chhs.web.entities.AdrStateCd;
+import com.oncore.chhs.web.entities.EmcTypeCd;
+import com.oncore.chhs.web.exceptions.WebServiceException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.enterprise.context.SessionScoped;
+import javax.ejb.LocalBean;
+import javax.ejb.Startup;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -39,18 +46,18 @@ import org.apache.logging.log4j.Logger;
  * @author oncore
  */
 @Named("applicationManagedBean")
-//@Singleton
-//@LocalBean
-//@Startup
-@SessionScoped
-public class ApplicationManagedBean extends BaseManagedBean{
+@Singleton
+@LocalBean
+@Startup
+public class ApplicationManagedBean extends BaseManagedBean {
 
     @Override
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing ApplicationManagedBean: " + this.getClass().hashCode());
-        
+
         this.loadStates();
+        this.loadContacts();
     }
 
     @Override
@@ -61,26 +68,66 @@ public class ApplicationManagedBean extends BaseManagedBean{
 
     private void loadStates() {
 
-        SelectItem item = new SelectItem();
-        item.setValue("-1");
-        item.setLabel("<Select>");
-        item.setDescription("<Select>");
+        List<AdrStateCd> stateCodes = null;
+        SelectItem item = null;
 
-        this.states.add(item);
+        try {
 
-        item = new SelectItem();
-        item.setValue("AK");
-        item.setLabel("AK");
-        item.setDescription("Alaska");
+            stateCodes = this.referenceDataManagedBean.fetchStateCodes();
 
-        this.states.add(item);
+            if (CollectionUtils.isNotEmpty(stateCodes)) {
+                item = new SelectItem();
+                item.setValue("Select");
+                item.setLabel("<Select>");
+                item.setDescription("<Select>");
+                this.states.add(item);
 
-        item = new SelectItem();
-        item.setValue("AL");
-        item.setLabel("AL");
-        item.setDescription("Alabama");
+                int i = 0;
+                
+                for (AdrStateCd state : stateCodes) {
+                    if(i<5)
+                    {
+                    item = new SelectItem();
+                    item.setValue(state.getCode());
+                    item.setLabel(state.getLongDesc());
+                    item.setDescription(state.getLongDesc());
+                    this.states.add(item);
+                    i++;
+                    }
+                }
+            }
+        } catch (WebServiceException wx) {
+            LOG.error(wx);
+        }
 
-        this.states.add(item);
+    }
+
+    private void loadContacts() {
+
+        List<EmcTypeCd> contactCodes = null;
+        SelectItem item = null;
+
+        try {
+            contactCodes = this.referenceDataManagedBean.fetchContactCodes();
+
+            if (CollectionUtils.isNotEmpty(contactCodes)) {
+                item = new SelectItem();
+                item.setValue("Select");
+                item.setLabel("<Select>");
+                item.setDescription("<Select>");
+                this.contactTypes.add(item);
+
+                for (EmcTypeCd contact : contactCodes) {
+                    item = new SelectItem();
+                    item.setValue(contact.getCode());
+                    item.setLabel(contact.getLongDesc());
+                    item.setDescription(contact.getLongDesc());
+                    this.contactTypes.add(item);
+                }
+            }
+        } catch (WebServiceException wx) {
+            LOG.error(wx);
+        }
 
     }
 
@@ -88,6 +135,9 @@ public class ApplicationManagedBean extends BaseManagedBean{
      * @return the states
      */
     public List<SelectItem> getStates() {
+        if (CollectionUtils.isEmpty(states)) {
+            loadStates();
+        }
         return states;
     }
 
@@ -116,6 +166,11 @@ public class ApplicationManagedBean extends BaseManagedBean{
      * @return the contactTypes
      */
     public List<SelectItem> getContactTypes() {
+        if (CollectionUtils.isEmpty(contactTypes)) {
+            this.loadContacts();
+
+        }
+
         return contactTypes;
     }
 
@@ -125,6 +180,9 @@ public class ApplicationManagedBean extends BaseManagedBean{
     public void setContactTypes(List<SelectItem> contactTypes) {
         this.contactTypes = contactTypes;
     }
+
+    @Inject
+    AbstractReferenceDataManagedBean referenceDataManagedBean;
 
     private List<SelectItem> states = new ArrayList<>(1);
     private List<SelectItem> countries = new ArrayList<>(1);
