@@ -88,7 +88,7 @@
     <!-- END OPTIMIZATIONS -->
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>south-street</param-value>
+        <param-value>smoothness</param-value>
     </context-param>
 
     <welcome-file-list>

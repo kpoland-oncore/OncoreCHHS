@@ -55,7 +55,7 @@
         <cc:attribute name="labelStyleClass" required="false" default="nostyle" />
         <cc:attribute name="inputStyleClass" required="false" default="" />
         <cc:attribute name="requiredLabel" required="true" />
-        <cc:attribute name="errMsgRendered" required="true" />
+        <cc:attribute name="errMsgRendered" required="false" />
         <cc:attribute name="errAlt" required="false" default=""/>
         <cc:attribute name="converter" required="false" default=""/>
         <!-- End Custom Properties -->
@@ -96,18 +96,16 @@
                     <!-- End Converter -->
 
                 </p:inputText>
-
-               
-                
                  
                 <h:outputText/>
                 
-                
-                 
-                <p:message for="#{cc.attrs.id}" showDetail="true" showSummary="false" display="text"/>
+                <p:message for="#{cc.attrs.id}" showDetail="true" showSummary="true" display="text"/>
+
                
 
             </p:panelGrid>
+            
+            
         </div>
 
 
