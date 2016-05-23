@@ -29,8 +29,8 @@ import com.oncore.chhs.web.base.BaseBean;
  *
  * @author oncore
  */
-public class ProfileBean extends BaseBean{
-    
+public class ProfileBean extends BaseBean {
+
     // some early example properties
     //TODO: add all properties needed for the profile page
     private String userName;
@@ -42,9 +42,9 @@ public class ProfileBean extends BaseBean{
     private String city;
     private String state;
     private String zip;
+    private String phoneType;
     private String phone;
     private String email;
-    
 
     /**
      * @return the userName
@@ -173,6 +173,20 @@ public class ProfileBean extends BaseBean{
     }
 
     /**
+     * @return the phoneType
+     */
+    public String getPhoneType() {
+        return this.phoneType;
+    }
+
+    /**
+     * @param phoneType the phoneType to set
+     */
+    public void setPhoneType(String phoneType) {
+        this.phoneType = phoneType;
+    }
+
+    /**
      * @return the phone
      */
     public String getPhone() {
@@ -199,5 +213,5 @@ public class ProfileBean extends BaseBean{
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
 }

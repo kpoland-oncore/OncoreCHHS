@@ -81,6 +81,21 @@ public class EmcTypeCdFacadeREST extends AbstractFacade<EmcTypeCd> {
     }
 
     @GET
+    @Path("{emcTypeCd}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public EmcTypeCd findByCode(@PathParam("emcTypeCd") String emcTypeCd) {
+        EmcTypeCd emcTypeCdEntity = null;
+
+        List<EmcTypeCd> emcTypeCdResult = (List<EmcTypeCd>) em.createNamedQuery("EmcTypeCd.findByCode").setParameter("code", emcTypeCd).getResultList();
+
+        if (emcTypeCdResult != null && emcTypeCdResult.size() == 1) {
+            emcTypeCdEntity = emcTypeCdResult.get(0);
+        }
+
+        return emcTypeCdEntity;
+    }
+
+    @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<EmcTypeCd> findAll() {
@@ -105,5 +120,5 @@ public class EmcTypeCdFacadeREST extends AbstractFacade<EmcTypeCd> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

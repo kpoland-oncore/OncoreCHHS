@@ -35,14 +35,14 @@ public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
     
     /**
      * The <code>findProfileByUserId</code> method retrieves a user profile
-     * by userId
+     * by userUid
      * 
-     * @param userId a valid userId
+     * @param userUid a valid users uid
      * @return a populated <code>ProfileBean</code> if a profile is found, 
      * null otherwise
      * @throws WebServiceException 
      */
-    public ProfileBean findProfileByUserId(Integer userId) throws WebServiceException;
+    public ProfileBean findProfileByUserUid(Integer userUid) throws WebServiceException;
     
     /**
      * The <code>createProfile</code> method creates a new profile. The method
