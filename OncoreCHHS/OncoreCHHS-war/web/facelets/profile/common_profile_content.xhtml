@@ -107,7 +107,7 @@
  
 
  
-            <onc:selectOneMenu
+            <onc:selectOneMenuStates
                 id="statesList" 
                 label="States:"
                 labelStyleClass="form_label"
@@ -116,10 +116,7 @@
                 errAlt=""
                 errMsgRendered="false"
                 value="#{profileManagedBean.profileBean.state}"
-                selValue="#{applicationManagedBean.states}"
-                selVar="state"
-                selItemValue="#{state.value}"
-                selItemLabel="#{state.label}"/>
+               />
 
       
              <onc:inputMask id="zipMsk"

@@ -1,0 +1,177 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:cc="http://java.sun.com/jsf/composite">
+
+
+    <!--
+The MIT License
+
+Copyright 2016 oncore.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+    -->
+    <!-- 
+        Created on : May 19, 2016, 9:52:15 AM
+        Author     : oncore
+    -->
+
+
+
+    <cc:interface>
+
+
+        <!-- Standard Properties -->
+        <cc:attribute name="label" required="true"/>
+        <cc:attribute name="id" required="false" />
+        <cc:attribute name="value" required="true" />
+        <cc:attribute name="rendered" required="false" default="true" />
+        <cc:attribute name="immediate" required="false" default="false" />
+        <cc:attribute name="required" required="false" default="false" />
+        <cc:attribute name="disabled" required="false" default="false" />
+        <cc:attribute name="readonly" required="false" default="false"/>
+        <cc:attribute name="editable" required="false" default="false"/>
+        <!-- End Standard Properties -->
+        <!-- Custom Properties -->
+        <cc:attribute name="labelStyleClass" required="false" default="" />
+        <cc:attribute name="inputStyleClass" required="false" default="" />
+        <cc:attribute name="requiredLabel" required="false" default="false"/>
+        <cc:attribute name="errMsgRendered" required="false" default="false" />
+        <cc:attribute name="errAlt" required="false" default=""/>
+        <cc:attribute name="selValue" required="false"/>
+        <cc:attribute name="selVar" required="false"/>
+        <cc:attribute name="selItemValue" required="false"/>
+        <cc:attribute name="selItemLabel" required="false"/>
+        <!-- End Custom Properties -->
+    </cc:interface>
+
+    <cc:implementation>
+
+
+
+      
+            <p:panelGrid id="#{cc.attrs.id}_pnl" columns="2" columnClasses="column_1_class,column_2_class" role="presentation">
+
+
+                <p:outputLabel for="#{cc.attrs.id}" styleClass="#{cc.attrs.labelStyleClass}">
+                    <h:outputText value="#{cc.attrs.label}" rendered="#{!cc.attrs.requiredLabel}"/> 
+                    <h:outputText value="*#{cc.attrs.label}" rendered="#{cc.attrs.requiredLabel}"/>
+                </p:outputLabel>
+
+
+
+
+ 
+
+<!--<f:selectItems value="#{cc.attrs.selValue}" var="#{cc.attrs.selVar}"
+                                   itemValue="#{cc.attrs.selItemValue}" itemLabel="#{cc.attrs.selItemLabel}" />-->
+                <p:selectOneMenu 
+                    id="#{cc.attrs.id}"
+                    value="#{cc.attrs.value}"
+                    rendered="#{cc.attrs.rendered}"
+                    immediate="#{cc.attrs.immediate}"
+                    required="#{cc.attrs.required}"
+                    readonly="#{cc.attrs.readonly}" 
+                    effect="none"
+                    filter="true"
+                    filterMatchMode="contains"
+                    style="float: left; width: 9em;"
+                    editable="#{cc.attrs.editable}">
+                   
+                    <f:selectItem itemLabel="Alaska" itemValue="AK"/>
+                    <f:selectItem itemLabel="Alabama" itemValue="AL"/>
+                    <f:selectItem itemLabel="Arkansas" itemValue="AR"/>
+                    <f:selectItem itemLabel="American Samoa" itemValue="AS"/>
+                    <f:selectItem itemLabel="Arizona" itemValue="AZ"/>
+                    <f:selectItem itemLabel="California" itemValue="CA"/>
+                    <f:selectItem itemLabel="Colorado" itemValue="CO"/>
+                    <f:selectItem itemLabel="Connecticut" itemValue="CT"/>
+                    <f:selectItem itemLabel="District of Columbia" itemValue="DC"/>
+                    <f:selectItem itemLabel="Delaware" itemValue="DE"/>
+                    <f:selectItem itemLabel="Florida" itemValue="FL"/>
+                    <f:selectItem itemLabel="Georgia" itemValue="GA"/>
+                    <f:selectItem itemLabel="Guam" itemValue="GU"/>
+                    <f:selectItem itemLabel="Hawaii" itemValue="HI"/>
+                    <f:selectItem itemLabel="Iowa" itemValue="IA"/>
+                    <f:selectItem itemLabel="Idaho" itemValue="ID"/>
+                    <f:selectItem itemLabel="Illinois" itemValue="IL"/>
+                    <f:selectItem itemLabel="Indiana" itemValue="IN"/>
+                    <f:selectItem itemLabel="Kansas" itemValue="KS"/>
+                    <f:selectItem itemLabel="Kentucky" itemValue="KY"/>
+                    <f:selectItem itemLabel="Louisiana" itemValue="LA"/>
+                    <f:selectItem itemLabel="Massachusetts" itemValue="MA"/>
+                    <f:selectItem itemLabel="Maryland" itemValue="MD"/>
+                    <f:selectItem itemLabel="Maine" itemValue="ME"/>
+                    <f:selectItem itemLabel="Michigan" itemValue="MI"/>
+                    <f:selectItem itemLabel="Minnesota" itemValue="MN"/>
+                    <f:selectItem itemLabel="Missouri" itemValue="MO"/>
+                    <f:selectItem itemLabel="Northern Mariana Islands" itemValue="MP"/>
+                    <f:selectItem itemLabel="Mississippi" itemValue="MS"/>
+                    <f:selectItem itemLabel="Montana" itemValue="MT"/>
+                    <f:selectItem itemLabel="North Carolina" itemValue="NC"/>
+                    <f:selectItem itemLabel="North Dakota" itemValue="ND"/>
+                    <f:selectItem itemLabel="Nebraska" itemValue="NE"/>
+                    <f:selectItem itemLabel="New Hampshire" itemValue="NH"/>
+                    <f:selectItem itemLabel="New Jersey" itemValue="NJ"/>
+                    <f:selectItem itemLabel="New Mexico" itemValue="NM"/>
+                    <f:selectItem itemLabel="Nevada" itemValue="NV"/>
+                    <f:selectItem itemLabel="New York" itemValue="NY"/>
+                    <f:selectItem itemLabel="Ohio" itemValue="OH"/>
+                    <f:selectItem itemLabel="Oklahoma" itemValue="OK"/>
+                    <f:selectItem itemLabel="Oregon" itemValue="OR"/>
+                    <f:selectItem itemLabel="Pennsylvania" itemValue="PA"/>
+                    <f:selectItem itemLabel="Puerto Rico" itemValue="PR"/>
+                    <f:selectItem itemLabel="Rhode Island" itemValue="RI"/>
+                    <f:selectItem itemLabel="South Carolina" itemValue="SC"/>
+                    <f:selectItem itemLabel="South Dakota" itemValue="SD"/>
+                    <f:selectItem itemLabel="Tennessee" itemValue="TN"/>
+                    <f:selectItem itemLabel="Texas" itemValue="TX"/>
+                    <f:selectItem itemLabel="Utah" itemValue="UT"/>
+                    <f:selectItem itemLabel="Virginia" itemValue="VA"/>
+                    <f:selectItem itemLabel="U.S. Virgin Islands" itemValue="VI"/>
+                    <f:selectItem itemLabel="Vermont" itemValue="VT"/>
+                    <f:selectItem itemLabel="Washington" itemValue="WA"/>
+                    <f:selectItem itemLabel="Wisconsin" itemValue="WI"/>
+                    <f:selectItem itemLabel="West Virginia" itemValue="WV"/>
+                    <f:selectItem itemLabel="Wyoming" itemValue="WY"/>
+  
+
+                </p:selectOneMenu>
+
+                <!-- End selectOneMenu -->
+
+                <h:outputText/>
+
+
+                <p:message for="#{cc.attrs.id}" showDetail="true" showSummary="false" display="text"/>
+
+
+
+            </p:panelGrid>
+       
+
+
+    </cc:implementation>
+</html>
