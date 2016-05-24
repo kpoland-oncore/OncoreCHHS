@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+    </h:head>
+
+
+    <ui:composition>
+               <p:dataTable id="outboxTableLarge" var="messageBean"
+                     styleClass="contentLarge"
+                     value="#{managedBean.outBoxList}"
+                     summary="Outbox results"  
+                     sortBy="#{messageBean.sentDate}" sortOrder="descending"
+                     paginator="true" rows="20" paginatorPosition="bottom"
+                     paginatorAlwaysVisible="false"
+                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="20,40,60">
+
+            <p:column sortBy="#{messageBean.sentDate}"
+
+                      style=" text-align: left;">
+                <f:facet name="header">
+                    <h:outputText value="&nbsp;&nbsp;Sent Date" />
+                </f:facet>
+                <h:outputText value="#{messageBean.sentDate}" />
+            </p:column>
+
+ 
+
+            <p:column sortBy="#{messageBean.message}"
+
+
+                      style="text-align: left;">
+                <f:facet name="header">
+                    <h:outputText value="&nbsp;&nbsp;Message" />
+                </f:facet>
+                <h:outputText value="#{messageBean.message}" />
+            </p:column>
+
+ 
+        </p:dataTable>
+
+    </ui:composition>
+
+
+</html>

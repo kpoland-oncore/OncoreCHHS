@@ -32,7 +32,6 @@ import com.oncore.chhs.web.utils.FacesUtilities;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.LogManager;

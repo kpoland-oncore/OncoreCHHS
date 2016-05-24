@@ -4,15 +4,18 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:onc="http://java.sun.com/jsf/composite/onc"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/facelets/templates/reduced_layout.xhtml">
 
 
 
+        <ui:param name="managedBean" value="#{messageManagedBean}"/>
+        <ui:param name="managedBeanContent" value="#{messageManagedBean.searchBean}"/>
 
-
-    <ui:composition template="/facelets/templates/main_layout.xhtml">
-
-        <ui:param name="managedBean" value="#{homeManagedBean}"/>
 
 
         <ui:define name="title">
@@ -24,19 +27,76 @@
             <!-- Main -->
             <div id="main" class="wrapper style1">
                 <section class="container">
+                    <a name="skip_main_content"/>
                     <header class="major">
-                        <h2>California Health and Human Services</h2>
-                        <span class="byline">Available Services</span>
+                        <h2>Message</h2>
+
                     </header>
+
+                    <p:messages id="messges" showSummary="true" showDetail="false"
+                                autoUpdate="true" globalOnly="false" display="text"
+                                escape="false"/>
+
+
+                    <p:panel id="searchPnl" header="Send/Receive Messages" toggleable="false">
+                        <onc:inputTextArea id="messageTxt"
+                                           label="Message:"
+                                           labelStyleClass="form_label"
+                                           inputStyleClass="input_float_left"
+                                           requiredLabel="true"
+                                           maxlength="2048"
+                                           size="10"
+                                           immediate="true"
+                                           errAlt=""
+                                           errMsgRendered="false"
+                                           value="#{managedBeanContent.message}"/>
+
+
+
+
+                        <p:panel id="inboxPnl" header="Inbox" toggleable="true">
+                            <ui:include src="/facelets/messages/inbox_table_large.xhtml" />
+                            <ui:include src="/facelets/messages/inbox_table_small.xhtml" />
+                        </p:panel>
+
+                        <p:spacer height="5"/>
+
+                        <p:panel id="outboxPnl" header="Outbox" toggleable="true">
+                            <ui:include src="/facelets/messages/outbox_table_large.xhtml" />
+                            <ui:include src="/facelets/messages/outbox_table_small.xhtml" />
+                        </p:panel>
+
+
+                    </p:panel>
+
+                    <p:spacer height="10"/>
+
                     <div class="row">
 
-                        <!-- Content -->
+                        <p:outputPanel layout="block" id="outerButtonPnl">
 
+                            <p:outputPanel id="cancelButtonPnl" layout="block"
+                                           styleClass="innerButtonGroup">
+                                <p:commandButton id="cancelBtn" value="Cancel" 
+                                                 styleClass="buttonGroup" 
+                                                 action="#{navigationManagedBean.navigateToLink('index', false)}"/>
+                            </p:outputPanel>
+                            <p:outputPanel id="sendButtonPnl" layout="block"
+                                           styleClass="innerButtonGroup">
+                                <p:commandButton id="searchBtn" value="Send" 
+                                                 styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
+                                                 oncomplete="PF('feedbackWdg').hide()"
+                                                 update="@form"
+                                                 action="#{managedBean.handleSendButtonClickEvent()}"/>
+                            </p:outputPanel>
+                            <p:blockUI block="sendButtonPnl" trigger="sendBtn"/>
+                        </p:outputPanel>
 
-                        under construction
 
                     </div>
+
                 </section>
+
             </div>
         </ui:define>
 

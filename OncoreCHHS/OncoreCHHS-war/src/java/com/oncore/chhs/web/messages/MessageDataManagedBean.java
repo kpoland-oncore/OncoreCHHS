@@ -26,6 +26,7 @@ package com.oncore.chhs.web.messages;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.services.UsersFacadeREST;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -61,17 +62,17 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
 
     @Override
     public List<MessageBean> fetchInbox(Users users, Date oldestDate) throws WebServiceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         return new ArrayList<>();
     }
 
     @Override
     public List<MessageBean> fetchOutbox(Users users, Date oldestDate) throws WebServiceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayList<>();
     }
 
     @Override
     public void sendMessage(String message, Users users) throws WebServiceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     private final Logger LOG = LogManager.getLogger(MessageDataManagedBean.class);
