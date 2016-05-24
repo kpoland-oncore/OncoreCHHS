@@ -53,7 +53,7 @@
 
 
 
-                       
+
 
 
 
@@ -148,80 +148,8 @@
 
 
 
-
-                        <!-- for now disable filtering -->
-                        <p:dataTable id="locateTable" var="searchBean"
-                                     value="#{managedBean.searchBeanList}"
-                                     summary="Search results"  
-                                     sortBy="#{searchBean.facilityName}" sortOrder="ascending"
-                                     paginator="true" rows="20" paginatorPosition="bottom"
-                                     paginatorAlwaysVisible="false"
-                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="20,40,60">
-
-                            <p:column sortBy="#{searchBean.facilityName}"
-                                       
-                                      style="width:25%; text-align: left;">
-                                <f:facet name="header">
-                                    <h:outputText value="&nbsp;&nbsp;Facility Name" />
-                                </f:facet>
-                                <h:outputText value="#{searchBean.facilityName}" />
-                            </p:column>
-
-
-                            <p:column sortBy="#{searchBean.facilityTelephone}"
-                                      
-
-                                      style="width:15%; text-align: left;">
-                                <f:facet name="header">
-                                    <h:outputText value="&nbsp;&nbsp;Phone" />
-                                </f:facet>
-                                <h:outputText value="#{searchBean.facilityTelephone}" />
-                            </p:column>
-
-
-                            <p:column sortBy="#{searchBean.facilityAddress}"
-                                      
-
-                                      style="width:25%; text-align: left;">
-                                <f:facet name="header">
-                                    <h:outputText value="&nbsp;&nbsp;Address" />
-                                </f:facet>
-                                <h:outputText value="#{searchBean.facilityAddress}" />
-                            </p:column>
-
-
-                            <p:column sortBy="#{searchBean.facilityCity}"
-                                      
-                                      style="width:15%; text-align: left;">
-                                <f:facet name="header">
-                                    <h:outputText value="&nbsp;&nbsp;City" />
-                                </f:facet>
-                                <h:outputText value="#{searchBean.facilityCity}" />
-                            </p:column>
-
-
-                            <p:column sortBy="#{searchBean.facilityState}"
-                                    
-
-                                      style="width:10%; text-align: left;">
-                                <f:facet name="header">
-                                    <h:outputText value="&nbsp;&nbsp;State" />
-                                </f:facet>
-                                <h:outputText value="#{searchBean.facilityState}" />
-                            </p:column>
-
-
-                            <p:column sortBy="#{searchBean.facilityZip}"
-                                       
-                                      style="width:10%; text-align: left;">
-                                <f:facet name="header">
-                                    <h:outputText value="&nbsp;&nbsp;Zip" />
-                                </f:facet>
-                                <h:outputText value="#{searchBean.facilityZip}" />
-                            </p:column>
-
-                        </p:dataTable>
+                        <ui:include src="/facelets/locate/search_table_large.xhtml" />
+                        <ui:include src="/facelets/locate/search_table_small.xhtml" />
 
 
 

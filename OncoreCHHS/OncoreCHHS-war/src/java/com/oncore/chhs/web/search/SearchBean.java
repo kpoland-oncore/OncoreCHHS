@@ -25,13 +25,14 @@ package com.oncore.chhs.web.search;
 
 import com.oncore.chhs.web.base.BaseBean;
 import java.util.Date;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author oncore
  */
 public class SearchBean extends BaseBean {
-    
+
     private String facilityType;
     private String facilityNumber;
     private String facilityName;
@@ -51,6 +52,7 @@ public class SearchBean extends BaseBean {
     private String location;
     private String latitude;
     private String zipForSearch;
+    private String calculatedAddress;
 
     /**
      * @return the facilityType
@@ -317,8 +319,46 @@ public class SearchBean extends BaseBean {
     public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
-    
-    
-    
-    
+
+    /**
+     * @return the calculatedAddress
+     */
+    public String getCalculatedAddress() {
+        // for small devices we need to crunch the data
+        // down into one column
+        StringBuilder builder = new StringBuilder();
+
+        if (StringUtils.isNotBlank(this.getFacilityAddress())) {
+            builder.append(this.facilityAddress).append("\n");
+        }
+
+        if (StringUtils.isNotBlank(this.getFacilityCity())) {
+            builder.append(this.facilityCity);
+        }
+
+        if (StringUtils.isNotBlank(this.getFacilityState())) {
+            builder.append(this.getFacilityState());
+        }
+
+        if (StringUtils.isNotBlank(this.getFacilityZip())) {
+            builder.append(this.getFacilityZip());
+        }
+        
+        if(StringUtils.isNotBlank(builder.toString()))
+        {
+            builder.append("\n").append(this.getFacilityTelephone());
+        }
+
+        this.calculatedAddress = builder.toString();
+
+        return calculatedAddress;
+    }
+
+    /**
+     * @param calculatedAddress the calculatedAddress to set
+     */
+    public void setCalculatedAddress(String calculatedAddress) {
+        this.calculatedAddress = calculatedAddress;
+    }
+
 }

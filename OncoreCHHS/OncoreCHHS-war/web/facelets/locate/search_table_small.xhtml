@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+    </h:head>
+
+
+    <ui:composition>
+        <p:dataTable id="searchTableSmall" var="searchBean"
+                     styleClass="contentSmall"
+                     value="#{managedBean.searchBeanList}"
+                     summary="Search results"  
+                     sortBy="#{searchBean.facilityName}" sortOrder="ascending"
+                     paginator="true" rows="20" paginatorPosition="bottom"
+                     paginatorAlwaysVisible="false"
+                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     rowsPerPageTemplate="20,40,60">
+
+            <p:column sortBy="#{searchBean.facilityName}"
+                      style=" text-align: left;">
+                <f:facet name="header">
+                    <h:outputText value="&nbsp;&nbsp;Facility Name" />
+                </f:facet>
+                <h:outputText value="#{searchBean.facilityName}" />
+            </p:column>
+
+ 
+
+            <p:column sortBy="#{searchBean.calculatedAddress}"
+                      style=" text-align: left;">
+                <f:facet name="header">
+                    <h:outputText value="&nbsp;&nbsp;Address" />
+                </f:facet>
+                <h:outputText value="#{searchBean.calculatedAddress}" />
+            </p:column>
+ 
+
+        </p:dataTable>
+
+    </ui:composition>
+
+
+</html>
