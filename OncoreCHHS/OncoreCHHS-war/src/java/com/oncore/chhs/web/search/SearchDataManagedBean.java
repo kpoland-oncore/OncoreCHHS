@@ -23,8 +23,13 @@
  */
 package com.oncore.chhs.web.search;
 
+import com.oncore.chhs.web.clients.FosterFamilyAgencyJsonClient;
+import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.services.UsersFacadeREST;
+import com.oncore.chhs.web.utils.ErrorUtils;
+import com.oncore.chhs.web.utils.helper.SearchHelper;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -57,11 +62,33 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         LOG.debug("Destroying SearchDataManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     *
+     *
+     * @param zip
+     *
+     * @return
+     *
+     * @throws WebServiceException
+     */
     @Override
     public List<SearchBean> search(String zip) throws WebServiceException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<SearchBean> agencies = new ArrayList<>();
+
+        try {
+            List<FosterFamilyAgency> fosterFamilyAgencyList = FosterFamilyAgencyJsonClient.getFosterFamilyAgency(zip);
+
+            if (null != null) {
+                for (FosterFamilyAgency agency : fosterFamilyAgencyList) {
+                    agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
+                }
+            }
+        } catch (Exception ex) {
+            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+        }
+
+        return agencies;
     }
 
     private final Logger LOG = LogManager.getLogger(SearchDataManagedBean.class);
-
 }

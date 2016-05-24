@@ -48,14 +48,13 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
     @EJB
     private UsersFacadeREST usersFacadeREST;
 
-    
-     @Override
+    @Override
     public Users createUser(ProfileBean profileBean) throws WebServiceException {
-        
+
         Users users = new Users();
-        
+
         try {
-            
+
             users.setCreateUserId(profileBean.getUserName());
             users.setCreateTs(new Date());
             users.setUpdateUserId(profileBean.getUserName());
@@ -65,17 +64,16 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
             users.setUsrLastname(profileBean.getLastName());
             users.setUsrUserId(profileBean.getUserName());
             users.setUsrPassword("notused");
-            
+
             usersFacadeREST.create(users);
-            
+
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
 
         return users;
     }
-    
-    
+
     @Override
     public Users authenticateUser(LoginBean loginBean) throws WebServiceException {
 
@@ -102,7 +100,7 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
         LOG.debug("Destroying LoginDataManagedBean: " + this.getClass().hashCode());
     }
 
-    private final Logger LOG = LogManager.getLogger(LoginDataManagedBean.class);
+    private final Logger LOG = LogManager.getLogger(LoginDataManagedBean.class
+    );
 
-   
 }

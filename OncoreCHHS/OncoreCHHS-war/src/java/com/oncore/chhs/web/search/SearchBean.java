@@ -31,7 +31,7 @@ import java.util.Date;
  * @author oncore
  */
 public class SearchBean extends BaseBean {
-    
+
     private String facilityType;
     private String facilityNumber;
     private String facilityName;
@@ -48,7 +48,8 @@ public class SearchBean extends BaseBean {
     private String facilityStatus;
     private Date licenseFirstDate;
     private Date closeDate;
-    private String location;
+    private String latitude;
+    private String longitude;
     private String zipForSearch;
 
     /**
@@ -276,20 +277,6 @@ public class SearchBean extends BaseBean {
     }
 
     /**
-     * @return the location
-     */
-    public String getLocation() {
-        return location;
-    }
-
-    /**
-     * @param location the location to set
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    /**
      * @return the zipForSearch
      */
     public String getZipForSearch() {
@@ -302,8 +289,32 @@ public class SearchBean extends BaseBean {
     public void setZipForSearch(String zipForSearch) {
         this.zipForSearch = zipForSearch;
     }
-    
-    
-    
-    
+
+    /**
+     * @return the latitude
+     */
+    public String getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * @param latitude the latitude to set
+     */
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    /**
+     * @return the longitude
+     */
+    public String getLongitude() {
+        return longitude;
+    }
+
+    /**
+     * @param longitude the longitude to set
+     */
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
 }
