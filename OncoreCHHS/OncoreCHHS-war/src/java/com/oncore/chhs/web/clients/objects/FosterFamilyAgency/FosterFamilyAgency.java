@@ -40,7 +40,7 @@ public class FosterFamilyAgency {
     private String facility_telephone_number;
     private String facility_type;
     private String facility_zip;
-    private Location location;
+//    private Location location;
     private String location_address;
     private String location_city;
     private String location_zip;
@@ -207,19 +207,19 @@ public class FosterFamilyAgency {
         this.facility_zip = facility_zip;
     }
 
-    /**
-     * @return the location
-     */
-    public Location getLocation() {
-        return location;
-    }
-
-    /**
-     * @param location the location to set
-     */
-    public void setLocation(Location location) {
-        this.location = location;
-    }
+//    /**
+//     * @return the location
+//     */
+//    public Location getLocation() {
+//        return location;
+//    }
+//
+//    /**
+//     * @param location the location to set
+//     */
+//    public void setLocation(Location location) {
+//        this.location = location;
+//    }
 
     /**
      * @return the location_address

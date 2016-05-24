@@ -36,6 +36,7 @@ import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -78,7 +79,7 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         try {
             List<FosterFamilyAgency> fosterFamilyAgencyList = FosterFamilyAgencyJsonClient.getFosterFamilyAgency(zip);
 
-            if (null != null) {
+            if (CollectionUtils.isNotEmpty(fosterFamilyAgencyList)) {
                 for (FosterFamilyAgency agency : fosterFamilyAgencyList) {
                     agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
                 }

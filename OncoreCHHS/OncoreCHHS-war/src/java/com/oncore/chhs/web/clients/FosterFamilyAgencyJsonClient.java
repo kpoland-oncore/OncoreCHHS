@@ -24,17 +24,18 @@
 package com.oncore.chhs.web.clients;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -48,8 +49,6 @@ public class FosterFamilyAgencyJsonClient {
 
     public static List<FosterFamilyAgency> getFosterFamilyAgency(String zipCode) throws Exception {
 
-        List<FosterFamilyAgency> familyAgencyList = null;
-
         try {
             String url = DEFAULT_URL;
 
@@ -57,19 +56,15 @@ public class FosterFamilyAgencyJsonClient {
                 url = DEFAULT_URL + URL_ZIPCODE + zipCode;
             }
 
-            Reader reader = new InputStreamReader(new URL(url).openStream());
+            String json = IOUtils.toString(new URL(url));
 
-            Gson gson = new GsonBuilder().create();
-//            FosterFamilyAgency[] fosterFamilyAgencies = gson.fromJson(reader, FosterFamilyAgency[].class);
-            FosterFamilyAgency fosterFamilyAgencies = gson.fromJson(reader, FosterFamilyAgency.class);
-
-            if (null != fosterFamilyAgencies) {
-                familyAgencyList = Arrays.asList(fosterFamilyAgencies);
-            }
+            List<FosterFamilyAgency> familyAgencyList = new Gson().fromJson(json, new TypeToken<ArrayList<FosterFamilyAgency>>() {
+            }.getType());
 
             return familyAgencyList;
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
     }
+
 }

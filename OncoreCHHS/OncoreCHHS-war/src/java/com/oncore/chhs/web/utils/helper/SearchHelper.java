@@ -57,7 +57,7 @@ public class SearchHelper {
 //        searchBean.setLicenseFirstDate(agency.get);
 //        searchBean.setLicensee(agency.get);
         searchBean.setRegionalOffice(agency.getReginal_office());
-        searchBean.setLatitude(agency.getLocation().getCoordinates());
+//        searchBean.setLatitude(agency.getLocation().getCoordinates());
 //        searchBean.setLongitude(longitude);
 
         return searchBean;

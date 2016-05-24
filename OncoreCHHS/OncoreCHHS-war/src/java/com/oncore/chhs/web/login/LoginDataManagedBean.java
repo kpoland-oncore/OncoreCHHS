@@ -23,6 +23,7 @@
  */
 package com.oncore.chhs.web.login;
 
+import com.oncore.chhs.web.clients.FosterFamilyAgencyJsonClient;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.profile.ProfileBean;

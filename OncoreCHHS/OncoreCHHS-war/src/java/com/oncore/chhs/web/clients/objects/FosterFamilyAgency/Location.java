@@ -29,20 +29,6 @@ package com.oncore.chhs.web.clients.objects.FosterFamilyAgency;
  */
 public class Location {
 
-    private String coordinates;
-
-    /**
-     * @return the coordinates
-     */
-    public String getCoordinates() {
-        return coordinates;
-    }
-
-    /**
-     * @param coordinates the coordinates to set
-     */
-    public void setCoordinates(String coordinates) {
-        this.coordinates = coordinates;
-    }
+    private int[] coordinates;
 
 }
