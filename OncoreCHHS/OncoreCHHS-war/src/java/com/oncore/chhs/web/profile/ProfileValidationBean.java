@@ -57,10 +57,10 @@ public class ProfileValidationBean extends BaseValidationBean {
         LOG.debug("Destroying LoginValidationBean: " + this.getClass().hashCode());
     }
 
-    public Boolean validateName(String name, String componentId) {
+    public Boolean validateName(String name, Boolean isRequired, String componentId) {
         Boolean isError = Boolean.FALSE;
 
-        if (StringUtils.isBlank(name)) {
+        if (isRequired && StringUtils.isBlank(name)) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
             isError = Boolean.TRUE;
         } else if (!StringUtils.isAlphaSpace(name)) {
@@ -71,10 +71,10 @@ public class ProfileValidationBean extends BaseValidationBean {
         return isError;
     }
 
-    public Boolean validateAddressData(String value, String componentId) {
+    public Boolean validateAddressData(String value, Boolean isRequired, String componentId) {
         Boolean isError = Boolean.FALSE;
 
-        if (StringUtils.isBlank(value)) {
+        if (isRequired && StringUtils.isBlank(value)) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
             isError = Boolean.TRUE;
         } else if (!StringUtils.isAlphanumericSpace(value)) {

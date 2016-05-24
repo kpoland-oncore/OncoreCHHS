@@ -52,11 +52,6 @@ public class ProfileManagedBean extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing ProfileManagedBean: " + this.getClass().hashCode());
-        
-        if(this.globalManagedBean.getAuthenticatedUser() == null)
-        {
-            this.navigationManagedBean.navigateToLink("login", true);
-        }
     }
 
     @Override
@@ -80,17 +75,17 @@ public class ProfileManagedBean extends BaseManagedBean {
 
             if (this.profileValidationBean.validateUserName(this.getProfileBean().getUserName(), FORM_NAME + "userNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), FORM_NAME + "firstNameTxt")) {
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), Boolean.TRUE, FORM_NAME + "firstNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), FORM_NAME + "lastNameTxt")) {
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), Boolean.TRUE, FORM_NAME + "lastNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), FORM_NAME + "middleNameTxt")) {
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), Boolean.FALSE, FORM_NAME + "middleNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), FORM_NAME + "addressLine1Txt")) {
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), Boolean.TRUE, FORM_NAME + "addressLine1Txt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), FORM_NAME + "addressLine2Txt")) {
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), Boolean.FALSE, FORM_NAME + "addressLine2Txt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), FORM_NAME + "cityTxt")) {
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), Boolean.TRUE, FORM_NAME + "cityTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
             } else if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getState(), FORM_NAME + "statesList")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
@@ -117,7 +112,7 @@ public class ProfileManagedBean extends BaseManagedBean {
 
                     FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
 
-                   // page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
+                    // page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
                 } else {
                     FacesUtilities.createPageLevelCustomError(FacesContext.getCurrentInstance(), "The user name provided has already been taken. Please try a different user name.");
                 }
@@ -130,24 +125,23 @@ public class ProfileManagedBean extends BaseManagedBean {
         return page;
     }
 
-    public String handleUpdateButtonClickEvent()
-    {
+    public String handleUpdateButtonClickEvent() {
         String page = null;
 
         try {
             FacesUtilities.removeMessages();
 
-            if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), FORM_NAME + "firstNameTxt")) {
+            if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), Boolean.TRUE, FORM_NAME + "firstNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), FORM_NAME + "lastNameTxt")) {
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), Boolean.TRUE, FORM_NAME + "lastNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), FORM_NAME + "middleNameTxt")) {
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), Boolean.FALSE, FORM_NAME + "middleNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), FORM_NAME + "addressLine1Txt")) {
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), Boolean.TRUE, FORM_NAME + "addressLine1Txt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), FORM_NAME + "addressLine2Txt")) {
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), Boolean.FALSE, FORM_NAME + "addressLine2Txt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), FORM_NAME + "cityTxt")) {
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), Boolean.TRUE, FORM_NAME + "cityTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
             } else if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getState(), FORM_NAME + "statesList")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
@@ -174,8 +168,8 @@ public class ProfileManagedBean extends BaseManagedBean {
 
                     FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
 
-                   // page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
-                }  
+                    // page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
+                }
             }
         } catch (WebServiceException wx) {
             LOG.error(wx);
@@ -184,10 +178,7 @@ public class ProfileManagedBean extends BaseManagedBean {
 
         return page;
     }
-    
-    
-    
-    
+
     /**
      * @return the profileBean
      */

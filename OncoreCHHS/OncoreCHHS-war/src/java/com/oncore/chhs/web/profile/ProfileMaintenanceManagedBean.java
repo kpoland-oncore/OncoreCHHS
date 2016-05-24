@@ -79,17 +79,17 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
         try {
             FacesUtilities.removeMessages();
 
-            if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), FORM_NAME + "firstNameTxt")) {
+            if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), Boolean.TRUE, FORM_NAME + "firstNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), FORM_NAME + "lastNameTxt")) {
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), Boolean.TRUE, FORM_NAME + "lastNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), FORM_NAME + "middleNameTxt")) {
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), Boolean.FALSE, FORM_NAME + "middleNameTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), FORM_NAME + "addressLine1Txt")) {
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), Boolean.TRUE, FORM_NAME + "addressLine1Txt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), FORM_NAME + "addressLine2Txt")) {
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), Boolean.FALSE, FORM_NAME + "addressLine2Txt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), FORM_NAME + "cityTxt")) {
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), Boolean.TRUE, FORM_NAME + "cityTxt")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
             } else if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getState(), FORM_NAME + "statesList")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
