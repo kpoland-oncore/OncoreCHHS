@@ -13,8 +13,8 @@
 
 
 
-        <ui:param name="managedBean" value="#{messageManagedBean}"/>
-        <ui:param name="managedBeanContent" value="#{messageManagedBean.searchBean}"/>
+        <ui:param name="managedBean" value="#{messagesManagedBean}"/>
+        <ui:param name="managedBeanContent" value="#{messagesManagedBean.messageBean}"/>
 
 
 
@@ -33,7 +33,7 @@
 
                     </header>
 
-                    <p:messages id="messges" showSummary="true" showDetail="false"
+                    <p:messages id="messages" showSummary="true" showDetail="false"
                                 autoUpdate="true" globalOnly="false" display="text"
                                 escape="false"/>
 
@@ -45,7 +45,7 @@
                                            inputStyleClass="input_float_left"
                                            requiredLabel="true"
                                            maxlength="2048"
-                                           size="10"
+                                           size="30"
                                            immediate="true"
                                            errAlt=""
                                            errMsgRendered="false"
@@ -83,7 +83,7 @@
                             </p:outputPanel>
                             <p:outputPanel id="sendButtonPnl" layout="block"
                                            styleClass="innerButtonGroup">
-                                <p:commandButton id="searchBtn" value="Send" 
+                                <p:commandButton id="sendBtn" value="Send" 
                                                  styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
                                                  oncomplete="PF('feedbackWdg').hide()"
                                                  update="@form"

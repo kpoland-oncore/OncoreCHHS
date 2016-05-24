@@ -47,7 +47,6 @@
         <cc:attribute name="size" required="false"/>
         <cc:attribute name="style" required="false" default=""/>
         <cc:attribute name="styleClass" required="false" default="nostyle" />
-        <cc:attribute name="divStyle" required="false" default=""/>
         <cc:attribute name="type" required="false" default="text"/>
         <cc:attribute name="title" required="false" default="" />
         <!-- End Standard Properties -->
@@ -57,7 +56,6 @@
         <cc:attribute name="requiredLabel" required="true" />
         <cc:attribute name="errMsgRendered" required="false" />
         <cc:attribute name="errAlt" required="false" default=""/>
-        <cc:attribute name="converter" required="false" default=""/>
         <!-- End Custom Properties -->
     </cc:interface>
 
@@ -82,15 +80,14 @@
                     autocomplete="off"
                     immediate="#{cc.attrs.immediate}"
                     disabled="#{cc.attrs.disabled}"
-                    label="#{cc.attrs.label}"
                     maxlength="#{cc.attrs.maxlength}"   
                     autoResize="true"
                     readonly="#{cc.attrs.readonly}"
                     size="#{cc.attrs.size}"
                     counter="display"
                     counterTemplate="{0} characters remaining"
-                    inputStyleClass="#{cc.attrs.inputStyleClass}"
-                   </p:inputTextarea>
+                    styleClass="#{cc.attrs.inputStyleClass}"/>
+                
                  
                 <h:outputText/>
                  

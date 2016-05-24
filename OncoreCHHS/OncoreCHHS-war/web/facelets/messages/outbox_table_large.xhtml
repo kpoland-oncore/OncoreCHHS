@@ -14,7 +14,7 @@
     <ui:composition>
         <p:dataTable id="outboxTableLarge" var="messageBean"
                      styleClass="contentLarge"
-                     value="#{managedBean.outBoxList}"
+                     value="#{managedBean.outboxList}"
                      summary="Outbox results"  
                      sortBy="#{messageBean.sentDate}" sortOrder="descending"
                      paginator="true" rows="20" paginatorPosition="bottom"
