@@ -65,7 +65,6 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
 
     @Override
     public List<SearchBean> search(String zip) throws WebServiceException {
-
         List<SearchBean> agencies = new ArrayList<>();
         try {
             List<FosterFamilyAgency> fosterFamilyAgencyList = FosterFamilyAgencyJsonClient.getFosterFamilyAgency(zip);
@@ -80,9 +79,7 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         }
 
         return agencies;
-
     }
 
     private final Logger LOG = LogManager.getLogger(SearchDataManagedBean.class);
-
 }
