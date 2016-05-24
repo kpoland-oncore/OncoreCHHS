@@ -32,6 +32,7 @@ import com.oncore.chhs.web.utils.FacesUtilities;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.logging.log4j.LogManager;
@@ -51,14 +52,18 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
     public void initialize() {
         LOG.debug("Initializing ProfileMaintenanceManagedBean: " + this.getClass().hashCode());
 
-        try {
-            FacesUtilities.removeMessages();
+        if (this.globalManagedBean.getAuthenticatedUser() == null) {
+            FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "login_redirect");
+        } else {
+            try {
+                FacesUtilities.removeMessages();
 
-            this.setProfileBean(this.profileDataManagedBean.findProfileByUserUid(this.globalManagedBean.getAuthenticatedUser().getUsrUid()));
+                this.setProfileBean(this.profileDataManagedBean.findProfileByUserUid(this.globalManagedBean.getAuthenticatedUser().getUsrUid()));
 
-        } catch (WebServiceException wx) {
-            LOG.error(wx);
-            FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
+            } catch (WebServiceException wx) {
+                LOG.error(wx);
+                FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
+            }
         }
 
     }
