@@ -51,9 +51,34 @@
                                            errMsgRendered="false"
                                            value="#{managedBeanContent.message}"/>
 
+                        
+
+                        <div class="row">
+
+                            <p:outputPanel layout="block" id="outerButtonPnl">
+
+                                <p:outputPanel id="cancelButtonPnl" layout="block"
+                                               styleClass="innerButtonGroup">
+                                    <p:commandButton id="cancelBtn" value="Cancel" 
+                                                     styleClass="buttonGroup" 
+                                                     action="#{navigationManagedBean.navigateToLink('index', false)}"/>
+                                </p:outputPanel>
+                                <p:outputPanel id="sendButtonPnl" layout="block"
+                                               styleClass="innerButtonGroup">
+                                    <p:commandButton id="sendBtn" value="Send" 
+                                                     styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
+                                                     oncomplete="PF('feedbackWdg').hide()"
+                                                     update="@form"
+                                                     action="#{managedBean.handleSendButtonClickEvent()}"/>
+                                </p:outputPanel>
+                                <p:blockUI block="sendButtonPnl" trigger="sendBtn"/>
+                            </p:outputPanel>
 
 
+                        </div>
 
+                        <p:spacer height="5"/>
+                        
                         <p:panel id="inboxPnl" header="Inbox" toggleable="true">
                             <ui:include src="/facelets/messages/inbox_table_large.xhtml" />
                             <ui:include src="/facelets/messages/inbox_table_small.xhtml" />
@@ -69,31 +94,7 @@
 
                     </p:panel>
 
-                    <p:spacer height="10"/>
 
-                    <div class="row">
-
-                        <p:outputPanel layout="block" id="outerButtonPnl">
-
-                            <p:outputPanel id="cancelButtonPnl" layout="block"
-                                           styleClass="innerButtonGroup">
-                                <p:commandButton id="cancelBtn" value="Cancel" 
-                                                 styleClass="buttonGroup" 
-                                                 action="#{navigationManagedBean.navigateToLink('index', false)}"/>
-                            </p:outputPanel>
-                            <p:outputPanel id="sendButtonPnl" layout="block"
-                                           styleClass="innerButtonGroup">
-                                <p:commandButton id="sendBtn" value="Send" 
-                                                 styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
-                                                 oncomplete="PF('feedbackWdg').hide()"
-                                                 update="@form"
-                                                 action="#{managedBean.handleSendButtonClickEvent()}"/>
-                            </p:outputPanel>
-                            <p:blockUI block="sendButtonPnl" trigger="sendBtn"/>
-                        </p:outputPanel>
-
-
-                    </div>
 
                 </section>
 
