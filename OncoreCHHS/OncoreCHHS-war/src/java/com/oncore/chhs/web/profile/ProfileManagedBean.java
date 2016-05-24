@@ -125,6 +125,64 @@ public class ProfileManagedBean extends BaseManagedBean {
         return page;
     }
 
+    public String handleUpdateButtonClickEvent()
+    {
+        String page = null;
+
+        try {
+            FacesUtilities.removeMessages();
+
+            if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), FORM_NAME + "firstNameTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), FORM_NAME + "lastNameTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), FORM_NAME + "middleNameTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), FORM_NAME + "addressLine1Txt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), FORM_NAME + "addressLine2Txt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), FORM_NAME + "cityTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getState(), FORM_NAME + "statesList")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getZip(), FORM_NAME + "zipMsk")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else if (this.profileValidationBean.validateEmailAddress(this.getProfileBean().getEmail(), FORM_NAME + "emailTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else {
+                // determine if user already exists
+                LoginBean loginBean = new LoginBean();
+                loginBean.setUserName(this.getProfileBean().getUserName());
+                Users users = this.loginDataManagedBean.authenticateUser(loginBean);
+
+                if (users == null) {
+                    users = this.loginDataManagedBean.createUser(profileBean);
+
+                    this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
+
+                    this.profileDataManagedBean.createProfile(profileBean, users);
+
+                    this.globalManagedBean.setAuthenticated(Boolean.TRUE);
+                    this.globalManagedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
+                    this.globalManagedBean.setAuthenticatedUser(users);
+
+                    FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
+
+                   // page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
+                }  
+            }
+        } catch (WebServiceException wx) {
+            LOG.error(wx);
+            FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
+        }
+
+        return page;
+    }
+    
+    
+    
+    
     /**
      * @return the profileBean
      */

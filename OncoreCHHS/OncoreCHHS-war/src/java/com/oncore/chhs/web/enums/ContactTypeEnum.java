@@ -34,7 +34,8 @@ public enum ContactTypeEnum {
     HOME_PHONE("HPH"),
     MOBILE_PHONE("MPH"),
     SMS_TEXT("SMS"),
-    WORK_PHONE("WPH");
+    WORK_PHONE("WPH"),
+    EMAIL_ADDRESS("EML");
 
     ContactTypeEnum(String value) {
         this.value = value;

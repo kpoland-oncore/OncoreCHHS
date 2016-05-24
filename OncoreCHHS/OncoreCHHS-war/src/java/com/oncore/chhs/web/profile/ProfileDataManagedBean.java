@@ -28,6 +28,7 @@ import com.oncore.chhs.web.entities.Address;
 import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.login.LoginDataManagedBean;
 import com.oncore.chhs.web.services.AddressFacadeREST;
 import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
 import com.oncore.chhs.web.services.ContactFacadeREST;
@@ -112,7 +113,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
                     user.setAddressList(new ArrayList<>());
                 }
 
-                Address address = ProfileHelper.convertProfileBeanToAddressEntity(profileBean, this.adrStateCdFacadeREST);
+                Address address = ProfileHelper.convertProfileBeanToAddressEntity(profileBean, this.adrStateCdFacadeREST, user);
                 address.setUsrUidFk(user);
 
                 user.getAddressList().add(address);
@@ -125,7 +126,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
                     user.setContactList(new ArrayList<>());
                 }
 
-                Contact contact = ProfileHelper.convertProfileBeanToContactEntity(profileBean, this.emcTypeCdFacadeREST);
+                Contact contact = ProfileHelper.convertProfileBeanToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
                 contact.setUsrUidFk(user);
 
                 user.getContactList().add(contact);
@@ -143,14 +144,13 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
     }
 
     @Override
-    public void updateProfile(ProfileBean profileBean) throws WebServiceException {
+    public void updateProfile(ProfileBean profileBean, Users users) throws WebServiceException {
         try {
             if (null != profileBean) {
-                Users user = this.usersFacadeREST.findByUserId(profileBean.getUserName());
-
-                if (user != null) {
-                    this.updateAddress(profileBean, user.getAddressList());
-                    this.updateContact(profileBean, user.getContactList());
+                
+                if (users != null) {
+                    this.updateAddress(profileBean, users.getAddressList(), users);
+                    this.updateContact(profileBean, users.getContactList(), users);
                 }
             }
         } catch (Exception ex) {
@@ -164,15 +164,23 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param profileBean
      * @param addresses
      */
-    private void updateAddress(ProfileBean profileBean, List<Address> addresses) {
+    private void updateAddress(ProfileBean profileBean, List<Address> addresses, Users users) {
         if (StringUtils.isNotBlank(profileBean.getAddressLine1())) {
             if (CollectionUtils.isNotEmpty(addresses)) {
 
                 Address address = addresses.get(0);
 
-                ProfileHelper.mapProfileBeanToAddressEntity(profileBean, address, this.adrStateCdFacadeREST);
+                ProfileHelper.mapProfileBeanToAddressEntity(profileBean, address, this.adrStateCdFacadeREST, users);
                 this.addressFacadeREST.edit(address);
             }
+            else
+            {
+                Address address = new Address();
+
+                ProfileHelper.mapProfileBeanToAddressEntity(profileBean, address, this.adrStateCdFacadeREST, users);
+                this.addressFacadeREST.create(address);
+            }
+                    
         }
     }
 
@@ -182,21 +190,32 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param profileBean
      * @param contacts
      */
-    private void updateContact(ProfileBean profileBean, List<Contact> contacts) {
+    private void updateContact(ProfileBean profileBean, List<Contact> contacts, Users users) {
         if (CollectionUtils.isNotEmpty(contacts)) {
             for (Contact contactToUpdate : contacts) {
                 if (StringUtils.isNotBlank(profileBean.getPhone())) {
                     if (StringUtils.equals(profileBean.getPhoneType(), contactToUpdate.getEmcTypeCd().getCode()) && StringUtils.equals(profileBean.getPhone(), contactToUpdate.getEmcValue())) {
-                        ProfileHelper.mapProfileBeanToContactEntity(profileBean, contactToUpdate, this.emcTypeCdFacadeREST);
+                        ProfileHelper.mapProfileBeanToContactEntity(profileBean, contactToUpdate, this.emcTypeCdFacadeREST, users);
                         this.contactFacadeREST.edit(contactToUpdate);
                     }
                 }
 
 //                if (StringUtils.isNotBlank(profileBean.getEmail())) {
-//                    ProfileHelper.mapProfileBeanToContactEntity(profileBean, contactToUpdate, this.emcTypeCdFacadeREST);
+//                    ProfileHelper.mapProfileBeanToContactEntity(profileBean, contactToUpdate, this.emcTypeCdFacadeREST, users);
 //                    this.contactFacadeREST.edit(contactToUpdate);
 //                }
             }
         }
+        else
+        {
+            Contact newContact = new Contact();
+            
+            ProfileHelper.mapProfileBeanToContactEntity(profileBean, newContact, this.emcTypeCdFacadeREST, users);
+                        this.contactFacadeREST.create(newContact);
+        }
     }
+    
+    
+    
+    
 }

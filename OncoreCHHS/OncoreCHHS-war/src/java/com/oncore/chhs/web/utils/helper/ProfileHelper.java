@@ -26,13 +26,17 @@ package com.oncore.chhs.web.utils.helper;
 import com.oncore.chhs.web.entities.Address;
 import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.web.login.LoginDataManagedBean;
 import com.oncore.chhs.web.profile.ProfileBean;
 import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
 import com.oncore.chhs.web.services.EmcTypeCdFacadeREST;
+import com.oncore.chhs.web.utils.ErrorUtils;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Utilities clss to support Profile.
@@ -46,6 +50,7 @@ public class ProfileHelper {
     public static final String CONTACT_TYPE_SMS_TEXT = "SMS";
     public static final String CONTACT_TYPE_WORK_PHONE = "WPH";
     public static final String CONTACT_TYPE_EMAIL = "EML";
+    private final static Logger LOG = LogManager.getLogger(ProfileHelper.class);
 
     /**
      * Builds the ProfileBean with users information. Profilebean includes user,
@@ -58,15 +63,27 @@ public class ProfileHelper {
     public static ProfileBean buildProfile(Users users) {
         ProfileBean profileBean = new ProfileBean();
 
-        populateProfileUsers(profileBean, users);
+        try {
+            populateProfileUsers(profileBean, users);
+        } catch (Exception ex) {
+            LOG.warn(ErrorUtils.getStackTrace(ex));
+        }
 
         if (CollectionUtils.isNotEmpty(users.getAddressList()));
         {
-            populateProfileAddress(profileBean, users.getAddressList().get(0));
+            try {
+                populateProfileAddress(profileBean, users.getAddressList().get(0));
+            } catch (Exception ex) {
+                LOG.warn(ErrorUtils.getStackTrace(ex));
+            }
         }
 
         if (CollectionUtils.isNotEmpty(users.getContactList())) {
-            populateProfileContact(profileBean, users.getContactList());
+            try {
+                populateProfileContact(profileBean, users.getContactList());
+            } catch (Exception ex) {
+                LOG.warn(ErrorUtils.getStackTrace(ex));
+            }
         }
 
         return profileBean;
@@ -80,9 +97,9 @@ public class ProfileHelper {
      *
      * @return
      */
-    public static Address convertProfileBeanToAddressEntity(ProfileBean profileBean, AdrStateCdFacadeREST adrStateCdFacadeREST) {
+    public static Address convertProfileBeanToAddressEntity(ProfileBean profileBean, AdrStateCdFacadeREST adrStateCdFacadeREST, Users users) {
         Address address = new Address();
-        mapProfileBeanToAddressEntity(profileBean, address, adrStateCdFacadeREST);
+        mapProfileBeanToAddressEntity(profileBean, address, adrStateCdFacadeREST, users);
 
         return address;
     }
@@ -94,7 +111,7 @@ public class ProfileHelper {
      * @param address
      * @param adrStateCdFacadeREST
      */
-    public static void mapProfileBeanToAddressEntity(ProfileBean profileBean, Address address, AdrStateCdFacadeREST adrStateCdFacadeREST) {
+    public static void mapProfileBeanToAddressEntity(ProfileBean profileBean, Address address, AdrStateCdFacadeREST adrStateCdFacadeREST, Users users) {
         address.setAdrLine1(profileBean.getAddressLine1());
         address.setAdrLine2(profileBean.getAddressLine2());
         address.setAdrCity(profileBean.getCity());
@@ -113,7 +130,15 @@ public class ProfileHelper {
         address.setCreateUserId("test");
         address.setUpdateTs(new Date());
         address.setUpdateUserId("test");
+        
+        if(users != null)
+        {
+            address.setUsrUidFk(users);
+        }
     }
+    
+    
+      
 
     /**
      *
@@ -123,9 +148,9 @@ public class ProfileHelper {
      *
      * @return
      */
-    public static Contact convertProfileBeanToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST) {
+    public static Contact convertProfileBeanToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
         Contact contact = new Contact();
-        mapProfileBeanToContactEntity(profileBean, contact, emcTypeCdFacadeREST);
+        mapProfileBeanToContactEntity(profileBean, contact, emcTypeCdFacadeREST, users);
 
         return contact;
     }
@@ -137,7 +162,7 @@ public class ProfileHelper {
      * @param contact
      * @param emcTypeCdFacadeREST
      */
-    public static void mapProfileBeanToContactEntity(ProfileBean profileBean, Contact contact, EmcTypeCdFacadeREST emcTypeCdFacadeREST) {
+    public static void mapProfileBeanToContactEntity(ProfileBean profileBean, Contact contact, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
         contact.setEmcTypeCd(emcTypeCdFacadeREST.findByCode(profileBean.getPhoneType()));
         contact.setEmcValue(profileBean.getPhone());
 
@@ -145,6 +170,11 @@ public class ProfileHelper {
         contact.setCreateUserId("test");
         contact.setUpdateTs(new Date());
         contact.setUpdateUserId("test");
+        
+        if(users != null)
+        {
+            contact.setUsrUidFk(users);
+        }
     }
 
     /**

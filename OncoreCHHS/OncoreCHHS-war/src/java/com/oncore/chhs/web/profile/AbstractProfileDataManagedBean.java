@@ -59,8 +59,9 @@ public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
      * The <code>updateProfile</code> method updates an existing user profile.
      * 
      * @param profileBean a fully populated <code>ProfileBean</code> object
+     * @param users a fully populated users entity
      * 
      * @throws WebServiceException 
      */
-    public void updateProfile(ProfileBean profileBean) throws WebServiceException;
+    public void updateProfile(ProfileBean profileBean, Users users) throws WebServiceException;
 }

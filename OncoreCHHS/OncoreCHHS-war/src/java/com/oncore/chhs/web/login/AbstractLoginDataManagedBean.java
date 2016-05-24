@@ -52,5 +52,6 @@ public interface AbstractLoginDataManagedBean extends AbstractBaseManagedBean {
      * @return a populated <code>Users</code> object if found, null otherwise
      */
     public Users authenticateUser(LoginBean loginBean) throws WebServiceException;
+   
 
 }
