@@ -52,6 +52,11 @@ public class ProfileManagedBean extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing ProfileManagedBean: " + this.getClass().hashCode());
+        
+        if(this.globalManagedBean.getAuthenticatedUser() == null)
+        {
+            this.navigationManagedBean.navigateToLink("login", true);
+        }
     }
 
     @Override
