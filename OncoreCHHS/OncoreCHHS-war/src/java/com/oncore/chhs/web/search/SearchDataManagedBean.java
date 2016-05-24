@@ -23,12 +23,8 @@
  */
 package com.oncore.chhs.web.search;
 
-import com.oncore.chhs.web.clients.FosterFamilyAgencyJsonClient;
-import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.services.UsersFacadeREST;
-import com.oncore.chhs.web.utils.ErrorUtils;
-import com.oncore.chhs.web.utils.helper.SearchHelper;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -62,33 +58,44 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         LOG.debug("Destroying SearchDataManagedBean: " + this.getClass().hashCode());
     }
 
-    /**
-     *
-     *
-     * @param zip
-     *
-     * @return
-     *
-     * @throws WebServiceException
-     */
     @Override
     public List<SearchBean> search(String zip) throws WebServiceException {
-        List<SearchBean> agencies = new ArrayList<>();
 
-        try {
-            List<FosterFamilyAgency> fosterFamilyAgencyList = FosterFamilyAgencyJsonClient.getFosterFamilyAgency(zip);
+        List<SearchBean> resultList = new ArrayList<>(1);
+        SearchBean searchBean = new SearchBean();
 
-            if (null != null) {
-                for (FosterFamilyAgency agency : fosterFamilyAgencyList) {
-                    agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
-                }
-            }
-        } catch (Exception ex) {
-            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
-        }
+        searchBean.setFacilityAddress("101 St");
+        searchBean.setFacilityCity("Sacramento");
+        searchBean.setFacilityName("Family Builders By Adoption");
+        searchBean.setFacilityState("CA");
+        searchBean.setFacilityTelephone("932-939-3992");
+        searchBean.setFacilityZip("93233");
+        resultList.add(searchBean);
 
-        return agencies;
+        searchBean = new SearchBean();
+
+        searchBean.setFacilityAddress("392 East Bidwell St");
+        searchBean.setFacilityCity("Folsom");
+        searchBean.setFacilityName("Foster Care 101");
+        searchBean.setFacilityState("CA");
+        searchBean.setFacilityTelephone("916-323-3332");
+        searchBean.setFacilityZip("95630");
+        resultList.add(searchBean);
+
+        searchBean = new SearchBean();
+
+        searchBean.setFacilityAddress("847 Latrobe");
+        searchBean.setFacilityCity("El Dorado Hills");
+        searchBean.setFacilityName("Greater Hills Foster Care");
+        searchBean.setFacilityState("CA");
+        searchBean.setFacilityTelephone("916-233-2222");
+        searchBean.setFacilityZip("95762");
+        resultList.add(searchBean);
+
+        return resultList;
+
     }
 
     private final Logger LOG = LogManager.getLogger(SearchDataManagedBean.class);
+
 }

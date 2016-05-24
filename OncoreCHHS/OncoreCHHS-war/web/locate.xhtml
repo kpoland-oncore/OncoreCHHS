@@ -7,22 +7,22 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:onc="http://java.sun.com/jsf/composite/onc"
       xmlns:p="http://primefaces.org/ui">
- 
+
 
     <ui:composition template="/facelets/templates/reduced_layout.xhtml">
 
-        
-        
+
+
         <ui:param name="managedBean" value="#{searchManagedBean}"/>
         <ui:param name="managedBeanContent" value="#{searchManagedBean.searchBean}"/>
 
-       
-        
+
+
         <ui:define name="title">
             <title>CHHS Foster Care Services | Locate</title>
         </ui:define>
 
-       <ui:define name="content">
+        <ui:define name="content">
 
             <!-- Main -->
             <div id="main" class="wrapper style1">
@@ -36,33 +36,202 @@
                     <p:messages id="messges" showSummary="true" showDetail="false"
                                 autoUpdate="true" globalOnly="false" display="text"
                                 escape="false"/>
- 
-                     
+
+
                     <p:panel id="searchPnl" header="Enter Search Criteria" toggleable="false">
-                         <onc:inputMask id="zipMsk"
-                         label="Zip Code:"
-                         labelStyleClass="form_label"
-                         inputStyleClass="input_float_left"
-                         requiredLabel="true"
-                         mask="99999"
-                         placeHolder="_"
-                         immediate="true"
-                         errAlt=""
-                         errMsgRendered="false"
-                         value="#{managedBeanContent.zipForSearch}"/>
- 
-                   
-                    
-                   
-                    </p:panel>
-                    <p:spacer height="10"/>
-                    
-                    
-                    <!-- insert table here -->
-                    
-                    <div class="row">
+                        <onc:inputMask id="zipMsk"
+                                       label="Zip Code:"
+                                       labelStyleClass="form_label"
+                                       inputStyleClass="input_float_left"
+                                       requiredLabel="true"
+                                       mask="99999"
+                                       placeHolder="_"
+                                       immediate="true"
+                                       errAlt=""
+                                       errMsgRendered="false"
+                                       value="#{managedBeanContent.zipForSearch}"/>
+
+
+
+                       
+
+
+
+                        <!--                    <p:dataTable id="locateTable" var="searchBean"
+                                                         value="#{managedBean.searchBeanList}"
+                                                         summary="Search results"
+                                                         filteredValue="#{managedBean.filteredBeanList}"
+                                                         sortBy="#{searchBean.facilityName}" sortOrder="ascending"
+                                                         paginator="true" rows="20" paginatorPosition="bottom"
+                                                         paginatorAlwaysVisible="false"
+                                                         paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                         rowsPerPageTemplate="20,40,60">
                         
-                          <p:outputPanel layout="block" id="outerButtonPnl">
+                                                <p:column sortBy="#{searchBean.facilityName}"
+                                                          filterBy="#{searchBean.facilityName}"
+                                                          filterStyle="width: 80%; margin-left: 5px; margin-right: 5px; margin-top:5px;"
+                                                          filterMatchMode="contains"  
+                                                          style="width:25%; text-align: left;">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="&nbsp;&nbsp;Facility Name" />
+                                                    </f:facet>
+                                                    <h:outputText value="#{searchBean.facilityName}" />
+                                                </p:column>
+                         
+                        
+                                                <p:column sortBy="#{searchBean.facilityTelephone}"
+                                                          filterBy="#{searchBean.facilityTelephone}"
+                                                          filterStyle="width: 80%; margin-left: 5px; margin-right: 5px; margin-top:5px;"
+                                                          filterMatchMode="contains"
+                                                          
+                                                          style="width:10%; text-align: left;">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="&nbsp;&nbsp;Phone" />
+                                                    </f:facet>
+                                                    <h:outputText value="#{searchBean.facilityTelephone}" />
+                                                </p:column>
+                         
+                        
+                                                <p:column sortBy="#{searchBean.facilityAddress}"
+                                                          filterBy="#{searchBean.facilityAddress}"
+                                                          filterStyle="width: 80%; margin-left: 5px; margin-right: 5px; margin-top:5px;"
+                                                          filterMatchMode="contains"
+                                                          
+                                                          style="width:25%; text-align: left;">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="&nbsp;&nbsp;Address" />
+                                                    </f:facet>
+                                                    <h:outputText value="#{searchBean.facilityAddress}" />
+                                                </p:column>
+                                                
+                                                
+                                                <p:column sortBy="#{searchBean.facilityCity}"
+                                                          filterBy="#{searchBean.facilityCity}"
+                                                          filterStyle="width: 80%; margin-left: 5px; margin-right: 5px; margin-top:5px;"
+                                                          filterMatchMode="contains"
+                                                          
+                                                          style="width:20%; text-align: left;">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="&nbsp;&nbsp;City" />
+                                                    </f:facet>
+                                                    <h:outputText value="#{searchBean.facilityCity}" />
+                                                </p:column>
+                                                
+                                                
+                                                 <p:column sortBy="#{searchBean.facilityState}"
+                                                          filterBy="#{searchBean.facilityState}"
+                                                          filterStyle="width: 80%; margin-left: 5px; margin-right: 5px; margin-top:5px;"
+                                                          filterMatchMode="contains"
+                                                          
+                                                          style="width:10%; text-align: left;">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="&nbsp;&nbsp;State" />
+                                                    </f:facet>
+                                                    <h:outputText value="#{searchBean.facilityState}" />
+                                                </p:column>
+                         
+                                                
+                                                 <p:column sortBy="#{searchBean.facilityZip}"
+                                                          filterBy="#{searchBean.facilityZip}"
+                                                          filterStyle="width: 80%; margin-left: 5px; margin-right: 5px; margin-top:5px;"
+                                                          filterMatchMode="contains"
+                                                          
+                                                          style="width:10%; text-align: left;">
+                                                    <f:facet name="header">
+                                                        <h:outputText value="&nbsp;&nbsp;Zip" />
+                                                    </f:facet>
+                                                    <h:outputText value="#{searchBean.facilityZip}" />
+                                                </p:column>
+                         
+                                            </p:dataTable>-->
+
+
+
+
+
+                        <!-- for now disable filtering -->
+                        <p:dataTable id="locateTable" var="searchBean"
+                                     value="#{managedBean.searchBeanList}"
+                                     summary="Search results"  
+                                     sortBy="#{searchBean.facilityName}" sortOrder="ascending"
+                                     paginator="true" rows="20" paginatorPosition="bottom"
+                                     paginatorAlwaysVisible="false"
+                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="20,40,60">
+
+                            <p:column sortBy="#{searchBean.facilityName}"
+                                       
+                                      style="width:25%; text-align: left;">
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;&nbsp;Facility Name" />
+                                </f:facet>
+                                <h:outputText value="#{searchBean.facilityName}" />
+                            </p:column>
+
+
+                            <p:column sortBy="#{searchBean.facilityTelephone}"
+                                      
+
+                                      style="width:15%; text-align: left;">
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;&nbsp;Phone" />
+                                </f:facet>
+                                <h:outputText value="#{searchBean.facilityTelephone}" />
+                            </p:column>
+
+
+                            <p:column sortBy="#{searchBean.facilityAddress}"
+                                      
+
+                                      style="width:25%; text-align: left;">
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;&nbsp;Address" />
+                                </f:facet>
+                                <h:outputText value="#{searchBean.facilityAddress}" />
+                            </p:column>
+
+
+                            <p:column sortBy="#{searchBean.facilityCity}"
+                                      
+                                      style="width:15%; text-align: left;">
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;&nbsp;City" />
+                                </f:facet>
+                                <h:outputText value="#{searchBean.facilityCity}" />
+                            </p:column>
+
+
+                            <p:column sortBy="#{searchBean.facilityState}"
+                                    
+
+                                      style="width:10%; text-align: left;">
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;&nbsp;State" />
+                                </f:facet>
+                                <h:outputText value="#{searchBean.facilityState}" />
+                            </p:column>
+
+
+                            <p:column sortBy="#{searchBean.facilityZip}"
+                                       
+                                      style="width:10%; text-align: left;">
+                                <f:facet name="header">
+                                    <h:outputText value="&nbsp;&nbsp;Zip" />
+                                </f:facet>
+                                <h:outputText value="#{searchBean.facilityZip}" />
+                            </p:column>
+
+                        </p:dataTable>
+
+
+
+                    </p:panel>
+
+                    <p:spacer height="10"/>
+
+                    <div class="row">
+
+                        <p:outputPanel layout="block" id="outerButtonPnl">
 
                             <p:outputPanel id="cancelButtonPnl" layout="block"
                                            styleClass="innerButtonGroup">
@@ -70,17 +239,18 @@
                                                  styleClass="buttonGroup" 
                                                  action="#{navigationManagedBean.navigateToLink('index', false)}"/>
                             </p:outputPanel>
-                            <p:outputPanel id="registerButtonPnl" layout="block"
+                            <p:outputPanel id="searchButtonPnl" layout="block"
                                            styleClass="innerButtonGroup">
-                                <p:commandButton id="registerBtn" value="Search" 
+                                <p:commandButton id="searchBtn" value="Search" 
                                                  styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
                                                  oncomplete="PF('feedbackWdg').hide()"
+                                                 update="@form"
                                                  action="#{managedBean.handleSearchButtonClickEvent()}"/>
                             </p:outputPanel>
-                            <p:blockUI block="registerButtonPnl" trigger="registerBtn"/>
+                            <p:blockUI block="searchButtonPnl" trigger="searchBtn"/>
                         </p:outputPanel>
-                        
-                        
+
+
                     </div>
 
                 </section>

@@ -42,7 +42,7 @@ import org.omnifaces.cdi.ViewScoped;
  *
  * @author oncore
  */
-@Named("SearchManagedBean")
+@Named("searchManagedBean")
 @ViewScoped
 public class SearchManagedBean extends BaseManagedBean {
 
@@ -73,12 +73,13 @@ public class SearchManagedBean extends BaseManagedBean {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
             } else {
                 this.setSearchBeanList(this.searchDataManagedBean.search(this.getSearchBean().getZipForSearch()));
+                this.setFilteredBeanList(this.getSearchBeanList());
             }
         } catch (WebServiceException wx) {
             LOG.error(wx);
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
         }
-        
+
         return page;
 
     }
@@ -111,6 +112,20 @@ public class SearchManagedBean extends BaseManagedBean {
         this.searchBeanList = searchBeanList;
     }
 
+    /**
+     * @return the filteredBeanList
+     */
+    public List<SearchBean> getFilteredBeanList() {
+        return filteredBeanList;
+    }
+
+    /**
+     * @param filteredBeanList the filteredBeanList to set
+     */
+    public void setFilteredBeanList(List<SearchBean> filteredBeanList) {
+        this.filteredBeanList = filteredBeanList;
+    }
+
     @Inject
     AbstractSearchDataManagedBean searchDataManagedBean;
 
@@ -120,6 +135,8 @@ public class SearchManagedBean extends BaseManagedBean {
     private SearchBean searchBean = new SearchBean();
 
     private List<SearchBean> searchBeanList = new ArrayList<>(1);
+
+    private List<SearchBean> filteredBeanList = new ArrayList<>(1);
 
     private final Logger LOG = LogManager.getLogger(SearchManagedBean.class);
 
