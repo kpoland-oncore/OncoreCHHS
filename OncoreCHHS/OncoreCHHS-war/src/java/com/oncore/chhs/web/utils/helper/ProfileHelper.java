@@ -26,6 +26,7 @@ package com.oncore.chhs.web.utils.helper;
 import com.oncore.chhs.web.entities.Address;
 import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.web.enums.ContactTypeEnum;
 import com.oncore.chhs.web.profile.ProfileBean;
 import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
 import com.oncore.chhs.web.services.EmcTypeCdFacadeREST;
@@ -140,12 +141,13 @@ public class ProfileHelper {
      *
      * @param profileBean
      * @param emcTypeCdFacadeREST
+     * @param users
      *
      * @return
      */
-    public static Contact convertProfileBeanToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
+    public static Contact convertPhoneNumberToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
         Contact contact = new Contact();
-        mapProfileBeanToContactEntity(profileBean, contact, emcTypeCdFacadeREST, users);
+        mapProfileBeanToContactEntity(profileBean.getPhoneType(), profileBean.getPhone(), contact, emcTypeCdFacadeREST, users);
 
         return contact;
     }
@@ -154,12 +156,30 @@ public class ProfileHelper {
      *
      *
      * @param profileBean
+     * @param emcTypeCdFacadeREST
+     * @param users
+     *
+     * @return
+     */
+    public static Contact convertEmailToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
+        Contact contact = new Contact();
+        mapProfileBeanToContactEntity(ContactTypeEnum.EMAIL_ADDRESS.getValue(), profileBean.getEmail(), contact, emcTypeCdFacadeREST, users);
+
+        return contact;
+    }
+
+    /**
+     *
+     *
+     * @param emcTypCd
+     * @param emcValue
      * @param contact
      * @param emcTypeCdFacadeREST
+     * @param users
      */
-    public static void mapProfileBeanToContactEntity(ProfileBean profileBean, Contact contact, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
-        contact.setEmcTypeCd(emcTypeCdFacadeREST.findByCode(profileBean.getPhoneType()));
-        contact.setEmcValue(profileBean.getPhone());
+    public static void mapProfileBeanToContactEntity(String emcTypCd, String emcValue, Contact contact, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
+        contact.setEmcTypeCd(emcTypeCdFacadeREST.findByCode(emcTypCd));
+        contact.setEmcValue(emcValue);
 
         contact.setCreateTs(new Date());
         contact.setCreateUserId(getFormattedName(users));
@@ -238,7 +258,6 @@ public class ProfileHelper {
                     || StringUtils.equals(CONTACT_TYPE_SMS_TEXT, contact.getEmcTypeCd().getCode())
                     || StringUtils.equals(CONTACT_TYPE_HOME_PHONE, contact.getEmcTypeCd().getCode())) {
                 profileBean.setPhone(contact.getEmcValue());
-                break;
             } else {
                 profileBean.setEmail(contact.getEmcValue());
             }
