@@ -26,7 +26,6 @@ package com.oncore.chhs.web.utils.helper;
 import com.oncore.chhs.web.entities.Address;
 import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.Users;
-import com.oncore.chhs.web.login.LoginDataManagedBean;
 import com.oncore.chhs.web.profile.ProfileBean;
 import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
 import com.oncore.chhs.web.services.EmcTypeCdFacadeREST;
@@ -127,18 +126,14 @@ public class ProfileHelper {
         }
 
         address.setCreateTs(new Date());
-        address.setCreateUserId("test");
+        address.setCreateUserId(getFormattedName(users));
         address.setUpdateTs(new Date());
-        address.setUpdateUserId("test");
-        
-        if(users != null)
-        {
+        address.setUpdateUserId(getFormattedName(users));
+
+        if (users != null) {
             address.setUsrUidFk(users);
         }
     }
-    
-    
-      
 
     /**
      *
@@ -167,14 +162,40 @@ public class ProfileHelper {
         contact.setEmcValue(profileBean.getPhone());
 
         contact.setCreateTs(new Date());
-        contact.setCreateUserId("test");
+        contact.setCreateUserId(getFormattedName(users));
         contact.setUpdateTs(new Date());
-        contact.setUpdateUserId("test");
-        
-        if(users != null)
-        {
+        contact.setUpdateUserId(getFormattedName(users));
+
+        if (users != null) {
             contact.setUsrUidFk(users);
         }
+    }
+
+    /**
+     * Formats the name of the user to: First middle last names.
+     *
+     * @param user
+     *
+     * @return formatted name
+     */
+    public static String getFormattedName(Users user) {
+        String formattedName = "";
+
+        if (user != null) {
+            if (StringUtils.isNotBlank(user.getUsrFirstname())) {
+                formattedName = user.getUsrFirstname();
+            }
+            if (StringUtils.isNotBlank(user.getUsrMiddlename())) {
+                formattedName = " ";
+                formattedName = user.getUsrMiddlename();
+            }
+            if (StringUtils.isNotBlank(user.getUsrLastname())) {
+                formattedName = " ";
+                formattedName = user.getUsrLastname();
+            }
+        }
+
+        return formattedName;
     }
 
     /**
