@@ -63,19 +63,9 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         LOG.debug("Destroying SearchDataManagedBean: " + this.getClass().hashCode());
     }
 
-    /**
-     *
-     *
-     * @param zip
-     *
-     * @return
-     *
-     * @throws WebServiceException
-     */
     @Override
     public List<SearchBean> search(String zip) throws WebServiceException {
         List<SearchBean> agencies = new ArrayList<>();
-
         try {
             List<FosterFamilyAgency> fosterFamilyAgencyList = FosterFamilyAgencyJsonClient.getFosterFamilyAgency(zip);
 

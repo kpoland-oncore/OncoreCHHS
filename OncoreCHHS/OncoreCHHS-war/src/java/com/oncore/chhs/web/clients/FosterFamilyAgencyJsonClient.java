@@ -28,10 +28,6 @@ import com.google.gson.reflect.TypeToken;
 import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.utils.ErrorUtils;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,5 +62,4 @@ public class FosterFamilyAgencyJsonClient {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
     }
-
 }
