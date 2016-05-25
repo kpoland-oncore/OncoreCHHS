@@ -66,10 +66,10 @@ public interface AbstractMessageDataManagedBean extends AbstractBaseManagedBean 
     /**
      * The <code>sendMessage</code> method sends a message.
      *
-     * @param message a message to send
+     * @param messageBean a message to send
      * @param users the entity representing the user
      *
      * @throws WebServiceException
      */
-    public void sendMessage(String message, Users users) throws WebServiceException;
+    public void sendMessage(MessageBean messageBean, Users users) throws WebServiceException;
 }
