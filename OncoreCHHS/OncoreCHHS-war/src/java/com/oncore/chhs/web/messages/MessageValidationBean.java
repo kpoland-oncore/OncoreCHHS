@@ -60,7 +60,7 @@ public class MessageValidationBean extends BaseValidationBean {
         if (isRequired && StringUtils.isBlank(value)) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
             isError = Boolean.TRUE;
-        } else if (!StringUtils.isAlphanumericSpace(value) || !StringUtils.isAsciiPrintable(value) && !StringUtils.containsAny(value, "<>[]=")) {
+        } else if (StringUtils.containsAny(value, "<>[]=")) {
             FacesUtilities.invalidTextAreaFormatError(FacesContext.getCurrentInstance(), componentId);
             isError = Boolean.TRUE;
         }

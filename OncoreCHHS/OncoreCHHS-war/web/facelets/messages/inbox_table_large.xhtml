@@ -23,30 +23,41 @@
                      rowsPerPageTemplate="20,40,60">
 
             <p:column sortBy="#{messageBean.receivedDate}"
-
-                      style=" text-align: left;">
+                      style="width:20%; text-align: left;">
                 <f:facet name="header">
                     <h:outputText value="&nbsp;&nbsp;Received Date" />
                 </f:facet>
-                <h:outputText value="#{messageBean.receivedDate}" />
+                <h:outputText value="#{messageBean.receivedDate}">
+                    <f:convertDateTime dateStyle="short" timeStyle="short" type="both" />
+                </h:outputText>
             </p:column>
 
 
             <p:column sortBy="#{messageBean.from}"
 
 
-                      style="text-align: left;">
+                      style="width: 15%; text-align: left;">
                 <f:facet name="header">
                     <h:outputText value="&nbsp;&nbsp;From" />
                 </f:facet>
                 <h:outputText value="#{messageBean.from}" />
             </p:column>
 
+             <p:column sortBy="#{messageBean.to}"
+
+
+                      style="width: 15%; text-align: left;">
+                <f:facet name="header">
+                    <h:outputText value="&nbsp;&nbsp;To" />
+                </f:facet>
+                <h:outputText value="#{messageBean.to}" />
+            </p:column>
+
 
             <p:column sortBy="#{messageBean.message}"
 
 
-                      style="text-align: left;">
+                      style="width: 50%; text-align: left;">
                 <f:facet name="header">
                     <h:outputText value="&nbsp;&nbsp;Message" />
                 </f:facet>
