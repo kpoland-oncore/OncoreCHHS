@@ -23,8 +23,10 @@
  */
 package com.oncore.chhs.web.messages;
 
+import com.oncore.chhs.web.entities.Messages;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.services.MessagesFacadeREST;
 import com.oncore.chhs.web.services.UsersFacadeREST;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,8 +47,10 @@ import org.apache.logging.log4j.Logger;
 @RequestScoped
 public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
 
+    private final Logger LOG = LogManager.getLogger(MessageDataManagedBean.class);
+
     @EJB
-    private UsersFacadeREST usersFacadeREST;
+    private MessagesFacadeREST messagesFacadeREST;
 
     @Override
     @PostConstruct
@@ -62,7 +66,7 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
 
     @Override
     public List<MessageBean> fetchInbox(Users users, Date oldestDate) throws WebServiceException {
-         return new ArrayList<>();
+        return new ArrayList<>();
     }
 
     @Override
@@ -71,10 +75,30 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
     }
 
     @Override
-    public void sendMessage(String message, Users users) throws WebServiceException {
-        
+    public void sendMessage(MessageBean messageBean, Users users) throws WebServiceException {
+        this.createMessages(messageBean.getFrom(), messageBean.getTo(), messageBean.getMessage(), true, users);
+        this.createMessages(messageBean.getTo(), messageBean.getFrom(), messageBean.getMessage(), false, users);
     }
 
-    private final Logger LOG = LogManager.getLogger(MessageDataManagedBean.class);
+    /**
+     * Creates the messages from using MessageBean.
+     *
+     * @param from
+     * @param to
+     * @param messageTxt
+     * @param isInbound
+     * @param users
+     *
+     */
+    private void createMessages(String from, String to, String messageTxt, boolean isInbound, Users users) {
+        Messages messages = new Messages();
 
+        messages.setMsgFrom(from);
+        messages.setMsgTo(to);
+        messages.setMsgText(messageTxt);
+        messages.setMsgToUserInd(isInbound);
+        messages.setUsrUidFk(users);
+
+        this.messagesFacadeREST.create(messages);
+    }
 }
