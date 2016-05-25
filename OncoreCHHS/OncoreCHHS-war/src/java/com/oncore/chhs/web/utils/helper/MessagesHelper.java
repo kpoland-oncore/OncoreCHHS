@@ -25,11 +25,9 @@ package com.oncore.chhs.web.utils.helper;
 
 import com.oncore.chhs.web.entities.Messages;
 import com.oncore.chhs.web.messages.MessageBean;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import org.apache.commons.collections4.CollectionUtils;
 
 /**
  *
@@ -37,19 +35,8 @@ import org.apache.commons.collections4.CollectionUtils;
  */
 public class MessagesHelper {
 
-    public static List<String> MESSAGES_RESPONSE = Arrays.asList("Thank you",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11 ",
-            "12");
+    public static List<String> MESSAGES_RESPONSE = Arrays.asList("Thank you for your question.",
+            "Thank you for your question. We will get back to you within 5 business days.");
 
     /**
      * Gets the random responses from predefined texts.
