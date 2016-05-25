@@ -28,6 +28,7 @@ import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.services.MessagesFacadeREST;
 import com.oncore.chhs.web.services.UsersFacadeREST;
+import com.oncore.chhs.web.utils.helper.MessagesHelper;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,6 +37,7 @@ import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -66,18 +68,18 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
 
     @Override
     public List<MessageBean> fetchInbox(Users users, Date oldestDate) throws WebServiceException {
-        return new ArrayList<>();
+        return this.getInbounds(users.getMessagesList());
     }
 
     @Override
     public List<MessageBean> fetchOutbox(Users users, Date oldestDate) throws WebServiceException {
-        return new ArrayList<>();
+        return this.getOutbounds(users.getMessagesList());
     }
 
     @Override
     public void sendMessage(MessageBean messageBean, Users users) throws WebServiceException {
         this.createMessages(messageBean.getFrom(), messageBean.getTo(), messageBean.getMessage(), true, users);
-        this.createMessages(messageBean.getTo(), messageBean.getFrom(), messageBean.getMessage(), false, users);
+        this.createMessages(messageBean.getTo(), messageBean.getFrom(), MessagesHelper.getRandomResponse(), false, users);
     }
 
     /**
@@ -97,8 +99,51 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
         messages.setMsgTo(to);
         messages.setMsgText(messageTxt);
         messages.setMsgToUserInd(isInbound);
+        messages.setMsgCreatedTs(new Date());
         messages.setUsrUidFk(users);
 
         this.messagesFacadeREST.create(messages);
+    }
+
+    /**
+     *
+     * 
+     * @param msgs
+     *
+     * @return
+     */
+    private List<MessageBean> getInbounds(List<Messages> msgs) {
+        List<MessageBean> msgBeans = new ArrayList<>();
+
+        if (CollectionUtils.isNotEmpty(msgs)) {
+            for (Messages msg : msgs) {
+                if (msg.getMsgToUserInd()) {
+                    msgBeans.add(MessagesHelper.buildMessageBeansFromMessages(msg));
+                }
+            }
+        }
+
+        return msgBeans;
+    }
+
+    /**
+     *
+     * 
+     * @param msgs
+     * 
+     * @return
+     */
+    private List<MessageBean> getOutbounds(List<Messages> msgs) {
+        List<MessageBean> msgBeans = new ArrayList<>();
+
+        if (CollectionUtils.isNotEmpty(msgs)) {
+            for (Messages msg : msgs) {
+                if (!msg.getMsgToUserInd()) {
+                    msgBeans.add(MessagesHelper.buildMessageBeansFromMessages(msg));
+                }
+            }
+        }
+
+        return msgBeans;
     }
 }

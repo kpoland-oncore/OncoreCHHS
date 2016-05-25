@@ -50,8 +50,8 @@ public class MessagesManagedBean extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing MessagesManagedBean: " + this.getClass().hashCode());
-        
-         if (this.globalManagedBean.getAuthenticatedUser() == null) {
+
+        if (this.globalManagedBean.getAuthenticatedUser() == null) {
             FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "login_redirect");
         } else {
             try {
@@ -59,7 +59,7 @@ public class MessagesManagedBean extends BaseManagedBean {
 
                 this.setInboxList(this.messageDataManagedBean.fetchInbox(this.globalManagedBean.getAuthenticatedUser(), new Date()));
                 this.setOutboxList(this.messageDataManagedBean.fetchOutbox(this.globalManagedBean.getAuthenticatedUser(), new Date()));
-                
+
             } catch (WebServiceException wx) {
                 LOG.error(wx);
                 FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());

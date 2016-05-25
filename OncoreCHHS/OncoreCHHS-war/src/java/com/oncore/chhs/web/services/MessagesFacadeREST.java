@@ -105,5 +105,5 @@ public class MessagesFacadeREST extends AbstractFacade<Messages> {
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

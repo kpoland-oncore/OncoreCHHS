@@ -240,5 +240,5 @@ public class Messages implements Serializable {
     public String toString() {
         return "com.oncore.chhs.web.entities.Messages[ msgUid=" + msgUid + " ]";
     }
-    
+
 }
