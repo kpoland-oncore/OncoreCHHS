@@ -52,6 +52,15 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    public static void invalidTextAreaFormatError(FacesContext context, String componentId) {
+        FacesMessage message = new FacesMessage();
+        message.setSummary("Value entered must be letters, numbers, spaces, or punctuation.");
+        message.setDetail("Value entered must be letters, numbers, spaces, or punctuation.");
+        message.setSeverity(FacesMessage.SEVERITY_ERROR);
+        context.addMessage(componentId, message);
+        context.renderResponse();
+    }
+
     public static void invalidAlphaFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
         message.setSummary("Value entered must be letters or spaces.");
@@ -93,23 +102,19 @@ public final class FacesUtilities {
         context.addMessage(componentId, message);
         context.renderResponse();
     }
-    
-    public static void removeMessages()
-    {
+
+    public static void removeMessages() {
         FacesContext context = FacesContext.getCurrentInstance();
-        
-        if(CollectionUtils.isNotEmpty(context.getMessageList()))
-        {
+
+        if (CollectionUtils.isNotEmpty(context.getMessageList())) {
             context.getMessageList().clear();
         }
     }
-    
-    public static void runJavaScript(String script)
-    {
+
+    public static void runJavaScript(String script) {
         RequestContext requestContext = RequestContext.getCurrentInstance();
-        
-        if(requestContext != null)
-        {
+
+        if (requestContext != null) {
             requestContext.execute(script);
         }
     }
