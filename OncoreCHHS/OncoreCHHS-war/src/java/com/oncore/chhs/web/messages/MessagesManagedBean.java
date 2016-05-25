@@ -24,6 +24,8 @@
 package com.oncore.chhs.web.messages;
 
 import com.oncore.chhs.web.base.BaseManagedBean;
+import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
+import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import java.util.ArrayList;
@@ -75,7 +77,35 @@ public class MessagesManagedBean extends BaseManagedBean {
 
     public String handleSendButtonClickEvent() {
 
-        return null;
+        String page = null;
+
+        try {
+            if (this.messageValidationBean.validateTextArea(this.getMessageBean().getMessage(), Boolean.TRUE, FORM_NAME + "messageTxt")) {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+            } else {
+
+                this.getMessageBean().setFrom(this.globalManagedBean.getCalculatedUserFullName());
+                this.getMessageBean().setSentDate(new Date());
+                this.getMessageBean().setTo("CHHS");
+                this.messageDataManagedBean.sendMessage(this.getMessageBean(), this.globalManagedBean.getAuthenticatedUser());
+  
+                this.getOutboxList().add(this.getMessageBean());
+                
+                MessageBean inboundMessage = new MessageBean();
+                inboundMessage.setFrom("CHHS");
+                inboundMessage.setTo(this.globalManagedBean.getCalculatedUserFullName());
+                inboundMessage.setMessage("Thank you for your question. We will get back to you within 5 business days.");
+                inboundMessage.setReceivedDate(new Date());
+                
+                this.getInboxList().add(inboundMessage);
+                
+            }
+        } catch (WebServiceException wx) {
+            LOG.error(wx);
+            FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
+        }
+
+        return page;
 
     }
 

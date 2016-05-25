@@ -29,6 +29,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -94,9 +95,38 @@ public class GlobalManagedBean extends BaseManagedBean {
         this.authenticatedUser = authenticatedUser;
     }
 
+    /**
+     * @return the calculatedUserFullName
+     */
+    public String getCalculatedUserFullName() {
+
+        if (this.getAuthenticatedUser() != null) {
+            this.calculatedUserFullName = StringUtils.EMPTY;
+
+            if (StringUtils.isNotBlank(this.getAuthenticatedUser().getUsrFirstname())) {
+                this.calculatedUserFullName += this.getAuthenticatedUser().getUsrFirstname();
+            }
+
+            if (StringUtils.isNotBlank(this.getAuthenticatedUser().getUsrLastname())) {
+                this.calculatedUserFullName += " " + this.getAuthenticatedUser().getUsrLastname();
+            }
+
+        }
+        
+        return calculatedUserFullName;
+    }
+
+    /**
+     * @param calculatedUserFullName the calculatedUserFullName to set
+     */
+    public void setCalculatedUserFullName(String calculatedUserFullName) {
+        this.calculatedUserFullName = calculatedUserFullName;
+    }
+
     private Boolean authenticated = Boolean.FALSE;
     private String loginText = "Login";
     private Users authenticatedUser;
+    private String calculatedUserFullName;
 
     private final Logger LOG = LogManager.getLogger(GlobalManagedBean.class);
 
