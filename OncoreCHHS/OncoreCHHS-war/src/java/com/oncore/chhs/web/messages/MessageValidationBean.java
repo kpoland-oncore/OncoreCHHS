@@ -24,10 +24,13 @@
 package com.oncore.chhs.web.messages;
 
 import com.oncore.chhs.web.base.BaseValidationBean;
+import com.oncore.chhs.web.utils.FacesUtilities;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,6 +52,20 @@ public class MessageValidationBean extends BaseValidationBean {
     @PreDestroy
     public void destroy() {
         LOG.debug("Destroying MessageValidationBean: " + this.getClass().hashCode());
+    }
+
+    public Boolean validateTextArea(String value, Boolean isRequired, String componentId) {
+        Boolean isError = Boolean.FALSE;
+
+        if (isRequired && StringUtils.isBlank(value)) {
+            FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
+            isError = Boolean.TRUE;
+        } else if (!StringUtils.isAlphanumericSpace(value) || !StringUtils.isAsciiPrintable(value) && !StringUtils.containsAny(value, "<>[]=")) {
+            FacesUtilities.invalidTextAreaFormatError(FacesContext.getCurrentInstance(), componentId);
+            isError = Boolean.TRUE;
+        }
+
+        return isError;
     }
 
     private final Logger LOG = LogManager.getLogger(MessageValidationBean.class);
