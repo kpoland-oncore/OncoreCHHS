@@ -29,6 +29,7 @@ import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.services.MessagesFacadeREST;
 import com.oncore.chhs.web.services.UsersFacadeREST;
 import com.oncore.chhs.web.utils.helper.MessagesHelper;
+import static com.oncore.chhs.web.utils.helper.ProfileHelper.getFormattedName;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -101,13 +102,23 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
         messages.setMsgToUserInd(isInbound);
         messages.setMsgCreatedTs(new Date());
         messages.setUsrUidFk(users);
+        messages.setCreateTs(new Date());
+        messages.setCreateUserId(getFormattedName(users));
+        messages.setUpdateTs(new Date());
+        messages.setUpdateUserId(getFormattedName(users));
+
+        if (null == users.getMessagesList()) {
+            users.setMessagesList(new ArrayList<>());
+        }
+
+        users.getMessagesList().add(messages);
 
         this.messagesFacadeREST.create(messages);
     }
 
     /**
      *
-     * 
+     *
      * @param msgs
      *
      * @return
@@ -128,9 +139,9 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
 
     /**
      *
-     * 
+     *
      * @param msgs
-     * 
+     *
      * @return
      */
     private List<MessageBean> getOutbounds(List<Messages> msgs) {
