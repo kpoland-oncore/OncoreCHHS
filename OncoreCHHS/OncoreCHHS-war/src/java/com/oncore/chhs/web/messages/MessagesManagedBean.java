@@ -87,7 +87,7 @@ public class MessagesManagedBean extends BaseManagedBean {
                 this.getMessageBean().setFrom(this.globalManagedBean.getCalculatedUserFullName());
                 this.getMessageBean().setSentDate(new Date());
                 this.getMessageBean().setTo("CHHS");
-                this.messageDataManagedBean.sendMessage(this.getMessageBean().getMessage(), this.globalManagedBean.getAuthenticatedUser());
+                this.messageDataManagedBean.sendMessage(this.getMessageBean(), this.globalManagedBean.getAuthenticatedUser());
   
                 this.getOutboxList().add(this.getMessageBean());
                 
