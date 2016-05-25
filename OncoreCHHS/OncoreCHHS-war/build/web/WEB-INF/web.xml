@@ -82,7 +82,7 @@
 
     <context-param>
         <param-name>org.omnifaces.VIEW_SCOPE_MANAGER_MAX_ACTIVE_VIEW_SCOPES</param-name>
-        <param-value>200</param-value>
+        <param-value>2000</param-value>
     </context-param>
     
     <!-- END OPTIMIZATIONS -->
