@@ -34,7 +34,7 @@
                     </header>
 
                     <p:messages id="messges" showSummary="true" showDetail="false"
-                                autoUpdate="true" globalOnly="false" display="text"
+                                autoUpdate="true" globalOnly="true" display="text"
                                 escape="false"/>
  
                     <p><b><h:outputText value="ATTENTION:  This website if for demonstration purposes only.  Do not enter your real contact information."/></b></p>
@@ -74,6 +74,7 @@
                                 <p:commandButton id="registerBtn" value="Save" 
                                                  styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
                                                  oncomplete="PF('feedbackWdg').hide()"
+                                                 update="@form"
                                                  action="#{managedBean.handleSaveButtonClickEvent()}"/>
                             </p:outputPanel>
                             <p:blockUI block="registerButtonPnl" trigger="registerBtn"/>

@@ -75,36 +75,50 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
 
     public String handleSaveButtonClickEvent() {
         String page = null;
+        Boolean isError = Boolean.FALSE;
 
         try {
             FacesUtilities.removeMessages();
 
-            if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), Boolean.TRUE, FORM_NAME + "firstNameTxt")) {
-                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), Boolean.TRUE, FORM_NAME + "lastNameTxt")) {
-                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), Boolean.FALSE, FORM_NAME + "middleNameTxt")) {
-                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), Boolean.TRUE, FORM_NAME + "addressLine1Txt")) {
-                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), Boolean.FALSE, FORM_NAME + "addressLine2Txt")) {
-                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), Boolean.TRUE, FORM_NAME + "cityTxt")) {
-                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getState(), FORM_NAME + "statesList")) {
-                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getZip(), FORM_NAME + "zipMsk")) {
-                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else if (this.profileValidationBean.validateEmailAddress(this.getProfileBean().getEmail(), FORM_NAME + "emailTxt")) {
-                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            } else {
+            if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), Boolean.TRUE, FORM_NAME + "firstNameTxt:input")) {
+                isError = Boolean.TRUE;
+            }
+            if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), Boolean.TRUE, FORM_NAME + "lastNameTxt:input")) {
+                isError = Boolean.TRUE;
+            }
+            if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), Boolean.FALSE, FORM_NAME + "middleNameTxt:input")) {
+                isError = Boolean.TRUE;
+            }
+            if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), Boolean.TRUE, FORM_NAME + "addressLine1Txt:input")) {
+                isError = Boolean.TRUE;
+            }
+            if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), Boolean.FALSE, FORM_NAME + "addressLine2Txt:input")) {
+                isError = Boolean.TRUE;
+            }
+            if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), Boolean.TRUE, FORM_NAME + "cityTxt:input")) {
+                isError = Boolean.TRUE;
+            }
+            if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getState(), FORM_NAME + "statesList:input")) {
+                isError = Boolean.TRUE;
+            }
+            if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getZip(), FORM_NAME + "zipMsk:input")) {
+                isError = Boolean.TRUE;
+            }
+            if (this.profileValidationBean.validateEmailAddress(this.getProfileBean().getEmail(), FORM_NAME + "emailTxt:input")) {
+                isError = Boolean.TRUE;
+            }
+
+            if (!isError) {
 
                 this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
                 this.profileDataManagedBean.updateProfile(profileBean, this.globalManagedBean.getAuthenticatedUser());
 
                 FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
 
+            } else {
+                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
             }
+
         } catch (WebServiceException wx) {
             LOG.error(wx);
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());

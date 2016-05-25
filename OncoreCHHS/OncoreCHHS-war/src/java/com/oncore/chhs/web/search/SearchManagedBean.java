@@ -69,7 +69,7 @@ public class SearchManagedBean extends BaseManagedBean {
 
         try {
 
-            if (this.searchValidationBean.validateRequiredField(this.getSearchBean().getZipForSearch(), FORM_NAME + "searchTxt")) {
+            if (this.searchValidationBean.validateRequiredField(this.getSearchBean().getZipForSearch(), FORM_NAME + "searchTxt:input")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
             } else {
                 this.setSearchBeanList(this.searchDataManagedBean.search(this.getSearchBean().getZipForSearch()));

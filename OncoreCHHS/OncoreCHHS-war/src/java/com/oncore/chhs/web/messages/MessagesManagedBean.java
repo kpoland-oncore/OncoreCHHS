@@ -25,7 +25,6 @@ package com.oncore.chhs.web.messages;
 
 import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import java.util.ArrayList;
@@ -80,7 +79,7 @@ public class MessagesManagedBean extends BaseManagedBean {
         String page = null;
 
         try {
-            if (this.messageValidationBean.validateTextArea(this.getMessageBean().getMessage(), Boolean.TRUE, FORM_NAME + "messageTxt")) {
+            if (this.messageValidationBean.validateTextArea(this.getMessageBean().getMessage(), Boolean.TRUE, FORM_NAME + "messageTxt:input")) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
             } else {
 

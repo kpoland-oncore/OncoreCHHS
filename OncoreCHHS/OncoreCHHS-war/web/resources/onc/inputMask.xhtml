@@ -51,6 +51,7 @@
         <cc:attribute name="divStyle" required="false" default=""/>
         <cc:attribute name="type" required="false" default="text"/>
         <cc:attribute name="title" required="false" default="" />
+        <cc:editableValueHolder name="#{cc.clientId}" targets="input" />
         <!-- End Standard Properties -->
         <!-- Custom Properties -->
         <cc:attribute name="labelStyleClass" required="false" default="nostyle" />
@@ -69,7 +70,7 @@
         
             <p:panelGrid id="#{cc.attrs.id}_pnl" columns="2" columnClasses="column_1_class,column_2_class" role="presentation">
              
-                <p:outputLabel for="#{cc.attrs.id}" styleClass="#{cc.attrs.labelStyleClass}">
+                <p:outputLabel for="input" styleClass="#{cc.attrs.labelStyleClass}">
                     <h:outputText value="#{cc.attrs.label}" rendered="#{!cc.attrs.requiredLabel}"/> 
                     <h:outputText value="*#{cc.attrs.label}" rendered="#{cc.attrs.requiredLabel}"/>
                 </p:outputLabel>
@@ -77,7 +78,7 @@
                 
                 
                 <p:inputMask 
-                    id="#{cc.attrs.id}"
+                    id="input"
                     rendered="#{cc.attrs.rendered}"
                     value="#{cc.attrs.value}"
                     autocomplete="off"
@@ -95,7 +96,7 @@
                 
                 
                  
-                <p:message for="#{cc.attrs.id}" showDetail="true" showSummary="false" display="text"/>
+                <p:message for="input" showDetail="false" showSummary="true" display="text"/>
                
 
             </p:panelGrid>

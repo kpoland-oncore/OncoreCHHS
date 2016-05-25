@@ -34,12 +34,14 @@
                     </header>
 
                     <p:messages id="messges" showSummary="true" showDetail="false"
-                                autoUpdate="true" globalOnly="false" display="text"
+                                autoUpdate="true" globalOnly="true" display="text"
                                 escape="false"/>
  
                     <p><b><h:outputText value="ATTENTION:  This website if for demonstration purposes only.  Do not enter your real contact information."/></b></p>
                     <p:spacer height="5"/>
                     <p:panel id="registerPnl" header="Enter Registration Information" toggleable="false">
+                        
+                        
                         <onc:inputText_1 id="userNameTxt"
                                        label="User Name:"
                                        labelStyleClass="form_label"
@@ -73,6 +75,7 @@
                                 <p:commandButton id="registerBtn" value="Register" 
                                                  styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
                                                  oncomplete="PF('feedbackWdg').hide()"
+                                                 update="@form"
                                                  action="#{managedBean.handleRegisterButtonClickEvent()}"/>
                             </p:outputPanel>
                             <p:blockUI block="registerButtonPnl" trigger="registerBtn"/>

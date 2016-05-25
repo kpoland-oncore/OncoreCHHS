@@ -71,6 +71,7 @@
                                 <p:commandButton id="loginBtn" value="Login" 
                                                  styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
                                                  oncomplete="PF('feedbackWdg').hide()"
+                                                 update="@form"
                                                  action="#{managedBean.handleLoginButtonClickEvent()}"/>
                             </p:outputPanel>
                             <p:blockUI block="loginButtonPnl" trigger="loginBtn"/>
