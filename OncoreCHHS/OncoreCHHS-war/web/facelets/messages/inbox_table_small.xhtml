@@ -24,11 +24,13 @@
 
             <p:column sortBy="#{messageBean.receivedDate}"
 
-                      style=" text-align: left;">
+                      style="width: 40%; text-align: left;">
                 <f:facet name="header">
                     <h:outputText value="&nbsp;&nbsp;Received Date" />
                 </f:facet>
-                <h:outputText value="#{messageBean.receivedDate}" />
+                <h:outputText value="#{messageBean.receivedDate}">
+                    <f:convertDateTime dateStyle="short" timeStyle="short" type="both" />
+                </h:outputText>
             </p:column>
 
  
@@ -36,7 +38,7 @@
             <p:column sortBy="#{messageBean.message}"
 
 
-                      style="text-align: left;">
+                      style="width: 60%; text-align: left;">
                 <f:facet name="header">
                     <h:outputText value="&nbsp;&nbsp;Message" />
                 </f:facet>
