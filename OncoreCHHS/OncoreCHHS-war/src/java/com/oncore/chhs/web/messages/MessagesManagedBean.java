@@ -55,16 +55,7 @@ public class MessagesManagedBean extends BaseManagedBean {
         if (this.globalManagedBean.getAuthenticatedUser() == null) {
             FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "login_redirect");
         } else {
-            try {
-                FacesUtilities.removeMessages();
-
-                this.setInboxList(this.messageDataManagedBean.fetchInbox(this.globalManagedBean.getAuthenticatedUser(), new Date()));
-                this.setOutboxList(this.messageDataManagedBean.fetchOutbox(this.globalManagedBean.getAuthenticatedUser(), new Date()));
-
-            } catch (WebServiceException wx) {
-                LOG.error(wx);
-                FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
-            }
+            populateBoxes();
         }
     }
 
@@ -88,16 +79,10 @@ public class MessagesManagedBean extends BaseManagedBean {
                 this.getMessageBean().setTo("CHHS");
                 this.messageDataManagedBean.sendMessage(this.getMessageBean(), this.globalManagedBean.getAuthenticatedUser());
 
-                this.getOutboxList().add(this.getMessageBean());
-
-                MessageBean inboundMessage = new MessageBean();
-                inboundMessage.setFrom("CHHS");
-                inboundMessage.setTo(this.globalManagedBean.getCalculatedUserFullName());
-                inboundMessage.setMessage("Thank you for your question. We will get back to you within 5 business days.");
-                inboundMessage.setReceivedDate(new Date());
-
-                this.getInboxList().add(inboundMessage);
-
+                this.populateBoxes();
+                
+                this.setMessageBean(new MessageBean());
+                
             }
         } catch (WebServiceException wx) {
             LOG.error(wx);
@@ -106,6 +91,19 @@ public class MessagesManagedBean extends BaseManagedBean {
 
         return page;
 
+    }
+
+    private void populateBoxes() {
+        try {
+            FacesUtilities.removeMessages();
+
+            this.setInboxList(this.messageDataManagedBean.fetchInbox(this.globalManagedBean.getAuthenticatedUser(), new Date()));
+            this.setOutboxList(this.messageDataManagedBean.fetchOutbox(this.globalManagedBean.getAuthenticatedUser(), new Date()));
+
+        } catch (WebServiceException wx) {
+            LOG.error(wx);
+            FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
+        }
     }
 
     /**
