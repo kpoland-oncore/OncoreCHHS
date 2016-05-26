@@ -11,6 +11,12 @@ Oncore CHHS Prototype
   - http://www.govtech.com/federal/Feds-Extend-18Fs-Silicon-Valley-Expertise-to-Cities-States.html
   - https://www.codeforamerica.org/
 
+## Live Test Environment
+http://oncorechhsjenkins.westus.cloudapp.azure.com:8080/OncoreCHHS-war/
+
+## Live Production Environment
+__coming soon__
+
 ## Developer Instructions
 [Developer Instructions](DEVELOPER.md)
 
