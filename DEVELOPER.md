@@ -9,9 +9,6 @@ _Work In Progress_
 Royce uploaded the VMWare developer image to OneDrive: https://oncore.sharepoint.com/sites/oncorechhs/_layouts/15/guestaccess.aspx?guestaccesstoken=TkHr6YH3Gbqm60xhSGrKwtlF6tmzN4EcuB1IrlaNTXs%3d&docid=2_0d74d12013bfc4ba1b485e6cfa626811a
 _ISSUE_: [Kyle] for Vagrant to use VMWare you have to buy both VMWare $150-$250 and a Vagrant plugin $79. They recommend only using VMWare Workstation Pro, not Player. Vagrant uses VirtualBox by default with no paid plugin.
 
-## Vagrant
-**TODO Kyle**
-1. Download and install Vagrant: https://www.vagrantup.com/downloads.html
 
 ## Git
 [Git getting started guide](https://git-scm.com/book/en/v2/Getting-Started-The-Command-Line)
