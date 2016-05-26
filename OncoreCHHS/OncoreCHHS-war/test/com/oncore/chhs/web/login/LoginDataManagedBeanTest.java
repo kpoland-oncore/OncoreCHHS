@@ -26,53 +26,43 @@ package com.oncore.chhs.web.login;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.profile.ProfileBean;
 import com.oncore.chhs.web.services.UsersFacadeREST;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import java.lang.reflect.Method;
 import static org.junit.Assert.*;
+import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import static org.mockito.Mockito.*;
 
 /**
- *
+ * Unit test for LoginDataManagedBean class.
+ * 
  * @author oncore
  */
 public class LoginDataManagedBeanTest {
     
-    public LoginDataManagedBeanTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of createUser method, of class LoginDataManagedBean.
+     * 
+     * @throws Exception Any unexpected exception should fail the test.
      */
     @Test
     public void testCreateUser() throws Exception {
-        System.out.println("createUser");
         
         ProfileBean profile = new ProfileBean();
-        profile.setUserName("userName");
         profile.setFirstName("firstName");
+        profile.setLastName("lastName");
+        profile.setMiddleName("middleName");
+        profile.setUserName("userName");
         
-        Users expResult = new Users();
-        expResult.setUsrUserId("userName");
-        expResult.setUsrFirstname("firstName");
+        //all these fields should be ignored by this method - 
+        //they are handled by other services.
+        profile.setAddressLine1("ignore");
+        profile.setAddressLine2("ignore");
+        profile.setCity("ignore");
+        profile.setEmail("ignore");
+        profile.setPhone("ignore");
+        profile.setPhoneType("ignore");
+        profile.setState("ignore");
+        profile.setZip("ignore");
         
         LoginDataManagedBean instance = new LoginDataManagedBean();
         
@@ -80,47 +70,85 @@ public class LoginDataManagedBeanTest {
         instance.setUsersFacadeREST(mockREST);
         instance.createUser(profile);
         
-        verify(mockREST).create(expResult);
+        ArgumentCaptor<Users> actual = ArgumentCaptor.forClass(Users.class);
+        verify(mockREST).create(actual.capture());
         
+        //the chosen username should get populated into all these fields
+        assertEquals( "userName", actual.getValue().getUsrUserId());
+        assertEquals( "userName", actual.getValue().getCreateUserId());
+        assertEquals( "userName", actual.getValue().getUpdateUserId());
+        
+        //timestamps should be populated
+        assertNotNull( actual.getValue().getCreateTs() );
+        assertNotNull( actual.getValue().getUpdateTs() );
+        
+        //other name fields should be populated
+        assertEquals( "firstName", actual.getValue().getUsrFirstname() );
+        assertEquals( "middleName", actual.getValue().getUsrMiddlename() );
+        assertEquals( "lastName", actual.getValue().getUsrLastname() );
+        
+        //ensure no ignored fields were updated on the Users object
+        Method[] methods = Users.class.getDeclaredMethods();
+        for ( Method method : methods )
+        {
+            if ( String.class.equals(method.getReturnType()))
+            {
+                String result = (String)method.invoke(actual.getValue(), (Object[])null );
+                assertFalse( method.getName() + " should not be populated with any value", 
+                    result.equals("ignore"));
+            }
+        }
     }
 
     /**
-     * Test of authenticateUser method, of class LoginDataManagedBean.
+     * Test of authenticateUser method, of class LoginDataManagedBean,
+     * when a user is found.
+     * 
+     * @throws Exception Any unexpected exception should fail the test.
      */
     @Test
     public void testAuthenticateUser() throws Exception {
-        System.out.println("authenticateUser");
-        LoginBean loginBean = null;
+        
+        LoginBean login = new LoginBean();
+        login.setUserName("userName");
+        
         LoginDataManagedBean instance = new LoginDataManagedBean();
-        Users expResult = null;
-        Users result = instance.authenticateUser(loginBean);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of initialize method, of class LoginDataManagedBean.
-     */
-    @Test
-    public void testInitialize() {
-        System.out.println("initialize");
-        LoginDataManagedBean instance = new LoginDataManagedBean();
-        instance.initialize();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of destroy method, of class LoginDataManagedBean.
-     */
-    @Test
-    public void testDestroy() {
-        System.out.println("destroy");
-        LoginDataManagedBean instance = new LoginDataManagedBean();
-        instance.destroy();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        
+        Users expected = new Users();
+        expected.setUsrUserId("userName");
+        
+        UsersFacadeREST mockREST = mock(UsersFacadeREST.class);
+        when(mockREST.findByUserId(login.getUserName())).thenReturn(expected);
+        
+        instance.setUsersFacadeREST(mockREST);
+        
+        Users answer = instance.authenticateUser(login);
+        verify(mockREST).findByUserId(login.getUserName());
+        assertEquals(expected, answer);
+    }    
     
+    /**
+     * Test of authenticateUser method, of class LoginDataManagedBean,
+     * when no user is found for the given user name.
+     * 
+     * @throws Exception Any unexpected exception should fail the test.
+     */
+    @Test
+    public void testAuthenticateUserNoUserFound() throws Exception {
+        
+        LoginBean login = new LoginBean();
+        login.setUserName("userName");
+        
+        LoginDataManagedBean instance = new LoginDataManagedBean();
+        
+        UsersFacadeREST mockREST = mock(UsersFacadeREST.class);
+        when(mockREST.findByUserId(login.getUserName())).thenReturn(null);
+        
+        instance.setUsersFacadeREST(mockREST);
+        
+        Users answer = instance.authenticateUser(login);
+        verify(mockREST).findByUserId(login.getUserName());
+        assertNull(answer );
+    }
+
 }
