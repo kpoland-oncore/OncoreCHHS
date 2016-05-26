@@ -86,6 +86,14 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    public static void createPageLevelSaveSuccess(FacesContext context) {
+        FacesMessage message = new FacesMessage();
+        message.setSummary("Save successful.");
+        message.setSeverity(FacesMessage.SEVERITY_INFO);
+        context.addMessage(null, message);
+        context.renderResponse();
+    }
+
     public static void createPageLevelCustomError(FacesContext context, String errorMessage) {
         FacesMessage message = new FacesMessage();
         message.setSummary(errorMessage);

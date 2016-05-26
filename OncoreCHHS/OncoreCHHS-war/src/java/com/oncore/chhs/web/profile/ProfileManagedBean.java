@@ -122,9 +122,12 @@ public class ProfileManagedBean extends BaseManagedBean {
                     this.globalManagedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
                     this.globalManagedBean.setAuthenticatedUser(users);
 
-                    FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
+                   // FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
 
                     // page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
+                    
+                    FacesUtilities.createPageLevelSaveSuccess(FacesContext.getCurrentInstance());
+                    
                 } else {
                     FacesUtilities.createPageLevelCustomError(FacesContext.getCurrentInstance(), "The user name provided has already been taken. Please try a different user name.");
                 }

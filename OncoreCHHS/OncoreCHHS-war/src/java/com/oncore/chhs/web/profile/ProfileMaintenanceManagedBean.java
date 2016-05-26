@@ -113,7 +113,8 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
                 this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
                 this.profileDataManagedBean.updateProfile(profileBean, this.globalManagedBean.getAuthenticatedUser());
 
-                FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
+//                FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
+                FacesUtilities.createPageLevelSaveSuccess(FacesContext.getCurrentInstance());
 
             } else {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
