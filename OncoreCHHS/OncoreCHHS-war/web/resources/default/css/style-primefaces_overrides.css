@@ -26,6 +26,7 @@ THE SOFTWARE.
     Author     : oncore
 */
 
+/* suppress panel grid borders */
 .ui-panelgrid{
     border: none !important;
     background: white !important;
@@ -37,6 +38,30 @@ THE SOFTWARE.
     background-color: white !important;
 }
  
+/* add top margin to growl so it does not
+   overlay top menu bar in mobile view */
 .ui-growl{
     margin-top: 5em;
+}
+
+/* Overload default style to ensure input components have black text for 
+   better contrast. */
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+    color: black;
+}
+
+/* Overload default style to ensure buttons have black text for 
+   better contrast. */
+.ui-button .ui-button-text{
+    color: black;
+}
+
+/* Overload default style to widget content such as table cells have black text for 
+   better contrast. */
+.ui-widget-content{
+    color: black;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+    color: black;
 }

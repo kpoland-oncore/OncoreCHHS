@@ -21,7 +21,7 @@
 	}
 
 	a {
-		color: #3ac984;
+		color: #175337;   /* replaced all #3ac984 with 175337 to correct WAV Contrast finding */
 		text-decoration: underline;
 	}
 
@@ -137,7 +137,7 @@
 		input[type="password"]:focus,
 		input[type="email"]:focus,
 		textarea:focus {
-			border-color: #3ac984;
+			border-color: #175337;
 		}
 
 	input[type="text"],
@@ -336,7 +336,7 @@
 			width: 80px;
 			height: 80px;
 			margin-right: 1em;
-			background: #3ac984;
+			background: #175337;
 			line-height: 80px;
 			text-align: center;
 			border-radius: 10px;
@@ -405,7 +405,7 @@
 		-o-transition: background-color 0.2s ease-in-out;
 		-ms-transition: background-color 0.2s ease-in-out;
 		transition: background-color 0.2s ease-in-out;
-		background: #3ac984;
+		background: #175337;
 		border-radius: 40px;
 		border: 0;
 		color: white;
@@ -531,7 +531,7 @@
 			}
 
 			#nav > ul > li.active {
-				background: #3ac984;
+				background: #175337;
 			}
 
 				#nav > ul > li.active a {
@@ -546,7 +546,7 @@
 
 	.dropotron {
 		margin-top: -2px;
-		background: #3ac984;
+		background: #175337;
 		border-radius: 10px;
 		color: white;
 		min-width: 12em;

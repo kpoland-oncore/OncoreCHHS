@@ -42,9 +42,10 @@ THE SOFTWARE.
     float: left;
 }
  
- .form_label{
+.form_label{
       font-size: 1em;
       float: left;
+      color: black;
       padding-bottom: .5em;
       padding-left: .9em;
       vertical-align: middle;
