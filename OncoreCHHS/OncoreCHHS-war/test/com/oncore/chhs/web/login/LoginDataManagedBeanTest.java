@@ -25,12 +25,14 @@ package com.oncore.chhs.web.login;
 
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.profile.ProfileBean;
+import com.oncore.chhs.web.services.UsersFacadeREST;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -63,13 +65,23 @@ public class LoginDataManagedBeanTest {
     @Test
     public void testCreateUser() throws Exception {
         System.out.println("createUser");
-        ProfileBean profileBean = null;
+        
+        ProfileBean profile = new ProfileBean();
+        profile.setUserName("userName");
+        profile.setFirstName("firstName");
+        
+        Users expResult = new Users();
+        expResult.setUsrUserId("userName");
+        expResult.setUsrFirstname("firstName");
+        
         LoginDataManagedBean instance = new LoginDataManagedBean();
-        Users expResult = null;
-        Users result = instance.createUser(profileBean);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        UsersFacadeREST mockREST = mock(UsersFacadeREST.class);
+        instance.setUsersFacadeREST(mockREST);
+        instance.createUser(profile);
+        
+        verify(mockREST).create(expResult);
+        
     }
 
     /**

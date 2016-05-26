@@ -49,6 +49,14 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
     @EJB
     private UsersFacadeREST usersFacadeREST;
 
+    /**
+     * Package level setter used for passing in mock objects for unit tests.
+     * 
+     * @param mockObject The mock EJB to use for testing.
+     */
+    void setUsersFacadeREST( UsersFacadeREST mockObject ) {
+        this.usersFacadeREST = mockObject;
+    }
     
      @Override
     public Users createUser(ProfileBean profileBean) throws WebServiceException {
