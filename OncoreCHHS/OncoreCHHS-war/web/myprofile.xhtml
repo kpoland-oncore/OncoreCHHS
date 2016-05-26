@@ -33,6 +33,8 @@
 
                     </header>
 
+                    <p:growl id="growl" globalOnly="true" showSummary="true" life="3000"/>
+                    
                     <p:messages id="messges" showSummary="true" showDetail="false"
                                 autoUpdate="true" globalOnly="true" display="text"
                                 escape="false"/>
@@ -41,6 +43,7 @@
                     <p:spacer height="5"/>
                     <p:panel id="registerPnl" header="View or Update Registration Information" toggleable="false">
                         <onc:inputText_1 id="userNameTxt"
+                                       widgetVar='userNameWdg'
                                        label="User Name:"
                                        labelStyleClass="form_label"
                                        inputStyleClass="input_float_left"
