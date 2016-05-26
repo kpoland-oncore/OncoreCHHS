@@ -27,6 +27,7 @@ import com.oncore.chhs.web.entities.Messages;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.services.MessagesFacadeREST;
+import com.oncore.chhs.web.services.UsersFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.helper.MessagesHelper;
 import static com.oncore.chhs.web.utils.helper.ProfileHelper.getFormattedName;
@@ -54,6 +55,8 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
 
     @EJB
     private MessagesFacadeREST messagesFacadeREST;
+        @EJB
+    private UsersFacadeREST usersFacadeREST;
 
     @Override
     @PostConstruct
@@ -81,7 +84,7 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
     public void sendMessage(MessageBean messageBean, Users users) throws WebServiceException {
         try {
             this.createMessages(messageBean.getFrom(), messageBean.getTo(), messageBean.getMessage(), false, users);
-            this.createMessages(messageBean.getTo(), messageBean.getFrom(), MessagesHelper.getRandomResponse(), true, users);
+//            this.createMessages(messageBean.getTo(), messageBean.getFrom(), MessagesHelper.getRandomResponse(), true, users);
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
