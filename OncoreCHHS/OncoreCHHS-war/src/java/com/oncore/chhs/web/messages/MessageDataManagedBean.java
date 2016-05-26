@@ -49,39 +49,39 @@ import org.apache.logging.log4j.Logger;
 @Named("messageDataManagedBean")
 @RequestScoped
 public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
-    
+
     private final Logger LOG = LogManager.getLogger(MessageDataManagedBean.class);
-    
+
     @EJB
     private MessagesFacadeREST messagesFacadeREST;
-    
+
     @Override
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing MessageDataManagedBean: " + this.getClass().hashCode());
     }
-    
+
     @Override
     @PreDestroy
     public void destroy() {
         LOG.debug("Destroying MessageDataManagedBean: " + this.getClass().hashCode());
     }
-    
+
     @Override
     public List<MessageBean> fetchInbox(Users users, Date oldestDate) throws WebServiceException {
         return this.getInbounds(users.getMessagesList());
     }
-    
+
     @Override
     public List<MessageBean> fetchOutbox(Users users, Date oldestDate) throws WebServiceException {
         return this.getOutbounds(users.getMessagesList());
     }
-    
+
     @Override
     public void sendMessage(MessageBean messageBean, Users users) throws WebServiceException {
         try {
             this.createMessages(messageBean.getFrom(), messageBean.getTo(), messageBean.getMessage(), false, users);
-      //      this.createMessages(messageBean.getTo(), messageBean.getFrom(), MessagesHelper.getRandomResponse(), true, users);
+            this.createMessages(messageBean.getTo(), messageBean.getFrom(), MessagesHelper.getRandomResponse(), true, users);
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
@@ -99,7 +99,7 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
      */
     private void createMessages(String from, String to, String messageTxt, boolean isInbound, Users users) {
         Messages messages = new Messages();
-        
+
         messages.setMsgFrom(from);
         messages.setMsgTo(to);
         messages.setMsgText(messageTxt);
@@ -110,13 +110,13 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
         messages.setCreateUserId(getFormattedName(users));
         messages.setUpdateTs(new Date());
         messages.setUpdateUserId(getFormattedName(users));
-        
+
         if (null == users.getMessagesList()) {
             users.setMessagesList(new ArrayList<>());
         }
-        
+
         users.getMessagesList().add(messages);
-        
+
         this.messagesFacadeREST.create(messages);
     }
 
@@ -129,7 +129,7 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
      */
     private List<MessageBean> getInbounds(List<Messages> msgs) {
         List<MessageBean> msgBeans = new ArrayList<>();
-        
+
         if (CollectionUtils.isNotEmpty(msgs)) {
             for (Messages msg : msgs) {
                 if (msg.getMsgToUserInd()) {
@@ -137,7 +137,7 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
                 }
             }
         }
-        
+
         return msgBeans;
     }
 
@@ -150,7 +150,7 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
      */
     private List<MessageBean> getOutbounds(List<Messages> msgs) {
         List<MessageBean> msgBeans = new ArrayList<>();
-        
+
         if (CollectionUtils.isNotEmpty(msgs)) {
             for (Messages msg : msgs) {
                 if (!msg.getMsgToUserInd()) {
@@ -158,7 +158,7 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
                 }
             }
         }
-        
+
         return msgBeans;
     }
 }

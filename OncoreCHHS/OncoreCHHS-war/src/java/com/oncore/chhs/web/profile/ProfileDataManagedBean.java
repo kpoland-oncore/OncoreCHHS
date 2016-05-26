@@ -29,7 +29,6 @@ import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.enums.ContactTypeEnum;
 import com.oncore.chhs.web.exceptions.WebServiceException;
-import com.oncore.chhs.web.login.LoginDataManagedBean;
 import com.oncore.chhs.web.services.AddressFacadeREST;
 import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
 import com.oncore.chhs.web.services.ContactFacadeREST;
@@ -85,6 +84,15 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
         LOG.debug("Destroying ProfileDataManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     * Finds the profile information for the user using the userUid.
+     *
+     * @param userUid
+     *
+     * @return <code>ProfileBean</code>
+     *
+     * @throws WebServiceException
+     */
     @Override
     public ProfileBean findProfileByUserUid(Integer userUid) throws WebServiceException {
 
@@ -104,21 +112,17 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
         return profileBean;
     }
 
+    /**
+     * Creates the profile for the user.
+     *
+     * @param profileBean
+     * @param user
+     * @throws WebServiceException
+     */
     @Override
     public void createProfile(ProfileBean profileBean, Users user) throws WebServiceException {
         try {
-            if (StringUtils.isNotBlank(profileBean.getAddressLine1())) {
-                if (null == user.getAddressList()) {
-                    user.setAddressList(new ArrayList<>());
-                }
-
-                Address address = ProfileHelper.convertProfileBeanToAddressEntity(profileBean, this.adrStateCdFacadeREST, user);
-                address.setUsrUidFk(user);
-
-                user.getAddressList().add(address);
-
-                this.addressFacadeREST.create(address);
-            }
+            this.createAddress(profileBean, user);
 
             if (StringUtils.isNotBlank(profileBean.getPhone())) {
                 if (null == user.getContactList()) {
@@ -150,6 +154,13 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
         }
     }
 
+    /**
+     * Updates the profile information for the user.
+     *
+     * @param profileBean
+     * @param users
+     * @throws WebServiceException
+     */
     @Override
     public void updateProfile(ProfileBean profileBean, Users users) throws WebServiceException {
         try {
@@ -179,6 +190,8 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
 
                 ProfileHelper.mapProfileBeanToAddressEntity(profileBean, address, this.adrStateCdFacadeREST, users);
                 this.addressFacadeREST.edit(address);
+            } else {
+                this.createAddress(profileBean, users);
             }
         }
     }
@@ -206,6 +219,27 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
             }
         } else {
             this.createContactInformation(profileBean, users);
+        }
+    }
+
+    /**
+     * Creates the address information into the contact table.
+     *
+     * @param profileBean
+     * @param user
+     */
+    private void createAddress(ProfileBean profileBean, Users user) {
+        if (StringUtils.isNotBlank(profileBean.getAddressLine1())) {
+            if (null == user.getAddressList()) {
+                user.setAddressList(new ArrayList<>());
+            }
+
+            Address address = ProfileHelper.convertProfileBeanToAddressEntity(profileBean, this.adrStateCdFacadeREST, user);
+            address.setUsrUidFk(user);
+
+            user.getAddressList().add(address);
+
+            this.addressFacadeREST.create(address);
         }
     }
 
