@@ -148,7 +148,7 @@ public class LoginDataManagedBeanTest {
         
         Users answer = instance.authenticateUser(login);
         verify(mockREST).findByUserId(login.getUserName());
-        assertNull(answer );
+        assertNull(answer);
     }
 
 }
