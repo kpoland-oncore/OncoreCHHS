@@ -72,6 +72,53 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
     @EJB
     private EmcTypeCdFacadeREST emcTypeCdFacadeREST;
 
+    /**
+     * Package level setter used for passing in mock objects for unit tests.
+     * 
+     * @param mockObject The mock EJB to use for testing.
+     */
+    void setUsersFacadeREST(UsersFacadeREST mockObject) {
+        this.usersFacadeREST = mockObject;
+    }
+
+    /**
+     * Package level setter used for passing in mock objects for unit tests.
+     * 
+     * @param mockObject The mock EJB to use for testing.
+     */
+    void setAddressFacadeREST(AddressFacadeREST mockObject) {
+        this.addressFacadeREST = mockObject;
+    }
+
+    /**
+     * Package level setter used for passing in mock objects for unit tests.
+     * 
+     * @param mockObject The mock EJB to use for testing.
+     */
+    void setContactFacadeREST(ContactFacadeREST mockObject) {
+        this.contactFacadeREST = mockObject;
+    }
+
+    /**
+     * Package level setter used for passing in mock objects for unit tests.
+     * 
+     * @param mockObject The mock EJB to use for testing.
+     */
+    void setAdrStateCdFacadeREST(AdrStateCdFacadeREST mockObject) {
+        this.adrStateCdFacadeREST = mockObject;
+    }
+
+    /**
+     * Package level setter used for passing in mock objects for unit tests.
+     * 
+     * @param mockObject The mock EJB to use for testing.
+     */
+    void setEmcTypeCdFacadeREST(EmcTypeCdFacadeREST mockObject) {
+        this.emcTypeCdFacadeREST = mockObject;
+    }
+
+    
+    
     @Override
     @PostConstruct
     public void initialize() {
