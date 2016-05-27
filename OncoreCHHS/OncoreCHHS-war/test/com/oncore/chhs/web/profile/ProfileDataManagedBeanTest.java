@@ -28,6 +28,10 @@ import com.oncore.chhs.web.entities.AdrStateCd;
 import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.EmcTypeCd;
 import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.web.services.AddressFacadeREST;
+import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
+import com.oncore.chhs.web.services.ContactFacadeREST;
+import com.oncore.chhs.web.services.EmcTypeCdFacadeREST;
 import com.oncore.chhs.web.services.UsersFacadeREST;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,13 +104,64 @@ public class ProfileDataManagedBeanTest {
      */
     @Test
     public void testCreateProfile() throws Exception {
-        System.out.println("createProfile");
-        ProfileBean profileBean = null;
-        Users user = null;
+
+        ProfileBean profile = new ProfileBean();
+        
+        profile.setAddressLine1("addressLine1");
+        profile.setCity("city");
+        profile.setState("CA");
+        profile.setZip("12345");
+        
+        profile.setPhone("123-456-7890");
+        profile.setPhoneType("MPH");
+        
+        profile.setEmail("me@somewhere.org");
+        
+        Users users = new Users();
+        users.setUsrUid(100);
+        
         ProfileDataManagedBean instance = new ProfileDataManagedBean();
-        instance.createProfile(profileBean, user);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        AddressFacadeREST mockAddressREST = mock(AddressFacadeREST.class);
+        instance.setAddressFacadeREST(mockAddressREST);
+        
+        AdrStateCdFacadeREST mockAdrStateCdREST = mock(AdrStateCdFacadeREST.class);
+        when(mockAdrStateCdREST.findByCode("CA")).thenReturn(new AdrStateCd("CA"));
+        instance.setAdrStateCdFacadeREST(mockAdrStateCdREST);
+        
+        ContactFacadeREST mockContactREST = mock(ContactFacadeREST.class);
+        instance.setContactFacadeREST(mockContactREST);
+        
+        EmcTypeCdFacadeREST mockEmcTypeCdREST = mock(EmcTypeCdFacadeREST.class);
+        when(mockEmcTypeCdREST.findByCode("MPH")).thenReturn(new EmcTypeCd("MPH"));
+        instance.setEmcTypeCdFacadeREST(mockEmcTypeCdREST);
+        
+        instance.createProfile(profile, users);
+        
+        verify(mockAddressREST).create(new Address());
+        verify(mockContactREST, times(2)).create(new Contact());
+        
+        List<Address> addyList = users.getAddressList();
+        assertEquals( addyList.size(), 1 );
+        Address addy = addyList.get(0);
+        assertEquals( users, addy.getUsrUidFk() );
+        assertEquals( profile.getAddressLine1(), addy.getAdrLine1() );
+        assertEquals( profile.getCity(), addy.getAdrCity() );
+        assertEquals( profile.getState(), addy.getAdrStateCd().getCode() );
+        assertEquals( profile.getZip(), addy.getAdrZip5() );
+        
+        List<Contact> contactList = users.getContactList();
+        assertEquals( contactList.size(), 2 );
+        
+        Contact phone = contactList.get(0);
+        assertEquals( users, phone.getUsrUidFk() );
+        assertEquals( profile.getPhoneType(), phone.getEmcTypeCd().getCode() );
+        assertEquals( profile.getPhone(), phone.getEmcValue() );
+        
+        Contact email = contactList.get(1);
+        assertEquals( users, email.getUsrUidFk() );
+        assertEquals( profile.getEmail(), email.getEmcValue() );
+        
     }
 
     /**
