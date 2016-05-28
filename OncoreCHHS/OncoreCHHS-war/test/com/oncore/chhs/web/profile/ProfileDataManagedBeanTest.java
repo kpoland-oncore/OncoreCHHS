@@ -28,6 +28,7 @@ import com.oncore.chhs.web.entities.AdrStateCd;
 import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.EmcTypeCd;
 import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.web.enums.ContactTypeEnum;
 import com.oncore.chhs.web.services.AddressFacadeREST;
 import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
 import com.oncore.chhs.web.services.ContactFacadeREST;
@@ -37,7 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.mockito.ArgumentCaptor;
 import static org.mockito.Mockito.*;
 
 /**
@@ -49,6 +49,8 @@ public class ProfileDataManagedBeanTest {
 
     /**
      * Test of findProfileByUserUid method, of class ProfileDataManagedBean.
+     * 
+     * @throws Exception Any unexpected exception should fail the test.
      */
     @Test
     public void testFindProfileByUserUid() throws Exception {
@@ -101,6 +103,8 @@ public class ProfileDataManagedBeanTest {
 
     /**
      * Test of createProfile method, of class ProfileDataManagedBean.
+     * 
+     * @throws Exception Any unexpected exception should fail the test.
      */
     @Test
     public void testCreateProfile() throws Exception {
@@ -133,7 +137,8 @@ public class ProfileDataManagedBeanTest {
         instance.setContactFacadeREST(mockContactREST);
         
         EmcTypeCdFacadeREST mockEmcTypeCdREST = mock(EmcTypeCdFacadeREST.class);
-        when(mockEmcTypeCdREST.findByCode("MPH")).thenReturn(new EmcTypeCd("MPH"));
+        when(mockEmcTypeCdREST.findByCode(ContactTypeEnum.MOBILE_PHONE.getValue())).
+            thenReturn(new EmcTypeCd(ContactTypeEnum.MOBILE_PHONE.getValue()));
         instance.setEmcTypeCdFacadeREST(mockEmcTypeCdREST);
         
         instance.createProfile(profile, users);
@@ -166,16 +171,184 @@ public class ProfileDataManagedBeanTest {
 
     /**
      * Test of updateProfile method, of class ProfileDataManagedBean.
+     * In this test we will check that the address and phone get updated,
+     * and a new email address gets added.
+     * 
+     * @throws Exception Any unexpected exception should fail the test.
      */
     @Test
-    public void testUpdateProfile() throws Exception {
-        System.out.println("updateProfile");
-        ProfileBean profileBean = null;
-        Users users = null;
+    public void testUpdateProfileAddNewEmail() throws Exception {
+
+        ProfileBean profile = new ProfileBean();
+        
+        profile.setAddressLine1("addressLine1");
+        profile.setCity("city");
+        profile.setState("CA");
+        profile.setZip("12345");
+        
+        profile.setPhone("123-456-7890");
+        profile.setPhoneType(ContactTypeEnum.MOBILE_PHONE.getValue());
+        
+        profile.setEmail("me@somewhere.org");
+        
+        Users users = new Users();
+        users.setUsrUid(100);
+
+        Address existingAddy = new Address();
+        existingAddy.setUsrUidFk(users);
+        existingAddy.setAdrLine1("something different");
+        existingAddy.setAdrCity("different city");
+        existingAddy.setAdrStateCd(new AdrStateCd("WA"));
+        existingAddy.setAdrZip5("11111");
+        
+        List<Address> existingAddys = new ArrayList<>();
+        existingAddys.add(existingAddy);
+        users.setAddressList(existingAddys);
+        
+        Contact existingPhone = new Contact();
+        existingPhone.setUsrUidFk(users);
+        existingPhone.setEmcTypeCd(new EmcTypeCd(ContactTypeEnum.HOME_PHONE.getValue()));
+        existingPhone.setEmcValue("444-333-2222");
+        
+        List<Contact> existingContacts = new ArrayList<>();
+        existingContacts.add(existingPhone);
+        users.setContactList(existingContacts);
+        
         ProfileDataManagedBean instance = new ProfileDataManagedBean();
-        instance.updateProfile(profileBean, users);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        AddressFacadeREST mockAddressREST = mock(AddressFacadeREST.class);
+        instance.setAddressFacadeREST(mockAddressREST);
+        
+        AdrStateCdFacadeREST mockAdrStateCdREST = mock(AdrStateCdFacadeREST.class);
+        when(mockAdrStateCdREST.findByCode("CA")).thenReturn(new AdrStateCd("CA"));
+        instance.setAdrStateCdFacadeREST(mockAdrStateCdREST);
+        
+        ContactFacadeREST mockContactREST = mock(ContactFacadeREST.class);
+        instance.setContactFacadeREST(mockContactREST);
+        
+        EmcTypeCdFacadeREST mockEmcTypeCdREST = mock(EmcTypeCdFacadeREST.class);
+        when(mockEmcTypeCdREST.findByCode(ContactTypeEnum.MOBILE_PHONE.getValue())).
+            thenReturn(new EmcTypeCd(ContactTypeEnum.MOBILE_PHONE.getValue()));
+        instance.setEmcTypeCdFacadeREST(mockEmcTypeCdREST);
+        
+        instance.updateProfile(profile, users);
+        
+        verify(mockAddressREST).edit(existingAddy);
+        verify(mockContactREST).edit(existingPhone);
+        verify(mockContactREST).create(new Contact());
+        
+        List<Address> addyList = users.getAddressList();
+        assertEquals( addyList.size(), 1 );
+        Address addy = addyList.get(0);
+        assertEquals( users, addy.getUsrUidFk() );
+        assertEquals( profile.getAddressLine1(), addy.getAdrLine1() );
+        assertEquals( profile.getCity(), addy.getAdrCity() );
+        assertEquals( profile.getState(), addy.getAdrStateCd().getCode() );
+        assertEquals( profile.getZip(), addy.getAdrZip5() );
+        
+        List<Contact> contactList = users.getContactList();
+        assertEquals( contactList.size(), 2 );
+        
+        Contact phone = contactList.get(0);
+        assertEquals( users, phone.getUsrUidFk() );
+        assertEquals( profile.getPhoneType(), phone.getEmcTypeCd().getCode() );
+        assertEquals( profile.getPhone(), phone.getEmcValue() );
+        
+        Contact email = contactList.get(1);
+        assertEquals( users, email.getUsrUidFk() );
+        assertEquals( profile.getEmail(), email.getEmcValue() );
+        
+    }
+    
+    /**
+     * Test of updateProfile method, of class ProfileDataManagedBean.
+     * In this test we will check that the address and email get updated,
+     * and a new phone gets added.
+     * 
+     * @throws Exception Any unexpected exception should fail the test.
+     */
+    @Test
+    public void testUpdateProfileAddNewPhone() throws Exception {
+
+        ProfileBean profile = new ProfileBean();
+        
+        profile.setAddressLine1("addressLine1");
+        profile.setCity("city");
+        profile.setState("CA");
+        profile.setZip("12345");
+        
+        profile.setPhone("123-456-7890");
+        profile.setPhoneType(ContactTypeEnum.MOBILE_PHONE.getValue());
+        
+        profile.setEmail("me@somewhere.org");
+        
+        Users users = new Users();
+        users.setUsrUid(100);
+
+        Address existingAddy = new Address();
+        existingAddy.setUsrUidFk(users);
+        existingAddy.setAdrLine1("something different");
+        existingAddy.setAdrCity("different city");
+        existingAddy.setAdrStateCd(new AdrStateCd("WA"));
+        existingAddy.setAdrZip5("11111");
+        
+        List<Address> existingAddys = new ArrayList<>();
+        existingAddys.add(existingAddy);
+        users.setAddressList(existingAddys);
+        
+        Contact existingEmail = new Contact();
+        existingEmail.setUsrUidFk(users);
+        existingEmail.setEmcTypeCd(new EmcTypeCd(ContactTypeEnum.EMAIL_ADDRESS.getValue()));
+        existingEmail.setEmcValue("different@somewhere-else.org");
+        
+        List<Contact> existingContacts = new ArrayList<>();
+        existingContacts.add(existingEmail);
+        users.setContactList(existingContacts);
+        
+        ProfileDataManagedBean instance = new ProfileDataManagedBean();
+        
+        AddressFacadeREST mockAddressREST = mock(AddressFacadeREST.class);
+        instance.setAddressFacadeREST(mockAddressREST);
+        
+        AdrStateCdFacadeREST mockAdrStateCdREST = mock(AdrStateCdFacadeREST.class);
+        when(mockAdrStateCdREST.findByCode("CA")).thenReturn(new AdrStateCd("CA"));
+        instance.setAdrStateCdFacadeREST(mockAdrStateCdREST);
+        
+        ContactFacadeREST mockContactREST = mock(ContactFacadeREST.class);
+        instance.setContactFacadeREST(mockContactREST);
+        
+        EmcTypeCdFacadeREST mockEmcTypeCdREST = mock(EmcTypeCdFacadeREST.class);
+        when(mockEmcTypeCdREST.findByCode(ContactTypeEnum.MOBILE_PHONE.getValue())).
+            thenReturn(new EmcTypeCd(ContactTypeEnum.MOBILE_PHONE.getValue()));
+        instance.setEmcTypeCdFacadeREST(mockEmcTypeCdREST);
+        
+        instance.updateProfile(profile, users);
+        
+        verify(mockAddressREST).edit(existingAddy);
+        verify(mockContactREST).edit(existingEmail);
+        verify(mockContactREST).create(new Contact());
+        
+        List<Address> addyList = users.getAddressList();
+        assertEquals( addyList.size(), 1 );
+        Address addy = addyList.get(0);
+        assertEquals( users, addy.getUsrUidFk() );
+        assertEquals( profile.getAddressLine1(), addy.getAdrLine1() );
+        assertEquals( profile.getCity(), addy.getAdrCity() );
+        assertEquals( profile.getState(), addy.getAdrStateCd().getCode() );
+        assertEquals( profile.getZip(), addy.getAdrZip5() );
+        
+        List<Contact> contactList = users.getContactList();
+        assertEquals( contactList.size(), 2 );
+        
+        Contact phone = contactList.get(0);
+        assertEquals( users, phone.getUsrUidFk() );
+        assertEquals( profile.getPhoneType(), phone.getEmcTypeCd().getCode() );
+        assertEquals( profile.getPhone(), phone.getEmcValue() );
+        
+        Contact email = contactList.get(1);
+        assertEquals( users, email.getUsrUidFk() );
+        assertEquals( profile.getEmail(), email.getEmcValue() );
+        
     }
     
 }
