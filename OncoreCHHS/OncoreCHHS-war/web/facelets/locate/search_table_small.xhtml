@@ -14,6 +14,7 @@
     <ui:composition>
         <p:dataTable id="searchTableSmall" var="searchBean"
                      styleClass="contentSmall"
+                     rendered="#{!managedBean.searchBeanList.isEmpty()}"
                      value="#{managedBean.searchBeanList}"
                      summary="Search results"  
                      sortBy="#{searchBean.facilityName}" sortOrder="ascending"

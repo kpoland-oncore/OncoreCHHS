@@ -333,11 +333,11 @@ public class SearchBean extends BaseBean {
         }
 
         if (StringUtils.isNotBlank(this.getFacilityCity())) {
-            builder.append(this.facilityCity);
+            builder.append(this.facilityCity).append(" ");
         }
 
         if (StringUtils.isNotBlank(this.getFacilityState())) {
-            builder.append(this.getFacilityState());
+            builder.append(this.getFacilityState()).append(", ");
         }
 
         if (StringUtils.isNotBlank(this.getFacilityZip())) {

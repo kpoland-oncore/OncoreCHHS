@@ -13,6 +13,7 @@
 
     <ui:composition>
         <p:dataTable id="searchTableLarge" var="searchBean"
+                     rendered="#{!managedBean.searchBeanList.isEmpty()}"
                      styleClass="contentLarge"
                      value="#{managedBean.searchBeanList}"
                      summary="Search results"  
