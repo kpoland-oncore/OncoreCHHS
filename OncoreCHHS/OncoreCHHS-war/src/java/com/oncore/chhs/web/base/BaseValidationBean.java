@@ -31,28 +31,37 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author oncore
  */
-public abstract class BaseValidationBean extends BaseManagedBean{
+public abstract class BaseValidationBean extends BaseManagedBean {
 
-   public Boolean validateUserName(String userName, String componentId) {
+    public Boolean validateUserName(String userName, String componentId) {
         Boolean isError = Boolean.FALSE;
 
         if (StringUtils.isBlank(userName)) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
             isError = Boolean.TRUE;
-        }
-        else if(!StringUtils.isAlphanumericSpace(userName))
-        {
+        } else if (!StringUtils.isAlphanumericSpace(userName)) {
             FacesUtilities.invalidFormatError(FacesContext.getCurrentInstance(), componentId);
             isError = Boolean.TRUE;
         }
 
         return isError;
     }
-  
+
     public Boolean validateRequiredField(String value, String componentId) {
         Boolean isError = Boolean.FALSE;
 
         if (StringUtils.isBlank(value)) {
+            FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
+            isError = Boolean.TRUE;
+        }
+
+        return isError;
+    }
+
+    public Boolean validateRequiredDropDownField(String value, String componentId) {
+        Boolean isError = Boolean.FALSE;
+
+        if (StringUtils.isBlank(value) || StringUtils.equalsIgnoreCase(value, "XX")) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
             isError = Boolean.TRUE;
         }

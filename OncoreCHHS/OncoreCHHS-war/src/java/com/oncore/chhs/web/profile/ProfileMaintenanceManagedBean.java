@@ -98,7 +98,7 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
             if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), Boolean.TRUE, FORM_NAME + "cityTxt:input")) {
                 isError = Boolean.TRUE;
             }
-            if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getState(), FORM_NAME + "statesList:input")) {
+            if (this.profileValidationBean.validateRequiredDropDownField(this.getProfileBean().getState(), FORM_NAME + "statesList:input")) {
                 isError = Boolean.TRUE;
             }
             if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getZip(), FORM_NAME + "zipMsk:input")) {
