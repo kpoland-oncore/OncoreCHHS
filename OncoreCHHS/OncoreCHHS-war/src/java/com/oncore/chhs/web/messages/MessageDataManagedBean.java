@@ -27,7 +27,6 @@ import com.oncore.chhs.web.entities.Messages;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.services.MessagesFacadeREST;
-import com.oncore.chhs.web.services.UsersFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.helper.MessagesHelper;
 import static com.oncore.chhs.web.utils.helper.ProfileHelper.getFormattedName;
@@ -55,9 +54,16 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
 
     @EJB
     private MessagesFacadeREST messagesFacadeREST;
-        @EJB
-    private UsersFacadeREST usersFacadeREST;
-
+    
+    /**
+     * Package level setter used for passing in mock objects for unit tests.
+     * 
+     * @param mockObject The mock EJB to use for testing.
+     */
+    void setMessagesFacadeREST( MessagesFacadeREST mockObject ) {
+        this.messagesFacadeREST = mockObject;
+    }
+    
     @Override
     @PostConstruct
     public void initialize() {
