@@ -21,7 +21,7 @@
 	}
 
 	a {
-		color: #175337;   /* replaced all #3ac984 with 175337 to correct WAV Contrast finding */
+		color: #175337;
 		text-decoration: underline;
 	}
 
@@ -102,6 +102,7 @@
 
 	header .byline {
 		font-size: 1.6em;
+                font-weight: 700;
 	}
 
 	footer > :last-child {
@@ -481,7 +482,7 @@
 		position: relative;
 	}
 
-		#header:before {
+		#header:before {  
 			content: '';
 			position: absolute;
 			left: 0;
@@ -501,7 +502,8 @@
 		background-position: center;
 	}
         
-         #header_smaller {
+        
+        #header_smaller {
 		background: #333333 url("../images/pic01_smaller.jpg") no-repeat;
 		background-size: cover;
 		color: #fff;
@@ -618,7 +620,7 @@
 			display: block;
 			margin: 0em 2em;
 			line-height: 1.6em;
-			font-size: 1.5em;
+			font-size: 1.5em;                    
 		}
 		
 		#banner a {

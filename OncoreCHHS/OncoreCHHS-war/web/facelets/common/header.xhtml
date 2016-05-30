@@ -15,7 +15,7 @@
 
         <!-- Header -->
         <div id="header">
-            
+
             <div class="container">
 
                 <a class="skip-main" href="#main">Skip to main content</a>
@@ -25,36 +25,28 @@
                 <!-- Nav -->
                 <nav id="nav">
                     <ul>
-                        <!--
-                        <li><p:commandLink id="homeLink" action="#{managedBean.handleHeaderNavigationClickEvent('index')}" value="Home" ajax="false"  /></li>
-                        <li><p:commandLink id="myprofileLink" action="#{managedBean.handleHeaderNavigationClickEvent('myprofile')}" value="My Profile" ajax="false"   /></li>
-                        <li><h:commandLink id="locateLink" action="#{managedBean.handleHeaderNavigationClickEvent('locate')}" value="Locate" /></li>
-                        <li><p:commandLink id="messagesLink" action="#{managedBean.handleHeaderNavigationClickEvent('messages')}" value="Messages" ajax="false"  /></li>
-                        -->
+
                         <li><b><a href="index.xhtml">Home</a></b></li>
                         <li><b><a href="myprofile.xhtml">My Profile</a></b></li>
                         <li><b><a href="locate.xhtml">Locate Services</a></b></li>
                         <li><b><a href="messages.xhtml">Messages</a></b></li>
                         <li><b><a href="faq.xhtml">FAQ</a></b></li>
-                        
+
                         <c:choose>
-                            
+
                             <c:when test="#{!globalManagedBean.authenticated}">
                                 <li><b><a href="login.xhtml"><h:outputText value="#{globalManagedBean.loginText}"/></a></b></li>
                             </c:when>
-                            
+
                             <c:otherwise>
-                                
-                                
-                                <!--<li><b><p:commandLink id="loginLink2" action="#{managedBean.handleHeaderNavigationClickEvent('logout')}" value="Logout" ajax="false"  /></b></li>-->
-                            
+
                                 <li><b><a href="logout.xhtml"><h:outputText value="Logout"/></a></b></li>
                                 <li><b><a href="myprofile.xhtml"><h:outputText value="#{globalManagedBean.loginText}"/></a></b></li>
                             </c:otherwise>
-                            
+
                         </c:choose>
-                        
-                        
+
+
                     </ul>
                 </nav>
 
@@ -64,10 +56,23 @@
                     <div class="container">
                         <section>
                             <header class="major">
-                                <h2>Welcome to CHHS Foster Care Services</h2>
-                                <p:spacer height="2"/>
-                                <p:commandLink id="signUpLink" styleClass="button alt" rendered="#{!globalManagedBean.authenticated}" action="#{managedBean.handleHeaderNavigationClickEvent('register')}" value="Sign Up" ajax="false"  />
-                                <!--<a href="#" class="button alt">Sign Up</a>-->
+
+                                <c:choose>
+
+                                    <c:when test="#{!globalManagedBean.authenticated}">
+                                        <h2>Welcome to CHHS Foster Care Services</h2>
+                                        <p:spacer height="2"/>
+                                        <p:commandLink id="signUpLink" styleClass="button alt" action="#{managedBean.handleHeaderNavigationClickEvent('register')}" value="Sign Up" ajax="false"  />
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        <h2></h2>
+                                    </c:otherwise>
+
+                                </c:choose>
+
+
+
                             </header>
                         </section>			
                     </div>

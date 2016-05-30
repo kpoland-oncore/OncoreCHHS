@@ -28,6 +28,7 @@ import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.enums.ContactTypeEnum;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.login.AbstractLoginDataManagedBean;
+import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -52,7 +53,11 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
         LOG.debug("Initializing ProfileMaintenanceManagedBean: " + this.getClass().hashCode());
 
         if (this.globalManagedBean.getAuthenticatedUser() == null) {
-            FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "login_redirect");
+            try {
+                FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "login_redirect");
+            } catch (IllegalStateException ix) {
+                LOG.warn(ErrorUtils.getStackTrace(ix));
+            }
         } else {
             try {
                 FacesUtilities.removeMessages();
