@@ -34,6 +34,7 @@ import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.omnifaces.cdi.ViewScoped;
@@ -73,7 +74,10 @@ public class SearchManagedBean extends BaseManagedBean {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
             } else {
                 this.setSearchBeanList(this.searchDataManagedBean.search(this.getSearchBean().getZipForSearch()));
-                this.setFilteredBeanList(this.getSearchBeanList());
+                if(CollectionUtils.isEmpty(this.getSearchBeanList()))
+                {
+                    FacesUtilities.createPageLevelCustomError(FacesContext.getCurrentInstance(), "No facilities were found in the provided zip code.");
+                }
             }
         } catch (WebServiceException wx) {
             LOG.error(wx);
