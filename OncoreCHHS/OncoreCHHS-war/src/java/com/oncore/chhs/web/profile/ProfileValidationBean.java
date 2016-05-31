@@ -103,6 +103,11 @@ public class ProfileValidationBean extends BaseValidationBean {
                 isError = Boolean.TRUE;
             }
         }
+        else
+        {
+            FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
+            isError = Boolean.TRUE;
+        }
 
         return isError;
     }

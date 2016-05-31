@@ -102,6 +102,14 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    public static void createPageLevelCustomInfo(FacesContext context, String errorMessage) {
+        FacesMessage message = new FacesMessage();
+        message.setSummary(errorMessage);
+        message.setSeverity(FacesMessage.SEVERITY_INFO);
+        context.addMessage(null, message);
+        context.renderResponse();
+    }
+
     public static void invalidEmailFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
         message.setSummary("The email addressed entered is not a valid format.");

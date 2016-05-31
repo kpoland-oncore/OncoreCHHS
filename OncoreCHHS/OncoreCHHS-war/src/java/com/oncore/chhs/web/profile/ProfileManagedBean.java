@@ -101,6 +101,9 @@ public class ProfileManagedBean extends BaseManagedBean {
             if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getZip(), FORM_NAME + "zipMsk:input")) {
                 isError = Boolean.TRUE;
             }
+            if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getPhone(), FORM_NAME + "phoneMsk:input")) {
+                isError = Boolean.TRUE;
+            }
             if (this.profileValidationBean.validateEmailAddress(this.getProfileBean().getEmail(), FORM_NAME + "emailTxt:input")) {
                 isError = Boolean.TRUE;
             }
@@ -122,11 +125,8 @@ public class ProfileManagedBean extends BaseManagedBean {
                     this.globalManagedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
                     this.globalManagedBean.setAuthenticatedUser(users);
 
-                   // FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
-
-                    // page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
-                    
-                    FacesUtilities.createPageLevelSaveSuccess(FacesContext.getCurrentInstance());
+      
+                    FacesUtilities.createPageLevelCustomInfo(FacesContext.getCurrentInstance(),"Thank you, your profile has been created");
                     
                 } else {
                     FacesUtilities.createPageLevelCustomError(FacesContext.getCurrentInstance(), "The user name provided has already been taken. Please try a different user name.");

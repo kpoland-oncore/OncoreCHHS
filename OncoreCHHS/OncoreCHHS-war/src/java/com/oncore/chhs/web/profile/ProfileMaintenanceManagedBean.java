@@ -109,6 +109,9 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
             if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getZip(), FORM_NAME + "zipMsk:input")) {
                 isError = Boolean.TRUE;
             }
+            if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getPhone(), FORM_NAME + "phoneMsk:input")) {
+                isError = Boolean.TRUE;
+            }
             if (this.profileValidationBean.validateEmailAddress(this.getProfileBean().getEmail(), FORM_NAME + "emailTxt:input")) {
                 isError = Boolean.TRUE;
             }
@@ -118,8 +121,7 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
                 this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
                 this.profileDataManagedBean.updateProfile(profileBean, this.globalManagedBean.getAuthenticatedUser());
 
-//                FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
-                FacesUtilities.createPageLevelSaveSuccess(FacesContext.getCurrentInstance());
+                FacesUtilities.createPageLevelCustomInfo(FacesContext.getCurrentInstance(), "Thank you, your profile has been updated.");
 
             } else {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
