@@ -94,10 +94,10 @@ public class Contact implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTs;
     @JoinColumn(name = "EMC_TYPE_CD", referencedColumnName = "CODE")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private EmcTypeCd emcTypeCd;
     @JoinColumn(name = "USR_UID_FK", referencedColumnName = "USR_UID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Users usrUidFk;
 
     public Contact() {

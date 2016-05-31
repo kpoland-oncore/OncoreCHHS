@@ -113,13 +113,13 @@ public class Users implements Serializable {
     @Column(name = "UPDATE_TS")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTs;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrUidFk", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrUidFk", fetch = FetchType.EAGER)
     private List<Contact> contactList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrUidFk", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrUidFk", fetch = FetchType.EAGER)
     private List<Messages> messagesList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrUidFk", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrUidFk", fetch = FetchType.EAGER)
     private List<Address> addressList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrUidFk", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usrUidFk", fetch = FetchType.EAGER)
     private List<Children> childrenList;
 
     public Users() {
@@ -279,5 +279,5 @@ public class Users implements Serializable {
     public String toString() {
         return "com.oncore.chhs.web.entities.Users[ usrUid=" + usrUid + " ]";
     }
-    
+
 }

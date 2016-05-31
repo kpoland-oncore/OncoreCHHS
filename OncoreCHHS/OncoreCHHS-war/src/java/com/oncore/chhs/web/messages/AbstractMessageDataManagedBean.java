@@ -28,6 +28,7 @@ import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -36,31 +37,20 @@ import java.util.List;
 public interface AbstractMessageDataManagedBean extends AbstractBaseManagedBean {
 
     /**
-     * The <code>fetchInbox</code> method fetches all messages from the inbox
-     * for the user.
+     * The <code>fetchMessages</code> method fetches all messages from the inbox
+     * and outbox for the user.
      *
      * @param users the entity representing the user
      * @param oldestDate fetch all messages newer than this date. If this is
      * null fetch all messages
      *
-     * @return a list of populated <code>MessageBean</code> objects if found,
-     * empty list otherwise
+     * @return a map containing list of populated inbox and outbox
+     * <code>MessageBean</code> objects if found, empty list otherwise
      * @throws WebServiceException
      */
+//    public Map<String, List<MessageBean>> fetchMessages(Integer userUid, Date oldestDate) throws WebServiceException;
     public List<MessageBean> fetchInbox(Users users, Date oldestDate) throws WebServiceException;
 
-    /**
-     * The <code>fetchOutbox</code> method fetches all messages from the outbox
-     * for the user.
-     *
-     * @param users the entity representing the user
-     * @param oldestDate fetch all messages newer than this date. If this is
-     * null fetch all messages
-     *
-     * @return a list of populated <code>MessageBean</code> objects if found,
-     * empty list otherwise
-     * @throws WebServiceException
-     */
     public List<MessageBean> fetchOutbox(Users users, Date oldestDate) throws WebServiceException;
 
     /**

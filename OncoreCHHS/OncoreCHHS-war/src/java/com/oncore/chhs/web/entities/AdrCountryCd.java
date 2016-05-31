@@ -99,7 +99,7 @@ public class AdrCountryCd implements Serializable {
     @Column(name = "UPDATE_TS")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTs;
-    @OneToMany(mappedBy = "adrCountryCd", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "adrCountryCd", fetch = FetchType.EAGER)
     private List<Address> addressList;
 
     public AdrCountryCd() {
