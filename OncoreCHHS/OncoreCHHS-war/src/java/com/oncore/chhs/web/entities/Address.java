@@ -122,7 +122,7 @@ public class Address implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTs;
     @JoinColumn(name = "USR_UID_FK", referencedColumnName = "USR_UID")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Users usrUidFk;
     @JoinColumn(name = "ADR_COUNTRY_CD", referencedColumnName = "CODE")
     @ManyToOne(fetch = FetchType.LAZY)

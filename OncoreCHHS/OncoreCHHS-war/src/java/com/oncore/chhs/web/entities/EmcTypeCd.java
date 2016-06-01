@@ -100,7 +100,7 @@ public class EmcTypeCd implements Serializable {
     @Column(name = "UPDATE_TS")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateTs;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "emcTypeCd", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "emcTypeCd", fetch = FetchType.EAGER)
     private List<Contact> contactList;
 
     public EmcTypeCd() {

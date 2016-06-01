@@ -74,7 +74,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
 
     /**
      * Package level setter used for passing in mock objects for unit tests.
-     * 
+     *
      * @param mockObject The mock EJB to use for testing.
      */
     void setUsersFacadeREST(UsersFacadeREST mockObject) {
@@ -83,7 +83,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
 
     /**
      * Package level setter used for passing in mock objects for unit tests.
-     * 
+     *
      * @param mockObject The mock EJB to use for testing.
      */
     void setAddressFacadeREST(AddressFacadeREST mockObject) {
@@ -92,7 +92,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
 
     /**
      * Package level setter used for passing in mock objects for unit tests.
-     * 
+     *
      * @param mockObject The mock EJB to use for testing.
      */
     void setContactFacadeREST(ContactFacadeREST mockObject) {
@@ -101,7 +101,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
 
     /**
      * Package level setter used for passing in mock objects for unit tests.
-     * 
+     *
      * @param mockObject The mock EJB to use for testing.
      */
     void setAdrStateCdFacadeREST(AdrStateCdFacadeREST mockObject) {
@@ -110,15 +110,13 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
 
     /**
      * Package level setter used for passing in mock objects for unit tests.
-     * 
+     *
      * @param mockObject The mock EJB to use for testing.
      */
     void setEmcTypeCdFacadeREST(EmcTypeCdFacadeREST mockObject) {
         this.emcTypeCdFacadeREST = mockObject;
     }
 
-    
-    
     @Override
     @PostConstruct
     public void initialize() {
@@ -251,18 +249,32 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      */
     private void updateContact(ProfileBean profileBean, List<Contact> contacts, Users users) {
         if (CollectionUtils.isNotEmpty(contacts)) {
+
+            boolean isHomePhoneContactExists = false;
+            boolean isEmailContactExists = false;
+
             for (Contact contactToUpdate : contacts) {
-                if (StringUtils.isNotBlank(profileBean.getPhone())) {
-                    if (StringUtils.equals(profileBean.getPhoneType(), contactToUpdate.getEmcTypeCd().getCode()) && StringUtils.equals(profileBean.getPhone(), contactToUpdate.getEmcValue())) {
-                        ProfileHelper.mapProfileBeanToContactEntity(profileBean.getPhoneType(), profileBean.getPhone(), contactToUpdate, this.emcTypeCdFacadeREST, users);
-                        this.contactFacadeREST.edit(contactToUpdate);
-                    }
+                if (StringUtils.equals(ContactTypeEnum.HOME_PHONE.getValue(), contactToUpdate.getEmcTypeCd().getCode())) {
+                    ProfileHelper.mapProfileBeanToContactEntity(profileBean.getPhoneType(), profileBean.getPhone(), contactToUpdate, this.emcTypeCdFacadeREST, users);
+                    this.contactFacadeREST.edit(contactToUpdate);
+
+                    isHomePhoneContactExists = true;
                 }
 
-                if (StringUtils.isNotBlank(profileBean.getEmail())) {
+                if (StringUtils.equals(ContactTypeEnum.EMAIL_ADDRESS.getValue(), contactToUpdate.getEmcTypeCd().getCode())) {
                     ProfileHelper.mapProfileBeanToContactEntity(ContactTypeEnum.EMAIL_ADDRESS.getValue(), profileBean.getEmail(), contactToUpdate, this.emcTypeCdFacadeREST, users);
                     this.contactFacadeREST.edit(contactToUpdate);
+
+                    isEmailContactExists = true;
                 }
+            }
+
+            if (!isHomePhoneContactExists) {
+                this.createHomePhoneContact(profileBean, users);
+            }
+
+            if (!isEmailContactExists) {
+                this.createEmailContact(profileBean, users);
             }
         } else {
             this.createContactInformation(profileBean, users);
@@ -297,6 +309,17 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param user
      */
     private void createContactInformation(ProfileBean profileBean, Users user) {
+        this.createHomePhoneContact(profileBean, user);
+        this.createEmailContact(profileBean, user);
+    }
+
+    /**
+     * Creates a new home phone contact.
+     *
+     * @param profileBean
+     * @param user
+     */
+    private void createHomePhoneContact(ProfileBean profileBean, Users user) {
         if (StringUtils.isNotBlank(profileBean.getPhone())) {
             if (null == user.getContactList()) {
                 user.setContactList(new ArrayList<>());
@@ -309,7 +332,15 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
 
             this.contactFacadeREST.create(contact);
         }
+    }
 
+    /**
+     * Creates a new email contact.
+     *
+     * @param profileBean
+     * @param user
+     */
+    private void createEmailContact(ProfileBean profileBean, Users user) {
         if (StringUtils.isNotBlank(profileBean.getEmail())) {
             if (null == user.getContactList()) {
                 user.setContactList(new ArrayList<>());

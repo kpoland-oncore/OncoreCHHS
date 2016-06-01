@@ -5,5 +5,11 @@
         <group>
             <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/test/com/oncore/chhs/web/selenium/SeleniumSmoketest.java</file>
         </group>
+        <group name="OncoreCHHS">
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/MessagesManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/MessageDataManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/profile/ProfileDataManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/AbstractMessageDataManagedBean.java</file>
+        </group>
     </open-files>
 </project-private>
