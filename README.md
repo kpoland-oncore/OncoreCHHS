@@ -1,24 +1,17 @@
-# OncoreCHHS
-Oncore CHHS Prototype
-
-## PivotalTracker Project
-[OncoreCHHS Pivotal Project](https://www.pivotaltracker.com/projects/1589661)
-
-## Required Reading
-- [RFI](https://oncore.sharepoint.com/sites/oncorechhs/Shared%20Documents/RFI75001_ADPQ_Vendor_Pool.pdf)
-- [Digital Playbook](https://playbook.cio.gov/)
-- two articles/sites
-  - http://www.govtech.com/federal/Feds-Extend-18Fs-Silicon-Valley-Expertise-to-Cities-States.html
-  - https://www.codeforamerica.org/
-
-## Live Test Environment
 http://oncorechhsjenkins.westus.cloudapp.azure.com:8080/OncoreCHHS-war/
 
-## Live Production Environment
-__coming soon__
+Our team at OnCore Consulting (OnCore) felt a sense of excitement as soon as we read the details for the CHHS agile prototype. OnCore has a breadth and depth of experience in delivering systems for the public sector, and we saw this prototype as an opportunity to demonstrate our technical abilities – a core capability of OnCore Consulting.
 
-## Developer Instructions
-[Developer Instructions](DEVELOPER.md)
+First, we identified the team to work on the prototype, assigning a product manager, delivery manager, technical architect, front end developer, back-end developer, DevOps Engineer, usability tester and a business analyst. The team then brainstormed an initial inventory of stories and chores that would be the basis for the prototype. This included defining the technical and development architectures, as well feature stories to support the use case of the prototype. This early inventory provided us with information to scope our effects, allowing our product manager and delivery manager to use Pivotal tracker to define the plan to deliver the prototype in three, one-week sprints. In doing so, the team could produce iterative improvements with each sprint across both the technical and functional features of the prototype.
 
-## Builds
-http://oncorechhsjenkins.westus.cloudapp.azure.com/jenkins
+Next, we began the design task of our stories. We conducted working sessions with the users, interviewing them to understand the purpose of the application and their usage patterns.  We also engaged users in our whiteboard wireframe drawings, allowing them to define their interaction with the pages of the prototype by detailing the fields they wanted displayed and the actions that the user interface (UI) widgets should execute. After documenting the outcomes of the user working sessions in story specification documents, the front and back-end developers started on the build phase and quickly produced pages for users to review in the first week. While testing, the team was also able to demonstrate how the pages’ look and feel would extend to mobile, by using mobile browser emulation. Showing early results helped reinforce the importance of the design sessions to users, since they were excited to see development and changes occurring so rapidly. It also helped our team by providing us with an essential iteration in design, as well as improvements in our defect-logging and issue-tracking processes.
+
+We achieved rapid build and prototyping through VM developer images of Ubuntu, with NetBeans IDE, and a local instance of the database installed and configured. This lightweight development environment, created early in the first iteration, allowed both front-end and back-end developers to “hit the ground running”. The first iteration also laid out a thin technical architecture layer to support layers of separation between the UI and Business tiers.  We also saw velocity in the first iteration by keeping the environment dependencies limited. During iteration one, the team developed feature stories and did user testing on the application locally deployed. Our deployments became more sophisticated with each iteration, with iteration two using  our deployed environment, allowing us to shakeout continuous integration using Jenkins, and iteration three, virtualizing to Docker and including automated JUnit and Selenium regression testing.
+
+As the team entered into iteration three, the core functionality was complete and feature enhancements were already being adopted and built. We continued to solicit feature input and defects from users as they tested through common browsers and mobile devices. From a feature perspective, the team was able to deliver enhancements to improve the user experience, as well as enhance the flexibility of the search agency feature and increase messaging features, all of which were important to the users. The UI also continued to mature, not just in responsiveness, but also in American with Disabilities Act (ADA) compliance, by using NVDA to review the screens. The application architecture also continued to evolve, in which we iterated from local EJBs to RESTful clients for communication to the business tier. Additionally, we introduced layers to further define patterns for the UI, business, and data tiers.
+
+From a technical standpoint, our team was excited to deliver a prototype showcasing technologies and frameworks that we felt would represent our team’s abilities. Our primary drivers were our team’s experience with the toolset and confidence in the ability to deliver within the timeframe required. Our solution for the prototype is based on all open source technologies. The technical architecture runs on Glassfish, with Java Enterprise Edition 7 using Java Server Faces (JSF 2.2), and PrimeFaces for the UI framework, based on its strong browser interoperability, mobile support and responsiveness, and ADA compliance. The back end is supported by the Java Persistence Architecture (JPA 2.1), using a MySQL database. One of the most challenging decisions the product manager made early on was to use a custom UI style and component guideline, because the Primefaces component would not be compatible without customization, creating risk to our delivery schedule. The additional time gained by this decision enabled the team to meet the responsiveness and ADA compliance requirements with confidence.
+
+Deployment to the Azure cloud also followed an iterative flow. Starting with provisioning a single Ubuntu VM, the first iteration of the deployment server were built out installing Jenkins, Glassfish, and MySQL. This provided the base framework to begin integration testing in a deployed environment for iteration two. The second iteration included automated and scheduled integration builds, from the GitHub repository. In the third iteration, we used Jenkins to orchestrate a set of Ant tasks to build the current version of the application, passing through a gate of JUnit suites before moving on to the automated deployment to a Docker image, where a set of Selenium test cases were run for end-to-end regression.  Lastly integration to sitecake was used for monitoring.
+
+Oncore is grateful for the opportunity we have had to engage our technologists on this Agile methodology prototype. We would be happy to provide the State access to our Pivotal Tracker tool that includes documentation on each iteration, detailing the storyboards, the backlog, and the velocity in addressing the work. We have also provided How-To documentation for setting up the Developer and the deployed environment can be found on the GitHub branch.
