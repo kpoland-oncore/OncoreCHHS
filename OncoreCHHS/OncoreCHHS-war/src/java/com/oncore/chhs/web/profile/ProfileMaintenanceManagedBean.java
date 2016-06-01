@@ -81,39 +81,51 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
     public String handleSaveButtonClickEvent() {
         String page = null;
         Boolean isError = Boolean.FALSE;
+        String error = null;
 
         try {
             FacesUtilities.removeMessages();
-
-            if (this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), Boolean.TRUE, FORM_NAME + "firstNameTxt:input")) {
+            this.getProfileBean().reset();
+            
+            if ((error = this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), Boolean.TRUE, FORM_NAME + "firstNameTxt:input")) != null) {
                 isError = Boolean.TRUE;
+                this.getProfileBean().setFirstNameError(error);
             }
-            if (this.profileValidationBean.validateName(this.getProfileBean().getLastName(), Boolean.TRUE, FORM_NAME + "lastNameTxt:input")) {
+            if ((error = this.profileValidationBean.validateName(this.getProfileBean().getLastName(), Boolean.TRUE, FORM_NAME + "lastNameTxt:input")) != null) {
                 isError = Boolean.TRUE;
+                this.getProfileBean().setLastNameError(error);
             }
-            if (this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), Boolean.FALSE, FORM_NAME + "middleNameTxt:input")) {
+            if ((error = this.profileValidationBean.validateName(this.getProfileBean().getMiddleName(), Boolean.FALSE, FORM_NAME + "middleNameTxt:input")) != null) {
                 isError = Boolean.TRUE;
+                this.getProfileBean().setMiddleNameError(error);
             }
-            if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), Boolean.TRUE, FORM_NAME + "addressLine1Txt:input")) {
+            if ((error = this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine1(), Boolean.TRUE, FORM_NAME + "addressLine1Txt:input")) != null) {
                 isError = Boolean.TRUE;
+                this.getProfileBean().setAddressLine1Error(error);
             }
-            if (this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), Boolean.FALSE, FORM_NAME + "addressLine2Txt:input")) {
+            if ((error = this.profileValidationBean.validateAddressData(this.getProfileBean().getAddressLine2(), Boolean.FALSE, FORM_NAME + "addressLine2Txt:input")) != null) {
                 isError = Boolean.TRUE;
+                this.getProfileBean().setAddressLine2Error(error);
             }
-            if (this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), Boolean.TRUE, FORM_NAME + "cityTxt:input")) {
+            if ((error = this.profileValidationBean.validateAddressData(this.getProfileBean().getCity(), Boolean.TRUE, FORM_NAME + "cityTxt:input")) != null) {
                 isError = Boolean.TRUE;
+                this.getProfileBean().setCityError(error);
             }
-            if (this.profileValidationBean.validateRequiredDropDownField(this.getProfileBean().getState(), FORM_NAME + "statesList:input")) {
+            if ((error = this.profileValidationBean.validateRequiredDropDownField(this.getProfileBean().getState(), FORM_NAME + "statesList:input")) != null) {
                 isError = Boolean.TRUE;
+                this.getProfileBean().setStateError(error);
             }
-            if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getZip(), FORM_NAME + "zipMsk:input")) {
+            if ((error = this.profileValidationBean.validateRequiredField(this.getProfileBean().getZip(), FORM_NAME + "zipMsk:input")) != null) {
                 isError = Boolean.TRUE;
+                this.getProfileBean().setZipError(error);
             }
-            if (this.profileValidationBean.validateRequiredField(this.getProfileBean().getPhone(), FORM_NAME + "phoneMsk:input")) {
+            if ((error = this.profileValidationBean.validateRequiredField(this.getProfileBean().getPhone(), FORM_NAME + "phoneMsk:input")) != null) {
                 isError = Boolean.TRUE;
+                this.getProfileBean().setPhoneError(error);
             }
-            if (this.profileValidationBean.validateEmailAddress(this.getProfileBean().getEmail(), FORM_NAME + "emailTxt:input")) {
+            if ((error = this.profileValidationBean.validateEmailAddress(this.getProfileBean().getEmail(), FORM_NAME + "emailTxt:input")) != null) {
                 isError = Boolean.TRUE;
+                this.getProfileBean().setEmailError(error);
             }
 
             if (!isError) {
@@ -121,7 +133,7 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
                 this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
                 this.profileDataManagedBean.updateProfile(profileBean, this.globalManagedBean.getAuthenticatedUser());
 
-                FacesUtilities.createPageLevelCustomInfo(FacesContext.getCurrentInstance(), "Thank you, your profile has been updated.");
+                FacesUtilities.createPageLevelCustomInfo(FacesContext.getCurrentInstance(), FacesUtilities.THANK_YOU_PROFILE_MESSAGE);
 
             } else {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());

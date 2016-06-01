@@ -33,39 +33,41 @@ import org.apache.commons.lang3.StringUtils;
  */
 public abstract class BaseValidationBean extends BaseManagedBean {
 
-    public Boolean validateUserName(String userName, String componentId) {
-        Boolean isError = Boolean.FALSE;
+    public String validateUserName(String userName, String componentId) {
+        String error = null;
 
         if (StringUtils.isBlank(userName)) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
+            error = FacesUtilities.REQUIRED_ERROR;
         } else if (!StringUtils.isAlphanumericSpace(userName)) {
             FacesUtilities.invalidFormatError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
+            error = FacesUtilities.INVALID_FORMAT_ERROR;
         }
 
-        return isError;
+        return error;
     }
 
-    public Boolean validateRequiredField(String value, String componentId) {
-        Boolean isError = Boolean.FALSE;
+    public String validateRequiredField(String value, String componentId) {
+        String error = null;
 
         if (StringUtils.isBlank(value)) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
+            error = FacesUtilities.REQUIRED_ERROR;
         }
 
-        return isError;
+        return error;
     }
 
-    public Boolean validateRequiredDropDownField(String value, String componentId) {
-        Boolean isError = Boolean.FALSE;
+    public String validateRequiredDropDownField(String value, String componentId) {
+        String error = null;
 
         if (StringUtils.isBlank(value) || StringUtils.equalsIgnoreCase(value, "XX")) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
+            error = FacesUtilities.REQUIRED_ERROR;
         }
 
-        return isError;
+        return error;
     }
+
+   
 }

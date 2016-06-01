@@ -36,8 +36,8 @@ public final class FacesUtilities {
 
     public static void requredFieldError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
-        message.setSummary("Field is Required");
-        message.setDetail("Field is Required");
+        message.setSummary(REQUIRED_ERROR);
+        message.setDetail(REQUIRED_ERROR);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(componentId, message);
         context.renderResponse();
@@ -45,8 +45,8 @@ public final class FacesUtilities {
 
     public static void invalidFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
-        message.setSummary("Value entered must be letters, numbers, or spaces.");
-        message.setDetail("Value entered must be letters, numbers, or spaces.");
+        message.setSummary(INVALID_FORMAT_ERROR);
+        message.setDetail(INVALID_FORMAT_ERROR);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(componentId, message);
         context.renderResponse();
@@ -54,8 +54,8 @@ public final class FacesUtilities {
 
     public static void invalidTextAreaFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
-        message.setSummary("Value entered must be letters, numbers, spaces, or punctuation.");
-        message.setDetail("Value entered must be letters, numbers, spaces, or punctuation.");
+        message.setSummary(INVALID_TEXT_AREA_ERROR);
+        message.setDetail(INVALID_TEXT_AREA_ERROR);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(componentId, message);
         context.renderResponse();
@@ -63,8 +63,8 @@ public final class FacesUtilities {
 
     public static void invalidAlphaFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
-        message.setSummary("Value entered must be letters or spaces.");
-        message.setDetail("Value entered must be letters or spaces.");
+        message.setSummary(INVALID_ALPHA_FORMAT_ERROR);
+        message.setDetail(INVALID_ALPHA_FORMAT_ERROR);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(componentId, message);
         context.renderResponse();
@@ -72,7 +72,7 @@ public final class FacesUtilities {
 
     public static void createPageLevelValidationError(FacesContext context) {
         FacesMessage message = new FacesMessage();
-        message.setSummary("There are validation errors. Please correct the errors before proceeding.");
+        message.setSummary(PAGE_LEVEL_VALIDATION_MESSAGE);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(null, message);
         context.renderResponse();
@@ -80,7 +80,7 @@ public final class FacesUtilities {
 
     public static void createPageLevelFatalError(FacesContext context) {
         FacesMessage message = new FacesMessage();
-        message.setSummary("A fatal exception has occurred. Please notify support services at 800.111.2222");
+        message.setSummary(FATAL_EXCEPTION_MESSAGE);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(null, message);
         context.renderResponse();
@@ -88,7 +88,7 @@ public final class FacesUtilities {
 
     public static void createPageLevelSaveSuccess(FacesContext context) {
         FacesMessage message = new FacesMessage();
-        message.setSummary("Save successful.");
+        message.setSummary(SAVE_SUCCESSFUL_MESSAGE);
         message.setSeverity(FacesMessage.SEVERITY_INFO);
         context.addMessage(null, message);
         context.renderResponse();
@@ -112,8 +112,8 @@ public final class FacesUtilities {
 
     public static void invalidEmailFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
-        message.setSummary("The email addressed entered is not a valid format.");
-        message.setDetail("The email addressed entered is not a valid format.");
+        message.setSummary(INVALID_EMAIL_ERROR);
+        message.setDetail(INVALID_EMAIL_ERROR);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(componentId, message);
         context.renderResponse();
@@ -134,4 +134,16 @@ public final class FacesUtilities {
             requestContext.execute(script);
         }
     }
+
+    public static final String REQUIRED_ERROR = "Field validation error, field is Required";
+    public static final String INVALID_FORMAT_ERROR = "Field validation error, value entered must be letters, numbers, spaces, or punctuation";
+    public static final String INVALID_EMAIL_ERROR = "Field validation error, the email addressed entered is not a valid format";
+    public static final String INVALID_TEXT_AREA_ERROR = "Field validation error, value entered must be letters, numbers, spaces, or punctuation";
+    public static final String INVALID_ALPHA_FORMAT_ERROR = "Field validation error, value entered must be letters or spaces.";
+    public static final String PAGE_LEVEL_VALIDATION_MESSAGE = "There are validation errors. Please correct the errors before proceeding.";
+    public static final String FATAL_EXCEPTION_MESSAGE = "A fatal exception has occurred. Please notify support services at 800.111.2222";
+    public static final String SAVE_SUCCESSFUL_MESSAGE = "Save successful.";
+    public static final String THANK_YOU_PROFILE_MESSAGE = "Thank you, your profile has been created";
+    public static final String USER_ALREADY_TAKEN_MESSAGE = "The user name provided has already been taken. Please try a different user name.";
+
 }

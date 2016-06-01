@@ -52,8 +52,14 @@ public class SearchBean extends BaseBean {
     private String location;
     private String latitude;
     private String zipForSearch;
+    private String zipForSearchError;
     private String calculatedAddress;
 
+    public void reset()
+    {
+        this.setZipForSearchError(StringUtils.EMPTY);
+    }
+    
     /**
      * @return the facilityType
      */
@@ -359,6 +365,20 @@ public class SearchBean extends BaseBean {
      */
     public void setCalculatedAddress(String calculatedAddress) {
         this.calculatedAddress = calculatedAddress;
+    }
+
+    /**
+     * @return the zipForSearchError
+     */
+    public String getZipForSearchError() {
+        return zipForSearchError;
+    }
+
+    /**
+     * @param zipForSearchError the zipForSearchError to set
+     */
+    public void setZipForSearchError(String zipForSearchError) {
+        this.zipForSearchError = zipForSearchError;
     }
 
 }

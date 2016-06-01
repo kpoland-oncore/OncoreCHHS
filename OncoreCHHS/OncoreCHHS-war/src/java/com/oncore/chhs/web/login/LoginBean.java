@@ -24,14 +24,20 @@
 package com.oncore.chhs.web.login;
 
 import com.oncore.chhs.web.base.BaseBean;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author oncore
  */
-public class LoginBean extends BaseBean{
-    
+public class LoginBean extends BaseBean {
+
     private String userName;
+    private String userNameError;
+
+    public void reset() {
+        this.userNameError = StringUtils.EMPTY;
+    }
 
     /**
      * @return the userName
@@ -46,6 +52,19 @@ public class LoginBean extends BaseBean{
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
-    
+
+    /**
+     * @return the userNameError
+     */
+    public String getUserNameError() {
+        return userNameError;
+    }
+
+    /**
+     * @param userNameError the userNameError to set
+     */
+    public void setUserNameError(String userNameError) {
+        this.userNameError = userNameError;
+    }
+
 }

@@ -64,10 +64,16 @@ public class LoginManagedBean extends BaseManagedBean {
      */
     public String handleLoginButtonClickEvent() {
         String page = null;
-       
+        Boolean isError = Boolean.FALSE;
+        String error = null;
+        
         try {
-            if (this.loginValidationBean.validateUserName(this.getLoginBean().getUserName(), FORM_NAME + "userNameTxt:input")) {
+            FacesUtilities.removeMessages();
+            this.getLoginBean().reset();
+            
+            if ((error = this.loginValidationBean.validateUserName(this.getLoginBean().getUserName(), FORM_NAME + "userNameTxt:input")) != null) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+                this.getLoginBean().setUserNameError(error);
             } else {
                 Users users = this.loginDataManagedBean.authenticateUser(loginBean);
 

@@ -57,59 +57,57 @@ public class ProfileValidationBean extends BaseValidationBean {
         LOG.debug("Destroying LoginValidationBean: " + this.getClass().hashCode());
     }
 
-    public Boolean validateName(String name, Boolean isRequired, String componentId) {
-        Boolean isError = Boolean.FALSE;
+    public String validateName(String name, Boolean isRequired, String componentId) {
+        String error = null;
 
         if (isRequired && StringUtils.isBlank(name)) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
+            error = FacesUtilities.REQUIRED_ERROR;
         } else if (!StringUtils.isAlphaSpace(name)) {
+            error = FacesUtilities.INVALID_ALPHA_FORMAT_ERROR;
             FacesUtilities.invalidAlphaFormatError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
         }
 
-        return isError;
+        return error;
     }
 
-    public Boolean validateAddressData(String value, Boolean isRequired, String componentId) {
-        Boolean isError = Boolean.FALSE;
+    public String validateAddressData(String value, Boolean isRequired, String componentId) {
+        String error = null;
 
         if (isRequired && StringUtils.isBlank(value)) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
+            error = FacesUtilities.REQUIRED_ERROR;
         } else if (!StringUtils.isAlphanumericSpace(value)) {
             FacesUtilities.invalidFormatError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
+            error = FacesUtilities.INVALID_FORMAT_ERROR;
         }
 
-        return isError;
+        return error;
     }
 
-    public Boolean validateEmailAddress(String value, String componentId) {
-        Boolean isError = Boolean.FALSE;
+    public String validateEmailAddress(String value, String componentId) {
+        String error = null;
 
         if (StringUtils.isNotBlank(value)) {
 
             try {
                 if (!Pattern.matches("[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\\.[a-zA-Z]{2,4}", value)) {
                     FacesUtilities.invalidEmailFormatError(FacesContext.getCurrentInstance(), componentId);
-                    isError = Boolean.TRUE;
+                    error = FacesUtilities.INVALID_EMAIL_ERROR;
                 }
             } catch (PatternSyntaxException px) {
                 LOG.warn(ErrorUtils.getStackTrace(px));
-                isError = Boolean.TRUE;
+                error = FacesUtilities.INVALID_EMAIL_ERROR;
             } catch (Exception ex) {
                 LOG.warn(ErrorUtils.getStackTrace(ex));
-                isError = Boolean.TRUE;
+                error = FacesUtilities.INVALID_EMAIL_ERROR;
             }
-        }
-        else
-        {
+        } else {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
+            error = FacesUtilities.REQUIRED_ERROR;
         }
 
-        return isError;
+        return error;
     }
 
     private final Logger LOG = LogManager.getLogger(ProfileValidationBean.class);

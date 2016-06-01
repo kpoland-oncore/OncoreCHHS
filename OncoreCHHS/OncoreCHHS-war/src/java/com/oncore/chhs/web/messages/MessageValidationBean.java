@@ -54,18 +54,18 @@ public class MessageValidationBean extends BaseValidationBean {
         LOG.debug("Destroying MessageValidationBean: " + this.getClass().hashCode());
     }
 
-    public Boolean validateTextArea(String value, Boolean isRequired, String componentId) {
-        Boolean isError = Boolean.FALSE;
+    public String validateTextArea(String value, Boolean isRequired, String componentId) {
+        String error = null;
 
         if (isRequired && StringUtils.isBlank(value)) {
             FacesUtilities.requredFieldError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
+            error = FacesUtilities.REQUIRED_ERROR;
         } else if (StringUtils.containsAny(value, "<>[]=")) {
             FacesUtilities.invalidTextAreaFormatError(FacesContext.getCurrentInstance(), componentId);
-            isError = Boolean.TRUE;
+            error = FacesUtilities.INVALID_TEXT_AREA_ERROR;
         }
 
-        return isError;
+        return error;
     }
 
     private final Logger LOG = LogManager.getLogger(MessageValidationBean.class);

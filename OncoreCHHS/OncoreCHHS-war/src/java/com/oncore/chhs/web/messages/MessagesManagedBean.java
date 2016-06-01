@@ -73,10 +73,14 @@ public class MessagesManagedBean extends BaseManagedBean {
     public String handleSendButtonClickEvent() {
 
         String page = null;
+         Boolean isError = Boolean.FALSE;
+        String error = null;
+
 
         try {
-            if (this.messageValidationBean.validateTextArea(this.getMessageBean().getMessage(), Boolean.TRUE, FORM_NAME + "messageTxt:input")) {
+            if ((error = this.messageValidationBean.validateTextArea(this.getMessageBean().getMessage(), Boolean.TRUE, FORM_NAME + "messageTxt:input")) != null) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+                this.getMessageBean().setMessageError(error);
             } else {
 
                 this.getMessageBean().setFrom(this.globalManagedBean.getCalculatedUserFullName());

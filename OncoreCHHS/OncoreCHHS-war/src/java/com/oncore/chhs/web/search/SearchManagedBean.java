@@ -67,15 +67,17 @@ public class SearchManagedBean extends BaseManagedBean {
      */
     public String handleSearchButtonClickEvent() {
         String page = null;
+        Boolean isError = Boolean.FALSE;
+        String error = null;
 
         try {
 
-            if (this.searchValidationBean.validateRequiredField(this.getSearchBean().getZipForSearch(), FORM_NAME + "zipMsk:input")) {
+            if ((error = this.searchValidationBean.validateRequiredField(this.getSearchBean().getZipForSearch(), FORM_NAME + "zipMsk:input")) != null) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
+                this.getSearchBean().setZipForSearchError(error);
             } else {
                 this.setSearchBeanList(this.searchDataManagedBean.search(this.getSearchBean().getZipForSearch()));
-                if(CollectionUtils.isEmpty(this.getSearchBeanList()))
-                {
+                if (CollectionUtils.isEmpty(this.getSearchBeanList())) {
                     FacesUtilities.createPageLevelCustomError(FacesContext.getCurrentInstance(), "No facilities were found in the provided zip code.");
                 }
             }

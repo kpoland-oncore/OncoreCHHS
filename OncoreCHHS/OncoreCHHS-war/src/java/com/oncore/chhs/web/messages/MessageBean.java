@@ -25,18 +25,24 @@ package com.oncore.chhs.web.messages;
 
 import com.oncore.chhs.web.base.BaseBean;
 import java.util.Date;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author oncore
  */
 public class MessageBean extends BaseBean {
-    
+
     private String message;
+    private String messageError;
     private String from;
     private String to;
     private Date sentDate;
     private Date receivedDate;
+
+    public void reset() {
+        this.messageError = StringUtils.EMPTY;
+    }
 
     /**
      * @return the message
@@ -108,6 +114,18 @@ public class MessageBean extends BaseBean {
         this.receivedDate = receivedDate;
     }
 
- 
-    
+    /**
+     * @return the messageError
+     */
+    public String getMessageError() {
+        return messageError;
+    }
+
+    /**
+     * @param messageError the messageError to set
+     */
+    public void setMessageError(String messageError) {
+        this.messageError = messageError;
+    }
+
 }

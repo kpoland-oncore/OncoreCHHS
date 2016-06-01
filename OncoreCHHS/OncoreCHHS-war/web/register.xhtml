@@ -55,6 +55,7 @@
                                        immediate="true"
                                        errAlt=""
                                        errMsgRendered="false"
+                                       title="#{managedBeanContent.userNameError}"
                                        value="#{managedBeanContent.userName}"/>
  
                    
@@ -78,7 +79,7 @@
                                 <p:commandButton id="registerBtn" value="Sign Up" 
                                                  styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
                                                  oncomplete="PF('feedbackWdg').hide()"
-                                                 update="@form"
+                                                 ajax="false"
                                                  action="#{managedBean.handleRegisterButtonClickEvent()}"/>
                             </p:outputPanel>
                             <p:blockUI block="registerButtonPnl" trigger="registerBtn"/>
