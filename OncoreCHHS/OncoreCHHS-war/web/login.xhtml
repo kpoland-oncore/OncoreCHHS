@@ -34,13 +34,14 @@
 
                     </header>
 
-                    <p:messages id="messges" showSummary="true" showDetail="false"
+                    <p:growl id="growl" globalOnly="true" showSummary="true" life="2300"/>
+                      
+                    <p:messages id="messages" showSummary="true" showDetail="false"
                                 autoUpdate="true" globalOnly="true" display="text"
                                 escape="false"/>
-
-                    
+ 
                     <div class="cleaner"/>
-                    <p:panel id="testpnl" header="Enter Login Information" toggleable="false">
+                    <p:panel id="testpnl" header="Enter Login Information" toggleable="false" menuTitle="Enter Login Information">
                     <onc:inputText_1 id="userNameTxt"
                                      label="User Name:"
                                      labelStyleClass="form_label"
@@ -72,7 +73,7 @@
                                 <p:commandButton id="loginBtn" value="Login" 
                                                  styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
                                                  oncomplete="PF('feedbackWdg').hide()"
-                                                 update="@form"
+                                                 ajax="false"
                                                  action="#{managedBean.handleLoginButtonClickEvent()}"/>
                             </p:outputPanel>
                             <p:blockUI block="loginButtonPnl" trigger="loginBtn"/>

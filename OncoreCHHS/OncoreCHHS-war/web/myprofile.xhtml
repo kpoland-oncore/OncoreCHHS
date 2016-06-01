@@ -7,22 +7,22 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:onc="http://java.sun.com/jsf/composite/onc"
       xmlns:p="http://primefaces.org/ui">
- 
+
 
     <ui:composition template="/facelets/templates/reduced_layout.xhtml">
 
-        
-        
+
+
         <ui:param name="managedBean" value="#{profileMaintenanceManagedBean}"/>
         <ui:param name="managedBeanContent" value="#{profileMaintenanceManagedBean.profileBean}"/>
 
-       
-        
+
+
         <ui:define name="title">
             <title>CHHS Foster Care Services | My Profile</title>
         </ui:define>
 
-       <ui:define name="content">
+        <ui:define name="content">
 
             <!-- Main -->
             <div id="main" class="wrapper style1">
@@ -33,38 +33,41 @@
 
                     </header>
 
-                    <p:growl id="growl" globalOnly="true" showSummary="true" life="3000"/>
-                    
-                    <p:messages id="messges" showSummary="true" showDetail="false"
+                    <p:growl id="growl" globalOnly="true" showSummary="true" life="2300"/>
+
+                    <p:messages id="messages" showSummary="true" showDetail="false"
                                 autoUpdate="true" globalOnly="true" display="text"
                                 escape="false"/>
- 
+
+
                     <p><b><h:outputText value="ATTENTION:  This website is for demonstration purposes only.  Do not enter your real contact information."/></b></p>
                     <p:spacer height="5"/>
                     <p:panel id="registerPnl" header="View or Update Registration Information" toggleable="false">
+
+
                         <onc:inputText_1 id="userNameTxt"
-                                       widgetVar='userNameWdg'
-                                       label="User Name:"
-                                       labelStyleClass="form_label"
-                                       inputStyleClass="input_float_left"
-                                       requiredLabel="true"
-                                       maxlength="45"
-                                       size="25"
-                                       immediate="true"
-                                       errAlt=""
-                                       errMsgRendered="false"
-                                       readonly="true"
-                                       value="#{managedBeanContent.userName}"/>
- 
-                   
-                    
-                    <ui:include src="/facelets/profile/common_profile_content.xhtml"/>
+                                         widgetVar='userNameWdg'
+                                         label="User Name:"
+                                         labelStyleClass="form_label"
+                                         inputStyleClass="input_float_left"
+                                         requiredLabel="true"
+                                         maxlength="45"
+                                         size="25"
+                                         immediate="true"
+                                         errAlt=""
+                                         errMsgRendered="false"
+                                         readonly="true"
+                                         value="#{managedBeanContent.userName}"/>
+
+
+
+                        <ui:include src="/facelets/profile/common_profile_content.xhtml"/>
                     </p:panel>
                     <p:spacer height="10"/>
-                    
+
                     <div class="row">
-                        
-                          <p:outputPanel layout="block" id="outerButtonPnl">
+
+                        <p:outputPanel layout="block" id="outerButtonPnl">
 
                             <p:outputPanel id="cancelButtonPnl" layout="block"
                                            styleClass="innerButtonGroup">
@@ -77,19 +80,19 @@
                                 <p:commandButton id="registerBtn" value="Save" 
                                                  styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
                                                  oncomplete="PF('feedbackWdg').hide()"
-                                                 update="@form"
+                                                 ajax="false"
                                                  action="#{managedBean.handleSaveButtonClickEvent()}"/>
                             </p:outputPanel>
                             <p:blockUI block="registerButtonPnl" trigger="registerBtn"/>
                         </p:outputPanel>
-                        
-                        
+
+
                     </div>
 
                 </section>
 
             </div>
-            
+
             <p:defaultCommand target="registerBtn"/>
         </ui:define>
 

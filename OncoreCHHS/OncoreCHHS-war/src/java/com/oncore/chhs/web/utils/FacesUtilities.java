@@ -144,6 +144,7 @@ public final class FacesUtilities {
     public static final String FATAL_EXCEPTION_MESSAGE = "A fatal exception has occurred. Please notify support services at 800.111.2222";
     public static final String SAVE_SUCCESSFUL_MESSAGE = "Save successful.";
     public static final String THANK_YOU_PROFILE_MESSAGE = "Thank you, your profile has been created";
+    public static final String THANK_YOU_PROFILE_UPDATED_MESSAGE = "Thank you, your profile has been updated";
     public static final String USER_ALREADY_TAKEN_MESSAGE = "The user name provided has already been taken. Please try a different user name.";
 
 }

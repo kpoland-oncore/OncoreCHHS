@@ -133,7 +133,7 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
                 this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
                 this.profileDataManagedBean.updateProfile(profileBean, this.globalManagedBean.getAuthenticatedUser());
 
-                FacesUtilities.createPageLevelCustomInfo(FacesContext.getCurrentInstance(), FacesUtilities.THANK_YOU_PROFILE_MESSAGE);
+                FacesUtilities.createPageLevelCustomInfo(FacesContext.getCurrentInstance(), FacesUtilities.THANK_YOU_PROFILE_UPDATED_MESSAGE);
 
             } else {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
