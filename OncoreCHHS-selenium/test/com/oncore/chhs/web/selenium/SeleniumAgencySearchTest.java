@@ -1,3 +1,5 @@
+package com.oncore.chhs.web.selenium;
+
 /*
  * The MIT License
  *
@@ -21,7 +23,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.web.selenium;
+
 import com.thoughtworks.selenium.*;
 import org.junit.After;
 import org.junit.Before;
@@ -29,7 +31,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.regex.Pattern;
 
-public class SeleniumLoginTest {
+public class SeleniumAgencySearchTest {
 	private Selenium selenium;
 
 	@Before

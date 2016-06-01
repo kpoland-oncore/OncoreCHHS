@@ -1,3 +1,5 @@
+package com.oncore.chhs.web.selenium;
+
 /*
  * The MIT License
  *
@@ -21,7 +23,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.web.selenium;
 
 import com.thoughtworks.selenium.*;
 import org.junit.After;
@@ -30,24 +31,23 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.regex.Pattern;
 
-/**
- *
- * @author oncore
- */
-public class SeleniumSmoketest {
+public class SeleniumLoginTest {
 	private Selenium selenium;
 
 	@Before
 	public void setUp() throws Exception {
-		selenium = new DefaultSelenium("localhost", 4444, "*chrome", "http://www.coveredca.com/");
+		selenium = new DefaultSelenium("localhost", 4444, "*chrome", "http://oncorechhsjenkins.westus.cloudapp.azure.com:8080/OncoreCHHS-war/");
 		selenium.start();
 	}
 
 	@Test
-	public void testSeleniumSmoketest() throws Exception {
-		selenium.open("/");
-		selenium.click("//div[@id='content']/div[2]/div/div[2]/a[2]/div/p");
-		selenium.click("//div[3]/a/div/p");
+	public void testSeleniumLogin() throws Exception {
+		selenium.open("/OncoreCHHS-war/");
+		selenium.click("link=Login");
+		selenium.waitForPageToLoad("30000");
+		selenium.type("id=chssForm:userNameTxt:input", "testuser");
+		selenium.click("id=chssForm:loginBtn");
+		selenium.waitForPageToLoad("30000");
 	}
 
 	@After
@@ -55,4 +55,3 @@ public class SeleniumSmoketest {
 		selenium.stop();
 	}
 }
-
