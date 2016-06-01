@@ -17,7 +17,7 @@ public class EJBUtils {
     /**
      * 
      * @param clazz The Class of the EJB to be returned.
-     * @return 
+     * @return object
      */
     public static <T> T lookupEJB( Class<T> clazz ) {
         Object obj = null;
