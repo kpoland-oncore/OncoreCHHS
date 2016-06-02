@@ -1,4 +1,5 @@
-https://github.com/OncoreLLC/OncoreCHHS
+http://oncorechhsjenkins.westus.cloudapp.azure.com:8080/OncoreCHHS-war/
+
 Our team at OnCore Consulting (OnCore) felt a sense of excitement as soon as we read the details for the CHHS agile prototype. OnCore has a breadth and depth of experience in delivering systems for the public sector, and we saw this prototype as an opportunity to demonstrate our technical abilities – a core capability of OnCore Consulting.
 
 First, we identified the team to work on the prototype, assigning a product manager, delivery manager, technical architect, front end developer, back-end developer, DevOps Engineer, usability tester and a business analyst. The team then brainstormed an initial inventory of stories and chores for the prototype. This included defining the technical and development architectures, as well as feature stories to support the prototype’s use cases. Our product manager and delivery manager then defined a plan using Pivotal Tracker. The plan showed we could deliver the prototype in three one-week iterations. With each iteration, the team would make incremental improvements to the prototype’s technical and functional features.
