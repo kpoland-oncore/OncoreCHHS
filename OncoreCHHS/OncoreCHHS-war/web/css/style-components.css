@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 
 
-
+/* Div Cleaner, can be used when div tags misbehave */
 .cleaner{
     clear: both;
     border: none;
@@ -38,6 +38,7 @@ THE SOFTWARE.
     float: none;
 }
 
+/* Component styles */
 .input_float_left{
     float: left;
 }
@@ -51,14 +52,6 @@ THE SOFTWARE.
       vertical-align: middle;
       background: transparent !important;
 }
-
-.column_1_class{
-    width: 30%;
-}
-
-.column_2_class{
-    width: 70%;
-}
  
 .form_field{
     margin-bottom: 0.6em;
@@ -68,6 +61,16 @@ THE SOFTWARE.
     float: right;
 }
 
+
+.column_1_class{
+    width: 30%;
+}
+
+.column_2_class{
+    width: 70%;
+}
+
+/* Styles to ensure command button groups look nice */
 .outerButtonGroupPanel{
     padding: 0;
     width: 100%;
@@ -82,7 +85,7 @@ THE SOFTWARE.
     margin-right: 1em !important;
 }
 
-
+/* ADA Skip to Main Content */
 a.skip-main {
     left:-999px;
     position:absolute;
@@ -92,6 +95,7 @@ a.skip-main {
     overflow:hidden;
     z-index:-999;
 }
+
 a.skip-main:focus, a.skip-main:active {
     color: #fff;
     background-color:#000;
@@ -110,7 +114,7 @@ a.skip-main:focus, a.skip-main:active {
 }
 
 
-/* Adjust Tables (can be any content) to screensize) */
+/* Used to adjust the PrimeFaces datatables (can be any content) to screensize) */
 .contentSmall{
     width: 100% !important;
     height: 100% !important;
