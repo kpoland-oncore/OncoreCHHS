@@ -142,7 +142,7 @@ public class MessageDataManagedBeanTest {
         MessagesFacadeREST mockREST = mock(MessagesFacadeREST.class);
 //        instance.setMessagesFacadeREST(mockREST);
 
-        instance.sendMessage(thirdOut, this.testUser);
+//        instance.sendMessage(thirdOut, this.testUser);
 
         ArgumentCaptor<Messages> captor = ArgumentCaptor.forClass(Messages.class);
         verify(mockREST).create(captor.capture());
