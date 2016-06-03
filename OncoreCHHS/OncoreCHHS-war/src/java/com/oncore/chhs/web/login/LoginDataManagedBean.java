@@ -118,7 +118,7 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
      *
      * @return UsersServiceClient
      */
-    private UsersServiceClient getUsersServiceClient() {
+    UsersServiceClient getUsersServiceClient() {
 
         return new UsersServiceClient();
     }
