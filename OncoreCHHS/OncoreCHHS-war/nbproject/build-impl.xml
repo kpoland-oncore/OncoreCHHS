@@ -855,10 +855,16 @@ exists or setup the property manually. For example like this:
             -->
     <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
         <ant antfile="${project.OncoreCHHS-ejb}/build.xml" inheritall="false" target="dist"/>
+        <ant antfile="${project.OncoreCHHSServices-client}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
+        </ant>
     </target>
     <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
         <ant antfile="${project.OncoreCHHS-ejb}/build.xml" inheritall="false" target="dist-ear">
             <property location="${build.dir}" name="dist.ear.dir"/>
+        </ant>
+        <ant antfile="${project.OncoreCHHSServices-client}/build.xml" inheritall="false" target="jar">
+            <property name="deploy.on.save" value="false"/>
         </ant>
     </target>
     <target depends="init, deps-module-jar, deps-ear-jar" name="deps-jar" unless="no.deps"/>
@@ -1017,6 +1023,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.omnifaces-2.3.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.gson-2.6.2.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.commons-io-2.4.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${reference.OncoreCHHSServices-client.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.commons-beanutils-1.9.2.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.commons-collections4-4.1.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.commons-lang3-3.4.jar}" todir="${build.web.dir}//"/>
@@ -1028,6 +1035,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.omnifaces-2.3.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.gson-2.6.2.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.commons-io-2.4.jar}" todir="${build.web.dir}//"/>
+        <copyfiles files="${reference.OncoreCHHSServices-client.jar}" todir="${build.web.dir}//"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
         <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
@@ -1045,6 +1053,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.omnifaces-2.3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.gson-2.6.2.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-io-2.4.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copyfiles files="${reference.OncoreCHHSServices-client.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-beanutils-1.9.2.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.commons-collections4-4.1.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.commons-lang3-3.4.jar}" todir="${build.web.dir}//"/>
@@ -1056,6 +1065,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.omnifaces-2.3.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.gson-2.6.2.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.commons-io-2.4.jar}" todir="${build.web.dir}//"/>
+        <copyfiles files="${reference.OncoreCHHSServices-client.jar}" todir="${build.web.dir}//"/>
     </target>
     <target depends="init" if="dist.ear.dir" name="-clean-webinf-lib">
         <delete dir="${build.web.dir}/WEB-INF/lib"/>
@@ -1470,6 +1480,7 @@ exists or setup the property manually. For example like this:
             -->
     <target depends="init" name="deps-clean" unless="no.deps">
         <ant antfile="${project.OncoreCHHS-ejb}/build.xml" inheritall="false" target="clean"/>
+        <ant antfile="${project.OncoreCHHSServices-client}/build.xml" inheritall="false" target="clean"/>
     </target>
     <target depends="init" name="do-clean">
         <condition property="build.dir.to.clean" value="${build.web.dir}">

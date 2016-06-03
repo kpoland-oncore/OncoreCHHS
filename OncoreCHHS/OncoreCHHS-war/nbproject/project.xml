@@ -64,6 +64,10 @@
                     <file>${file.reference.commons-io-2.4.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
+                <library dirs="200">
+                    <file>${reference.OncoreCHHSServices-client.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries>
                 <library dirs="200">
@@ -110,6 +114,10 @@
                     <file>${file.reference.commons-io-2.4.jar}</file>
                     <path-in-war>/</path-in-war>
                 </library>
+                <library dirs="200">
+                    <file>${reference.OncoreCHHSServices-client.jar}</file>
+                    <path-in-war>/</path-in-war>
+                </library>
             </web-module-additional-libraries>
             <source-roots>
                 <root id="src.dir"/>
@@ -126,6 +134,14 @@
                 <target>dist</target>
                 <clean-target>clean</clean-target>
                 <id>dist</id>
+            </reference>
+            <reference>
+                <foreign-project>OncoreCHHSServices-client</foreign-project>
+                <artifact-type>jar</artifact-type>
+                <script>build.xml</script>
+                <target>jar</target>
+                <clean-target>clean</clean-target>
+                <id>jar</id>
             </reference>
         </references>
     </configuration>

@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType( XmlAccessType.FIELD )
 public class Summaries {
     @XmlElement(name="items")
-    private List<UserDTO> items;
+    private List<User> items;
     
     /**
      * 
@@ -32,7 +32,7 @@ public class Summaries {
      * 
      * @param items The items.
      */
-    public Summaries( List<UserDTO> items ) {
+    public Summaries( List<User> items ) {
         this.items = items;
     }
     
@@ -40,7 +40,7 @@ public class Summaries {
      * 
      * @return The items.
      */
-    public List<UserDTO> getItems() {
+    public List<User> getItems() {
         return this.items;
     }
     
@@ -49,7 +49,7 @@ public class Summaries {
      * @param index The index.
      * @return An item.
      */
-    public UserDTO getItem( int index ) {
+    public User getItem( int index ) {
         return this.items.get(index);
     }
 }

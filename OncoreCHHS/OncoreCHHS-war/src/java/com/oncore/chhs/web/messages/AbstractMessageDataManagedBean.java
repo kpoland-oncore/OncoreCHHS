@@ -23,6 +23,7 @@
  */
 package com.oncore.chhs.web.messages;
 
+import com.oncore.chhs.client.dto.AllMessages;
 import com.oncore.chhs.web.base.AbstractBaseManagedBean;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
@@ -40,18 +41,13 @@ public interface AbstractMessageDataManagedBean extends AbstractBaseManagedBean 
      * The <code>fetchMessages</code> method fetches all messages from the inbox
      * and outbox for the user.
      *
-     * @param users the entity representing the user
-     * @param oldestDate fetch all messages newer than this date. If this is
-     * null fetch all messages
+     * @param userUid the entity representing the user
      *
      * @return a map containing list of populated inbox and outbox
      * <code>MessageBean</code> objects if found, empty list otherwise
      * @throws WebServiceException
      */
-//    public Map<String, List<MessageBean>> fetchMessages(Integer userUid, Date oldestDate) throws WebServiceException;
-    public List<MessageBean> fetchInbox(Users users, Date oldestDate) throws WebServiceException;
-
-    public List<MessageBean> fetchOutbox(Users users, Date oldestDate) throws WebServiceException;
+    public AllMessages fetchMessages(Integer userUid) throws WebServiceException;
 
     /**
      * The <code>sendMessage</code> method sends a message.

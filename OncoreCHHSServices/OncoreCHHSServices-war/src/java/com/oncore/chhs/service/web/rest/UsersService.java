@@ -6,7 +6,7 @@
 package com.oncore.chhs.service.web.rest;
 
 import com.oncore.chhs.client.dto.Summaries;
-import com.oncore.chhs.client.dto.UserDTO;
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.ejb.EJBUtils;
 import java.util.List;
 import javax.ws.rs.core.Context;
@@ -45,80 +45,98 @@ public class UsersService {
      */
     public UsersService() {
     }
-    
+
     /**
-     * 
+     *
      * @param id The user id.
      * @return A list of matching UserDTO.
      */
     @GET
     @Path("/find/")
-    @Produces( {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
-    public UserDTO findById( @QueryParam( "id" ) Integer id ) {
-        UserDTO response = null;
-        
-        UserService userService = EJBUtils.lookupEJB(UserService.class );
-        
-        response = userService.getUser( id );
-        
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public User findById(@QueryParam("id") Integer id) {
+        User response = null;
+
+        UserService userService = EJBUtils.lookupEJB(UserService.class);
+
+        response = userService.getUser(id);
+
         return response;
     }
 
     /**
-     * 
+     *
+     * @param userName The user id.
+     * @return A list of matching UserDTO.
+     */
+    @GET
+    @Path("/authenticate/")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public User authenticateUser(@QueryParam("userName") String userName) {
+        User response = null;
+
+        UserService userService = EJBUtils.lookupEJB(UserService.class);
+
+        response = userService.authenticateUser(userName);
+
+        return response;
+    }
+
+    /**
+     *
      * @param lastName The last name.
      * @param firstName The first name.
      * @return A list of matching UserDTO.
      */
     @GET
     @Path("/search/")
-    @Produces( {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
-    public Summaries search( @QueryParam( "lastName" ) String lastName, 
-            @QueryParam( "firstName" ) String firstName ) {
-        List<UserDTO> response = null;
-        
-        UserService userService = EJBUtils.lookupEJB(UserService.class );
-        
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public Summaries search(@QueryParam("lastName") String lastName,
+            @QueryParam("firstName") String firstName) {
+        List<User> response = null;
+
+        UserService userService = EJBUtils.lookupEJB(UserService.class);
+
         response = userService.searchUsers(firstName, lastName);
 
-       try {
-        JAXBContext context  = JAXBContext.newInstance(Summaries.class, UserDTO.class, PaginatedResult.class,
-                PaginatedMarker.class, Predicate.class, OrderBy.class, NumericFilterCriteriaImpl.class,
-                FilterCriteriaImpl.class );
-        
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(response, System.out);
-       } catch ( Throwable t ) {
-           System.out.println( "Error marshalling: " + t.getMessage() );
-           t.printStackTrace();;
-       }
-        
-        return new Summaries( response );
+        try {
+            JAXBContext context = JAXBContext.newInstance(Summaries.class, User.class, PaginatedResult.class,
+                    PaginatedMarker.class, Predicate.class, OrderBy.class, NumericFilterCriteriaImpl.class,
+                    FilterCriteriaImpl.class);
+
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(response, System.out);
+        } catch (Throwable t) {
+            System.out.println("Error marshalling: " + t.getMessage());
+            t.printStackTrace();;
+        }
+
+        return new Summaries(response);
     }
-    
+
     /**
-     * 
+     *
      * @param lastName The last name.
      * @param firstName The first name.
      * @param firstResult Default starts at index 0. Default = 0.
      * @param numberResults The number of results to retrieve. Default = 25.
-     * 
+     *
      * @return Zero of more UserDTO instances.
      */
     @GET
     @Path("/searchPaginated/")
-    @Produces( {MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )
-    public PaginatedResult searchPaginated( @QueryParam( "lastName" ) String lastName, 
-            @QueryParam( "firstName" ) String firstName,
-            @DefaultValue( "0" ) @QueryParam( "firstResult" ) int firstResult,
-            @DefaultValue( "25" ) @QueryParam( "numberResults" ) int numberResults ) {
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public PaginatedResult searchPaginated(@QueryParam("lastName") String lastName,
+            @QueryParam("firstName") String firstName,
+            @DefaultValue("0") @QueryParam("firstResult") int firstResult,
+            @DefaultValue("25") @QueryParam("numberResults") int numberResults) {
         PaginatedResult response = null;
-        
-        UserService userService = EJBUtils.lookupEJB(UserService.class );
-        
-        response = userService.searchUsersPaginated( lastName, firstName, firstResult, numberResults );
-        
+
+        UserService userService = EJBUtils.lookupEJB(UserService.class);
+
+        response = userService.searchUsersPaginated(lastName, firstName, firstResult, numberResults);
+
         return response;
     }
 
@@ -131,7 +149,6 @@ public class UsersService {
 //        response.setName("Name + Id " + name + ":" + id);
 //        return response;
 //    }
-    
 //    @GET
 //    @Path("/company")
 //    @Consumes( { MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON } )

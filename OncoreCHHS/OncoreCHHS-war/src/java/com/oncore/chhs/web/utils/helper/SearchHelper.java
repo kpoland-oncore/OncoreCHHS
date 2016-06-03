@@ -42,7 +42,6 @@ public class SearchHelper {
     public static SearchBean convertFosterFamilyAgencyToSearchBean(FosterFamilyAgency agency) {
         SearchBean searchBean = new SearchBean();
 
-//        searchBean.setCloseDate(agency.get);
         searchBean.setCounty(agency.getCounty_name());
         searchBean.setFacilityAddress(agency.getFacility_address());
         searchBean.setFacilityAdministrator(agency.getFacility_administrator());
@@ -50,15 +49,10 @@ public class SearchHelper {
         searchBean.setFacilityName(agency.getFacility_name());
         searchBean.setFacilityNumber(agency.getFacility_number());
         searchBean.setFacilityState(agency.getFacility_state());
-//        searchBean.setFacilityStatus(agency.get);
         searchBean.setFacilityTelephone(agency.getFacility_telephone_number());
         searchBean.setFacilityType(agency.getFacility_type());
         searchBean.setFacilityZip(agency.getFacility_zip());
-//        searchBean.setLicenseFirstDate(agency.get);
-//        searchBean.setLicensee(agency.get);
         searchBean.setRegionalOffice(agency.getReginal_office());
-//        searchBean.setLatitude(agency.getLocation().getCoordinates());
-//        searchBean.setLongitude(longitude);
 
         return searchBean;
     }

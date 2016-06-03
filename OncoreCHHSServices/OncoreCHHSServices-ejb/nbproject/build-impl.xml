@@ -814,22 +814,30 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.ArchCommon.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.OncoreCHHSServices-client.jar}" todir="${build.classes.dir}"/>
         <copyfiles files="${reference.OncoreCHHSServices-persistence.dist}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.commons-collections4-4.1.jar}" todir="${build.classes.dir}"/>
+        <copyfiles files="${file.reference.commons-lang3-3.4.jar}" todir="${build.classes.dir}"/>
     </target>
     <target if="is.server.weblogic" name="-library-inclusion-in-archive-weblogic">
         <basename file="${reference.ArchCommon.jar}" property="manifest.reference.ArchCommon.jar"/>
         <basename file="${reference.OncoreCHHSServices-client.jar}" property="manifest.reference.OncoreCHHSServices-client.jar"/>
         <basename file="${reference.OncoreCHHSServices-persistence.dist}" property="manifest.reference.OncoreCHHSServices-persistence.dist"/>
+        <basename file="${file.reference.commons-collections4-4.1.jar}" property="manifest.file.reference.commons-collections4-4.1.jar"/>
+        <basename file="${file.reference.commons-lang3-3.4.jar}" property="manifest.file.reference.commons-lang3-3.4.jar"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update">
-            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 "/>
+            <attribute name="Extension-List" value="jar-1 jar-2 jar-3 jar-4 jar-5 "/>
             <attribute name="jar-1-Extension-Name" value="${manifest.reference.ArchCommon.jar}"/>
             <attribute name="jar-2-Extension-Name" value="${manifest.reference.OncoreCHHSServices-client.jar}"/>
             <attribute name="jar-3-Extension-Name" value="${manifest.reference.OncoreCHHSServices-persistence.dist}"/>
+            <attribute name="jar-4-Extension-Name" value="${manifest.file.reference.commons-collections4-4.1.jar}"/>
+            <attribute name="jar-5-Extension-Name" value="${manifest.file.reference.commons-lang3-3.4.jar}"/>
         </manifest>
     </target>
     <target depends="compile" name="library-inclusion-in-manifest">
         <copyfiles files="${reference.ArchCommon.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${reference.OncoreCHHSServices-client.jar}" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${reference.OncoreCHHSServices-persistence.dist}" todir="${dist.ear.dir}"/>
+        <copyfiles files="${file.reference.commons-collections4-4.1.jar}" todir="${dist.ear.dir}/lib"/>
+        <copyfiles files="${file.reference.commons-lang3-3.4.jar}" todir="${dist.ear.dir}/lib"/>
         <manifest file="${build.ear.classes.dir}/META-INF/MANIFEST.MF" mode="update"/>
     </target>
     <target name="-copy-meta-inf">

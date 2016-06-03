@@ -6,7 +6,7 @@
 package com.oncore.chhs.service.web.rest;
 
 import com.oncore.chhs.client.dto.Summaries;
-import com.oncore.chhs.client.dto.UserDTO;
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.client.rest.UsersServiceClient;
 import java.io.IOException;
 import java.io.PrintWriter;

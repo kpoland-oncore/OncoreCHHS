@@ -23,6 +23,7 @@
  */
 package com.oncore.chhs.web.login;
 
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.base.AbstractBaseManagedBean;
@@ -49,9 +50,8 @@ public interface AbstractLoginDataManagedBean extends AbstractBaseManagedBean {
      *
      * @param loginBean a populated <code>LoginBean</code> object
      * @throws WebServiceException
-     * @return a populated <code>Users</code> object if found, null otherwise
+     * @return a populated <code>UserDTO</code> object if found, null otherwise
      */
-    public Users authenticateUser(LoginBean loginBean) throws WebServiceException;
-   
+    public User authenticateUser(LoginBean loginBean) throws WebServiceException;
 
 }

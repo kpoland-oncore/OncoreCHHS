@@ -23,6 +23,7 @@
  */
 package com.oncore.chhs.web.search;
 
+import com.oncore.chhs.client.rest.LocateServiceClient;
 import com.oncore.chhs.web.clients.FosterFamilyAgencyJsonClient;
 import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
 import com.oncore.chhs.web.exceptions.WebServiceException;
@@ -48,6 +49,7 @@ import org.apache.logging.log4j.Logger;
 @RequestScoped
 public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
 
+    private final Logger LOG = LogManager.getLogger(SearchDataManagedBean.class);
     @EJB
     private UsersFacadeREST usersFacadeREST;
 
@@ -74,6 +76,14 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
                     agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
                 }
             }
+
+//            FosterFamilyAgencies fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgency(zip);
+//
+//            if (CollectionUtils.isNotEmpty(fosterFamilyAgencies.getFosterFamilyAgencies())) {
+//                for (FosterFamilyAgency agency : fosterFamilyAgencies.getFosterFamilyAgencies()) {
+//                    agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
+//                }
+//            }
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
@@ -81,5 +91,13 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         return agencies;
     }
 
-    private final Logger LOG = LogManager.getLogger(SearchDataManagedBean.class);
+    /**
+     *
+     * @return MessagesServiceClient
+     */
+    private LocateServiceClient getLocateServiceClient() {
+
+        return new LocateServiceClient();
+    }
+
 }

@@ -6,8 +6,7 @@
 package com.oncore.chhs.client.rest;
 
 import com.oncore.chhs.client.dto.Summaries;
-import com.oncore.chhs.client.dto.UserDTO;
-import java.util.List;
+import com.oncore.chhs.client.dto.User;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
@@ -18,32 +17,55 @@ import javax.ws.rs.client.Client;
  * @author Kerry O'Brien
  */
 public class UsersServiceClient {
-    
-    public Summaries searchUsers( String lastName, String firstName ) {
+
+    public Summaries searchUsers(String lastName, String firstName) {
         // Complex - not sure yet.
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
-                path("Users").path("search").queryParam( "lastName", lastName ).
-                queryParam( "firstName", firstName );
- 
-        Object results =
-            target.request( MediaType.APPLICATION_XML )
-                .get(Summaries.class);    
-        
-        return (Summaries)results;
+                path("Users").path("search").queryParam("lastName", lastName).
+                queryParam("firstName", firstName);
+
+        Object results
+                = target.request(MediaType.APPLICATION_XML)
+                .get(Summaries.class);
+
+        return (Summaries) results;
     }
-    
-         
-    public UserDTO getUser( Integer id ) {
+
+    public User getUser(Integer id) {
         // Complex - not sure yet.
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
-                path("Users").path("find").queryParam( "id", id );
- 
-        UserDTO results =
-            target.request( MediaType.APPLICATION_XML )
-                .get(UserDTO.class);    
-        
+                path("Users").path("find").queryParam("id", id);
+
+        User results
+                = target.request(MediaType.APPLICATION_XML)
+                .get(User.class);
+
         return results;
+    }
+
+    /**
+     *
+     * @param userName
+     * 
+     * @return
+     */
+    public User authenticateUser(String userName) {
+
+        User result = null;
+        try {
+
+            Client client = ClientBuilder.newClient();
+            WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
+                    path("Users").path("authenticate").queryParam("userName", userName);
+
+            result = target.request(MediaType.APPLICATION_JSON)
+                    .get(User.class);
+        } catch (Exception e) {
+//TODO have proper handling.
+        }
+
+        return result;
     }
 }

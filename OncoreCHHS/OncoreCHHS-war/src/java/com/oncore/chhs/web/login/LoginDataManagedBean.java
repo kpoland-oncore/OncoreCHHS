@@ -23,6 +23,8 @@
  */
 package com.oncore.chhs.web.login;
 
+import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.client.rest.UsersServiceClient;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.profile.ProfileBean;
@@ -50,20 +52,20 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
 
     /**
      * Package level setter used for passing in mock objects for unit tests.
-     * 
+     *
      * @param mockObject The mock EJB to use for testing.
      */
-    void setUsersFacadeREST( UsersFacadeREST mockObject ) {
+    void setUsersFacadeREST(UsersFacadeREST mockObject) {
         this.usersFacadeREST = mockObject;
     }
-    
-     @Override
+
+    @Override
     public Users createUser(ProfileBean profileBean) throws WebServiceException {
-        
+
         Users users = new Users();
-        
+
         try {
-            
+
             users.setCreateUserId(profileBean.getUserName());
             users.setCreateTs(new Date());
             users.setUpdateUserId(profileBean.getUserName());
@@ -73,24 +75,23 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
             users.setUsrLastname(profileBean.getLastName());
             users.setUsrUserId(profileBean.getUserName());
             users.setUsrPassword("notused");
-            
+
             usersFacadeREST.create(users);
-            
+
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
 
         return users;
     }
-    
-    
-    @Override
-    public Users authenticateUser(LoginBean loginBean) throws WebServiceException {
 
-        Users users = null;
+    @Override
+    public User authenticateUser(LoginBean loginBean) throws WebServiceException {
+
+        User users = null;
 
         try {
-            users = usersFacadeREST.findByUserId(loginBean.getUserName());
+            users = this.getUsersServiceClient().authenticateUser(loginBean.getUserName());
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
@@ -112,5 +113,13 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
 
     private final Logger LOG = LogManager.getLogger(LoginDataManagedBean.class);
 
-   
+    /**
+     *
+     * @return UsersServiceClient
+     */
+    private UsersServiceClient getUsersServiceClient() {
+
+        return new UsersServiceClient();
+    }
+
 }

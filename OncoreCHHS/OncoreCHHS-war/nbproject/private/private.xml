@@ -6,9 +6,21 @@
             <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/test/com/oncore/chhs/web/selenium/SeleniumSmoketest.java</file>
         </group>
         <group name="OncoreCHHS">
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/profile/ProfileManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/services/ContactFacadeREST.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/utils/helper/MessagesHelper.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/test/com/oncore/chhs/web/messages/MessageDataManagedBeanTest.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/login/AbstractLoginDataManagedBean.java</file>
             <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/MessagesManagedBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/MessageDataManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/utils/helper/SearchHelper.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/login/LoginDataManagedBean.java</file>
             <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/profile/ProfileDataManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/login/LoginBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/MessageValidationBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/login/LoginManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/search/SearchDataManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/MessageDataManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/entities/Users.java</file>
             <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/AbstractMessageDataManagedBean.java</file>
         </group>
     </open-files>

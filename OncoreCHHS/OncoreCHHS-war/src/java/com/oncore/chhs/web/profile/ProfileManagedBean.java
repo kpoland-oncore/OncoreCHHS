@@ -23,6 +23,7 @@
  */
 package com.oncore.chhs.web.profile;
 
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.entities.Users;
@@ -88,7 +89,16 @@ public class ProfileManagedBean extends BaseManagedBean {
                 // determine if user already exists
                 LoginBean loginBean = new LoginBean();
                 loginBean.setUserName(this.getProfileBean().getUserName());
-                Users users = this.loginDataManagedBean.authenticateUser(loginBean);
+                User userDTO = this.loginDataManagedBean.authenticateUser(loginBean);
+
+                //TODO this needs to be replaced with a non-entity object
+                Users users = new Users();
+                users.setUsrFirstname(userDTO.getFirstName());
+                users.setUsrMiddlename(userDTO.getMiddleName());
+                users.setUsrLastname(userDTO.getLastName());
+                users.setUsrUserId(userDTO.getUserName());
+                users.setUsrUid(userDTO.getUserUid().intValue());
+                //TODO end
 
                 if (users == null) {
                     users = this.loginDataManagedBean.createUser(profileBean);
@@ -126,14 +136,24 @@ public class ProfileManagedBean extends BaseManagedBean {
         try {
             FacesUtilities.removeMessages();
             this.getProfileBean().reset();
-            
+
             isError = validateCommonFields(isError);
 
             if (!isError) {
                 // determine if user already exists
                 LoginBean loginBean = new LoginBean();
                 loginBean.setUserName(this.getProfileBean().getUserName());
-                Users users = this.loginDataManagedBean.authenticateUser(loginBean);
+
+                User userDTO = this.loginDataManagedBean.authenticateUser(loginBean);
+
+                //TODO this needs to be replaced with a non-entity object
+                Users users = new Users();
+                users.setUsrFirstname(userDTO.getFirstName());
+                users.setUsrMiddlename(userDTO.getMiddleName());
+                users.setUsrLastname(userDTO.getLastName());
+                users.setUsrUserId(userDTO.getUserName());
+                users.setUsrUid(userDTO.getUserUid().intValue());
+                //TODO end
 
                 if (users == null) {
                     users = this.loginDataManagedBean.createUser(profileBean);

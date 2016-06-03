@@ -23,22 +23,15 @@
  */
 package com.oncore.chhs.web.messages;
 
-import com.oncore.chhs.web.entities.Messages;
+import com.oncore.chhs.client.dto.AllMessages;
+import com.oncore.chhs.client.rest.MessagesServiceClient;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
-import com.oncore.chhs.web.services.MessagesFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
-import com.oncore.chhs.web.utils.helper.MessagesHelper;
-import static com.oncore.chhs.web.utils.helper.ProfileHelper.getFormattedName;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,122 +45,59 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
 
     private final Logger LOG = LogManager.getLogger(MessageDataManagedBean.class);
 
-    @EJB
-    private MessagesFacadeREST messagesFacadeREST;
-    
     /**
-     * Package level setter used for passing in mock objects for unit tests.
-     * 
-     * @param mockObject The mock EJB to use for testing.
+     *
      */
-    void setMessagesFacadeREST( MessagesFacadeREST mockObject ) {
-        this.messagesFacadeREST = mockObject;
-    }
-    
     @Override
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing MessageDataManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     *
+     */
     @Override
     @PreDestroy
     public void destroy() {
         LOG.debug("Destroying MessageDataManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     *
+     * @param userUid
+     *
+     * @return
+     *
+     * @throws WebServiceException
+     */
     @Override
-    public List<MessageBean> fetchInbox(Users users, Date oldestDate) throws WebServiceException {
-        return this.getInbounds(users.getMessagesList());
+    public AllMessages fetchMessages(Integer userUid) throws WebServiceException {
+        return this.getMessagesServiceClient().getAllMessages(userUid);
     }
 
-    @Override
-    public List<MessageBean> fetchOutbox(Users users, Date oldestDate) throws WebServiceException {
-        return this.getOutbounds(users.getMessagesList());
-    }
-
+    /**
+     *
+     *
+     * @param messageBean
+     * @param users
+     * @throws WebServiceException
+     */
     @Override
     public void sendMessage(MessageBean messageBean, Users users) throws WebServiceException {
         try {
-            this.createMessages(messageBean.getFrom(), messageBean.getTo(), messageBean.getMessage(), false, users);
-//            this.createMessages(messageBean.getTo(), messageBean.getFrom(), MessagesHelper.getRandomResponse(), true, users);
+            this.getMessagesServiceClient().sendMessage(messageBean.getFrom(), messageBean.getTo(), messageBean.getMessage(), users.getUsrUid());
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
     }
 
     /**
-     * Creates the messages from using MessageBean.
      *
-     * @param from
-     * @param to
-     * @param messageTxt
-     * @param isInbound
-     * @param users
-     *
+     * @return MessagesServiceClient
      */
-    private void createMessages(String from, String to, String messageTxt, boolean isInbound, Users users) {
-        Messages messages = new Messages();
+    private MessagesServiceClient getMessagesServiceClient() {
 
-        messages.setMsgFrom(from);
-        messages.setMsgTo(to);
-        messages.setMsgText(messageTxt);
-        messages.setMsgToUserInd(isInbound);
-        messages.setMsgCreatedTs(new Date());
-        messages.setUsrUidFk(users);
-        messages.setCreateTs(new Date());
-        messages.setCreateUserId(getFormattedName(users));
-        messages.setUpdateTs(new Date());
-        messages.setUpdateUserId(getFormattedName(users));
-
-        if (null == users.getMessagesList()) {
-            users.setMessagesList(new ArrayList<>());
-        }
-
-        users.getMessagesList().add(messages);
-
-        this.messagesFacadeREST.create(messages);
-    }
-
-    /**
-     *
-     *
-     * @param msgs
-     *
-     * @return
-     */
-    private List<MessageBean> getInbounds(List<Messages> msgs) {
-        List<MessageBean> msgBeans = new ArrayList<>();
-
-        if (CollectionUtils.isNotEmpty(msgs)) {
-            for (Messages msg : msgs) {
-                if (msg.getMsgToUserInd()) {
-                    msgBeans.add(MessagesHelper.buildMessageBeansFromMessages(msg));
-                }
-            }
-        }
-
-        return msgBeans;
-    }
-
-    /**
-     *
-     *
-     * @param msgs
-     *
-     * @return
-     */
-    private List<MessageBean> getOutbounds(List<Messages> msgs) {
-        List<MessageBean> msgBeans = new ArrayList<>();
-
-        if (CollectionUtils.isNotEmpty(msgs)) {
-            for (Messages msg : msgs) {
-                if (!msg.getMsgToUserInd()) {
-                    msgBeans.add(MessagesHelper.buildMessageBeansFromMessages(msg));
-                }
-            }
-        }
-
-        return msgBeans;
+        return new MessagesServiceClient();
     }
 }
