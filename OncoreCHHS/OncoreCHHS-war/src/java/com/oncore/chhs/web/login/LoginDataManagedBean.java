@@ -60,29 +60,30 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
     }
 
     @Override
-    public Users createUser(ProfileBean profileBean) throws WebServiceException {
+    public User createUser(ProfileBean profileBean) throws WebServiceException {
 
-        Users users = new Users();
+        User user = new User();
 
         try {
 
-            users.setCreateUserId(profileBean.getUserName());
-            users.setCreateTs(new Date());
-            users.setUpdateUserId(profileBean.getUserName());
-            users.setUpdateTs(new Date());
-            users.setUsrFirstname(profileBean.getFirstName());
-            users.setUsrMiddlename(profileBean.getMiddleName());
-            users.setUsrLastname(profileBean.getLastName());
-            users.setUsrUserId(profileBean.getUserName());
-            users.setUsrPassword("notused");
-
-            usersFacadeREST.create(users);
+            //TODO:  UPDATE TO USE NEW WEB SERVICE CLIENT
+//            user.setCreateUserId(profileBean.getUserName());
+//            user.setCreateTs(new Date());
+//            user.setUpdateUserId(profileBean.getUserName());
+//            user.setUpdateTs(new Date());
+//            user.setUsrFirstname(profileBean.getFirstName());
+//            user.setUsrMiddlename(profileBean.getMiddleName());
+//            user.setUsrLastname(profileBean.getLastName());
+//            user.setUsrUserId(profileBean.getUserName());
+//            user.setUsrPassword("notused");
+//
+//            usersFacadeREST.create(user);
 
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
 
-        return users;
+        return user;
     }
 
     @Override

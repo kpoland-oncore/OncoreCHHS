@@ -23,6 +23,7 @@
  */
 package com.oncore.chhs.web.utils.helper;
 
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.entities.Address;
 import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.Users;
@@ -97,9 +98,9 @@ public class ProfileHelper {
      *
      * @return
      */
-    public static Address convertProfileBeanToAddressEntity(ProfileBean profileBean, AdrStateCdFacadeREST adrStateCdFacadeREST, Users users) {
+    public static Address convertProfileBeanToAddressEntity(ProfileBean profileBean, AdrStateCdFacadeREST adrStateCdFacadeREST, User user) {
         Address address = new Address();
-        mapProfileBeanToAddressEntity(profileBean, address, adrStateCdFacadeREST, users);
+        mapProfileBeanToAddressEntity(profileBean, address, adrStateCdFacadeREST, user);
 
         return address;
     }
@@ -111,7 +112,7 @@ public class ProfileHelper {
      * @param address
      * @param adrStateCdFacadeREST
      */
-    public static void mapProfileBeanToAddressEntity(ProfileBean profileBean, Address address, AdrStateCdFacadeREST adrStateCdFacadeREST, Users users) {
+    public static void mapProfileBeanToAddressEntity(ProfileBean profileBean, Address address, AdrStateCdFacadeREST adrStateCdFacadeREST, User user) {
         address.setAdrLine1(profileBean.getAddressLine1());
         address.setAdrLine2(profileBean.getAddressLine2());
         address.setAdrCity(profileBean.getCity());
@@ -127,12 +128,14 @@ public class ProfileHelper {
         }
 
         address.setCreateTs(new Date());
-        address.setCreateUserId(getFormattedName(users));
+        address.setCreateUserId(getFormattedName(user));
         address.setUpdateTs(new Date());
-        address.setUpdateUserId(getFormattedName(users));
+        address.setUpdateUserId(getFormattedName(user));
 
-        if (users != null) {
-            address.setUsrUidFk(users);
+        if (user != null) {
+
+//TODO: UPDATE TO USE NEW WEB SERVICE CLIENT
+//            address.setUsrUidFk(user);
         }
     }
 
@@ -141,13 +144,13 @@ public class ProfileHelper {
      *
      * @param profileBean
      * @param emcTypeCdFacadeREST
-     * @param users
+     * @param user
      *
      * @return
      */
-    public static Contact convertPhoneNumberToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
+    public static Contact convertPhoneNumberToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, User user) {
         Contact contact = new Contact();
-        mapProfileBeanToContactEntity(profileBean.getPhoneType(), profileBean.getPhone(), contact, emcTypeCdFacadeREST, users);
+        mapProfileBeanToContactEntity(profileBean.getPhoneType(), profileBean.getPhone(), contact, emcTypeCdFacadeREST, user);
 
         return contact;
     }
@@ -157,13 +160,13 @@ public class ProfileHelper {
      *
      * @param profileBean
      * @param emcTypeCdFacadeREST
-     * @param users
+     * @param user
      *
      * @return
      */
-    public static Contact convertEmailToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
+    public static Contact convertEmailToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, User user) {
         Contact contact = new Contact();
-        mapProfileBeanToContactEntity(ContactTypeEnum.EMAIL_ADDRESS.getValue(), profileBean.getEmail(), contact, emcTypeCdFacadeREST, users);
+        mapProfileBeanToContactEntity(ContactTypeEnum.EMAIL_ADDRESS.getValue(), profileBean.getEmail(), contact, emcTypeCdFacadeREST, user);
 
         return contact;
     }
@@ -175,20 +178,22 @@ public class ProfileHelper {
      * @param emcValue
      * @param contact
      * @param emcTypeCdFacadeREST
-     * @param users
+     * @param user
      */
-    public static void mapProfileBeanToContactEntity(String emcTypCd, String emcValue, Contact contact, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
-        contact.setEmcTypeCd(emcTypeCdFacadeREST.findByCode(emcTypCd));
-        contact.setEmcValue(emcValue);
+    public static void mapProfileBeanToContactEntity(String emcTypCd, String emcValue, Contact contact, EmcTypeCdFacadeREST emcTypeCdFacadeREST, User user) {
 
-        contact.setCreateTs(new Date());
-        contact.setCreateUserId(getFormattedName(users));
-        contact.setUpdateTs(new Date());
-        contact.setUpdateUserId(getFormattedName(users));
-
-        if (users != null) {
-            contact.setUsrUidFk(users);
-        }
+//TODO: UPDATE TO USE NEW WEB SERVICE CLIENT
+//        contact.setEmcTypeCd(emcTypeCdFacadeREST.findByCode(emcTypCd));
+//        contact.setEmcValue(emcValue);
+//
+//        contact.setCreateTs(new Date());
+//        contact.setCreateUserId(getFormattedName(users));
+//        contact.setUpdateTs(new Date());
+//        contact.setUpdateUserId(getFormattedName(users));
+//
+//        if (users != null) {
+//            contact.setUsrUidFk(users);
+//        }
     }
 
     /**
@@ -198,20 +203,20 @@ public class ProfileHelper {
      *
      * @return formatted name
      */
-    public static String getFormattedName(Users user) {
+    public static String getFormattedName(User user) {
         String formattedName = "";
 
         if (user != null) {
-            if (StringUtils.isNotBlank(user.getUsrFirstname())) {
-                formattedName = user.getUsrFirstname();
+            if (StringUtils.isNotBlank(user.getFirstName())) {
+                formattedName = user.getFirstName();
             }
-            if (StringUtils.isNotBlank(user.getUsrMiddlename())) {
+            if (StringUtils.isNotBlank(user.getMiddleName())) {
                 formattedName = " ";
-                formattedName = user.getUsrMiddlename();
+                formattedName = user.getMiddleName();
             }
-            if (StringUtils.isNotBlank(user.getUsrLastname())) {
+            if (StringUtils.isNotBlank(user.getLastName())) {
                 formattedName = " ";
-                formattedName = user.getUsrLastname();
+                formattedName = user.getLastName();
             }
         }
 

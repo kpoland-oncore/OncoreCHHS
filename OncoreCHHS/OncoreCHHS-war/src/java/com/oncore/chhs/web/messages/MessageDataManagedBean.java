@@ -24,8 +24,8 @@
 package com.oncore.chhs.web.messages;
 
 import com.oncore.chhs.client.dto.AllMessages;
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.client.rest.MessagesServiceClient;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import javax.annotation.PostConstruct;
@@ -84,9 +84,9 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
      * @throws WebServiceException
      */
     @Override
-    public void sendMessage(MessageBean messageBean, Users users) throws WebServiceException {
+    public void sendMessage(MessageBean messageBean, User users) throws WebServiceException {
         try {
-            this.getMessagesServiceClient().sendMessage(messageBean.getFrom(), messageBean.getTo(), messageBean.getMessage(), users.getUsrUid());
+            this.getMessagesServiceClient().sendMessage(messageBean.getFrom(), messageBean.getTo(), messageBean.getMessage(), users.getUserUid().intValue());
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }

@@ -23,8 +23,8 @@
  */
 package com.oncore.chhs.web.profile;
 
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.base.AbstractBaseManagedBean;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 
 /**
@@ -53,7 +53,7 @@ public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
      * 
      * @throws WebServiceException 
      */
-    public void createProfile(ProfileBean profileBean, Users user) throws WebServiceException;
+    public void createProfile(ProfileBean profileBean, User user) throws WebServiceException;
     
     /**
      * The <code>updateProfile</code> method updates an existing user profile.
@@ -63,5 +63,5 @@ public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
      * 
      * @throws WebServiceException 
      */
-    public void updateProfile(ProfileBean profileBean, Users users) throws WebServiceException;
+    public void updateProfile(ProfileBean profileBean, User user) throws WebServiceException;
 }

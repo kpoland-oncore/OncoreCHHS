@@ -23,6 +23,8 @@
  */
 package com.oncore.chhs.web.messages;
 
+import com.oncore.chhs.client.dto.AllMessages;
+import com.oncore.chhs.client.dto.Message;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.exceptions.WebServiceException;
@@ -103,9 +105,15 @@ public class MessagesManagedBean extends BaseManagedBean {
         try {
             FacesUtilities.removeMessages();
 
-            this.setInboxList(this.messageDataManagedBean.fetchInbox(this.globalManagedBean.getAuthenticatedUser(), new Date()));
-            this.setOutboxList(this.messageDataManagedBean.fetchOutbox(this.globalManagedBean.getAuthenticatedUser(), new Date()));
+            AllMessages allMessages = this.messageDataManagedBean.fetchMessages(this.globalManagedBean.getAuthenticatedUser().getUserUid().intValue());
+            
+            if(allMessages != null)
+            {
+                 this.setInboxList(allMessages.getInboundMessages());
+                 this.setOutboxList(allMessages.getOutboundMessages());
 
+            }
+           
         } catch (WebServiceException wx) {
             LOG.error(wx);
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
@@ -129,56 +137,56 @@ public class MessagesManagedBean extends BaseManagedBean {
     /**
      * @return the inboxList
      */
-    public List<MessageBean> getInboxList() {
+    public List<Message> getInboxList() {
         return inboxList;
     }
 
     /**
      * @param inboxList the inboxList to set
      */
-    public void setInboxList(List<MessageBean> inboxList) {
+    public void setInboxList(List<Message> inboxList) {
         this.inboxList = inboxList;
     }
 
     /**
      * @return the outboxList
      */
-    public List<MessageBean> getOutboxList() {
+    public List<Message> getOutboxList() {
         return outboxList;
     }
 
     /**
      * @param outboxList the outboxList to set
      */
-    public void setOutboxList(List<MessageBean> outboxList) {
+    public void setOutboxList(List<Message> outboxList) {
         this.outboxList = outboxList;
     }
 
     /**
      * @return the filteredInboxList
      */
-    public List<MessageBean> getFilteredInboxList() {
+    public List<Message> getFilteredInboxList() {
         return filteredInboxList;
     }
 
     /**
      * @param filteredInboxList the filteredInboxList to set
      */
-    public void setFilteredInboxList(List<MessageBean> filteredInboxList) {
+    public void setFilteredInboxList(List<Message> filteredInboxList) {
         this.filteredInboxList = filteredInboxList;
     }
 
     /**
      * @return the filteredOutboxList
      */
-    public List<MessageBean> getFilteredOutboxList() {
+    public List<Message> getFilteredOutboxList() {
         return filteredOutboxList;
     }
 
     /**
      * @param filteredOutboxList the filteredOutboxList to set
      */
-    public void setFilteredOutboxList(List<MessageBean> filteredOutboxList) {
+    public void setFilteredOutboxList(List<Message> filteredOutboxList) {
         this.filteredOutboxList = filteredOutboxList;
     }
 
@@ -190,13 +198,13 @@ public class MessagesManagedBean extends BaseManagedBean {
 
     private MessageBean messageBean = new MessageBean();
 
-    private List<MessageBean> inboxList = new ArrayList<>(1);
+    private List<Message> inboxList = new ArrayList<>(1);
 
-    private List<MessageBean> outboxList = new ArrayList<>(1);
+    private List<Message> outboxList = new ArrayList<>(1);
 
-    private List<MessageBean> filteredInboxList = new ArrayList<>(1);
+    private List<Message> filteredInboxList = new ArrayList<>(1);
 
-    private List<MessageBean> filteredOutboxList = new ArrayList<>(1);
+    private List<Message> filteredOutboxList = new ArrayList<>(1);
 
     private final Logger LOG = LogManager.getLogger(MessagesManagedBean.class);
 

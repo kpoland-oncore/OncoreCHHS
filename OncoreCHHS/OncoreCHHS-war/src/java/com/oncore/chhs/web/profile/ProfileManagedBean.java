@@ -26,7 +26,6 @@ package com.oncore.chhs.web.profile;
 import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.enums.ContactTypeEnum;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.login.AbstractLoginDataManagedBean;
@@ -91,16 +90,15 @@ public class ProfileManagedBean extends BaseManagedBean {
                 loginBean.setUserName(this.getProfileBean().getUserName());
                 User userDTO = this.loginDataManagedBean.authenticateUser(loginBean);
 
-                //TODO this needs to be replaced with a non-entity object
-                Users users = new Users();
-                users.setUsrFirstname(userDTO.getFirstName());
-                users.setUsrMiddlename(userDTO.getMiddleName());
-                users.setUsrLastname(userDTO.getLastName());
-                users.setUsrUserId(userDTO.getUserName());
-                users.setUsrUid(userDTO.getUserUid().intValue());
-                //TODO end
+                User users = new User();
+                users.setFirstName(userDTO.getFirstName());
+                users.setMiddleName(userDTO.getMiddleName());
+                users.setLastName(userDTO.getLastName());
+                users.setUserName(userDTO.getUserName());
+                users.setUserUid(userDTO.getUserUid());
 
                 if (users == null) {
+
                     users = this.loginDataManagedBean.createUser(profileBean);
 
                     this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
@@ -108,7 +106,7 @@ public class ProfileManagedBean extends BaseManagedBean {
                     this.profileDataManagedBean.createProfile(profileBean, users);
 
                     this.globalManagedBean.setAuthenticated(Boolean.TRUE);
-                    this.globalManagedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
+                    this.globalManagedBean.setLoginText("Welcome " + users.getFirstName() + " " + users.getLastName());
                     this.globalManagedBean.setAuthenticatedUser(users);
 
                     FacesUtilities.createPageLevelCustomInfo(FacesContext.getCurrentInstance(), FacesUtilities.THANK_YOU_PROFILE_MESSAGE);
@@ -144,29 +142,21 @@ public class ProfileManagedBean extends BaseManagedBean {
                 LoginBean loginBean = new LoginBean();
                 loginBean.setUserName(this.getProfileBean().getUserName());
 
-                User userDTO = this.loginDataManagedBean.authenticateUser(loginBean);
+                User user = this.loginDataManagedBean.authenticateUser(loginBean);
 
-                //TODO this needs to be replaced with a non-entity object
-                Users users = new Users();
-                users.setUsrFirstname(userDTO.getFirstName());
-                users.setUsrMiddlename(userDTO.getMiddleName());
-                users.setUsrLastname(userDTO.getLastName());
-                users.setUsrUserId(userDTO.getUserName());
-                users.setUsrUid(userDTO.getUserUid().intValue());
-                //TODO end
-
-                if (users == null) {
-                    users = this.loginDataManagedBean.createUser(profileBean);
+                if (user == null) {
+ 
+                    User newUser = this.loginDataManagedBean.createUser(profileBean);
 
                     this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
 
-                    this.profileDataManagedBean.createProfile(profileBean, users);
+                    this.profileDataManagedBean.createProfile(profileBean, newUser);
 
                     this.globalManagedBean.setAuthenticated(Boolean.TRUE);
-                    this.globalManagedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
-                    this.globalManagedBean.setAuthenticatedUser(users);
+                    this.globalManagedBean.setLoginText("Welcome " + newUser.getFirstName() + " " + newUser.getLastName());
+                    this.globalManagedBean.setAuthenticatedUser(newUser);
 
-                    FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
+                    FacesUtilities.createPageLevelSaveSuccess(FacesContext.getCurrentInstance());
 
                 }
             } else {

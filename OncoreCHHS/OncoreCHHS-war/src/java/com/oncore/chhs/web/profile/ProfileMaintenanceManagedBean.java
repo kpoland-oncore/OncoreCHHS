@@ -62,7 +62,7 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
             try {
                 FacesUtilities.removeMessages();
 
-                this.setProfileBean(this.profileDataManagedBean.findProfileByUserUid(this.globalManagedBean.getAuthenticatedUser().getUsrUid()));
+                this.setProfileBean(this.profileDataManagedBean.findProfileByUserUid(this.globalManagedBean.getAuthenticatedUser().getUserUid().intValue()));
 
             } catch (WebServiceException wx) {
                 LOG.error(wx);

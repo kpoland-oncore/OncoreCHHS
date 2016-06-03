@@ -26,7 +26,6 @@ package com.oncore.chhs.web.login;
 import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import com.oncore.chhs.web.base.BaseManagedBean;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -76,21 +75,20 @@ public class LoginManagedBean extends BaseManagedBean {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
                 this.getLoginBean().setUserNameError(error);
             } else {
-                User userDTO = this.loginDataManagedBean.authenticateUser(loginBean);
+                User user = this.loginDataManagedBean.authenticateUser(loginBean);
 
-                if (userDTO != null) {
-
-                    //TODO this needs to be replaced with a non-entity object
-                    Users users = new Users();
-                    users.setUsrFirstname(userDTO.getFirstName());
-                    users.setUsrMiddlename(userDTO.getMiddleName());
-                    users.setUsrLastname(userDTO.getLastName());
-                    users.setUsrUserId(userDTO.getUserName());
-                    users.setUsrUid(userDTO.getUserUid().intValue());
-                    //TODO end
+                if (user != null) {
+ 
+                    User users = new User();
+                    users.setFirstName(user.getFirstName());
+                    users.setMiddleName(user.getMiddleName());
+                    users.setLastName(user.getLastName());
+                    users.setUserName(user.getUserName());
+                    users.setUserUid(user.getUserUid());
+             
 
                     this.globalManagedBean.setAuthenticated(Boolean.TRUE);
-                    this.globalManagedBean.setLoginText("Welcome " + userDTO.getFirstName() + " " + userDTO.getLastName());
+                    this.globalManagedBean.setLoginText("Welcome " + user.getFirstName() + " " + user.getLastName());
                     this.globalManagedBean.setAuthenticatedUser(users);
                     page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
                 } else {

@@ -23,6 +23,7 @@
  */
 package com.oncore.chhs.web.profile;
 
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import com.oncore.chhs.web.entities.Address;
 import com.oncore.chhs.web.entities.Contact;
@@ -165,35 +166,35 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @throws WebServiceException
      */
     @Override
-    public void createProfile(ProfileBean profileBean, Users user) throws WebServiceException {
+    public void createProfile(ProfileBean profileBean, User user) throws WebServiceException {
         try {
             this.createAddress(profileBean, user);
-
-            if (StringUtils.isNotBlank(profileBean.getPhone())) {
-                if (null == user.getContactList()) {
-                    user.setContactList(new ArrayList<>());
-                }
-
-                Contact contact = ProfileHelper.convertPhoneNumberToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
-                contact.setUsrUidFk(user);
-
-                user.getContactList().add(contact);
-
-                this.contactFacadeREST.create(contact);
-            }
-
-            if (StringUtils.isNotBlank(profileBean.getEmail())) {
-                if (null == user.getContactList()) {
-                    user.setContactList(new ArrayList<>());
-                }
-
-                Contact contact = ProfileHelper.convertEmailToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
-                contact.setUsrUidFk(user);
-
-                user.getContactList().add(contact);
-
-                this.contactFacadeREST.create(contact);
-            }
+//TODO:  UPDATE TO USE NEW WEB SERVICE CLIENT
+//            if (StringUtils.isNotBlank(profileBean.getPhone())) {
+//                if (null == user.getContactList()) {
+//                    user.setContactList(new ArrayList<>());
+//                }
+//
+//                Contact contact = ProfileHelper.convertPhoneNumberToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
+//                contact.setUsrUidFk(user);
+//
+//                user.getContactList().add(contact);
+//
+//                this.contactFacadeREST.create(contact);
+//            }
+//
+//            if (StringUtils.isNotBlank(profileBean.getEmail())) {
+//                if (null == user.getContactList()) {
+//                    user.setContactList(new ArrayList<>());
+//                }
+//
+//                Contact contact = ProfileHelper.convertEmailToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
+//                contact.setUsrUidFk(user);
+//
+//                user.getContactList().add(contact);
+//
+//                this.contactFacadeREST.create(contact);
+//            }
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
@@ -203,18 +204,18 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * Updates the profile information for the user.
      *
      * @param profileBean
-     * @param users
+     * @param user
      * @throws WebServiceException
      */
     @Override
-    public void updateProfile(ProfileBean profileBean, Users users) throws WebServiceException {
+    public void updateProfile(ProfileBean profileBean, User user) throws WebServiceException {
         try {
             if (null != profileBean) {
-
-                if (users != null) {
-                    this.updateAddress(profileBean, users.getAddressList(), users);
-                    this.updateContact(profileBean, users.getContactList(), users);
-                }
+//TODO: UPDATE TO USE NEW CLIENT
+//                if (user != null) {
+//                    this.updateAddress(profileBean, user.getAddressList(), user);
+//                    this.updateContact(profileBean, user.getContactList(), user);
+//                }
             }
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
@@ -227,16 +228,16 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param profileBean
      * @param addresses
      */
-    private void updateAddress(ProfileBean profileBean, List<Address> addresses, Users users) {
+    private void updateAddress(ProfileBean profileBean, List<Address> addresses, User user) {
         if (StringUtils.isNotBlank(profileBean.getAddressLine1())) {
             if (CollectionUtils.isNotEmpty(addresses)) {
 
                 Address address = addresses.get(0);
 
-                ProfileHelper.mapProfileBeanToAddressEntity(profileBean, address, this.adrStateCdFacadeREST, users);
+                ProfileHelper.mapProfileBeanToAddressEntity(profileBean, address, this.adrStateCdFacadeREST, user);
                 this.addressFacadeREST.edit(address);
             } else {
-                this.createAddress(profileBean, users);
+                this.createAddress(profileBean, user);
             }
         }
     }
@@ -247,7 +248,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param profileBean
      * @param contacts
      */
-    private void updateContact(ProfileBean profileBean, List<Contact> contacts, Users users) {
+    private void updateContact(ProfileBean profileBean, List<Contact> contacts, User user) {
         if (CollectionUtils.isNotEmpty(contacts)) {
 
             boolean isHomePhoneContactExists = false;
@@ -255,14 +256,14 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
 
             for (Contact contactToUpdate : contacts) {
                 if (StringUtils.equals(ContactTypeEnum.HOME_PHONE.getValue(), contactToUpdate.getEmcTypeCd().getCode())) {
-                    ProfileHelper.mapProfileBeanToContactEntity(profileBean.getPhoneType(), profileBean.getPhone(), contactToUpdate, this.emcTypeCdFacadeREST, users);
+                    ProfileHelper.mapProfileBeanToContactEntity(profileBean.getPhoneType(), profileBean.getPhone(), contactToUpdate, this.emcTypeCdFacadeREST, user);
                     this.contactFacadeREST.edit(contactToUpdate);
 
                     isHomePhoneContactExists = true;
                 }
 
                 if (StringUtils.equals(ContactTypeEnum.EMAIL_ADDRESS.getValue(), contactToUpdate.getEmcTypeCd().getCode())) {
-                    ProfileHelper.mapProfileBeanToContactEntity(ContactTypeEnum.EMAIL_ADDRESS.getValue(), profileBean.getEmail(), contactToUpdate, this.emcTypeCdFacadeREST, users);
+                    ProfileHelper.mapProfileBeanToContactEntity(ContactTypeEnum.EMAIL_ADDRESS.getValue(), profileBean.getEmail(), contactToUpdate, this.emcTypeCdFacadeREST, user);
                     this.contactFacadeREST.edit(contactToUpdate);
 
                     isEmailContactExists = true;
@@ -270,14 +271,14 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
             }
 
             if (!isHomePhoneContactExists) {
-                this.createHomePhoneContact(profileBean, users);
+                this.createHomePhoneContact(profileBean, user);
             }
 
             if (!isEmailContactExists) {
-                this.createEmailContact(profileBean, users);
+                this.createEmailContact(profileBean, user);
             }
         } else {
-            this.createContactInformation(profileBean, users);
+            this.createContactInformation(profileBean, user);
         }
     }
 
@@ -287,18 +288,20 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param profileBean
      * @param user
      */
-    private void createAddress(ProfileBean profileBean, Users user) {
+    private void createAddress(ProfileBean profileBean, User user) {
         if (StringUtils.isNotBlank(profileBean.getAddressLine1())) {
-            if (null == user.getAddressList()) {
-                user.setAddressList(new ArrayList<>());
-            }
+            
+//TODO: UPDATE TO USE NEW WEB SERVICE CLIENT
+//            if (null == user.getAddressList()) {
+//                user.setAddressList(new ArrayList<>());
+//            }
+//
+//            Address address = ProfileHelper.convertProfileBeanToAddressEntity(profileBean, this.adrStateCdFacadeREST, user);
+//            address.setUsrUidFk(user);
+//
+//            user.getAddressList().add(address);
 
-            Address address = ProfileHelper.convertProfileBeanToAddressEntity(profileBean, this.adrStateCdFacadeREST, user);
-            address.setUsrUidFk(user);
-
-            user.getAddressList().add(address);
-
-            this.addressFacadeREST.create(address);
+//            this.addressFacadeREST.create(address);
         }
     }
 
@@ -308,9 +311,12 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param profileBean
      * @param user
      */
-    private void createContactInformation(ProfileBean profileBean, Users user) {
-        this.createHomePhoneContact(profileBean, user);
-        this.createEmailContact(profileBean, user);
+    private void createContactInformation(ProfileBean profileBean, User user) {
+        
+        
+//TODO: REFACTOR TO USE NEW WEB SERVICE CLIENT      
+//        this.createHomePhoneContact(profileBean, user);
+//        this.createEmailContact(profileBean, user);
     }
 
     /**
@@ -319,19 +325,21 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param profileBean
      * @param user
      */
-    private void createHomePhoneContact(ProfileBean profileBean, Users user) {
-        if (StringUtils.isNotBlank(profileBean.getPhone())) {
-            if (null == user.getContactList()) {
-                user.setContactList(new ArrayList<>());
-            }
-
-            Contact contact = ProfileHelper.convertPhoneNumberToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
-            contact.setUsrUidFk(user);
-
-            user.getContactList().add(contact);
-
-            this.contactFacadeREST.create(contact);
-        }
+    private void createHomePhoneContact(ProfileBean profileBean, User user) {
+        
+//TODO: REFACTOR TO USE NEW WEB SERVICE CLIENT
+//        if (StringUtils.isNotBlank(profileBean.getPhone())) {
+//            if (null == user.getContactList()) {
+//                user.setContactList(new ArrayList<>());
+//            }
+//
+//            Contact contact = ProfileHelper.convertPhoneNumberToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
+//            contact.setUsrUidFk(user);
+//
+//            user.getContactList().add(contact);
+//
+//            this.contactFacadeREST.create(contact);
+//        }
     }
 
     /**
@@ -340,18 +348,20 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param profileBean
      * @param user
      */
-    private void createEmailContact(ProfileBean profileBean, Users user) {
-        if (StringUtils.isNotBlank(profileBean.getEmail())) {
-            if (null == user.getContactList()) {
-                user.setContactList(new ArrayList<>());
-            }
-
-            Contact contact = ProfileHelper.convertEmailToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
-            contact.setUsrUidFk(user);
-
-            user.getContactList().add(contact);
-
-            this.contactFacadeREST.create(contact);
-        }
+    private void createEmailContact(ProfileBean profileBean, User user) {
+        
+//TODO: REFACTOR TO USE NEW WEB SERVICE CLIENT
+//        if (StringUtils.isNotBlank(profileBean.getEmail())) {
+//            if (null == user.getContactList()) {
+//                user.setContactList(new ArrayList<>());
+//            }
+//
+//            Contact contact = ProfileHelper.convertEmailToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
+//            contact.setUsrUidFk(user);
+//
+//            user.getContactList().add(contact);
+//
+//            this.contactFacadeREST.create(contact);
+//        }
     }
 }

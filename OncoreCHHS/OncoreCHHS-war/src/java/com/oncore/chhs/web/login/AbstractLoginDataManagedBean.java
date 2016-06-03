@@ -24,7 +24,6 @@
 package com.oncore.chhs.web.login;
 
 import com.oncore.chhs.client.dto.User;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.base.AbstractBaseManagedBean;
 import com.oncore.chhs.web.profile.ProfileBean;
@@ -42,7 +41,7 @@ public interface AbstractLoginDataManagedBean extends AbstractBaseManagedBean {
      * @throws WebServiceException
      * @return a populated <code>Users</code> object if found, null otherwise
      */
-    public Users createUser(ProfileBean profileBean) throws WebServiceException;
+    public User createUser(ProfileBean profileBean) throws WebServiceException;
 
     /**
      * The <code>authenticateUser</code> method determines if a user exists

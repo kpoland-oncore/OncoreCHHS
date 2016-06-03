@@ -24,12 +24,9 @@
 package com.oncore.chhs.web.messages;
 
 import com.oncore.chhs.client.dto.AllMessages;
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.base.AbstractBaseManagedBean;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -57,5 +54,5 @@ public interface AbstractMessageDataManagedBean extends AbstractBaseManagedBean 
      *
      * @throws WebServiceException
      */
-    public void sendMessage(MessageBean messageBean, Users users) throws WebServiceException;
+    public void sendMessage(MessageBean messageBean, User users) throws WebServiceException;
 }
