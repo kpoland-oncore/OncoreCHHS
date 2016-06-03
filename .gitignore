@@ -11,3 +11,6 @@
 # build files
 **/build/
 **/dist/
+
+#private netbeans config
+**/private/private.properties
