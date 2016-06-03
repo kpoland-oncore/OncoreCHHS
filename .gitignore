@@ -7,3 +7,7 @@
 *.jar
 *.war
 *.ear
+
+# build files
+**/build/
+**/dist/
