@@ -24,6 +24,7 @@
 package com.oncore.chhs.web.login;
 
 import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.client.rest.UsersServiceClient;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.profile.ProfileBean;
 import com.oncore.chhs.web.services.UsersFacadeREST;
@@ -111,18 +112,16 @@ public class LoginDataManagedBeanTest {
         LoginBean login = new LoginBean();
         login.setUserName("userName");
 
-        LoginDataManagedBean instance = new LoginDataManagedBean();
-
-        Users expected = new Users();
-        expected.setUsrUserId("userName");
-
-        UsersFacadeREST mockREST = mock(UsersFacadeREST.class);
-        when(mockREST.findByUserId(login.getUserName())).thenReturn(expected);
-
-        instance.setUsersFacadeREST(mockREST);
+        User expected = new User();
+        expected.setUserName("userName");
+        
+        UsersServiceClient mockService = mock(UsersServiceClient.class);
+        when( mockService.authenticateUser("userName")).thenReturn(expected);
+        
+        LoginDataManagedBean instance = spy(new LoginDataManagedBean());
+        when(instance.getUsersServiceClient()).thenReturn(mockService);
 
         User answer = instance.authenticateUser(login);
-        verify(mockREST).findByUserId(login.getUserName());
         assertEquals(expected, answer);
     }
 
@@ -137,16 +136,14 @@ public class LoginDataManagedBeanTest {
 
         LoginBean login = new LoginBean();
         login.setUserName("userName");
-
-        LoginDataManagedBean instance = new LoginDataManagedBean();
-
-        UsersFacadeREST mockREST = mock(UsersFacadeREST.class);
-        when(mockREST.findByUserId(login.getUserName())).thenReturn(null);
-
-        instance.setUsersFacadeREST(mockREST);
+        
+        UsersServiceClient mockService = mock(UsersServiceClient.class);
+        when( mockService.authenticateUser("userName")).thenReturn(null);
+        
+        LoginDataManagedBean instance = spy(new LoginDataManagedBean());
+        when(instance.getUsersServiceClient()).thenReturn(mockService);
 
         User answer = instance.authenticateUser(login);
-        verify(mockREST).findByUserId(login.getUserName());
         assertNull(answer);
     }
 
