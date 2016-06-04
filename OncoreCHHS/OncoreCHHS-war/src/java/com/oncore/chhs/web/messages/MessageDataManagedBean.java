@@ -96,7 +96,7 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
      *
      * @return MessagesServiceClient
      */
-    private MessagesServiceClient getMessagesServiceClient() {
+    MessagesServiceClient getMessagesServiceClient() {
 
         return new MessagesServiceClient();
     }

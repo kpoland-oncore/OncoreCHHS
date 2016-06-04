@@ -25,12 +25,15 @@ package com.oncore.chhs.web.messages;
 
 import com.oncore.chhs.client.dto.AllMessages;
 import com.oncore.chhs.client.dto.Message;
+import com.oncore.chhs.client.rest.MessagesServiceClient;
 import com.oncore.chhs.web.entities.Messages;
 import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.services.MessagesFacadeREST;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.ArgumentCaptor;
@@ -42,87 +45,27 @@ import static org.mockito.Mockito.*;
  */
 public class MessageDataManagedBeanTest {
 
-    private Users testUser = null;
-
-    public MessageDataManagedBeanTest() {
-
-        this.testUser = new Users();
-
-        List<Messages> messages = new ArrayList<>();
-        this.testUser.setMessagesList(messages);
-
-        Messages firstIn = new Messages();
-        firstIn.setMsgFrom("first in message from");
-        firstIn.setMsgText("first in message text");
-        firstIn.setMsgToUserInd(true);
-        firstIn.setUsrUidFk(this.testUser);
-        messages.add(firstIn);
-
-        Messages firstOut = new Messages();
-        firstOut.setMsgTo("first out message to");
-        firstOut.setMsgText("first out message text");
-        firstOut.setMsgToUserInd(false);
-        firstOut.setUsrUidFk(this.testUser);
-        messages.add(firstOut);
-
-        Messages secondIn = new Messages();
-        secondIn.setMsgFrom("second in message from");
-        secondIn.setMsgText("second in message text");
-        secondIn.setMsgToUserInd(true);
-        secondIn.setUsrUidFk(this.testUser);
-        messages.add(secondIn);
-
-        Messages secondOut = new Messages();
-        secondOut.setMsgTo("second out message to");
-        secondOut.setMsgText("second out message text");
-        secondOut.setMsgToUserInd(false);
-        secondOut.setUsrUidFk(this.testUser);
-        messages.add(secondOut);
-    }
-
     /**
-     * Test of fetchInbox method, of class MessageDataManagedBean.
+     * Test of fetchMessages method, of class MessageDataManagedBean.
      *
      * @throws Exception Any unexpected exception should fail the test.
      */
     @Test
-    public void testFetchInbox() throws Exception {
+    public void testFetchMessages() throws Exception {
 
-        MessageDataManagedBean instance = new MessageDataManagedBean();
-        AllMessages result = instance.fetchMessages(this.testUser.getUsrUid());
+        AllMessages expected = new AllMessages();
+        List<Message> inbound = new ArrayList<>();
+        expected.setInboundMessages(inbound);
 
-        assertNotNull(result);
-        assertEquals(2, result.getInboundMessages().size());
+        MessagesServiceClient mockService = mock(MessagesServiceClient.class);
+        when(mockService.getAllMessages(1)).thenReturn(expected);
 
-        Message firstIn = result.getInboundMessages().get(0);
-        assertEquals("first in message from", firstIn.getFrom());
-        assertEquals("first in message text", firstIn.getMessage());
+        MessageDataManagedBean instance = spy(new MessageDataManagedBean());
+        when(instance.getMessagesServiceClient()).thenReturn(mockService);
 
-        Message secondIn = result.getInboundMessages().get(1);
-        assertEquals("second in message from", secondIn.getFrom());
-        assertEquals("second in message text", secondIn.getMessage());
-    }
+        AllMessages actual = instance.fetchMessages(1);
 
-    /**
-     * Test of fetchOutbox method, of class MessageDataManagedBean.
-     *
-     * @throws Exception Any unexpected exception should fail the test.
-     */
-    @Test
-    public void testFetchOutbox() throws Exception {
-        MessageDataManagedBean instance = new MessageDataManagedBean();
-        AllMessages result = instance.fetchMessages(this.testUser.getUsrUid());
-
-        assertNotNull(result);
-        assertEquals(2, result.getOutboundMessages().size());
-
-        Message firstOut = result.getOutboundMessages().get(0);
-        assertEquals("first out message to", firstOut.getTo());
-        assertEquals("first out message text", firstOut.getMessage());
-
-        Message secondOut = result.getOutboundMessages().get(1);
-        assertEquals("second out message to", secondOut.getTo());
-        assertEquals("second out message text", secondOut.getMessage());
+        assertEquals(expected, actual);
     }
 
     /**
@@ -133,29 +76,13 @@ public class MessageDataManagedBeanTest {
     @Test
     public void testSendMessage() throws Exception {
 
-        MessageBean thirdOut = new MessageBean();
-        thirdOut.setTo("third out message to");
-        thirdOut.setMessage("third out message text");
+        MessagesServiceClient mockService = mock(MessagesServiceClient.class);
 
-        MessageDataManagedBean instance = new MessageDataManagedBean();
+        MessageDataManagedBean instance = spy(new MessageDataManagedBean());
+        when(instance.getMessagesServiceClient()).thenReturn(mockService);
 
-        MessagesFacadeREST mockREST = mock(MessagesFacadeREST.class);
-//        instance.setMessagesFacadeREST(mockREST);
-
-//        instance.sendMessage(thirdOut, this.testUser);
-
-        ArgumentCaptor<Messages> captor = ArgumentCaptor.forClass(Messages.class);
-        verify(mockREST).create(captor.capture());
-
-        Messages createdMessage = captor.getValue();
-        assertEquals(false, createdMessage.getMsgToUserInd());
-        assertEquals("third out message to", createdMessage.getMsgTo());
-        assertEquals("third out message text", createdMessage.getMsgText());
-        assertNull(createdMessage.getMsgFrom());
-
-        assertEquals(5, this.testUser.getMessagesList().size());
-        assertEquals(createdMessage, this.testUser.getMessagesList().get(4));
-
+        //TODO: rewrite for new REST API
+        //instance.sendMessage(message, users);
+        fail("new REST API still needs to be implemented");
     }
-
 }
