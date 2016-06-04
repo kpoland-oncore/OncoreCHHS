@@ -65,11 +65,10 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
                 FacesUtilities.removeMessages();
 
                 Profile profile = this.profileDataManagedBean.findProfileByUserUid(this.globalManagedBean.getAuthenticatedUser().getUserUid().intValue());
-                ProfileBean profileBean = new ProfileBean();
+                this.profileBean = new ProfileBean();
 
-                BeanUtils.copyProperties(profile, profileBean);
-
-                this.setProfileBean(profileBean);
+                BeanUtils.copyProperties(profile, this.profileBean);
+ 
 
             } catch (Exception e) {
                 LOG.error(e);
