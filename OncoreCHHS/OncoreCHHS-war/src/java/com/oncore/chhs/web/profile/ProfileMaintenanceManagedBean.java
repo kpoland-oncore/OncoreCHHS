@@ -23,6 +23,7 @@
  */
 package com.oncore.chhs.web.profile;
 
+import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.enums.ContactTypeEnum;
@@ -35,6 +36,7 @@ import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.omnifaces.cdi.ViewScoped;
@@ -62,12 +64,18 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
             try {
                 FacesUtilities.removeMessages();
 
-                this.setProfileBean(this.profileDataManagedBean.findProfileByUserUid(this.globalManagedBean.getAuthenticatedUser().getUserUid().intValue()));
+                Profile profile = this.profileDataManagedBean.findProfileByUserUid(this.globalManagedBean.getAuthenticatedUser().getUserUid().intValue());
+                ProfileBean profileBean = new ProfileBean();
 
-            } catch (WebServiceException wx) {
-                LOG.error(wx);
+                BeanUtils.copyProperties(profile, profileBean);
+
+                this.setProfileBean(profileBean);
+
+            } catch (Exception e) {
+                LOG.error(e);
                 FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
             }
+
         }
 
     }
@@ -86,7 +94,7 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
         try {
             FacesUtilities.removeMessages();
             this.getProfileBean().reset();
-            
+
             if ((error = this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), Boolean.TRUE, FORM_NAME + "firstNameTxt:input")) != null) {
                 isError = Boolean.TRUE;
                 this.getProfileBean().setFirstNameError(error);
