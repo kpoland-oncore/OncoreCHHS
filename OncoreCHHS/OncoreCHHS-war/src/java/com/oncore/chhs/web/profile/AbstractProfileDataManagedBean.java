@@ -24,6 +24,7 @@
 package com.oncore.chhs.web.profile;
 
 import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.web.base.AbstractBaseManagedBean;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 
@@ -38,11 +39,11 @@ public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
      * by userUid
      * 
      * @param userUid a valid users uid
-     * @return a populated <code>ProfileBean</code> if a profile is found, 
+     * @return a populated <code>Profile</code> if a profile is found, 
      * null otherwise
      * @throws WebServiceException 
      */
-    public ProfileBean findProfileByUserUid(Integer userUid) throws WebServiceException;
+    public Profile findProfileByUserUid(Integer userUid) throws WebServiceException;
     
     /**
      * The <code>createProfile</code> method creates a new profile. The method

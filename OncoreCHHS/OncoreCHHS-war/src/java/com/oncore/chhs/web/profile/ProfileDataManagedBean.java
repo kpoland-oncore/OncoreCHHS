@@ -24,6 +24,8 @@
 package com.oncore.chhs.web.profile;
 
 import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.client.dto.profile.Profile;
+import com.oncore.chhs.client.rest.ProfileServiceClient;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import com.oncore.chhs.web.entities.Address;
 import com.oncore.chhs.web.entities.Contact;
@@ -37,7 +39,6 @@ import com.oncore.chhs.web.services.EmcTypeCdFacadeREST;
 import com.oncore.chhs.web.services.UsersFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.helper.ProfileHelper;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -140,22 +141,17 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @throws WebServiceException
      */
     @Override
-    public ProfileBean findProfileByUserUid(Integer userUid) throws WebServiceException {
+    public Profile findProfileByUserUid(Integer userUid) throws WebServiceException {
 
-        ProfileBean profileBean = null;
+        Profile profile = null;
 
         try {
-            Users users = this.usersFacadeREST.find(userUid);
-
-            if (users != null) {
-                profileBean = ProfileHelper.buildProfile(users);
-            }
-
-        } catch (Exception ex) {
-            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+            profile = this.getProfileServiceClient().findProfileByUserUid(userUid);
+        } catch (Exception e) {
+            throw new WebServiceException(ErrorUtils.getStackTrace(e));
         }
 
-        return profileBean;
+        return profile;
     }
 
     /**
@@ -290,7 +286,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      */
     private void createAddress(ProfileBean profileBean, User user) {
         if (StringUtils.isNotBlank(profileBean.getAddressLine1())) {
-            
+
 //TODO: UPDATE TO USE NEW WEB SERVICE CLIENT
 //            if (null == user.getAddressList()) {
 //                user.setAddressList(new ArrayList<>());
@@ -300,7 +296,6 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
 //            address.setUsrUidFk(user);
 //
 //            user.getAddressList().add(address);
-
 //            this.addressFacadeREST.create(address);
         }
     }
@@ -312,8 +307,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param user
      */
     private void createContactInformation(ProfileBean profileBean, User user) {
-        
-        
+
 //TODO: REFACTOR TO USE NEW WEB SERVICE CLIENT      
 //        this.createHomePhoneContact(profileBean, user);
 //        this.createEmailContact(profileBean, user);
@@ -326,7 +320,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param user
      */
     private void createHomePhoneContact(ProfileBean profileBean, User user) {
-        
+
 //TODO: REFACTOR TO USE NEW WEB SERVICE CLIENT
 //        if (StringUtils.isNotBlank(profileBean.getPhone())) {
 //            if (null == user.getContactList()) {
@@ -349,7 +343,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param user
      */
     private void createEmailContact(ProfileBean profileBean, User user) {
-        
+
 //TODO: REFACTOR TO USE NEW WEB SERVICE CLIENT
 //        if (StringUtils.isNotBlank(profileBean.getEmail())) {
 //            if (null == user.getContactList()) {
@@ -363,5 +357,16 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
 //
 //            this.contactFacadeREST.create(contact);
 //        }
+    }
+
+    /**
+     * This gets an instance of the profile service client, which will invoke
+     * the RESTful services. Package level getter to allow invocation by unit
+     * tests.
+     *
+     * @return The profile service REST client.
+     */
+    ProfileServiceClient getProfileServiceClient() {
+        return new ProfileServiceClient();
     }
 }
