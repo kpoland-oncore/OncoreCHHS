@@ -37,9 +37,11 @@ public class ProfileServiceImpl implements ProfileService {
 
         Users users = this.userDAO.findById(userUid);
 
-        Profile profile = new Profile();
+        Profile profile = null;
 
         if (users != null) {
+            profile = new Profile();
+            
             profile.setUserName(users.getUsrUserId());
             profile.setFirstName(users.getUsrFirstname());
             profile.setMiddleName(users.getUsrMiddlename());

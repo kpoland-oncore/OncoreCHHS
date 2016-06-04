@@ -31,7 +31,7 @@ public class MessagesService {
     private UriInfo context;
 
     /**
-     * Creates a new instance of GenericResource
+     * Creates a new instance of MessagesService
      */
     public MessagesService() {
     }

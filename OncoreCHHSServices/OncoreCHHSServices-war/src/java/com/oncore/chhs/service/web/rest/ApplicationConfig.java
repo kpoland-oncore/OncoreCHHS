@@ -29,6 +29,7 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.oncore.chhs.service.web.rest.MessagesService.class);
+        resources.add(com.oncore.chhs.service.web.rest.ProfileService.class);
         resources.add(com.oncore.chhs.service.web.rest.UsersService.class);
     }
 }
