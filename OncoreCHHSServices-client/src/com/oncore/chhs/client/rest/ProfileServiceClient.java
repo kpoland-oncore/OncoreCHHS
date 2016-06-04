@@ -23,7 +23,7 @@ public class ProfileServiceClient {
         Client client = ClientBuilder.newClient();
 
         WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
-                path("Profile").path("findProfileByUserUid").queryParam("userUid", userUid);
+                path("Profile").path("findProfileByUserUid").queryParam("id", userUid);
 
         Profile results
                 = target.request(MediaType.APPLICATION_JSON).get(Profile.class);
