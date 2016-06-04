@@ -25,12 +25,10 @@ package com.oncore.chhs.web.login;
 
 import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.client.rest.UsersServiceClient;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.profile.ProfileBean;
 import com.oncore.chhs.web.services.UsersFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
-import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;

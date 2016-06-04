@@ -25,6 +25,8 @@ package com.oncore.chhs.client.rest;
 
 import com.oncore.chhs.client.dto.Summaries;
 import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.utils.ErrorUtils;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
@@ -63,13 +65,13 @@ public class UsersServiceClient {
         return results;
     }
 
-    /**
-     *
-     * @param userName
-     *
-     * @return
-     */
-    public User authenticateUser(String userName) {
+   /**
+    * 
+    * @param userName
+    * @return a populated <code>User</code> object if found, null otherwise
+    * @throws WebServiceException 
+    */
+    public User authenticateUser(String userName) throws WebServiceException{
 
         User result = null;
         try {
@@ -81,7 +83,7 @@ public class UsersServiceClient {
             result = target.request(MediaType.APPLICATION_JSON)
                     .get(User.class);
         } catch (Exception e) {
-//TODO have proper handling.
+            throw new WebServiceException(ErrorUtils.getStackTrace(e));
         }
 
         return result;
