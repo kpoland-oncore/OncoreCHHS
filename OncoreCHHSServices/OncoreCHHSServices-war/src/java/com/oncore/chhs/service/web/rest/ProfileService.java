@@ -36,7 +36,7 @@ public class ProfileService {
     }
     
     @GET
-    @Path("/findByUserUid/")
+    @Path("/findProfileByUserUid/")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})    
     public Profile findByUserUid( @QueryParam("id") Integer userUid)
     {
