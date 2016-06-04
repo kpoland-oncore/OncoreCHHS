@@ -13,10 +13,6 @@
                     <file>${reference.OncoreCHHS-ejb.dist}</file>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.commons-beanutils-1.9.2.jar}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
-                </library>
-                <library dirs="200">
                     <file>${file.reference.commons-collections4-4.1.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
