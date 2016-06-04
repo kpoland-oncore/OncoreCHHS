@@ -13,4 +13,4 @@
 **/dist/
 
 #private netbeans config
-**/private/private.properties
+**/private/private.xml
