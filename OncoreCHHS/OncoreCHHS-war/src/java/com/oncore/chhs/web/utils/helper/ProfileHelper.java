@@ -40,7 +40,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Utilities clss to support Profile.
+ * Utilities class to support Profile.
  *
  * @author oncore
  */
@@ -54,7 +54,7 @@ public class ProfileHelper {
     private final static Logger LOG = LogManager.getLogger(ProfileHelper.class);
 
     /**
-     * Builds the ProfileBean with users information. Profilebean includes user,
+     * Builds the ProfileBean with users information. Profile bean includes user,
      * address, contact information.
      *
      * @param users
