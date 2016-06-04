@@ -56,7 +56,7 @@
         <f:view>
 
 
-            <h:form id="chssForm">
+            <h:form id="chhsForm">
 
 
 
@@ -99,11 +99,34 @@
                     <!-- INCLUDE FOOTER HERE -->
                 </ui:insert>
 
+                <ui:include src="../common/coordinates.xhtml"/>
 
             </h:form>
         </f:view>
 
+         <script>
 
+                $(document).ready(function() {
+                    navigator.geolocation.getCurrentPosition(findLocation, errorAlert);
+                });
+
+                function findLocation(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    
+                    $("#chhsForm\\:cachedLatitude").val(latitude);
+                    $("#chhsForm\\:cachedLongitude").val(longitude);
+
+                };
+
+                function errorAlert() {
+                    alert('Unable to determine location, ensure you have enabled GPS location permissions in your browser.');
+                };
+
+               
+
+            </script>
+            
 
     </h:body>
 
