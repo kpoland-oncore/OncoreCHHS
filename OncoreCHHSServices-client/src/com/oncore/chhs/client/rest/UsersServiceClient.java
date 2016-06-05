@@ -33,6 +33,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.core.GenericType;
 import javax.xml.ws.WebServiceException;
 
 /**
@@ -70,13 +71,13 @@ public class UsersServiceClient extends AbstractRestClient {
         return results;
     }
 
-   /**
-    * 
-    * @param userName
-    * @return a populated <code>User</code> object if found, null otherwise
-    * @throws WebServiceException 
-    */
-    public User authenticateUser(String userName) throws WebServiceException{
+    /**
+     *
+     * @param userName
+     * @return a populated <code>User</code> object if found, null otherwise
+     * @throws WebServiceException
+     */
+    public User authenticateUser(String userName) throws WebServiceException {
 
         User user = null;
 
@@ -85,7 +86,8 @@ public class UsersServiceClient extends AbstractRestClient {
                     path("Users").path("authenticate").queryParam("userName", userName);
 
             SelectResponse<User> response = target.request(MediaType.APPLICATION_JSON)
-                    .get(SelectResponse.class);
+                    .get(new GenericType<SelectResponse<User>>() {
+                    });
 
             if (response.isErrorOccurred()) {
                 throw new WebServiceException(response.getErrorMessage());
@@ -112,7 +114,8 @@ public class UsersServiceClient extends AbstractRestClient {
         try {
             InsertResponse<User> insertResponse = target.request(MediaType.APPLICATION_JSON_TYPE)
                     .post(Entity.entity(user, MediaType.APPLICATION_JSON),
-                            InsertResponse.class);
+                            new GenericType<InsertResponse<User>>() {
+                    });
 
             if (insertResponse.isErrorOccurred()) {
                 throw new WebServiceException(insertResponse.getErrorMessage());

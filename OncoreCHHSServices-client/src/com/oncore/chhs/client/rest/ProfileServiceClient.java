@@ -31,13 +31,12 @@ import javax.ws.rs.core.MediaType;
 
 /**
  * This service client invokes RESTful services for the Profile functionality.
- * 
+ *
  * @author oncore
  */
 public class ProfileServiceClient {
-    
-    public Profile findProfileByUserUid(Integer userUid)
-    {
+
+    public Profile findProfileByUserUid(Integer userUid) {
         Client client = ClientBuilder.newClient();
 
         WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
@@ -45,8 +44,8 @@ public class ProfileServiceClient {
 
         Profile results
                 = target.request(MediaType.APPLICATION_JSON).get(Profile.class);
-        
+
         return results;
     }
-    
+
 }

@@ -30,6 +30,7 @@ import com.oncore.chhs.web.rest.response.InsertResponse;
 import com.oncore.chhs.web.rest.response.SelectResponse;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import javax.xml.ws.WebServiceException;
 
@@ -89,7 +90,8 @@ public class MessagesServiceClient extends AbstractRestClient {
                 path("Messages").path("find").queryParam("id", userUid);
         try {
             SelectResponse<AllMessages> response = target.request(MediaType.APPLICATION_JSON)
-                    .get(SelectResponse.class);
+                    .get(new GenericType<SelectResponse<AllMessages>>() {
+                    });
 
             if (response.isErrorOccurred()) {
                 throw new WebServiceException(response.getErrorMessage());
