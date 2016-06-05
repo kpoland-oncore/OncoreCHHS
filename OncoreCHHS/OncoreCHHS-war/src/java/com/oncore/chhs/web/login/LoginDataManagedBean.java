@@ -54,7 +54,7 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
         try {
             user = this.getUsersServiceClient().createUser(user);
         } catch (Exception ex) {
-            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+            throw new WebServiceException(ex.getCause().toString() + "::" + ErrorUtils.getStackTrace(ex));
         }
 
         return user;
@@ -71,7 +71,7 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
         try {
             users = this.getUsersServiceClient().authenticateUser(loginBean.getUserName());
         } catch (Exception ex) {
-            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+            throw new WebServiceException(ex.getCause().toString() + "::" + ErrorUtils.getStackTrace(ex));
         }
 
         return users;
