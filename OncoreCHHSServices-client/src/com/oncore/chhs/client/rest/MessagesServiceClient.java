@@ -71,7 +71,7 @@ public class MessagesServiceClient extends AbstractRestClient {
                 throw new WebServiceException(insertResponse.getErrorMessage());
             }
         } catch (Throwable t) {
-            throw new WebServiceException("Error occurred create message.", t);
+            throw new WebServiceException("Error occurred creating the message.", t);
         }
     }
 
@@ -100,7 +100,7 @@ public class MessagesServiceClient extends AbstractRestClient {
             allmsgs = response.getResult();
 
         } catch (Throwable t) {
-            throw new WebServiceException("Error occurred geting all message.", t);
+            throw new WebServiceException("Error occurred getting all messages.", t);
         }
 
         return allmsgs;
