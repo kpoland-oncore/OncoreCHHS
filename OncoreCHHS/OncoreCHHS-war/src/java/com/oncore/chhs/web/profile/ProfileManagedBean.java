@@ -88,26 +88,20 @@ public class ProfileManagedBean extends BaseManagedBean {
                 // determine if user already exists
                 LoginBean loginBean = new LoginBean();
                 loginBean.setUserName(this.getProfileBean().getUserName());
-                User userDTO = this.loginDataManagedBean.authenticateUser(loginBean);
 
-                User users = new User();
-                users.setFirstName(userDTO.getFirstName());
-                users.setMiddleName(userDTO.getMiddleName());
-                users.setLastName(userDTO.getLastName());
-                users.setUserName(userDTO.getUserName());
-                users.setUserUid(userDTO.getUserUid());
+                User user = this.loginDataManagedBean.authenticateUser(loginBean);
 
-                if (users == null) {
+                if (user == null) {
 
-                    users = this.loginDataManagedBean.createUser(profileBean);
+                    user = this.loginDataManagedBean.createUser(profileBean);
 
                     this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
 
-                    this.profileDataManagedBean.createProfile(profileBean, users);
+                    this.profileDataManagedBean.createProfile(profileBean, user);
 
                     this.globalManagedBean.setAuthenticated(Boolean.TRUE);
-                    this.globalManagedBean.setLoginText("Welcome " + users.getFirstName() + " " + users.getLastName());
-                    this.globalManagedBean.setAuthenticatedUser(users);
+                    this.globalManagedBean.setLoginText("Welcome " + user.getFirstName() + " " + user.getLastName());
+                    this.globalManagedBean.setAuthenticatedUser(user);
 
                     FacesUtilities.createPageLevelCustomInfo(FacesContext.getCurrentInstance(), FacesUtilities.THANK_YOU_PROFILE_MESSAGE);
 
@@ -145,7 +139,7 @@ public class ProfileManagedBean extends BaseManagedBean {
                 User user = this.loginDataManagedBean.authenticateUser(loginBean);
 
                 if (user == null) {
- 
+
                     User newUser = this.loginDataManagedBean.createUser(profileBean);
 
                     this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
