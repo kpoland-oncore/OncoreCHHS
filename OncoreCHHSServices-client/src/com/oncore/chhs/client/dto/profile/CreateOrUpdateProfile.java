@@ -31,7 +31,21 @@ public class CreateOrUpdateProfile extends Profile {
 
     private Long userUid;
 
-    public CreateOrUpdateProfile(Profile profile) {
+    /**
+     * Default constructor - needed for JAX-RS.
+     */
+    public CreateOrUpdateProfile()
+    {
+        
+    }
+    
+    /**
+     * Add the profile information to the create or update request.
+     * 
+     * @param profile The profile info to add.
+     */
+    public void addProfile( Profile profile )
+    {
         this.setAddressLine1(profile.getAddressLine1());
         this.setAddressLine2(profile.getAddressLine2());
         this.setCity(profile.getCity());

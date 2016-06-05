@@ -23,15 +23,12 @@
  */
 package com.oncore.chhs.client.rest;
 
-import com.oncore.chhs.client.dto.AllMessages;
 import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.client.dto.profile.CreateOrUpdateProfile;
 import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.web.rest.client.AbstractRestClient;
 import com.oncore.chhs.web.rest.response.InsertResponse;
 import com.oncore.chhs.web.rest.response.SelectResponse;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -90,7 +87,8 @@ public class ProfileServiceClient extends AbstractRestClient {
 
         WebTarget target = this.getTarget(PROFILE_URL).path("Profile").path("create");
 
-        CreateOrUpdateProfile newProfile = new CreateOrUpdateProfile(profile);
+        CreateOrUpdateProfile newProfile = new CreateOrUpdateProfile();
+        newProfile.addProfile(profile);
         newProfile.setUserUid(user.getUserUid());
 
         try {
@@ -117,12 +115,13 @@ public class ProfileServiceClient extends AbstractRestClient {
 
         WebTarget target = this.getTarget(PROFILE_URL).path("Profile").path("update");
 
-        CreateOrUpdateProfile newProfile = new CreateOrUpdateProfile(profile);
-        newProfile.setUserUid(user.getUserUid());
+        CreateOrUpdateProfile updatedProfile = new CreateOrUpdateProfile();
+        updatedProfile.addProfile(profile);
+        updatedProfile.setUserUid(user.getUserUid());
 
         try {
             response = target.request(MediaType.APPLICATION_JSON_TYPE)
-                    .post(Entity.entity(newProfile, MediaType.APPLICATION_JSON),
+                    .post(Entity.entity(updatedProfile, MediaType.APPLICATION_JSON),
                             InsertResponse.class);
 
             if (response.isErrorOccurred()) {
