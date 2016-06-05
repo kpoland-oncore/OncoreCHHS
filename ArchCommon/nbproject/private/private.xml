@@ -2,17 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="OncoreCHHSServices">
-            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/persistence/dao/criteria/AbstractFilterCriteria.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/persistence/dao/AbstractDAO.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/persistence/dao/criteria/FilterCriteriaImpl.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/persistence/dao/criteria/NumericFilterCriteriaImpl.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/persistence/dao/criteria/pagination/PaginatedMarker.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/persistence/dao/criteria/pagination/PaginatedResult.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/persistence/dao/criteria/OrderBy.java</file>
-        </group>
         <group name="OncoreCHHS">
             <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/ejb/EJBUtils.java</file>
         </group>
+        <group name="service">
+            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/web/rest/client/AbstractRestClient.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/web/rest/response/SelectResponse.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/web/rest/response/InsertResponse.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/ArchCommon/src/com/oncore/chhs/properties/PropertyFileResourceLoader.java</file>
+        </group>
+        <group name="OncoreCHHSServices"/>
     </open-files>
 </project-private>
