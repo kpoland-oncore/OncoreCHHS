@@ -24,41 +24,54 @@
 package com.oncore.chhs.client.rest;
 
 import com.oncore.chhs.client.dto.AllMessages;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
+import com.oncore.chhs.client.dto.CreateMessage;
+import com.oncore.chhs.web.rest.client.AbstractRestClient;
+import com.oncore.chhs.web.rest.response.InsertResponse;
+import com.oncore.chhs.web.rest.response.SelectResponse;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
+import javax.xml.ws.WebServiceException;
 
 /**
  *
  * @author oncore
  */
-public class MessagesServiceClient {
+public class MessagesServiceClient extends AbstractRestClient {
+
+    private static final String MESSAGES_URL = "messages.rest.url.json";
 
     /**
      *
      *
-     * @param from
-     * @param to
-     * @param message
-     * @param userUid
+     * @param from The from userid.
+     * @param to The to userid.
+     * @param message The message.
+     * @param userUid The user id.
      */
     public void sendMessage(String from, String to, String message, Integer userUid) {
-        Client client = ClientBuilder.newClient();
+        InsertResponse insertResponse = null;
 
-        WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
+        WebTarget target = this.getTarget(MESSAGES_URL).
                 path("Messages").path("send");
 
-        Form form = new Form();
-        form.param("from", from);
-        form.param("to", to);
-        form.param("message", message);
-        form.param("id", userUid.toString());
+        CreateMessage createMessage = new CreateMessage();
+        createMessage.setFrom(from);
+        createMessage.setTo(to);
+        createMessage.setMessage(message);
+        createMessage.setUserUid(userUid);
 
-        target.request(MediaType.APPLICATION_JSON_TYPE)
-                .post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE));
+        try {
+            insertResponse = target.request(MediaType.APPLICATION_JSON_TYPE)
+                    .post(Entity.entity(createMessage, MediaType.APPLICATION_JSON),
+                            InsertResponse.class);
+
+            if (insertResponse.isErrorOccurred()) {
+                throw new WebServiceException(insertResponse.getErrorMessage());
+            }
+        } catch (Throwable t) {
+            throw new WebServiceException("Error occurred create message.", t);
+        }
     }
 
     /**
@@ -69,15 +82,25 @@ public class MessagesServiceClient {
      * @return
      */
     public AllMessages getAllMessages(Integer userUid) {
-        Client client = ClientBuilder.newClient();
 
-        WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
+        AllMessages allmsgs = null;
+
+        WebTarget target = this.getTarget(MESSAGES_URL).
                 path("Messages").path("find").queryParam("id", userUid);
+        try {
+            SelectResponse<AllMessages> response = target.request(MediaType.APPLICATION_JSON)
+                    .get(SelectResponse.class);
 
-        AllMessages results
-                = target.request(MediaType.APPLICATION_JSON)
-                .get(AllMessages.class);
+            if (response.isErrorOccurred()) {
+                throw new WebServiceException(response.getErrorMessage());
+            }
 
-        return results;
+            allmsgs = response.getResult();
+
+        } catch (Throwable t) {
+            throw new WebServiceException("Error occurred geting all message.", t);
+        }
+
+        return allmsgs;
     }
 }

@@ -58,8 +58,8 @@ public class FosterFamilyAgencyJsonClient {
             }.getType());
 
             return familyAgencyList;
-        } catch (Exception ex) {
-            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+        } catch (Throwable t) {
+            throw new WebServiceException(ErrorUtils.getStackTrace(t));
         }
     }
 }

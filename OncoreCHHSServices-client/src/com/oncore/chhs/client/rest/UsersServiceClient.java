@@ -70,13 +70,13 @@ public class UsersServiceClient extends AbstractRestClient {
         return results;
     }
 
-    /**
-     *
-     * @param userName
-     *
-     * @return
-     */
-    public User authenticateUser(String userName) {
+   /**
+    * 
+    * @param userName
+    * @return a populated <code>User</code> object if found, null otherwise
+    * @throws WebServiceException 
+    */
+    public User authenticateUser(String userName) throws WebServiceException{
 
         User user = null;
 

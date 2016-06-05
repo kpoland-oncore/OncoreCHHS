@@ -59,6 +59,6 @@ public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serial
     @Inject
     protected GlobalManagedBean globalManagedBean;
 
-    public static final String FORM_NAME = "chssForm:";
+    public static final String FORM_NAME = "chhsForm:";
 
 }

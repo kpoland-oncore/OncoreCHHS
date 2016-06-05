@@ -112,7 +112,7 @@ public class GlobalManagedBean extends BaseManagedBean {
             }
 
         }
-        
+
         return calculatedUserFullName;
     }
 
@@ -123,10 +123,40 @@ public class GlobalManagedBean extends BaseManagedBean {
         this.calculatedUserFullName = calculatedUserFullName;
     }
 
+    /**
+     * @return the longitude
+     */
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    /**
+     * @param longitude the longitude to set
+     */
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    /**
+     * @return the latitude
+     */
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * @param latitude the latitude to set
+     */
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
     private Boolean authenticated = Boolean.FALSE;
     private String loginText = "Login";
     private User authenticatedUser;
     private String calculatedUserFullName;
+    private Double longitude = 0d;
+    private Double latitude = 0d;
 
     private final Logger LOG = LogManager.getLogger(GlobalManagedBean.class);
 

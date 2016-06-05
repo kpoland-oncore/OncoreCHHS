@@ -36,7 +36,6 @@ import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.omnifaces.cdi.ViewScoped;
@@ -67,8 +66,18 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
                 Profile profile = this.profileDataManagedBean.findProfileByUserUid(this.globalManagedBean.getAuthenticatedUser().getUserUid().intValue());
                 this.profileBean = new ProfileBean();
 
-                BeanUtils.copyProperties(profile, this.profileBean);
- 
+                this.profileBean.setAddressLine1(profile.getAddressLine1());
+                this.profileBean.setAddressLine2(profile.getAddressLine2());
+                this.profileBean.setCity(profile.getCity());
+                this.profileBean.setEmail(profile.getEmail());
+                this.profileBean.setFirstName(profile.getFirstName());
+                this.profileBean.setLastName(profile.getLastName());
+                this.profileBean.setMiddleName(profile.getMiddleName());
+                this.profileBean.setPhone(profile.getPhone());
+                this.profileBean.setPhoneType(profile.getPhoneType());
+                this.profileBean.setState(profile.getState());
+                this.profileBean.setUserName(profile.getUserName());
+                this.profileBean.setZip(profile.getZip());
 
             } catch (Exception e) {
                 LOG.error(e);

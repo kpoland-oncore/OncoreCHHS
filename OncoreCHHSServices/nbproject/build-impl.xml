@@ -238,6 +238,7 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${reference.OncoreCHHSServices-persistence.dist-ear}" todir="${build.dir}//"/>
         <copyfiles files="${reference.ArchCommon.jar}" todir="${build.dir}//lib"/>
         <copyfiles files="${reference.OncoreCHHSServices-client.jar}" todir="${build.dir}//lib"/>
+        <copyfiles files="${file.reference.log4j-1.2.15.jar}" todir="${build.dir}//"/>
     </target>
     <target name="post-compile">
         <!-- Empty placeholder for easier customization. -->
