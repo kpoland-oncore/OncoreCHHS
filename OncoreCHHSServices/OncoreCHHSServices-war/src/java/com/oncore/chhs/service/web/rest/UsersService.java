@@ -135,7 +135,7 @@ public class UsersService {
 
             insertResponse = new InsertResponse(1);
         } catch (Throwable t) {
-            String errorMsg = "Error creating message.";
+            String errorMsg = "Error creating user.";
 
             LOGGER.error(errorMsg, t);
             insertResponse = new InsertResponse(errorMsg, t);
