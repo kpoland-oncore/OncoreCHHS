@@ -28,12 +28,8 @@ import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.web.entities.Address;
 import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.Users;
-import com.oncore.chhs.web.enums.ContactTypeEnum;
 import com.oncore.chhs.web.profile.ProfileBean;
-import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
-import com.oncore.chhs.web.services.EmcTypeCdFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
-import java.util.Date;
 import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -91,6 +87,13 @@ public class ProfileHelper {
         return profileBean;
     }
 
+    /**
+     * Convert a ProfileBean UI object to an Profile data transfer object.
+     * 
+     * @param profileBean The ProfileBean to convert.
+     * 
+     * @return The DTO.
+     */
     public static Profile convertProfileBeanToProfileDTO(ProfileBean profileBean) {
         Profile profile = new Profile();
         profile.setAddressLine1(profileBean.getAddressLine1());
@@ -107,112 +110,6 @@ public class ProfileHelper {
         profile.setZip(profileBean.getZip());
         
         return profile;
-    }
-
-    /**
-     *
-     *
-     * @param profileBean
-     * @param adrStateCdFacadeREST
-     *
-     * @return
-     */
-    public static Address convertProfileBeanToAddressEntity(ProfileBean profileBean, AdrStateCdFacadeREST adrStateCdFacadeREST, User user) {
-        Address address = new Address();
-        mapProfileBeanToAddressEntity(profileBean, address, adrStateCdFacadeREST, user);
-
-        return address;
-    }
-
-    /**
-     *
-     *
-     * @param profileBean
-     * @param address
-     * @param adrStateCdFacadeREST
-     */
-    public static void mapProfileBeanToAddressEntity(ProfileBean profileBean, Address address, AdrStateCdFacadeREST adrStateCdFacadeREST, User user) {
-        address.setAdrLine1(profileBean.getAddressLine1());
-        address.setAdrLine2(profileBean.getAddressLine2());
-        address.setAdrCity(profileBean.getCity());
-        address.setAdrStateCd(adrStateCdFacadeREST.findByCode(profileBean.getState()));
-
-        if (StringUtils.isNotBlank(profileBean.getZip())) {
-            if (profileBean.getZip().length() > 5) {
-                address.setAdrZip5(profileBean.getZip().substring(0, 4));
-                address.setAdrZip4(profileBean.getZip().substring(5));
-            } else {
-                address.setAdrZip5(profileBean.getZip());
-            }
-        }
-
-        address.setCreateTs(new Date());
-        address.setCreateUserId(getFormattedName(user));
-        address.setUpdateTs(new Date());
-        address.setUpdateUserId(getFormattedName(user));
-
-        if (user != null) {
-
-//TODO: UPDATE TO USE NEW WEB SERVICE CLIENT
-//            address.setUsrUidFk(user);
-        }
-    }
-
-    /**
-     *
-     *
-     * @param profileBean
-     * @param emcTypeCdFacadeREST
-     * @param user
-     *
-     * @return
-     */
-    public static Contact convertPhoneNumberToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, User user) {
-        Contact contact = new Contact();
-        mapProfileBeanToContactEntity(profileBean.getPhoneType(), profileBean.getPhone(), contact, emcTypeCdFacadeREST, user);
-
-        return contact;
-    }
-
-    /**
-     *
-     *
-     * @param profileBean
-     * @param emcTypeCdFacadeREST
-     * @param user
-     *
-     * @return
-     */
-    public static Contact convertEmailToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, User user) {
-        Contact contact = new Contact();
-        mapProfileBeanToContactEntity(ContactTypeEnum.EMAIL_ADDRESS.getValue(), profileBean.getEmail(), contact, emcTypeCdFacadeREST, user);
-
-        return contact;
-    }
-
-    /**
-     *
-     *
-     * @param emcTypCd
-     * @param emcValue
-     * @param contact
-     * @param emcTypeCdFacadeREST
-     * @param user
-     */
-    public static void mapProfileBeanToContactEntity(String emcTypCd, String emcValue, Contact contact, EmcTypeCdFacadeREST emcTypeCdFacadeREST, User user) {
-
-//TODO: UPDATE TO USE NEW WEB SERVICE CLIENT
-//        contact.setEmcTypeCd(emcTypeCdFacadeREST.findByCode(emcTypCd));
-//        contact.setEmcValue(emcValue);
-//
-//        contact.setCreateTs(new Date());
-//        contact.setCreateUserId(getFormattedName(users));
-//        contact.setUpdateTs(new Date());
-//        contact.setUpdateUserId(getFormattedName(users));
-//
-//        if (users != null) {
-//            contact.setUsrUidFk(users);
-//        }
     }
 
     /**
