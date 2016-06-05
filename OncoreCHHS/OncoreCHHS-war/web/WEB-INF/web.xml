@@ -31,6 +31,9 @@
     </context-param>
 
 
+
+
+    <!-- JSF OPTIMIZATIONS -->
     <context-param>
         <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
         <param-value>false</param-value>
@@ -41,9 +44,6 @@
         <param-value>true</param-value>
     </context-param>
 
-
-
-    <!-- JSF OPTIMIZATIONS -->
 
     <context-param>
         <param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
@@ -101,11 +101,5 @@
         <error-code>404</error-code>
         <location>/error.xhtml</location>
     </error-page>
-    
-   
  
-
-<!--    <listener>
-        <listener-class>filter.SessionListener</listener-class>
-    </listener>-->
 </web-app>
