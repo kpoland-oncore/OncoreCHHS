@@ -23,29 +23,114 @@
  */
 package com.oncore.chhs.client.rest;
 
+import com.oncore.chhs.client.dto.AllMessages;
+import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.client.dto.profile.CreateOrUpdateProfile;
 import com.oncore.chhs.client.dto.profile.Profile;
+import com.oncore.chhs.web.rest.client.AbstractRestClient;
+import com.oncore.chhs.web.rest.response.InsertResponse;
+import com.oncore.chhs.web.rest.response.SelectResponse;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.xml.ws.WebServiceException;
 
 /**
  * This service client invokes RESTful services for the Profile functionality.
  *
  * @author oncore
  */
-public class ProfileServiceClient {
+public class ProfileServiceClient extends AbstractRestClient {
 
+    private static final String PROFILE_URL = "profile.rest.url.json";
+
+    /**
+     * Find the user's profile.
+     *
+     * @param userUid The user's unique ID.
+     *
+     * @return The user's profile.
+     */
     public Profile findProfileByUserUid(Integer userUid) {
-        Client client = ClientBuilder.newClient();
 
-        WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
-                path("Profile").path("findProfileByUserUid").queryParam("id", userUid);
+        Profile profile = null;
 
-        Profile results
-                = target.request(MediaType.APPLICATION_JSON).get(Profile.class);
+        WebTarget target = this.getTarget(PROFILE_URL).
+                path("Profile").path("find").queryParam("id", userUid);
 
-        return results;
+        try {
+            SelectResponse<Profile> response = target.request(MediaType.APPLICATION_JSON)
+                    .get(new GenericType<SelectResponse<Profile>>() {
+                    });
+
+            if (response.isErrorOccurred()) {
+                throw new WebServiceException(response.getErrorMessage());
+            }
+
+            profile = response.getResult();
+
+        } catch (Throwable t) {
+            throw new WebServiceException("Error occurred finding the user's profile.", t);
+        }
+
+        return profile;
+    }
+
+    /**
+     * Create a new user profile, including address and contact information.
+     *
+     * @param profile The profile data.
+     * @param user The user to add the profile to.
+     */
+    public void createProfile(Profile profile, User user) {
+        InsertResponse response = null;
+
+        WebTarget target = this.getTarget(PROFILE_URL).path("Profile").path("create");
+
+        CreateOrUpdateProfile newProfile = new CreateOrUpdateProfile(profile);
+        newProfile.setUserUid(user.getUserUid());
+
+        try {
+            response = target.request(MediaType.APPLICATION_JSON_TYPE)
+                    .post(Entity.entity(newProfile, MediaType.APPLICATION_JSON),
+                            InsertResponse.class);
+
+            if (response.isErrorOccurred()) {
+                throw new WebServiceException(response.getErrorMessage());
+            }
+        } catch (Throwable t) {
+            throw new WebServiceException("Error occurred creating the profile.", t);
+        }
+    }
+
+    /**
+     * Update a user profile, including address and contact information.
+     *
+     * @param profile The profile data.
+     * @param user The user whose profile needs updating.
+     */
+    public void updateProfile(Profile profile, User user) {
+        InsertResponse response = null;
+
+        WebTarget target = this.getTarget(PROFILE_URL).path("Profile").path("update");
+
+        CreateOrUpdateProfile newProfile = new CreateOrUpdateProfile(profile);
+        newProfile.setUserUid(user.getUserUid());
+
+        try {
+            response = target.request(MediaType.APPLICATION_JSON_TYPE)
+                    .post(Entity.entity(newProfile, MediaType.APPLICATION_JSON),
+                            InsertResponse.class);
+
+            if (response.isErrorOccurred()) {
+                throw new WebServiceException(response.getErrorMessage());
+            }
+        } catch (Throwable t) {
+            throw new WebServiceException("Error occurred updating the profile.", t);
+        }
     }
 
 }

@@ -23,9 +23,14 @@
  */
 package com.oncore.chhs.service.web.rest;
 
+import com.oncore.chhs.client.dto.profile.CreateOrUpdateProfile;
 import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.ejb.EJBUtils;
+import com.oncore.chhs.web.rest.response.InsertResponse;
+import com.oncore.chhs.web.rest.response.SelectResponse;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -33,42 +38,109 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
+import org.apache.log4j.Logger;
 
 /**
  * This class provides RESTful services for Profile functionality.
- * 
+ *
  * @author oncore
  */
 @Provider
 @Path("Profile")
 public class ProfileService {
-    
+
+    private static final Logger LOGGER = Logger.getLogger(ProfileService.class);
+
     @Context
     private UriInfo context;
-    
+
     /**
      * Default constructor.
      */
     public ProfileService() {
-        
+
     }
-    
-    @GET
-    @Path("/findProfileByUserUid/")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})    
-    public Profile findByUserUid( @QueryParam("id") Integer userUid)
-    {
-        return this.getEjbProfileService().findProfileByUserUid(userUid);
-    }
-    
+
     /**
-     * Get the EJB service that will handle the request.
-     * Package level to allow access by unit tests.
-     * 
+     * Find the profile by the user's unique ID.
+     *
+     * @param userUid The user ID.
+     *
+     * @return The user's profile.
+     */
+    @GET
+    @Path("/find/")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    public SelectResponse<Profile> findByUserUid(@QueryParam("id") Integer userUid) {
+        SelectResponse<Profile> response = null;
+
+        try {
+            Profile profile = this.getEjbProfileService().findProfileByUserUid(userUid);
+
+            response = new SelectResponse<>(profile);
+        } catch (Throwable t) {
+            LOGGER.error("Error loading profile for user ID " + userUid, t);
+            response = new SelectResponse<>("Error loading profile.", t);
+        }
+
+        return response;
+    }
+    
+    @POST
+    @Path( "/create/")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public InsertResponse createProfile( CreateOrUpdateProfile newProfile )
+    {
+        InsertResponse response = null;
+        
+        try
+        {
+            this.getEjbProfileService().createProfile(newProfile);
+            
+            response = new InsertResponse();
+        }
+        catch (Throwable t )
+        {
+            String error = "Error creating profile.";
+            
+            LOGGER.error( error, t);
+            response = new InsertResponse( error, t );
+        }
+        
+        return response;
+    }
+    
+    @POST
+    @Path( "/update/")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public InsertResponse updateProfile( CreateOrUpdateProfile updatedProfile )
+    {
+        InsertResponse response = null;
+        
+        try
+        {
+            this.getEjbProfileService().updateProfile(updatedProfile);
+            
+            response = new InsertResponse();
+        }
+        catch (Throwable t )
+        {
+            String error = "Error updating profile.";
+            
+            LOGGER.error( error, t);
+            response = new InsertResponse( error, t );
+        }
+        
+        return response;
+    }
+
+    /**
+     * Get the EJB service that will handle the request. Package level to allow
+     * access by unit tests.
+     *
      * @return The EJB ProfileService.
      */
-    com.oncore.chhs.client.ejb.ProfileService getEjbProfileService()
-    {
-        return EJBUtils.lookupEJB(com.oncore.chhs.client.ejb.ProfileService.class );
+    com.oncore.chhs.client.ejb.ProfileService getEjbProfileService() {
+        return EJBUtils.lookupEJB(com.oncore.chhs.client.ejb.ProfileService.class);
     }
 }

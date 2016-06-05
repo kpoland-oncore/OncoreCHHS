@@ -24,6 +24,7 @@
 package com.oncore.chhs.web.utils.helper;
 
 import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.web.entities.Address;
 import com.oncore.chhs.web.entities.Contact;
 import com.oncore.chhs.web.entities.Users;
@@ -54,8 +55,8 @@ public class ProfileHelper {
     private final static Logger LOG = LogManager.getLogger(ProfileHelper.class);
 
     /**
-     * Builds the ProfileBean with users information. Profile bean includes user,
-     * address, contact information.
+     * Builds the ProfileBean with users information. Profile bean includes
+     * user, address, contact information.
      *
      * @param users
      *
@@ -88,6 +89,24 @@ public class ProfileHelper {
         }
 
         return profileBean;
+    }
+
+    public static Profile convertProfileBeanToProfileDTO(ProfileBean profileBean) {
+        Profile profile = new Profile();
+        profile.setAddressLine1(profileBean.getAddressLine1());
+        profile.setAddressLine2(profileBean.getAddressLine2());
+        profile.setCity(profileBean.getCity());
+        profile.setEmail(profileBean.getEmail());
+        profile.setFirstName(profileBean.getFirstName());
+        profile.setLastName(profileBean.getLastName());
+        profile.setMiddleName(profileBean.getMiddleName());
+        profile.setPhone(profileBean.getPhone());
+        profile.setPhoneType(profileBean.getPhoneType());
+        profile.setState(profileBean.getState());
+        profile.setUserName(profileBean.getUserName());
+        profile.setZip(profileBean.getZip());
+        
+        return profile;
     }
 
     /**
