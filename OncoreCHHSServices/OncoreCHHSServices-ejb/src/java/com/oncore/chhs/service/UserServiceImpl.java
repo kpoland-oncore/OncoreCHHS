@@ -18,6 +18,7 @@ import com.oncore.chhs.persistence.entity.Users_;
 import com.oncore.chhs.service.converter.UsersToUserDTOConverter;
 import com.oncore.chhs.client.ejb.UserService;
 import com.oncore.chhs.persistence.dao.criteria.pagination.PaginatedResult;
+import java.util.Date;
 
 /**
  *
@@ -42,6 +43,28 @@ public class UserServiceImpl implements UserService {
         dto = UsersToUserDTOConverter.convert(user);
 
         return dto;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User createUser(User user) {
+        Users userEntity = new Users();
+
+        userEntity.setCreateUserId(user.getUserName());
+        userEntity.setCreateTs(new Date());
+        userEntity.setUpdateUserId(user.getUserName());
+        userEntity.setUpdateTs(new Date());
+        userEntity.setUsrFirstname(user.getFirstName());
+        userEntity.setUsrMiddlename(user.getMiddleName());
+        userEntity.setUsrLastname(user.getLastName());
+        userEntity.setUsrUserId(user.getUserName());
+        userEntity.setUsrPassword("notused");
+
+        Users createdUsers = this.userDAO.create(userEntity);
+
+        return UsersToUserDTOConverter.convert(createdUsers);
     }
 
     /**

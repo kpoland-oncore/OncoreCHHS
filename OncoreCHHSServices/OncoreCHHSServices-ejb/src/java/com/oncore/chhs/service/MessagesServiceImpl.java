@@ -52,7 +52,7 @@ public class MessagesServiceImpl implements MessagesService {
         Users users = this.userDAO.findById(userUid);
 
         this.createMessages(from, to, messageTxt, false, users);
-//        this.createMessages(to, from, this.getRandomResponse(), true, users);
+        this.createMessages(to, from, this.getRandomResponse(), true, users);
     }
 
     /**

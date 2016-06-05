@@ -6,9 +6,11 @@
 package com.oncore.chhs.service.web.rest;
 
 import com.oncore.chhs.client.dto.AllMessages;
+import com.oncore.chhs.client.dto.CreateMessage;
 import com.oncore.chhs.ejb.EJBUtils;
+import com.oncore.chhs.web.rest.response.InsertResponse;
+import com.oncore.chhs.web.rest.response.SelectResponse;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -18,6 +20,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -26,6 +29,8 @@ import javax.ws.rs.ext.Provider;
 @Provider
 @Path("Messages")
 public class MessagesService {
+
+    private static final Logger LOGGER = Logger.getLogger(MessagesService.class);
 
     @Context
     private UriInfo context;
@@ -38,20 +43,33 @@ public class MessagesService {
 
     /**
      *
-     * @param from
-     * @param to
-     * @param messageTxt
-     * @param userUid
+     * @param message The message.
+     *
+     * @return InsertResponse.
      */
     @POST
     @Path("/send/")
     @Consumes({MediaType.APPLICATION_JSON})
-    public void sendMessage(@FormParam("from") String from, @FormParam("to") String to,
-            @FormParam("message") String messageTxt, @FormParam("id") Integer userUid) {
-        this.getEjbMessagesService().sendMessage(from, to, messageTxt, userUid);
+    public InsertResponse sendMessage(CreateMessage createMessage) {
+        InsertResponse insertResponse = null;
+
+        try {
+            this.getEjbMessagesService().sendMessage(createMessage.getFrom(), createMessage.getTo(),
+                    createMessage.getMessage(), createMessage.getUserUid());
+
+            insertResponse = new InsertResponse(1);
+        } catch (Throwable t) {
+            String errorMsg = "Error creating message.";
+
+            LOGGER.error(errorMsg, t);
+            insertResponse = new InsertResponse(errorMsg, t);
+        }
+
+        return insertResponse;
     }
 
     /**
+     *
      *
      * @param userUid
      *
@@ -60,10 +78,23 @@ public class MessagesService {
     @GET
     @Path("/find/")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public AllMessages getAllMessages(@QueryParam("id") Integer userUid) {
-        AllMessages allMessages = this.getEjbMessagesService().getAllMessages(userUid);
+    public SelectResponse<AllMessages> getAllMessages(@QueryParam("id") Integer userUid) {
 
-        return allMessages;
+        SelectResponse<AllMessages> response = null;
+
+        try {
+            AllMessages allMessages = this.getEjbMessagesService().getAllMessages(userUid);
+
+            response = new SelectResponse<>(allMessages);
+
+        } catch (Throwable t) {
+            String errorMsg = "Error getting all messages.";
+
+            LOGGER.error(errorMsg, t);
+            response = new SelectResponse<>(errorMsg, t);
+        }
+
+        return response;
     }
 
     /**

@@ -25,15 +25,11 @@ package com.oncore.chhs.web.login;
 
 import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.client.rest.UsersServiceClient;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.profile.ProfileBean;
-import com.oncore.chhs.web.services.UsersFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
-import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import org.apache.logging.log4j.LogManager;
@@ -47,38 +43,16 @@ import org.apache.logging.log4j.Logger;
 @RequestScoped
 public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
 
-    @EJB
-    private UsersFacadeREST usersFacadeREST;
-
     /**
-     * Package level setter used for passing in mock objects for unit tests.
-     *
-     * @param mockObject The mock EJB to use for testing.
+     * {@inheritDoc}
      */
-    void setUsersFacadeREST(UsersFacadeREST mockObject) {
-        this.usersFacadeREST = mockObject;
-    }
-
     @Override
     public User createUser(ProfileBean profileBean) throws WebServiceException {
 
         User user = new User();
 
         try {
-
-            //TODO:  UPDATE TO USE NEW WEB SERVICE CLIENT
-//            user.setCreateUserId(profileBean.getUserName());
-//            user.setCreateTs(new Date());
-//            user.setUpdateUserId(profileBean.getUserName());
-//            user.setUpdateTs(new Date());
-//            user.setUsrFirstname(profileBean.getFirstName());
-//            user.setUsrMiddlename(profileBean.getMiddleName());
-//            user.setUsrLastname(profileBean.getLastName());
-//            user.setUsrUserId(profileBean.getUserName());
-//            user.setUsrPassword("notused");
-//
-//            usersFacadeREST.create(user);
-
+            user = this.getUsersServiceClient().createUser(user);
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
@@ -86,6 +60,9 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
         return user;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User authenticateUser(LoginBean loginBean) throws WebServiceException {
 
@@ -100,12 +77,18 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
         return users;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing LoginDataManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreDestroy
     public void destroy() {
@@ -118,9 +101,8 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
      *
      * @return UsersServiceClient
      */
-    UsersServiceClient getUsersServiceClient() {
+    private UsersServiceClient getUsersServiceClient() {
 
         return new UsersServiceClient();
     }
-
 }

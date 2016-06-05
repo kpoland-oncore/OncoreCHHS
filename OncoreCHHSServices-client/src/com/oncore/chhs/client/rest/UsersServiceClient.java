@@ -25,21 +25,28 @@ package com.oncore.chhs.client.rest;
 
 import com.oncore.chhs.client.dto.Summaries;
 import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.web.rest.client.AbstractRestClient;
+import com.oncore.chhs.web.rest.response.InsertResponse;
+import com.oncore.chhs.web.rest.response.SelectResponse;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
+import javax.xml.ws.WebServiceException;
 
 /**
  *
  * @author oncore
  */
-public class UsersServiceClient {
+public class UsersServiceClient extends AbstractRestClient {
+
+    private static final String USER_URL = "users.rest.url.json";
 
     public Summaries searchUsers(String lastName, String firstName) {
         // Complex - not sure yet.
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
+        WebTarget target = client.target(USER_URL).
                 path("Users").path("search").queryParam("lastName", lastName).
                 queryParam("firstName", firstName);
 
@@ -53,7 +60,7 @@ public class UsersServiceClient {
     public User getUser(Integer id) {
         // Complex - not sure yet.
         Client client = ClientBuilder.newClient();
-        WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
+        WebTarget target = client.target(USER_URL).
                 path("Users").path("find").queryParam("id", id);
 
         User results
@@ -71,17 +78,50 @@ public class UsersServiceClient {
      */
     public User authenticateUser(String userName) {
 
-        User result = null;
-        try {
+        User user = null;
 
-            Client client = ClientBuilder.newClient();
-            WebTarget target = client.target("http://localhost:8080/OncoreCHHSServices-war/rest").
+        try {
+            WebTarget target = this.getTarget(USER_URL).
                     path("Users").path("authenticate").queryParam("userName", userName);
 
-            result = target.request(MediaType.APPLICATION_JSON)
-                    .get(User.class);
-        } catch (Exception e) {
-//TODO have proper handling.
+            SelectResponse<User> response = target.request(MediaType.APPLICATION_JSON)
+                    .get(SelectResponse.class);
+
+            if (response.isErrorOccurred()) {
+                throw new WebServiceException(response.getErrorMessage());
+            }
+
+            user = response.getResult();
+        } catch (Throwable t) {
+            throw new WebServiceException("Error occurred authenticating user.", t);
+        }
+
+        return user;
+    }
+
+    /**
+     *
+     * @param user
+     */
+    public User createUser(User user) {
+
+        User result = null;
+
+        WebTarget target = this.getTarget(USER_URL).path("Users").path("createUser");
+
+        try {
+            InsertResponse<User> insertResponse = target.request(MediaType.APPLICATION_JSON_TYPE)
+                    .post(Entity.entity(user, MediaType.APPLICATION_JSON),
+                            InsertResponse.class);
+
+            if (insertResponse.isErrorOccurred()) {
+                throw new WebServiceException(insertResponse.getErrorMessage());
+            }
+
+            result = insertResponse.getResult();
+
+        } catch (Throwable t) {
+            throw new WebServiceException("Error occurred create user.", t);
         }
 
         return result;

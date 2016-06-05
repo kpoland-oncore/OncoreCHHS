@@ -23,10 +23,15 @@ import com.oncore.chhs.persistence.dao.criteria.NumericFilterCriteriaImpl;
 import com.oncore.chhs.persistence.dao.criteria.OrderBy;
 import com.oncore.chhs.persistence.dao.criteria.pagination.PaginatedMarker;
 import com.oncore.chhs.persistence.dao.criteria.pagination.PaginatedResult;
+import com.oncore.chhs.web.rest.response.InsertResponse;
+import com.oncore.chhs.web.rest.response.SelectResponse;
 import java.util.function.Predicate;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
+import javax.ws.rs.POST;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
+import org.apache.log4j.Logger;
 
 /**
  * REST Web Service
@@ -36,6 +41,9 @@ import javax.xml.bind.Marshaller;
 @Provider
 @Path("Users")
 public class UsersService {
+
+    private static final Logger LOGGER = Logger.getLogger(UsersService.class);
+    private static final String MESSAGES_URL = "messages.rest.url.json";
 
     @Context
     private UriInfo context;
@@ -72,14 +80,50 @@ public class UsersService {
     @GET
     @Path("/authenticate/")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public User authenticateUser(@QueryParam("userName") String userName) {
-        User response = null;
+    public SelectResponse<User> authenticateUser(@QueryParam("userName") String userName) {
 
-        UserService userService = EJBUtils.lookupEJB(UserService.class);
+        SelectResponse<User> response = null;
 
-        response = userService.authenticateUser(userName);
+        try {
+            UserService userService = EJBUtils.lookupEJB(UserService.class);
+
+            User user = userService.authenticateUser(userName);
+
+            response = new SelectResponse<>(user);
+        } catch (Throwable t) {
+            String errorMsg = "Error authenticating user.";
+
+            LOGGER.error(errorMsg, t);
+            response = new SelectResponse<>(errorMsg, t);
+        }
 
         return response;
+    }
+
+    /**
+     *
+     * @param message The message.
+     *
+     * @return InsertResponse.
+     */
+    @POST
+    @Path("/createUser/")
+    @Consumes({MediaType.APPLICATION_JSON})
+    public InsertResponse createUser(User user) {
+        InsertResponse insertResponse = null;
+
+        try {
+            EJBUtils.lookupEJB(UserService.class).createUser(user);
+
+            insertResponse = new InsertResponse(1);
+        } catch (Throwable t) {
+            String errorMsg = "Error creating message.";
+
+            LOGGER.error(errorMsg, t);
+            insertResponse = new InsertResponse(errorMsg, t);
+        }
+
+        return insertResponse;
     }
 
     /**

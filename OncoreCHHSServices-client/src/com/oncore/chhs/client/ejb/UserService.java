@@ -20,12 +20,20 @@ public interface UserService {
 
     /**
      * Gets the user with the matching username.
-     * 
+     *
      * @param userName
-     * 
+     *
      * @return User
      */
     public User authenticateUser(String userName);
+
+    /**
+     * Creates the user.
+     *
+     * @param user
+     *
+     */
+    public User createUser(User user);
 
     /**
      * Search for all users by name sorted by last/first. Note: Could also user
