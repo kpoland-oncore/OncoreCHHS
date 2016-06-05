@@ -27,14 +27,12 @@ import com.oncore.chhs.client.rest.LocateServiceClient;
 import com.oncore.chhs.web.clients.FosterFamilyAgencyJsonClient;
 import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
 import com.oncore.chhs.web.exceptions.WebServiceException;
-import com.oncore.chhs.web.services.UsersFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.helper.SearchHelper;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import org.apache.commons.collections4.CollectionUtils;
@@ -50,21 +48,28 @@ import org.apache.logging.log4j.Logger;
 public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
 
     private final Logger LOG = LogManager.getLogger(SearchDataManagedBean.class);
-    @EJB
-    private UsersFacadeREST usersFacadeREST;
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing SearchDataManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     @PreDestroy
     public void destroy() {
         LOG.debug("Destroying SearchDataManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public List<SearchBean> search(String zip) throws WebServiceException {
         List<SearchBean> agencies = new ArrayList<>();
@@ -91,13 +96,12 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         return agencies;
     }
 
-    /**
-     *
-     * @return MessagesServiceClient
-     */
-    private LocateServiceClient getLocateServiceClient() {
-
-        return new LocateServiceClient();
-    }
-
+//    /**
+//     *
+//     * @return MessagesServiceClient
+//     */
+//    private LocateServiceClient getLocateServiceClient() {
+//
+//        return new LocateServiceClient();
+//    }
 }

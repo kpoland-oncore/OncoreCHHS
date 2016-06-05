@@ -25,6 +25,8 @@ package com.oncore.chhs.web.utils.helper;
 
 import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
 import com.oncore.chhs.web.search.SearchBean;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -53,6 +55,11 @@ public class SearchHelper {
         searchBean.setFacilityType(agency.getFacility_type());
         searchBean.setFacilityZip(agency.getFacility_zip());
         searchBean.setRegionalOffice(agency.getReginal_office());
+
+        if (null != agency.getLocation()) {
+            searchBean.setLogitude(agency.getLocation().getCoordinates()[0]);
+            searchBean.setLatitude(agency.getLocation().getCoordinates()[1]);
+        }
 
         return searchBean;
     }

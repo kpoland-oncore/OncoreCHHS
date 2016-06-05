@@ -24,12 +24,17 @@
 package com.oncore.chhs.web.clients;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
+import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.Location;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.utils.ErrorUtils;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
