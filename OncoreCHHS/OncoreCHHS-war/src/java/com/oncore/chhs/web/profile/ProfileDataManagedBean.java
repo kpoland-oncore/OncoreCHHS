@@ -37,6 +37,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * This class invokes RESTful services to find, create and update profiles.
  *
  * @author oncore
  */
@@ -63,7 +64,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      *
      * @param userUid
      *
-     * @return <code>ProfileBean</code>
+     * @return <code>Profile</code>
      *
      * @throws WebServiceException
      */
@@ -76,12 +77,11 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
     /**
      * Creates the profile for the user.
      *
-     * @param profileBean
-     * @param user
-     * @throws WebServiceException
+     * @param profileBean The profile data collected from the UI.
+     * @param user The user to associate the profile with.
      */
     @Override
-    public void createProfile(ProfileBean profileBean, User user) throws WebServiceException {
+    public void createProfile(ProfileBean profileBean, User user) {
 
         Profile profile = ProfileHelper.convertProfileBeanToProfileDTO(profileBean);
 
@@ -91,17 +91,15 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
     /**
      * Updates the profile information for the user.
      *
-     * @param profileBean
-     * @param user
-     * @throws WebServiceException
+     * @param profileBean The profile data collected from the UI.
+     * @param user The user the profile is associated with.
      */
     @Override
-    public void updateProfile(ProfileBean profileBean, User user) throws WebServiceException {
+    public void updateProfile(ProfileBean profileBean, User user) {
         Profile profile = ProfileHelper.convertProfileBeanToProfileDTO(profileBean);
 
         this.getProfileServiceClient().updateProfile(profile, user);
     }
-
 
     /**
      * This gets an instance of the profile service client, which will invoke
