@@ -21,42 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.client.ejb;
+package com.oncore.chhs.persistence.dao;
 
-import com.oncore.chhs.client.dto.profile.CreateOrUpdateProfile;
-import com.oncore.chhs.client.dto.profile.Profile;
+import com.oncore.chhs.persistence.entity.EmcTypeCd;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 /**
- * The ProfileService provides methods for retrieving, creating and updating
- * a user's name and contact information.
- * 
+ *
  * @author oncore
  */
-public interface ProfileService {
+@Stateless
+@LocalBean
+public class EmcTypeCdDAO extends AbstractDAO<EmcTypeCd> {
+    
+    @PersistenceContext(name = "OncoreCHHSServices-persistencePU")
+    private EntityManager entityManager;
     
     /**
-     * Find the user's profile.
-     * 
-     * @param userUid The user's unique ID.
-     * 
-     * @return The user's profile.
+     * @{inherited}
      */
-    public Profile findProfileByUserUid(Integer userUid);
+    @Override
+    protected EntityManager getEntityManager() {
+        return this.entityManager;
+    }
     
-    /**
-     * Create a new user profile, including address and 
-     * contact information.
-     * 
-     * @param profile The profile data to create.
-     */
-    public void createProfile( CreateOrUpdateProfile profile );
-    
-    /**
-     * Update a user's profile, including address and contact
-     * information.
-     * 
-     * @param profile The profile data to update.
-     */
-    public void updateProfile( CreateOrUpdateProfile profile );
     
 }

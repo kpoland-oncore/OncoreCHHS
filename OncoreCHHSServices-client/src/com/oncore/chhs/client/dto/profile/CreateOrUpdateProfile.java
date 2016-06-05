@@ -21,42 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.client.ejb;
-
-import com.oncore.chhs.client.dto.profile.CreateOrUpdateProfile;
-import com.oncore.chhs.client.dto.profile.Profile;
+package com.oncore.chhs.client.dto.profile;
 
 /**
- * The ProfileService provides methods for retrieving, creating and updating
- * a user's name and contact information.
- * 
+ *
  * @author oncore
  */
-public interface ProfileService {
-    
+public class CreateOrUpdateProfile extends Profile {
+
+    private Long userUid;
+
+    public CreateOrUpdateProfile(Profile profile) {
+        this.setAddressLine1(profile.getAddressLine1());
+        this.setAddressLine2(profile.getAddressLine2());
+        this.setCity(profile.getCity());
+        this.setEmail(profile.getEmail());
+        this.setFirstName(profile.getFirstName());
+        this.setLastName(profile.getLastName());
+        this.setMiddleName(profile.getMiddleName());
+        this.setPhone(profile.getPhone());
+        this.setPhoneType(profile.getPhoneType());
+        this.setState(profile.getState());
+        this.setUserName(profile.getUserName());
+        this.setZip(profile.getZip());
+    }
+
     /**
-     * Find the user's profile.
-     * 
-     * @param userUid The user's unique ID.
-     * 
-     * @return The user's profile.
+     * @return the userUid
      */
-    public Profile findProfileByUserUid(Integer userUid);
-    
+    public Long getUserUid() {
+        return userUid;
+    }
+
     /**
-     * Create a new user profile, including address and 
-     * contact information.
-     * 
-     * @param profile The profile data to create.
+     * @param userUid the userUid to set
      */
-    public void createProfile( CreateOrUpdateProfile profile );
-    
-    /**
-     * Update a user's profile, including address and contact
-     * information.
-     * 
-     * @param profile The profile data to update.
-     */
-    public void updateProfile( CreateOrUpdateProfile profile );
-    
+    public void setUserUid(Long userUid) {
+        this.userUid = userUid;
+    }
+
 }
