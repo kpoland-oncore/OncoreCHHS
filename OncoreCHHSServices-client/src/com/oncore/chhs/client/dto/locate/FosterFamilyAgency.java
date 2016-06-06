@@ -55,7 +55,7 @@ public class FosterFamilyAgency {
     /**
      *
      */
-    private FosterFamilyAgency() {
+    public FosterFamilyAgency() {
 
     }
 

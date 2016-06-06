@@ -42,6 +42,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+
 /**
  *
  * @author oncore
@@ -145,11 +146,19 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
      *
      * @return MessagesServiceClient
      */
-    private LocateServiceClient getLocateServiceClient() {
+    LocateServiceClient getLocateServiceClient() {
 
         return new LocateServiceClient();
     }
 
     @Inject
     GlobalManagedBean globalManagedBean;
+    
+    /**
+     * Setter used for unit tests
+     */
+    void setGlobalManagedBean( GlobalManagedBean globalManagedBean )
+    {
+        this.globalManagedBean = globalManagedBean;
+    }
 }
