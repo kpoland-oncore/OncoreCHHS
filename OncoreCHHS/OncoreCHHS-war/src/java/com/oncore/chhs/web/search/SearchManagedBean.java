@@ -51,6 +51,17 @@ public class SearchManagedBean extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing SearchManagedBean: " + this.getClass().hashCode());
+
+        try {
+
+            if (this.globalManagedBean.getLatitude() != null && this.globalManagedBean.getLongitude() != null
+                    && this.globalManagedBean.getLatitude() != 0 && this.globalManagedBean.getLongitude() != 0) {
+                this.setSearchBeanList(this.searchDataManagedBean.searchArea(this.globalManagedBean.getLongitude(), this.globalManagedBean.getLatitude()));
+            }
+        } catch (WebServiceException wx) {
+            LOG.error(wx);
+            FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
+        }
     }
 
     @Override

@@ -112,14 +112,19 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
     @Override
     public List<SearchBean> searchArea(Double logitude, Double latitude) throws WebServiceException {
         List<SearchBean> agencies = new ArrayList<>();
-
+        SearchBean searchBean = null;
+        
         try {
             List<FosterFamilyAgency> fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgencyByCircle(logitude, latitude);
 
-            if (CollectionUtils.isNotEmpty(fosterFamilyAgencies)) {
-                for (FosterFamilyAgency agency : fosterFamilyAgencies) {
-                    agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
-                }
+            if ((this.globalManagedBean.getLatitude() != null && this.globalManagedBean.getLongitude() != null
+                    && searchBean.getLatitude() != null && searchBean.getLogitude() != null)
+                    && (this.globalManagedBean.getLatitude() != 0 && this.globalManagedBean.getLongitude() != 0
+                    && searchBean.getLatitude() != 0 && searchBean.getLogitude() != 0)) {
+                searchBean.setDistance(GpsUtils.calculateDistance(this.globalManagedBean.getLatitude(), this.globalManagedBean.getLongitude(),
+                        searchBean.getLatitude(), searchBean.getLogitude()).toString() + " Miles");
+            } else {
+                searchBean.setDistance("Unknown");
             }
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
@@ -136,7 +141,7 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
 
         return new LocateServiceClient();
     }
-    
+
     @Inject
     GlobalManagedBean globalManagedBean;
 }
