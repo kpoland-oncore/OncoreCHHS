@@ -67,7 +67,7 @@ public class MessagesService {
      */
     @POST
     @Path("/send/")
-    @Consumes({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public InsertResponse sendMessage(CreateMessage createMessage) {
         InsertResponse insertResponse = null;
 

@@ -38,6 +38,7 @@ import javax.xml.ws.WebServiceException;
 public class LocateServiceClient extends AbstractRestClient {
 
     private static final String LOCATE_SERVICE = "locate.rest.url.json";
+    private static final String APP_TOKEN = "98mLn8GscN2Q78YuzLWkp9Z7m";
 
     /**
      * Retrieves the licensed foster family agencies by the zip code.
@@ -54,7 +55,8 @@ public class LocateServiceClient extends AbstractRestClient {
 
         try {
             WebTarget target = this.getTarget(LOCATE_SERVICE).
-                    queryParam("facility_status", "LICENSED").queryParam("facility_zip", zip);
+                    queryParam("facility_status", "LICENSED").queryParam("$$app_token", APP_TOKEN).
+                    queryParam("facility_zip", zip);
 
             familyAgencyList = target.request(MediaType.APPLICATION_JSON)
                     .get(new GenericType<List<FosterFamilyAgency>>() {
@@ -87,7 +89,8 @@ public class LocateServiceClient extends AbstractRestClient {
                 String whereQueryParam = "within_circle(location, " + logitude.toString() + "," + latitude.toString() + ", 15000)";
 
                 WebTarget target = this.getTarget(LOCATE_SERVICE).
-                        queryParam("facility_status", "LICENSED").queryParam("$where", whereQueryParam);
+                        queryParam("facility_status", "LICENSED").queryParam("$where", whereQueryParam).
+                        queryParam("$$app_token", APP_TOKEN);
 
                 familyAgencyList = target.request(MediaType.APPLICATION_JSON)
                         .get(new GenericType<List<FosterFamilyAgency>>() {

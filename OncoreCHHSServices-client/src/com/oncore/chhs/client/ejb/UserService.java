@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.oncore.chhs.client.ejb;
 
 import com.oncore.chhs.client.dto.User;
@@ -36,6 +35,7 @@ import java.util.List;
 public interface UserService {
 
     /**
+     * Gets the Users entity from the userId key.
      *
      * @param userId The primary key.
      * @return A User or null if not found.
@@ -56,6 +56,7 @@ public interface UserService {
      *
      * @param user
      *
+     * @return User object with created Users information.
      */
     public User createUser(User user);
 
