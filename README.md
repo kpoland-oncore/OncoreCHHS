@@ -1,4 +1,4 @@
-http://oncorechhsjenkins.westus.cloudapp.azure.com:8080/OncoreCHHS-war/
+http://oncorechhsapp01.westus.cloudapp.azure.com:8080/OncoreCHHS-war/
 
 Our team at OnCore Consulting (OnCore) felt a sense of excitement as soon as we read the details for the CHHS agile prototype. OnCore has a breadth and depth of experience in delivering systems for the public sector, and we saw this prototype as an opportunity to demonstrate our technical abilities – a core capability of OnCore Consulting.
 
