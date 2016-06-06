@@ -1026,10 +1026,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.log4j-web-2.5.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.log4j-core-2.5.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.omnifaces-2.3.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${file.reference.gson-2.6.2.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.commons-io-2.4.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${reference.OncoreCHHSServices-client.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
-        <copyfiles files="${reference.ArchCommon.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${reference.ArchCommon.jar}" iftldtodir="${build.web.dir}/WEB-INF" todir="${dist.ear.dir}/lib"/>
         <copyfiles files="${file.reference.commons-beanutils-1.9.2.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.commons-collections4-4.1.jar}" todir="${build.web.dir}//"/>
@@ -1057,10 +1055,8 @@ exists or setup the property manually. For example like this:
         <copyfiles files="${file.reference.log4j-web-2.5.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.log4j-core-2.5.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.omnifaces-2.3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${file.reference.gson-2.6.2.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-io-2.4.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.OncoreCHHSServices-client.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
-        <copyfiles files="${reference.ArchCommon.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${reference.ArchCommon.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
         <copyfiles files="${file.reference.commons-beanutils-1.9.2.jar}" todir="${build.web.dir}//"/>
         <copyfiles files="${file.reference.commons-collections4-4.1.jar}" todir="${build.web.dir}//"/>

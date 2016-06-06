@@ -23,9 +23,9 @@
  */
 package com.oncore.chhs.web.search;
 
+import com.oncore.chhs.client.dto.locate.FosterFamilyAgency;
 import com.oncore.chhs.client.rest.LocateServiceClient;
-import com.oncore.chhs.web.clients.FosterFamilyAgencyJsonClient;
-import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
+
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.helper.SearchHelper;
@@ -73,22 +73,15 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
     @Override
     public List<SearchBean> search(String zip) throws WebServiceException {
         List<SearchBean> agencies = new ArrayList<>();
-        try {
-            List<FosterFamilyAgency> fosterFamilyAgencyList = FosterFamilyAgencyJsonClient.getFosterFamilyAgency(zip);
 
-            if (CollectionUtils.isNotEmpty(fosterFamilyAgencyList)) {
-                for (FosterFamilyAgency agency : fosterFamilyAgencyList) {
+        try {
+            List<FosterFamilyAgency> fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgency(zip);
+
+            if (CollectionUtils.isNotEmpty(fosterFamilyAgencies)) {
+                for (FosterFamilyAgency agency : fosterFamilyAgencies) {
                     agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
                 }
             }
-
-//            FosterFamilyAgencies fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgency(zip);
-//
-//            if (CollectionUtils.isNotEmpty(fosterFamilyAgencies.getFosterFamilyAgencies())) {
-//                for (FosterFamilyAgency agency : fosterFamilyAgencies.getFosterFamilyAgencies()) {
-//                    agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
-//                }
-//            }
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
@@ -96,12 +89,34 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         return agencies;
     }
 
-//    /**
-//     *
-//     * @return MessagesServiceClient
-//     */
-//    private LocateServiceClient getLocateServiceClient() {
-//
-//        return new LocateServiceClient();
-//    }
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public List<SearchBean> searchArea(Double logitude, Double latitude) throws WebServiceException {
+        List<SearchBean> agencies = new ArrayList<>();
+
+        try {
+            List<FosterFamilyAgency> fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgencyByCircle(logitude, latitude);
+
+            if (CollectionUtils.isNotEmpty(fosterFamilyAgencies)) {
+                for (FosterFamilyAgency agency : fosterFamilyAgencies) {
+                    agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
+                }
+            }
+        } catch (Exception ex) {
+            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+        }
+
+        return agencies;
+    }
+
+    /**
+     *
+     * @return MessagesServiceClient
+     */
+    private LocateServiceClient getLocateServiceClient() {
+
+        return new LocateServiceClient();
+    }
 }

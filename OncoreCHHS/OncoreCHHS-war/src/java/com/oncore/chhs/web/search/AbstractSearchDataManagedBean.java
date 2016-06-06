@@ -43,4 +43,16 @@ public interface AbstractSearchDataManagedBean extends AbstractBaseManagedBean {
      * @throws WebServiceException
      */
     public List<SearchBean> search(String zip) throws WebServiceException;
+
+    /**
+     * The <code>searchArea</code> method hits the CHHS Facility search web
+     * service attempting to locate facilities in the provided coordinate.
+     *
+     * @param logitude a logitude of coordinate
+     * @param latitude a latitude of coordinate
+     * @return a list of populated <code>SearchBean</code> objects if found,
+     * empty list otherwise
+     * @throws WebServiceException
+     */
+    public List<SearchBean> searchArea(Double logitude, Double latitude) throws WebServiceException;
 }
