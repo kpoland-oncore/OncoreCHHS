@@ -27,6 +27,8 @@ import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.global.GlobalManagedBean;
+import com.oncore.chhs.web.navigation.NavigationManagedBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
@@ -78,14 +80,13 @@ public class LoginManagedBean extends BaseManagedBean {
                 User user = this.loginDataManagedBean.authenticateUser(loginBean);
 
                 if (user != null) {
- 
+
                     User users = new User();
                     users.setFirstName(user.getFirstName());
                     users.setMiddleName(user.getMiddleName());
                     users.setLastName(user.getLastName());
                     users.setUserName(user.getUserName());
                     users.setUserUid(user.getUserUid());
-             
 
                     this.globalManagedBean.setAuthenticated(Boolean.TRUE);
                     this.globalManagedBean.setLoginText("Welcome " + user.getFirstName() + " " + user.getLastName());
@@ -123,6 +124,9 @@ public class LoginManagedBean extends BaseManagedBean {
 
     @Inject
     LoginValidationBean loginValidationBean;
+ 
+    @Inject
+    protected GlobalManagedBean globalManagedBean;
 
     private LoginBean loginBean = new LoginBean();
 

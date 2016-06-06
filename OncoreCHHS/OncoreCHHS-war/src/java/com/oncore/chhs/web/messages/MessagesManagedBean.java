@@ -28,6 +28,8 @@ import com.oncore.chhs.client.dto.Message;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.global.GlobalManagedBean;
+import com.oncore.chhs.web.navigation.NavigationManagedBean;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import java.util.ArrayList;
@@ -75,9 +77,8 @@ public class MessagesManagedBean extends BaseManagedBean {
     public String handleSendButtonClickEvent() {
 
         String page = null;
-         Boolean isError = Boolean.FALSE;
+        Boolean isError = Boolean.FALSE;
         String error = null;
-
 
         try {
             if ((error = this.messageValidationBean.validateTextArea(this.getMessageBean().getMessage(), Boolean.TRUE, FORM_NAME + "messageTxt:input")) != null) {
@@ -106,14 +107,13 @@ public class MessagesManagedBean extends BaseManagedBean {
             FacesUtilities.removeMessages();
 
             AllMessages allMessages = this.messageDataManagedBean.fetchMessages(this.globalManagedBean.getAuthenticatedUser().getUserUid().intValue());
-            
-            if(allMessages != null)
-            {
-                 this.setInboxList(allMessages.getInboundMessages());
-                 this.setOutboxList(allMessages.getOutboundMessages());
+
+            if (allMessages != null) {
+                this.setInboxList(allMessages.getInboundMessages());
+                this.setOutboxList(allMessages.getOutboundMessages());
 
             }
-           
+
         } catch (WebServiceException wx) {
             LOG.error(wx);
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
@@ -195,6 +195,9 @@ public class MessagesManagedBean extends BaseManagedBean {
 
     @Inject
     MessageValidationBean messageValidationBean;
+
+    @Inject
+    protected GlobalManagedBean globalManagedBean;
 
     private MessageBean messageBean = new MessageBean();
 

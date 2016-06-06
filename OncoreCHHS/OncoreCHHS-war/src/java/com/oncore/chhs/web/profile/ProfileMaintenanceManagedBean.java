@@ -28,7 +28,9 @@ import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.enums.ContactTypeEnum;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.global.GlobalManagedBean;
 import com.oncore.chhs.web.login.AbstractLoginDataManagedBean;
+import com.oncore.chhs.web.navigation.NavigationManagedBean;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import javax.annotation.PostConstruct;
@@ -185,6 +187,9 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
 
     @Inject
     ProfileValidationBean profileValidationBean;
+
+    @Inject
+    protected GlobalManagedBean globalManagedBean;
 
     private ProfileBean profileBean = new ProfileBean();
 

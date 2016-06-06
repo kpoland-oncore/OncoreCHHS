@@ -23,7 +23,6 @@
  */
 package com.oncore.chhs.web.base;
 
-import com.oncore.chhs.web.global.GlobalManagedBean;
 import com.oncore.chhs.web.navigation.NavigationManagedBean;
 import java.io.Serializable;
 import javax.inject.Inject;
@@ -55,9 +54,6 @@ public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serial
 
     @Inject
     protected NavigationManagedBean navigationManagedBean;
-
-    @Inject
-    protected GlobalManagedBean globalManagedBean;
 
     public static final String FORM_NAME = "chhsForm:";
 

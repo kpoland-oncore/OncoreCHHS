@@ -26,6 +26,7 @@ package com.oncore.chhs.web.search;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.global.GlobalManagedBean;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +52,12 @@ public class SearchManagedBean extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing SearchManagedBean: " + this.getClass().hashCode());
-
-        try {
-
-            if (this.globalManagedBean.getLatitude() != null && this.globalManagedBean.getLongitude() != null
-                    && this.globalManagedBean.getLatitude() != 0 && this.globalManagedBean.getLongitude() != 0) {
-                this.setSearchBeanList(this.searchDataManagedBean.searchArea(this.globalManagedBean.getLongitude(), this.globalManagedBean.getLatitude()));
+         try {
+            this.setSearchBeanList(this.searchDataManagedBean.searchArea(this.globalManagedBean.getLongitude(), this.globalManagedBean.getLatitude()));
+            if (CollectionUtils.isEmpty(this.getSearchBeanList())) {
+                FacesUtilities.createPageLevelCustomError(FacesContext.getCurrentInstance(), "No facilities were found close to your location.");
             }
+
         } catch (WebServiceException wx) {
             LOG.error(wx);
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
@@ -70,14 +70,16 @@ public class SearchManagedBean extends BaseManagedBean {
         LOG.debug("Destroying SearchManagedBean: " + this.getClass().hashCode());
     }
 
+    private void load() {
+       
+    }
+
     /**
      * The <code>handleLoginButtonClickEvent</code> method handles the click
      * event generated from the login button on the login page.
      *
-     * @return a qualified URL or null if an exception occurs
      */
-    public String handleSearchButtonClickEvent() {
-        String page = null;
+    public void handleSearchButtonClickEvent() {
         Boolean isError = Boolean.FALSE;
         String error = null;
 
@@ -96,8 +98,6 @@ public class SearchManagedBean extends BaseManagedBean {
             LOG.error(wx);
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
         }
-
-        return page;
 
     }
 
@@ -148,6 +148,9 @@ public class SearchManagedBean extends BaseManagedBean {
 
     @Inject
     SearchValidationBean searchValidationBean;
+
+    @Inject
+    protected GlobalManagedBean globalManagedBean;
 
     private SearchBean searchBean = new SearchBean();
 

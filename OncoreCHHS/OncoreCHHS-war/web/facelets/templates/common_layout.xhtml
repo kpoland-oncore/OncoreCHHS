@@ -71,7 +71,7 @@
 
                 <!-- COMMON CONFIRMATION DIALOG -->
                 <p:confirmDialog id="dirtyDlg" message="You must save or cancel your changes before leaving."
-                                 header="Unsaved Changes Warning" closable="false" severity="alert" modal="true" appendTo="@(form)"
+                                 header="Unsaved Changes Warning" closable="false" severity="alert" appendTo="@(form)"
                                  widgetVar="dirtyDlgWdg">
                     <p:commandButton value="OK" onclick="PF('dirtyDlgWdg').hide()" />
                 </p:confirmDialog>
@@ -80,7 +80,7 @@
 
                 <!-- COMMON SAVE CONFIRMATION DIALOG -->
                 <p:confirmDialog id="saveDlg" message="Your changes have been successfully saved."
-                                 header="Save Confirmation" closable="false" severity="info" modal="true" appendTo="@(form)"
+                                 header="Save Confirmation" closable="false" severity="info" appendTo="@(form)"
                                  widgetVar="saveDlgWdg">
                     <p:commandButton value="OK" onclick="PF('saveDlgWdg').hide()" action="#{navigationManagedBean.navigateToLink('index', false)}" />
                 </p:confirmDialog>
@@ -113,6 +113,7 @@
                 function findLocation(position) {
                     var latitude = position.coords.latitude;
                     var longitude = position.coords.longitude;
+                    
                     
                     $("#chhsForm\\:cachedLatitude").val(latitude);
                     $("#chhsForm\\:cachedLongitude").val(longitude);
