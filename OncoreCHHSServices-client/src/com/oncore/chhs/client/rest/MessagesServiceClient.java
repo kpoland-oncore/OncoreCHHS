@@ -43,15 +43,15 @@ public class MessagesServiceClient extends AbstractRestClient {
     private static final String MESSAGES_URL = "messages.rest.url.json";
 
     /**
+     * The <code>sendMessage</code> method sends a message.
      *
-     *
-     * @param from The from userid.
-     * @param to The to userid.
-     * @param message The message.
-     * @param userUid The user id.
+     * @param from message from
+     * @param to message to
+     * @param message a message to send
+     * @param userUid the userUid
      */
     public void sendMessage(String from, String to, String message, Integer userUid) {
-        InsertResponse insertResponse = null;
+        InsertResponse<Long> insertResponse = null;
 
         WebTarget target = this.getTarget(MESSAGES_URL).
                 path("Messages").path("send");
@@ -65,7 +65,8 @@ public class MessagesServiceClient extends AbstractRestClient {
         try {
             insertResponse = target.request(MediaType.APPLICATION_JSON_TYPE)
                     .post(Entity.entity(createMessage, MediaType.APPLICATION_JSON),
-                            InsertResponse.class);
+                            new GenericType<InsertResponse<Long>>() {
+                    });
 
             if (insertResponse.isErrorOccurred()) {
                 throw new WebServiceException(insertResponse.getErrorMessage());
@@ -76,11 +77,13 @@ public class MessagesServiceClient extends AbstractRestClient {
     }
 
     /**
+     * The <code>fetchMessages</code> method fetches all messages from the inbox
+     * and outbox for the user.
      *
+     * @param userUid the entity representing the user
      *
-     * @param userUid
-     *
-     * @return
+     * @return a map containing list of populated inbox and outbox
+     * <code>MessageDTO</code> objects if found, empty list otherwise
      */
     public AllMessages getAllMessages(Integer userUid) {
 

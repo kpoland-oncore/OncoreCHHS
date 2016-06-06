@@ -23,7 +23,6 @@
  */
 package com.oncore.chhs.client.rest;
 
-import com.oncore.chhs.client.dto.Summaries;
 import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.rest.client.AbstractRestClient;
 import com.oncore.chhs.web.rest.response.InsertResponse;
@@ -44,34 +43,33 @@ public class UsersServiceClient extends AbstractRestClient {
 
     private static final String USER_URL = "users.rest.url.json";
 
-    public Summaries searchUsers(String lastName, String firstName) {
-        // Complex - not sure yet.
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(USER_URL).
-                path("Users").path("search").queryParam("lastName", lastName).
-                queryParam("firstName", firstName);
+    /**
+     * Gets the Users entity from the userId key.
+     *
+     * @param userId The primary key.
+     *
+     * @return A User or null if not found.
+     */
+    public User getUser(Integer id) throws WebServiceException {
+        User user = null;
 
-        Object results
-                = target.request(MediaType.APPLICATION_XML)
-                .get(Summaries.class);
+        try {
+            Client client = ClientBuilder.newClient();
+            WebTarget target = client.target(USER_URL).
+                    path("Users").path("find").queryParam("id", id);
 
-        return (Summaries) results;
-    }
+            user = target.request(MediaType.APPLICATION_JSON)
+                    .get(User.class);
 
-    public User getUser(Integer id) {
-        // Complex - not sure yet.
-        Client client = ClientBuilder.newClient();
-        WebTarget target = client.target(USER_URL).
-                path("Users").path("find").queryParam("id", id);
+        } catch (Throwable t) {
+            throw new WebServiceException("Error occurred getting user.", t);
+        }
 
-        User results
-                = target.request(MediaType.APPLICATION_XML)
-                .get(User.class);
-
-        return results;
+        return user;
     }
 
     /**
+     * Gets the user with the matching username.
      *
      * @param userName
      * @return a populated <code>User</code> object if found, null otherwise
@@ -102,10 +100,13 @@ public class UsersServiceClient extends AbstractRestClient {
     }
 
     /**
+     * Creates the user.
      *
      * @param user
+     *
+     * @return User object with created Users information.
      */
-    public User createUser(User user) {
+    public User createUser(User user) throws WebServiceException {
 
         User result = null;
 
@@ -122,7 +123,6 @@ public class UsersServiceClient extends AbstractRestClient {
             }
 
             result = insertResponse.getResult();
-
         } catch (Throwable t) {
             throw new WebServiceException("Error occurred create user.", t);
         }
