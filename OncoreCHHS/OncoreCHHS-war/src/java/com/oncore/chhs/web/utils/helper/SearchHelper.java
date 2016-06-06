@@ -25,8 +25,6 @@ package com.oncore.chhs.web.utils.helper;
 
 import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
 import com.oncore.chhs.web.search.SearchBean;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  *

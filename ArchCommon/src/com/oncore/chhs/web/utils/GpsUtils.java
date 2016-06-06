@@ -32,14 +32,15 @@ public final class GpsUtils {
     /**
      * The <code>calculateDistance</code> method determines the distance between
      * two GPS cordinates.
-     * 
+     *
      * @param latCordinate1 latitude of first coordinate
      * @param longCordinate1 longitude of first coordinate
      * @param latCordinate2 latitude of second coordinate
      * @param longCordinate2 longitude of second coordinate
-     * @return 
+     * @return
      */
-    public static Double calculateDistance(Double latCordinate1, Double longCordinate1, Double latCordinate2, Double longCordinate2) {
+    public static Integer calculateDistance(Double latCordinate1, Double longCordinate1, Double latCordinate2, Double longCordinate2) {
+
         Double distance = 0d;
 
         Double radius = 6371 * 0.621371;
@@ -54,6 +55,8 @@ public final class GpsUtils {
 
         distance = radius * curve;
 
-        return distance;
+        distance = (distance / 10);
+
+        return distance.intValue();
     }
 }
