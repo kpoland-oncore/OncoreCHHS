@@ -21,41 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.client.dto;
-
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+package com.oncore.chhs.client.dto.locate;
 
 /**
  *
  * @author oncore
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
-public class FosterFamilyAgencies {
+public class Location {
 
-    @XmlElement(name = "fosterFamilyAgencies")
-    private List<FosterFamilyAgency> fosterFamilyAgencies;
+    private double[] coordinates;
 
     /**
-     * @return the fosterFamilyAgencies
+     * @return the coordinates
      */
-    public List<FosterFamilyAgency> getFosterFamilyAgencies() {
-        if (null == this.fosterFamilyAgencies) {
-            this.fosterFamilyAgencies = new ArrayList<>();
-        }
-
-        return fosterFamilyAgencies;
+    public double[] getCoordinates() {
+        return coordinates;
     }
 
     /**
-     * @param fosterFamilyAgencies the fosterFamilyAgencies to set
+     * @param coordinates the coordinates to set
      */
-    public void setFosterFamilyAgencies(List<FosterFamilyAgency> fosterFamilyAgencies) {
-        this.fosterFamilyAgencies = fosterFamilyAgencies;
+    public void setCoordinates(double[] coordinates) {
+        this.coordinates = coordinates;
     }
 }

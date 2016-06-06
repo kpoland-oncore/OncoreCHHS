@@ -23,7 +23,7 @@
  */
 package com.oncore.chhs.web.utils.helper;
 
-import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
+import com.oncore.chhs.client.dto.locate.FosterFamilyAgency;
 import com.oncore.chhs.web.search.SearchBean;
 
 /**

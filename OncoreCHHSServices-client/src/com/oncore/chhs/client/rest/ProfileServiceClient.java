@@ -29,6 +29,7 @@ import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.web.rest.client.AbstractRestClient;
 import com.oncore.chhs.web.rest.response.InsertResponse;
 import com.oncore.chhs.web.rest.response.SelectResponse;
+import com.oncore.chhs.web.rest.response.UpdateResponse;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -89,12 +90,12 @@ public class ProfileServiceClient extends AbstractRestClient {
 
         CreateOrUpdateProfile newProfile = new CreateOrUpdateProfile();
         newProfile.addProfile(profile);
-        newProfile.setUserUid(user.getUserUid());
+        newProfile.setUserUid(user.getUserUid().intValue());
 
         try {
             response = target.request(MediaType.APPLICATION_JSON_TYPE)
                     .post(Entity.entity(newProfile, MediaType.APPLICATION_JSON),
-                            InsertResponse.class);
+                            new GenericType<InsertResponse<Integer>>(){});
 
             if (response.isErrorOccurred()) {
                 throw new WebServiceException(response.getErrorMessage());
@@ -111,18 +112,18 @@ public class ProfileServiceClient extends AbstractRestClient {
      * @param user The user whose profile needs updating.
      */
     public void updateProfile(Profile profile, User user) {
-        InsertResponse response = null;
+        UpdateResponse response = null;
 
         WebTarget target = this.getTarget(PROFILE_URL).path("Profile").path("update");
 
         CreateOrUpdateProfile updatedProfile = new CreateOrUpdateProfile();
         updatedProfile.addProfile(profile);
-        updatedProfile.setUserUid(user.getUserUid());
+        updatedProfile.setUserUid(user.getUserUid().intValue());
 
         try {
             response = target.request(MediaType.APPLICATION_JSON_TYPE)
                     .post(Entity.entity(updatedProfile, MediaType.APPLICATION_JSON),
-                            InsertResponse.class);
+                            UpdateResponse.class);
 
             if (response.isErrorOccurred()) {
                 throw new WebServiceException(response.getErrorMessage());

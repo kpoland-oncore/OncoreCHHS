@@ -28,6 +28,7 @@ import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.ejb.EJBUtils;
 import com.oncore.chhs.web.rest.response.InsertResponse;
 import com.oncore.chhs.web.rest.response.SelectResponse;
+import com.oncore.chhs.web.rest.response.UpdateResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -89,15 +90,15 @@ public class ProfileService {
     @POST
     @Path( "/create/")
     @Consumes({MediaType.APPLICATION_JSON})
-    public InsertResponse createProfile( CreateOrUpdateProfile newProfile )
+    public InsertResponse<Long> createProfile( CreateOrUpdateProfile newProfile )
     {
-        InsertResponse response = null;
+        InsertResponse<Long> response = null;
         
         try
         {
             this.getEjbProfileService().createProfile(newProfile);
             
-            response = new InsertResponse();
+            response = new InsertResponse(1);
         }
         catch (Throwable t )
         {
@@ -113,22 +114,22 @@ public class ProfileService {
     @POST
     @Path( "/update/")
     @Consumes({MediaType.APPLICATION_JSON})
-    public InsertResponse updateProfile( CreateOrUpdateProfile updatedProfile )
+    public UpdateResponse updateProfile( CreateOrUpdateProfile updatedProfile )
     {
-        InsertResponse response = null;
+        UpdateResponse response = null;
         
         try
         {
             this.getEjbProfileService().updateProfile(updatedProfile);
             
-            response = new InsertResponse();
+            response = new UpdateResponse(1);
         }
         catch (Throwable t )
         {
             String error = "Error updating profile.";
             
             LOGGER.error( error, t);
-            response = new InsertResponse( error, t );
+            response = new UpdateResponse( error, t );
         }
         
         return response;

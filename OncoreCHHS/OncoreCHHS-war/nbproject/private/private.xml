@@ -46,28 +46,16 @@
             <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/AbstractMessageDataManagedBean.java</file>
         </group>
         <group>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/utils/helper/MessagesHelper.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/clients/objects/FosterFamilyAgency/Location.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/conf/persistence.xml</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/profile/ProfileBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/AbstractMessageDataManagedBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/clients/objects/FosterFamilyAgency/FosterFamilyAgency.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/search/SearchDataManagedBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/services/MessagesFacadeREST.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/utils/helper/ProfileHelper.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/MessagesManagedBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/login/LoginDataManagedBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/MessageBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/clients/FosterFamilyAgencyJsonClient.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/facelets/locate/search_table_small.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/search/SearchBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/search/AbstractSearchDataManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/locate.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/base/AbstractBaseManagedBean.java</file>
             <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/utils/helper/SearchHelper.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/messages/MessageDataManagedBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/global/GlobalManagedBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/entities/Messages.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/login/LoginManagedBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/services/EmcTypeCdFacadeREST.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/profile/ProfileDataManagedBean.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/entities/Users.java</file>
-            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/services/UsersFacadeREST.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/facelets/common/coordinates.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/facelets/locate/search_table_large.xhtml</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/src/java/com/oncore/chhs/web/search/SearchDataManagedBean.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/OncoreCHHS-war/web/facelets/templates/common_layout.xhtml</file>
         </group>
     </open-files>
 </project-private>

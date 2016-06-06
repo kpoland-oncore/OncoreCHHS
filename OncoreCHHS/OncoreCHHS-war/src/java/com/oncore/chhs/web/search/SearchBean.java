@@ -54,7 +54,8 @@ public class SearchBean extends BaseBean {
     private String zipForSearch;
     private String zipForSearchError;
     private String calculatedAddress;
-    private String distance;
+    private String distance; 
+    
 
     public void reset() {
         this.setZipForSearchError(StringUtils.EMPTY);

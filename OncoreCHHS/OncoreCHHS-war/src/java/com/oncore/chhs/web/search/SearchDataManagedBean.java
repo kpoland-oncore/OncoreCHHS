@@ -23,8 +23,9 @@
  */
 package com.oncore.chhs.web.search;
 
-import com.oncore.chhs.web.clients.FosterFamilyAgencyJsonClient;
-import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
+import com.oncore.chhs.client.dto.locate.FosterFamilyAgency;
+import com.oncore.chhs.client.rest.LocateServiceClient;
+
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.global.GlobalManagedBean;
 import com.oncore.chhs.web.utils.ErrorUtils;
@@ -78,10 +79,10 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         SearchBean searchBean = null;
 
         try {
-            List<FosterFamilyAgency> fosterFamilyAgencyList = FosterFamilyAgencyJsonClient.getFosterFamilyAgency(zip);
+            List<FosterFamilyAgency> fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgency(zip);
 
-            if (CollectionUtils.isNotEmpty(fosterFamilyAgencyList)) {
-                for (FosterFamilyAgency agency : fosterFamilyAgencyList) {
+            if (CollectionUtils.isNotEmpty(fosterFamilyAgencies)) {
+                for (FosterFamilyAgency agency : fosterFamilyAgencies) {
                     searchBean = SearchHelper.convertFosterFamilyAgencyToSearchBean(agency);
 
                     if ((this.globalManagedBean.getLatitude() != null && this.globalManagedBean.getLongitude() != null
@@ -105,6 +106,37 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         return agencies;
     }
 
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public List<SearchBean> searchArea(Double logitude, Double latitude) throws WebServiceException {
+        List<SearchBean> agencies = new ArrayList<>();
+
+        try {
+            List<FosterFamilyAgency> fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgencyByCircle(logitude, latitude);
+
+            if (CollectionUtils.isNotEmpty(fosterFamilyAgencies)) {
+                for (FosterFamilyAgency agency : fosterFamilyAgencies) {
+                    agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
+                }
+            }
+        } catch (Exception ex) {
+            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+        }
+
+        return agencies;
+    }
+
+    /**
+     *
+     * @return MessagesServiceClient
+     */
+    private LocateServiceClient getLocateServiceClient() {
+
+        return new LocateServiceClient();
+    }
+    
     @Inject
     GlobalManagedBean globalManagedBean;
 }

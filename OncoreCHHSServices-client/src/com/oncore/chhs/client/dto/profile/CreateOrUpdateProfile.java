@@ -29,7 +29,7 @@ package com.oncore.chhs.client.dto.profile;
  */
 public class CreateOrUpdateProfile extends Profile {
 
-    private Long userUid;
+    private Integer userUid;
 
     /**
      * Default constructor - needed for JAX-RS.
@@ -63,14 +63,14 @@ public class CreateOrUpdateProfile extends Profile {
     /**
      * @return the userUid
      */
-    public Long getUserUid() {
+    public Integer getUserUid() {
         return userUid;
     }
 
     /**
      * @param userUid the userUid to set
      */
-    public void setUserUid(Long userUid) {
+    public void setUserUid(Integer userUid) {
         this.userUid = userUid;
     }
 

@@ -23,34 +23,80 @@
  */
 package com.oncore.chhs.client.rest;
 
-import com.oncore.chhs.client.dto.FosterFamilyAgencies;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
+import com.oncore.chhs.client.dto.locate.FosterFamilyAgency;
+import com.oncore.chhs.web.rest.client.AbstractRestClient;
+import java.util.List;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+import javax.xml.ws.WebServiceException;
 
 /**
  *
  * @author oncore
  */
-public class LocateServiceClient {
+public class LocateServiceClient extends AbstractRestClient {
+
+    private static final String LOCATE_SERVICE = "locate.rest.url.json";
 
     /**
+     * Retrieves the licensed foster family agencies by the zip code.
      *
+     * @param zipCode
      *
-     * @param zip
+     * @return Foster Family Agencies
      *
-     * @return
+     * @throws Exception
      */
-    public FosterFamilyAgencies searchFosterFamilyAgency(String zip) {
-        Client client = ClientBuilder.newClient();
+    public List<FosterFamilyAgency> searchFosterFamilyAgency(String zip) {
 
-        WebTarget target = client.target("https://chhs.data.ca.gov/resource/mffa-c6z5.json").
-                queryParam("facility_status", "LICENSED").queryParam("facility_zip", zip);
+        List<FosterFamilyAgency> familyAgencyList = null;
 
-        FosterFamilyAgencies results = target.request(MediaType.APPLICATION_JSON)
-                .get(FosterFamilyAgencies.class);
+        try {
+            WebTarget target = this.getTarget(LOCATE_SERVICE).
+                    queryParam("facility_status", "LICENSED").queryParam("facility_zip", zip);
 
-        return results;
+            familyAgencyList = target.request(MediaType.APPLICATION_JSON)
+                    .get(new GenericType<List<FosterFamilyAgency>>() {
+                    });
+        } catch (Throwable t) {
+            throw new WebServiceException("Unable to retreive foster family agencies for zip " + zip, t);
+        }
+
+        return familyAgencyList;
+    }
+
+    /**
+     * Retrieves the licensed foster family agencies by coordinate of the user.
+     * It will get the agencies in the circle of 15000 meters.
+     *
+     * @param logitude
+     * @param latitude
+     *
+     * @return Foster Family Agencies
+     *
+     * @throws Exception
+     */
+    public List<FosterFamilyAgency> searchFosterFamilyAgencyByCircle(
+            Double logitude, Double latitude) throws Exception {
+        List<FosterFamilyAgency> familyAgencyList = null;
+
+        try {
+            if (logitude != null && latitude != null) {
+
+                String whereQueryParam = "within_circle(location, " + logitude.toString() + "," + latitude.toString() + ", 15000)";
+
+                WebTarget target = this.getTarget(LOCATE_SERVICE).
+                        queryParam("facility_status", "LICENSED").queryParam("$where", whereQueryParam);
+
+                familyAgencyList = target.request(MediaType.APPLICATION_JSON)
+                        .get(new GenericType<List<FosterFamilyAgency>>() {
+                        });
+            }
+
+            return familyAgencyList;
+        } catch (Throwable t) {
+            throw new WebServiceException("Unable to retreive foster family agencies for coodinates " + logitude + "," + latitude, t);
+        }
     }
 }

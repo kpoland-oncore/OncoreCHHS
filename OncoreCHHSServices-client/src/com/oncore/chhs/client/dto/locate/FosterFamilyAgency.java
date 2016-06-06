@@ -21,12 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.web.clients.objects.FosterFamilyAgency;
+package com.oncore.chhs.client.dto.locate;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author oncore
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class FosterFamilyAgency {
 
     private String county_name;
@@ -207,6 +213,19 @@ public class FosterFamilyAgency {
         this.facility_zip = facility_zip;
     }
 
+//    /**
+//     * @return the location
+//     */
+//    public Location getLocation() {
+//        return location;
+//    }
+//
+//    /**
+//     * @param location the location to set
+//     */
+//    public void setLocation(Location location) {
+//        this.location = location;
+//    }
     /**
      * @return the location_address
      */
