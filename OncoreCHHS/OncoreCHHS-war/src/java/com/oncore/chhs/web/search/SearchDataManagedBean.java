@@ -23,17 +23,19 @@
  */
 package com.oncore.chhs.web.search;
 
-import com.oncore.chhs.client.rest.LocateServiceClient;
 import com.oncore.chhs.web.clients.FosterFamilyAgencyJsonClient;
 import com.oncore.chhs.web.clients.objects.FosterFamilyAgency.FosterFamilyAgency;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.global.GlobalManagedBean;
 import com.oncore.chhs.web.utils.ErrorUtils;
+import com.oncore.chhs.web.utils.GpsUtils;
 import com.oncore.chhs.web.utils.helper.SearchHelper;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
@@ -73,22 +75,29 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
     @Override
     public List<SearchBean> search(String zip) throws WebServiceException {
         List<SearchBean> agencies = new ArrayList<>();
+        SearchBean searchBean = null;
+
         try {
             List<FosterFamilyAgency> fosterFamilyAgencyList = FosterFamilyAgencyJsonClient.getFosterFamilyAgency(zip);
 
             if (CollectionUtils.isNotEmpty(fosterFamilyAgencyList)) {
                 for (FosterFamilyAgency agency : fosterFamilyAgencyList) {
-                    agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
+                    searchBean = SearchHelper.convertFosterFamilyAgencyToSearchBean(agency);
+
+                    if ((this.globalManagedBean.getLatitude() != null && this.globalManagedBean.getLongitude() != null
+                            && searchBean.getLatitude() != null && searchBean.getLogitude() != null)
+                            && (this.globalManagedBean.getLatitude() != 0 && this.globalManagedBean.getLongitude() != 0
+                            && searchBean.getLatitude() != 0 && searchBean.getLogitude() != 0)) {
+                        searchBean.setDistance(GpsUtils.calculateDistance(this.globalManagedBean.getLatitude(), this.globalManagedBean.getLongitude(),
+                                searchBean.getLatitude(), searchBean.getLogitude()).toString() + " Miles");
+                    } else {
+                        searchBean.setDistance("Unknown");
+                    }
+
+                    agencies.add(searchBean);
                 }
             }
 
-//            FosterFamilyAgencies fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgency(zip);
-//
-//            if (CollectionUtils.isNotEmpty(fosterFamilyAgencies.getFosterFamilyAgencies())) {
-//                for (FosterFamilyAgency agency : fosterFamilyAgencies.getFosterFamilyAgencies()) {
-//                    agencies.add(SearchHelper.convertFosterFamilyAgencyToSearchBean(agency));
-//                }
-//            }
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
@@ -96,12 +105,6 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         return agencies;
     }
 
-//    /**
-//     *
-//     * @return MessagesServiceClient
-//     */
-//    private LocateServiceClient getLocateServiceClient() {
-//
-//        return new LocateServiceClient();
-//    }
+    @Inject
+    GlobalManagedBean globalManagedBean;
 }
