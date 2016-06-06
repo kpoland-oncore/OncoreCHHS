@@ -25,18 +25,12 @@ package com.oncore.chhs.web.messages;
 
 import com.oncore.chhs.client.dto.AllMessages;
 import com.oncore.chhs.client.dto.Message;
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.client.rest.MessagesServiceClient;
-import com.oncore.chhs.web.entities.Messages;
-import com.oncore.chhs.web.entities.Users;
-import com.oncore.chhs.web.services.MessagesFacadeREST;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.mockito.ArgumentCaptor;
 import static org.mockito.Mockito.*;
 
 /**
@@ -81,8 +75,15 @@ public class MessageDataManagedBeanTest {
         MessageDataManagedBean instance = spy(new MessageDataManagedBean());
         when(instance.getMessagesServiceClient()).thenReturn(mockService);
 
-        //TODO: rewrite for new REST API
-        //instance.sendMessage(message, users);
-        fail("new REST API still needs to be implemented");
+        MessageBean messageBean = new MessageBean();
+        messageBean.setFrom("from");
+        messageBean.setTo("to");
+        messageBean.setMessage("message");
+        
+        User user = new User();
+        user.setUserUid(1L);
+        
+        instance.sendMessage(messageBean, user);
+        verify( mockService ).sendMessage("from", "to", "message", 1 );
     }
 }

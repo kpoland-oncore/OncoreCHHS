@@ -23,6 +23,7 @@
  */
 package com.oncore.chhs.web.profile;
 
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.client.rest.ProfileServiceClient;
 import com.oncore.chhs.web.entities.Address;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.mockito.ArgumentCaptor;
 import static org.mockito.Mockito.*;
 
 /**
@@ -80,13 +82,20 @@ public class ProfileDataManagedBeanTest {
     public void testCreateProfile() throws Exception {
 
         ProfileServiceClient mockService = mock(ProfileServiceClient.class);
-        //when(mockService()).thenReturn(expected);
 
         ProfileDataManagedBean instance = spy(new ProfileDataManagedBean());
         when(instance.getProfileServiceClient()).thenReturn(mockService);
 
-        fail("new REST API still needs to be implemented.");
-
+        User user = new User();
+        
+        ProfileBean profileBean = new ProfileBean();
+        
+        ArgumentCaptor<Profile> profileCaptor = ArgumentCaptor.forClass(Profile.class);
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        
+        instance.createProfile(profileBean, user );
+        
+        verify( mockService ).createProfile(profileCaptor.capture(), userCaptor.capture());
     }
 
     /**
@@ -98,12 +107,36 @@ public class ProfileDataManagedBeanTest {
     public void testUpdateProfile() throws Exception {
 
         ProfileServiceClient mockService = mock(ProfileServiceClient.class);
-        //when(mockService()).thenReturn(expected);
 
         ProfileDataManagedBean instance = spy(new ProfileDataManagedBean());
         when(instance.getProfileServiceClient()).thenReturn(mockService);
 
-        fail("new REST API still needs to be implemented.");
+        User user = new User();
+        user.setUserUid(1L);
+        
+        ProfileBean profileBean = new ProfileBean();
+        profileBean.setFirstName("firstName");
+        profileBean.setAddressLine1("line1");
+        profileBean.setEmail("email");
+        profileBean.setPhone("phone");
+        profileBean.setPhoneType("phoneType");
+        
+        ArgumentCaptor<Profile> profileCaptor = ArgumentCaptor.forClass(Profile.class);
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
+        
+        instance.updateProfile(profileBean, user );
+        
+        verify( mockService ).updateProfile(profileCaptor.capture(), userCaptor.capture());
+        
+        Profile actualProfile = profileCaptor.getValue();
+        assertEquals( "firstName", actualProfile.getFirstName() );
+        assertEquals( "line1", actualProfile.getAddressLine1() );
+        assertEquals( "email", actualProfile.getEmail());
+        assertEquals( "phone", actualProfile.getPhone() );
+        assertEquals( "phoneType", actualProfile.getPhoneType() );
+        
+        User actualUser = userCaptor.getValue();
+        assertEquals( (Long)1L, actualUser.getUserUid() );
 
     }
 

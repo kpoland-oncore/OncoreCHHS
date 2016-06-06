@@ -50,6 +50,10 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
     public User createUser(ProfileBean profileBean) throws WebServiceException {
 
         User user = new User();
+        user.setFirstName(profileBean.getFirstName());
+        user.setMiddleName(profileBean.getMiddleName());
+        user.setLastName(profileBean.getLastName());
+        user.setUserName(profileBean.getUserName());
 
         try {
             user = this.getUsersServiceClient().createUser(user);
@@ -101,7 +105,7 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
      *
      * @return UsersServiceClient
      */
-    private UsersServiceClient getUsersServiceClient() {
+    UsersServiceClient getUsersServiceClient() {
 
         return new UsersServiceClient();
     }

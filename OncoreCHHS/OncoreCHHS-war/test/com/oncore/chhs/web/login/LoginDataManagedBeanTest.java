@@ -25,10 +25,7 @@ package com.oncore.chhs.web.login;
 
 import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.client.rest.UsersServiceClient;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.profile.ProfileBean;
-import com.oncore.chhs.web.services.UsersFacadeREST;
-import java.lang.reflect.Method;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -55,49 +52,25 @@ public class LoginDataManagedBeanTest {
         profile.setMiddleName("middleName");
         profile.setUserName("userName");
 
-        //all these fields should be ignored by this method - 
-        //they are handled by other services.
-        profile.setAddressLine1("ignore");
-        profile.setAddressLine2("ignore");
-        profile.setCity("ignore");
-        profile.setEmail("ignore");
-        profile.setPhone("ignore");
-        profile.setPhoneType("ignore");
-        profile.setState("ignore");
-        profile.setZip("ignore");
+        UsersServiceClient mockService = mock(UsersServiceClient.class);
 
-        LoginDataManagedBean instance = new LoginDataManagedBean();
+        LoginDataManagedBean instance = spy(new LoginDataManagedBean());
+        when(instance.getUsersServiceClient()).thenReturn(mockService);
 
-//        UsersFacadeREST mockREST = mock(UsersFacadeREST.class);
-//        instance.setUsersFacadeREST(mockREST);
-//        instance.createUser(profile);
+        ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
 
-        ArgumentCaptor<Users> actual = ArgumentCaptor.forClass(Users.class);
-//        verify(mockREST).create(actual.capture());
+        instance.createUser(profile);
+
+        verify(mockService).createUser(userCaptor.capture());
+
+        User actual = userCaptor.getValue();
 
         //the chosen username should get populated into all these fields
-        assertEquals("userName", actual.getValue().getUsrUserId());
-        assertEquals("userName", actual.getValue().getCreateUserId());
-        assertEquals("userName", actual.getValue().getUpdateUserId());
+        assertEquals("userName", actual.getUserName());
+        assertEquals("firstName", actual.getFirstName());
+        assertEquals("middleName", actual.getMiddleName());
+        assertEquals("lastName", actual.getLastName());
 
-        //timestamps should be populated
-        assertNotNull(actual.getValue().getCreateTs());
-        assertNotNull(actual.getValue().getUpdateTs());
-
-        //other name fields should be populated
-        assertEquals("firstName", actual.getValue().getUsrFirstname());
-        assertEquals("middleName", actual.getValue().getUsrMiddlename());
-        assertEquals("lastName", actual.getValue().getUsrLastname());
-
-        //ensure no ignored fields were updated on the Users object
-        Method[] methods = Users.class.getDeclaredMethods();
-        for (Method method : methods) {
-            if (String.class.equals(method.getReturnType())) {
-                String result = (String) method.invoke(actual.getValue(), (Object[]) null);
-                assertFalse(method.getName() + " should not be populated with any value",
-                        result.equals("ignore"));
-            }
-        }
     }
 
     /**
@@ -114,13 +87,12 @@ public class LoginDataManagedBeanTest {
 
         User expected = new User();
         expected.setUserName("userName");
-        
+
         UsersServiceClient mockService = mock(UsersServiceClient.class);
-        when( mockService.authenticateUser("userName")).thenReturn(expected);
-        
+        when(mockService.authenticateUser("userName")).thenReturn(expected);
+
 //        LoginDataManagedBean instance = spy(new LoginDataManagedBean());
 //        when(instance.getUsersServiceClient()).thenReturn(mockService);
-
 //        User answer = instance.authenticateUser(login);
 //        assertEquals(expected, answer);
     }
@@ -136,10 +108,10 @@ public class LoginDataManagedBeanTest {
 
         LoginBean login = new LoginBean();
         login.setUserName("userName");
-        
+
         UsersServiceClient mockService = mock(UsersServiceClient.class);
-        when( mockService.authenticateUser("userName")).thenReturn(null);
-        
+        when(mockService.authenticateUser("userName")).thenReturn(null);
+
 //        LoginDataManagedBean instance = spy(new LoginDataManagedBean());
 //        when(instance.getUsersServiceClient()).thenReturn(mockService);
 //
