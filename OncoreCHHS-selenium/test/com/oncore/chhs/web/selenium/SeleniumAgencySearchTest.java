@@ -43,10 +43,10 @@ public class SeleniumAgencySearchTest {
 	@Test
 	public void testSeleniumAgencySearch() throws Exception {
 		selenium.open("/OncoreCHHS-war/");
-		//selenium.click("link=Locate Services");
+		selenium.click("link=Locate Services");
 		selenium.waitForPageToLoad("30000");
-		//selenium.click("id=chssForm:searchBtn");
-		//selenium.waitForPageToLoad("30000");
+		selenium.click("id=chssForm:searchBtn");
+		selenium.waitForPageToLoad("30000");
 	}
 
 	@After
