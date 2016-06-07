@@ -31,7 +31,7 @@
                 <h:outputText value="#{searchBean.facilityName}" />
             </p:column>
 
- 
+
 
             <p:column sortBy="#{searchBean.calculatedAddress}"
                       style=" text-align: left;">
@@ -40,15 +40,17 @@
                 </f:facet>
                 <h:outputText value="#{searchBean.calculatedAddress}" />
             </p:column>
-            
-              <p:column sortBy="#{searchBean.distance}"
+
+
+            <!-- EXPERIMENTAL GPS ENHANCEMENT -->
+<!--              <p:column sortBy="#{searchBean.distance}"
                       style="text-align: left;">
                 <f:facet name="header">
                     <h:outputText value="&nbsp;&nbsp;Distance" />
                 </f:facet>
                 <h:outputText value="#{searchBean.distance}" />
-            </p:column>
- 
+            </p:column>-->
+
 
         </p:dataTable>
 

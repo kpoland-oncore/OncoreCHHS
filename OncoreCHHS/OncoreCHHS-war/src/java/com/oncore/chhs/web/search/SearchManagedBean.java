@@ -52,26 +52,13 @@ public class SearchManagedBean extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing SearchManagedBean: " + this.getClass().hashCode());
-         try {
-            this.setSearchBeanList(this.searchDataManagedBean.searchArea(this.globalManagedBean.getLongitude(), this.globalManagedBean.getLatitude()));
-            if (CollectionUtils.isEmpty(this.getSearchBeanList())) {
-                FacesUtilities.createPageLevelCustomError(FacesContext.getCurrentInstance(), "No facilities were found close to your location.");
-            }
 
-        } catch (WebServiceException wx) {
-            LOG.error(wx);
-            FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
-        }
     }
 
     @Override
     @PreDestroy
     public void destroy() {
         LOG.debug("Destroying SearchManagedBean: " + this.getClass().hashCode());
-    }
-
-    private void load() {
-       
     }
 
     /**
