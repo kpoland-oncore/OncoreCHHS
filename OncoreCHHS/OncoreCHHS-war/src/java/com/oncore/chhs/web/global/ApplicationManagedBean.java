@@ -23,10 +23,10 @@
  */
 package com.oncore.chhs.web.global;
 
+import com.oncore.chhs.client.referencedata.ContactTypeCode;
+import com.oncore.chhs.client.referencedata.StateCode;
 import com.oncore.chhs.web.base.BaseManagedBean;
-import com.oncore.chhs.web.entities.AdrStateCd;
-import com.oncore.chhs.web.entities.EmcTypeCd;
-import com.oncore.chhs.web.exceptions.WebServiceException;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -68,13 +68,12 @@ public class ApplicationManagedBean extends BaseManagedBean {
 
     private void loadStates() {
 
-        List<AdrStateCd> stateCodes = null;
+        List<StateCode> stateCodes = null;
         SelectItem item = null;
 
         try {
 
-            stateCodes = this.referenceDataManagedBean.fetchStateCodes();
-
+//            stateCodes = this.referenceDataManagedBean.fetchStateCodes();
             if (CollectionUtils.isNotEmpty(stateCodes)) {
                 item = new SelectItem();
                 item.setValue("Select");
@@ -83,20 +82,19 @@ public class ApplicationManagedBean extends BaseManagedBean {
                 this.states.add(item);
 
                 int i = 0;
-                
-                for (AdrStateCd state : stateCodes) {
-                    if(i<5)
-                    {
-                    item = new SelectItem();
-                    item.setValue(state.getCode());
-                    item.setLabel(state.getLongDesc());
-                    item.setDescription(state.getLongDesc());
-                    this.states.add(item);
-                    i++;
+
+                for (StateCode state : stateCodes) {
+                    if (i < 5) {
+                        item = new SelectItem();
+                        item.setValue(state.getStateCd());
+                        item.setLabel(state.getLongDescription());
+                        item.setDescription(state.getLongDescription());
+                        this.states.add(item);
+                        i++;
                     }
                 }
             }
-        } catch (WebServiceException wx) {
+        } catch (Exception wx) {
             LOG.error(wx);
         }
 
@@ -104,11 +102,11 @@ public class ApplicationManagedBean extends BaseManagedBean {
 
     private void loadContacts() {
 
-        List<EmcTypeCd> contactCodes = null;
+        List<ContactTypeCode> contactCodes = null;
         SelectItem item = null;
 
         try {
-            contactCodes = this.referenceDataManagedBean.fetchContactCodes();
+//            contactCodes = this.referenceDataManagedBean.fetchContactCodes();
 
             if (CollectionUtils.isNotEmpty(contactCodes)) {
                 item = new SelectItem();
@@ -117,15 +115,15 @@ public class ApplicationManagedBean extends BaseManagedBean {
                 item.setDescription("<Select>");
                 this.contactTypes.add(item);
 
-                for (EmcTypeCd contact : contactCodes) {
+                for (ContactTypeCode contact : contactCodes) {
                     item = new SelectItem();
-                    item.setValue(contact.getCode());
-                    item.setLabel(contact.getLongDesc());
-                    item.setDescription(contact.getLongDesc());
+                    item.setValue(contact.getContactTypeCd());
+                    item.setLabel(contact.getLongDescription());
+                    item.setDescription(contact.getLongDescription());
                     this.contactTypes.add(item);
                 }
             }
-        } catch (WebServiceException wx) {
+        } catch (Exception wx) {
             LOG.error(wx);
         }
 

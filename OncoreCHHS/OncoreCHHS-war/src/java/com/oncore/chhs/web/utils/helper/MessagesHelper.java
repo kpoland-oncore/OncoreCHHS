@@ -25,12 +25,9 @@ package com.oncore.chhs.web.utils.helper;
 
 import com.oncore.chhs.client.dto.AllMessages;
 import com.oncore.chhs.client.dto.Message;
-import com.oncore.chhs.web.entities.Messages;
 import com.oncore.chhs.web.messages.MessageBean;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import org.apache.commons.collections4.CollectionUtils;
 
 /**

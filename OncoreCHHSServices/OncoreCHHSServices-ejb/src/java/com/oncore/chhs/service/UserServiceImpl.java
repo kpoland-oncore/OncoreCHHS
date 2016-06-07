@@ -35,8 +35,10 @@ import com.oncore.chhs.persistence.entity.Users;
 import com.oncore.chhs.persistence.entity.Users_;
 import com.oncore.chhs.service.converter.UsersToUserDTOConverter;
 import com.oncore.chhs.client.ejb.UserService;
+import com.oncore.chhs.ejb.BusinessServiceInterceptor;
 import com.oncore.chhs.persistence.dao.criteria.pagination.PaginatedResult;
 import java.util.Date;
+import javax.interceptor.Interceptors;
 
 /**
  *
@@ -44,6 +46,7 @@ import java.util.Date;
  */
 @Stateless
 @Remote(UserService.class)
+@Interceptors({BusinessServiceInterceptor.class})
 public class UserServiceImpl implements UserService {
 
     @EJB

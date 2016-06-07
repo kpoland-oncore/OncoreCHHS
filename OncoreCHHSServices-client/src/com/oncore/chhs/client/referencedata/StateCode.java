@@ -21,32 +21,42 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.oncore.chhs.web.global;
-
-import com.oncore.chhs.web.exceptions.WebServiceException;
-import com.oncore.chhs.web.base.AbstractBaseManagedBean;
-import java.util.List;
+package com.oncore.chhs.client.referencedata;
 
 /**
  *
  * @author oncore
  */
-public interface AbstractReferenceDataManagedBean extends AbstractBaseManagedBean {
+public class StateCode {
+
+    private String stateCd;
+    private String longDescription;
 
     /**
-     * The <code>fetchStateCodes</code> method fetches state records
-     *
-     * @throws WebServiceException
-     * @return a populated List of state codes
+     * @return the stateCd
      */
-    public List<String> fetchStateCodes() throws WebServiceException;
+    public String getStateCd() {
+        return stateCd;
+    }
 
     /**
-     * The <code>fetchContactCodes</code> method fetches contact records
-     *
-     * @throws WebServiceException
-     * @return a populated list of contact codes
+     * @param stateCd the stateCd to set
      */
-    public List<String> fetchContactCodes() throws WebServiceException;
+    public void setStateCd(String stateCd) {
+        this.stateCd = stateCd;
+    }
 
+    /**
+     * @return the longDescription
+     */
+    public String getLongDescription() {
+        return longDescription;
+    }
+
+    /**
+     * @param longDescription the longDescription to set
+     */
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
 }

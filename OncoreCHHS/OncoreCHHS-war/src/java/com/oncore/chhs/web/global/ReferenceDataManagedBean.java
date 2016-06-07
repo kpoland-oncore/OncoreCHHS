@@ -23,17 +23,12 @@
  */
 package com.oncore.chhs.web.global;
 
-import com.oncore.chhs.web.entities.AdrStateCd;
-import com.oncore.chhs.web.entities.EmcTypeCd;
 import com.oncore.chhs.web.exceptions.WebServiceException;
-import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
-import com.oncore.chhs.web.services.EmcTypeCdFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import org.apache.logging.log4j.LogManager;
@@ -47,69 +42,33 @@ import org.apache.logging.log4j.Logger;
 @RequestScoped
 public class ReferenceDataManagedBean implements AbstractReferenceDataManagedBean {
 
-    @EJB
-    private AdrStateCdFacadeREST adrStateCdFacadeREST;
-
-    @EJB
-    private EmcTypeCdFacadeREST emcTypeCdFacadeREST;
-
-//     @Override
-//    public Users createUser(ProfileBean profileBean) throws WebServiceException {
-//        
-//        Users users = new Users();
-//        
-//        try {
-//            
-//            users.setCreateUserId(profileBean.getUserName());
-//            users.setCreateTs(new Date());
-//            users.setUpdateUserId(profileBean.getUserName());
-//            users.setUpdateTs(new Date());
-//            users.setUsrFirstname(profileBean.getFirstName());
-//            users.setUsrMiddlename(profileBean.getMiddleName());
-//            users.setUsrLastname(profileBean.getLastName());
-//            users.setUsrUserId(profileBean.getUserName());
-//            
-//            usersFacadeREST.create(users);
-//            
-//        } catch (Exception ex) {
-//            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
-//        }
-//
-//        return users;
-//    }
-//    
-//    
-//    @Override
-//    public Users authenticateUser(LoginBean loginBean) throws WebServiceException {
-//
-//        Users users = null;
-//
-//        try {
-//            users = usersFacadeREST.findByUserId(loginBean.getUserName());
-//        } catch (Exception ex) {
-//            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
-//        }
-//
-//        return users;
-//    }
+    /**
+     * {@inheritDoc }
+     */
     @Override
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing ReferenceDataManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     @PreDestroy
     public void destroy() {
         LOG.debug("Destroying ReferenceDataManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
-    public List<AdrStateCd> fetchStateCodes() throws WebServiceException {
-        List<AdrStateCd> stateCodes = new ArrayList<>(1);
+    public List<String> fetchStateCodes() throws WebServiceException {
+        List<String> stateCodes = new ArrayList<>(1);
 
         try {
-            stateCodes = this.adrStateCdFacadeREST.findAll();
+//            stateCodes = this.adrStateCdREST.findAll();
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
@@ -117,12 +76,15 @@ public class ReferenceDataManagedBean implements AbstractReferenceDataManagedBea
         return stateCodes;
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
-    public List<EmcTypeCd> fetchContactCodes() throws WebServiceException {
-        List<EmcTypeCd> contactCodes = new ArrayList<>(1);
+    public List<String> fetchContactCodes() throws WebServiceException {
+        List<String> contactCodes = new ArrayList<>(1);
 
         try {
-            contactCodes = this.emcTypeCdFacadeREST.findAll();
+//            contactCodes = this.emcTypeCdREST.findAll();
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
         }
@@ -131,5 +93,4 @@ public class ReferenceDataManagedBean implements AbstractReferenceDataManagedBea
     }
 
     private final Logger LOG = LogManager.getLogger(ReferenceDataManagedBean.class);
-
 }

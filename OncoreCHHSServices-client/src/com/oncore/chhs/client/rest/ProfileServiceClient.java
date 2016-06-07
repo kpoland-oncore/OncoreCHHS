@@ -95,7 +95,8 @@ public class ProfileServiceClient extends AbstractRestClient {
         try {
             response = target.request(MediaType.APPLICATION_JSON_TYPE)
                     .post(Entity.entity(newProfile, MediaType.APPLICATION_JSON),
-                            new GenericType<InsertResponse<Integer>>(){});
+                            new GenericType<InsertResponse<Integer>>() {
+                    });
 
             if (response.isErrorOccurred()) {
                 throw new WebServiceException(response.getErrorMessage());
