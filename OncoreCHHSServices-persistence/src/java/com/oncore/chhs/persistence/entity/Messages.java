@@ -63,7 +63,7 @@ public class Messages implements Serializable {
     @Size(max = 45)
     @Column(name = "MSG_TO")
     private String msgTo;
-    @Size(max = 45)
+    @Size(max = 2048)
     @Column(name = "MSG_TEXT")
     private String msgText;
     @Basic(optional = false)
@@ -225,5 +225,5 @@ public class Messages implements Serializable {
     public String toString() {
         return "com.oncore.chhs.persistence.entity.Messages[ msgUid=" + msgUid + " ]";
     }
-    
+
 }

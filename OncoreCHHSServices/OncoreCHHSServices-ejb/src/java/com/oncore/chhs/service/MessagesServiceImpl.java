@@ -54,13 +54,13 @@ import org.apache.commons.collections4.CollectionUtils;
 @Remote(MessagesService.class)
 @Interceptors({BusinessServiceInterceptor.class})
 public class MessagesServiceImpl implements MessagesService {
-    
-    public static List<String> MESSAGES_RESPONSE = Arrays.asList("Thank you for your question.",
+
+    public static List<String> MESSAGES_RESPONSE = Arrays.asList(
             "Thank you for your question. We will get back to you within 5 business days.");
-    
+
     @EJB
     private UserDAO userDAO;
-    
+
     @EJB
     private MessagesDAO messagesDAO;
 
@@ -69,7 +69,7 @@ public class MessagesServiceImpl implements MessagesService {
      */
     @Override
     public void sendMessage(String from, String to, String messageTxt, Integer userUid) {
-        
+
         Users users = this.userDAO.findById(userUid);
         this.createMessages(from, to, messageTxt, false, users);
         this.createMessages(to, from, this.getRandomResponse(), true, users);
@@ -81,21 +81,21 @@ public class MessagesServiceImpl implements MessagesService {
     @Override
     public AllMessages getAllMessages(Integer userUid) {
         AllMessages allMessages = new AllMessages();
-        
+
         Users users = this.userDAO.findById(userUid);
-        
+
         List<Message> inboundMsgs = this.getInbounds(users.getMessagesSet());
-        
+
         if (CollectionUtils.isNotEmpty(inboundMsgs)) {
             allMessages.getInboundMessages().addAll(inboundMsgs);
         }
-        
+
         List<Message> outboundMsgs = this.getOutbounds(users.getMessagesSet());
-        
+
         if (CollectionUtils.isNotEmpty(outboundMsgs)) {
             allMessages.getOutboundMessages().addAll(outboundMsgs);
         }
-        
+
         return allMessages;
     }
 
@@ -107,7 +107,7 @@ public class MessagesServiceImpl implements MessagesService {
     private String getRandomResponse() {
         Random randomGenerator = new Random();
         int index = randomGenerator.nextInt(MESSAGES_RESPONSE.size());
-        
+
         return MESSAGES_RESPONSE.get(index);
     }
 
@@ -123,7 +123,7 @@ public class MessagesServiceImpl implements MessagesService {
      */
     private void createMessages(String from, String to, String messageTxt, boolean isInbound, Users users) {
         Messages messages = new Messages();
-        
+
         messages.setMsgFrom(from);
         messages.setMsgTo(to);
         messages.setMsgText(messageTxt);
@@ -134,13 +134,13 @@ public class MessagesServiceImpl implements MessagesService {
         messages.setCreateUserId(MessagesHelper.getFormattedName(users));
         messages.setUpdateTs(new Date());
         messages.setUpdateUserId(MessagesHelper.getFormattedName(users));
-        
+
         if (null == users.getMessagesSet()) {
             users.setMessagesSet(new HashSet<>());
         }
-        
+
         Messages createdMessages = this.messagesDAO.create(messages);
-        
+
         users.getMessagesSet().add(createdMessages);
     }
 
@@ -153,7 +153,7 @@ public class MessagesServiceImpl implements MessagesService {
      */
     private List<Message> getInbounds(Set<Messages> msgs) {
         List<Message> msgBeans = new ArrayList<>();
-        
+
         if (CollectionUtils.isNotEmpty(msgs)) {
             for (Messages msg : msgs) {
                 if (msg.getMsgToUserInd()) {
@@ -161,7 +161,7 @@ public class MessagesServiceImpl implements MessagesService {
                 }
             }
         }
-        
+
         return msgBeans;
     }
 
@@ -174,7 +174,7 @@ public class MessagesServiceImpl implements MessagesService {
      */
     private List<Message> getOutbounds(Set<Messages> msgs) {
         List<Message> msgBeans = new ArrayList<>();
-        
+
         if (CollectionUtils.isNotEmpty(msgs)) {
             for (Messages msg : msgs) {
                 if (!msg.getMsgToUserInd()) {
@@ -182,7 +182,7 @@ public class MessagesServiceImpl implements MessagesService {
                 }
             }
         }
-        
+
         return msgBeans;
     }
 }
