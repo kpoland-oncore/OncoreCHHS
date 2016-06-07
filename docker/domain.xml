@@ -659,6 +659,7 @@
   </secure-admin>
   <clusters></clusters>
   <applications>
+  <!--
     <application context-root="/OncoreCHHS-war" object-type="user" name="OncoreCHHS" directory-deployed="true" location="file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHS/dist/gfdeploy/OncoreCHHS/">
       <property name="archiveType" value="ear"></property>
       <property name="isComposite" value="true"></property>
@@ -675,5 +676,6 @@
       </module>
       <engine sniffer="ear"></engine>
     </application>
+    -->
   </applications>
 </domain>

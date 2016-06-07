@@ -3,8 +3,9 @@ MAINTAINER kpoland kyle.poland@oncorellc.com
 
 RUN apt-get -qq update && \
     apt-get install -qqy less --no-install-recommends && \
-    apt-get install -qqy vim --no-install-recommends
-RUN echo "set -o vi" >> /etc/bash.bashrc
+    apt-get install -qqy vim --no-install-recommends && \
+    apt-get install -qqy mysql-client --no-install-recommends
+RUN echo "set -o vi" >> /root/.bashrc
 
 # one lib and one module into glassfish in the container
 COPY libs/mysql-connector-java-5.1.39/mysql-connector-java-5.1.39-bin.jar /usr/local/glassfish4/glassfish/lib/
