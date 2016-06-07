@@ -4,6 +4,7 @@ MAINTAINER kpoland kyle.poland@oncorellc.com
 RUN apt-get -qq update && \
     apt-get install -qqy less --no-install-recommends && \
     apt-get install -qqy vim --no-install-recommends
+RUN echo "set -o vi" >> /etc/bash.bashrc
 
 # one lib and one module into glassfish in the container
 COPY libs/mysql-connector-java-5.1.39/mysql-connector-java-5.1.39-bin.jar /usr/local/glassfish4/glassfish/lib/
@@ -29,8 +30,7 @@ COPY docker/domain.xml /usr/local/glassfish4/glassfish/domains/domain1/config/
 # entrypoint start script that starts glassfish, installs the EAR, stops glassfish, then starts glassfish
 COPY docker/start_glassfish.sh /
 # make sure it has unix line endings and is executable
-RUN /bin/sed -i -e 's/\r$//' /start_glassfish.sh
-RUN /bin/chmod +x /start_glassfish.sh
+RUN /bin/sed -i -e 's/\r$//' /start_glassfish.sh && /bin/chmod +x /start_glassfish.sh
 
 # copy built EARs into the container
 COPY OncoreCHHS/dist/OncoreCHHS.ear /
