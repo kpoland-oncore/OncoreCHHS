@@ -36,7 +36,7 @@ import javax.xml.ws.WebServiceException;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class MessagesServiceClient extends AbstractRestClient {
 

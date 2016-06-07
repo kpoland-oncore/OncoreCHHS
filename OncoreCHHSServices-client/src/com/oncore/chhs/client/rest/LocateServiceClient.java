@@ -33,7 +33,7 @@ import javax.xml.ws.WebServiceException;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class LocateServiceClient extends AbstractRestClient {
 

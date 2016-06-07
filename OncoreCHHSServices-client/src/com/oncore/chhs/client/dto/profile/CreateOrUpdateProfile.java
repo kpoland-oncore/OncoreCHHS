@@ -25,7 +25,7 @@ package com.oncore.chhs.client.dto.profile;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class CreateOrUpdateProfile extends Profile {
 

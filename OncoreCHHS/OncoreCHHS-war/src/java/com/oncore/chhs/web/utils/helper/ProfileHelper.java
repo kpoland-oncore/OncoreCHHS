@@ -33,7 +33,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * Utilities class to support Profile.
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class ProfileHelper {
 

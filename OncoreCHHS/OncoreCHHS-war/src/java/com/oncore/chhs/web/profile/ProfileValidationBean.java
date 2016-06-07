@@ -39,7 +39,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("profileValidationBean")
 @RequestScoped
@@ -57,6 +57,16 @@ public class ProfileValidationBean extends BaseValidationBean {
         LOG.debug("Destroying LoginValidationBean: " + this.getClass().hashCode());
     }
 
+    /**
+     * The </code>validateName</code> method validates the contents of a name
+     * field.
+     *
+     * @param name the value of the input field
+     * @param isRequired true if the field is required, false otherwise
+     * @param componentId the identifier assigned to the JSF component
+     * @return null if there is no error, a populated error message if there is
+     * an error detected
+     */
     public String validateName(String name, Boolean isRequired, String componentId) {
         String error = null;
 
@@ -71,6 +81,16 @@ public class ProfileValidationBean extends BaseValidationBean {
         return error;
     }
 
+    /**
+     * The </code>validateAddressData</code> method validates the contents of an
+     * address field.
+     *
+     * @param value the value of the inputTextArea
+     * @param isRequired true if the field is required, false otherwise
+     * @param componentId the identifier assigned to the JSF component
+     * @return null if there is no error, a populated error message if there is
+     * an error detected
+     */
     public String validateAddressData(String value, Boolean isRequired, String componentId) {
         String error = null;
 
@@ -85,6 +105,15 @@ public class ProfileValidationBean extends BaseValidationBean {
         return error;
     }
 
+    /**
+     * The </code>validateEmailAddress</code> method validates the contents of
+     * an email field.
+     *
+     * @param value the value of the inputTextArea
+     * @param componentId the identifier assigned to the JSF component
+     * @return null if there is no error, a populated error message if there is
+     * an error detected
+     */
     public String validateEmailAddress(String value, String componentId) {
         String error = null;
 

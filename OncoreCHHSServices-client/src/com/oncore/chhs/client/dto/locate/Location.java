@@ -25,7 +25,7 @@ package com.oncore.chhs.client.dto.locate;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class Location {
 

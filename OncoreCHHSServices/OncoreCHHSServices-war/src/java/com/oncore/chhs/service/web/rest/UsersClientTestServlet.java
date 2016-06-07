@@ -35,7 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @WebServlet(name = "UsersClientTestServlet", loadOnStartup = 1)
 public class UsersClientTestServlet extends HttpServlet {

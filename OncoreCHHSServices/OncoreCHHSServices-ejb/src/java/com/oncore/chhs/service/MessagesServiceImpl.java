@@ -48,7 +48,7 @@ import org.apache.commons.collections4.CollectionUtils;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Stateless
 @Remote(MessagesService.class)

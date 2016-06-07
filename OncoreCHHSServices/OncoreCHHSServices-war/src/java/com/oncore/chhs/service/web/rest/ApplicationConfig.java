@@ -28,7 +28,7 @@ import javax.ws.rs.core.Application;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @javax.ws.rs.ApplicationPath("rest")
 public class ApplicationConfig extends Application {

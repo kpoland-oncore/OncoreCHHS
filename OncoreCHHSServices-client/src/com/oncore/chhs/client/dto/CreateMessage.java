@@ -7,7 +7,7 @@ package com.oncore.chhs.client.dto;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class CreateMessage extends Message {
 

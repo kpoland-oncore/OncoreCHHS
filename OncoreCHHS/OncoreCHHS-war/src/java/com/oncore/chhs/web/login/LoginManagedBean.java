@@ -28,7 +28,6 @@ import com.oncore.chhs.web.utils.FacesUtilities;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.global.GlobalManagedBean;
-import com.oncore.chhs.web.navigation.NavigationManagedBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
@@ -40,7 +39,7 @@ import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("loginManagedBean")
 @ViewScoped

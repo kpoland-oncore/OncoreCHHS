@@ -36,7 +36,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("messageValidationBean")
 @RequestScoped
@@ -54,6 +54,16 @@ public class MessageValidationBean extends BaseValidationBean {
         LOG.debug("Destroying MessageValidationBean: " + this.getClass().hashCode());
     }
 
+    /**
+     * The </code>validateTextArea</code> method validates the contents of an
+     * inputTextArea.
+     *
+     * @param value the value of the inputTextArea
+     * @param isRequired true if the field is required, false otherwise
+     * @param componentId the identifier assigned to the JSF component
+     * @return null if there is no error, a populated error message if there is
+     * an error detected
+     */
     public String validateTextArea(String value, Boolean isRequired, String componentId) {
         String error = null;
 

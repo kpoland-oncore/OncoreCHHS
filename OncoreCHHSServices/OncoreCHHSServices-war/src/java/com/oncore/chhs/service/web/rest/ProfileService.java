@@ -44,7 +44,7 @@ import org.apache.log4j.Logger;
 /**
  * This class provides RESTful services for Profile functionality.
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Provider
 @Path("Profile")

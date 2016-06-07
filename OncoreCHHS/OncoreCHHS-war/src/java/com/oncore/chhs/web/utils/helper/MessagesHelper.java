@@ -32,16 +32,17 @@ import org.apache.commons.collections4.CollectionUtils;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class MessagesHelper {
 
     /**
+     * The getInbouds method uses the data fetched from the underlying datastore
+     * for a user and iterates through it preparing a list of messages for
+     * return to the UI level.
      *
-     *
-     * @param msgs
-     *
-     * @return
+     * @param allMsgs an AllMessages object containing
+     * @return a populated List of messages
      */
     public static List<MessageBean> getInbounds(AllMessages allMsgs) {
         List<MessageBean> msgBeans = new ArrayList<>();
@@ -56,11 +57,12 @@ public class MessagesHelper {
     }
 
     /**
+     * The getOutbounds method uses the data fetched from the underlying
+     * datastore for a user and iterates through it preparing a list of messages
+     * for return to the UI level.
      *
-     *
-     * @param msgs
-     *
-     * @return
+     * @param allMsgs an AllMessages object containing
+     * @return a populated List of messages
      */
     public static List<MessageBean> getOutbounds(AllMessages allMsgs) {
         List<MessageBean> msgBeans = new ArrayList<>();

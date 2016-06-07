@@ -36,7 +36,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("referenceDataManagedBean")
 @RequestScoped
@@ -68,6 +68,7 @@ public class ReferenceDataManagedBean implements AbstractReferenceDataManagedBea
         List<String> stateCodes = new ArrayList<>(1);
 
         try {
+// FUTURE ENHANCEMENT, TIE INTO REFERENCE DATA TABLE(S)
 //            stateCodes = this.adrStateCdREST.findAll();
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));
@@ -84,6 +85,7 @@ public class ReferenceDataManagedBean implements AbstractReferenceDataManagedBea
         List<String> contactCodes = new ArrayList<>(1);
 
         try {
+// FUTURE ENHANCEMENT, TIE INTO REFERENCE DATA TABLE(S)
 //            contactCodes = this.emcTypeCdREST.findAll();
         } catch (Exception ex) {
             throw new WebServiceException(ErrorUtils.getStackTrace(ex));

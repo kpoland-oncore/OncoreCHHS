@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * DTOs need to be page specific which means that they should be created within
  * an identifying package.
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)

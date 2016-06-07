@@ -37,7 +37,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
- * @author oncore
+ * @author OnCore LLC
  */
 @Stateless
 @LocalBean

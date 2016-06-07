@@ -29,7 +29,7 @@ import javax.inject.Inject;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serializable {
 

@@ -36,7 +36,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("messageDataManagedBean")
 @RequestScoped
@@ -44,18 +44,12 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
 
     private final Logger LOG = LogManager.getLogger(MessageDataManagedBean.class);
 
-    /**
-     *
-     */
     @Override
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing MessageDataManagedBean: " + this.getClass().hashCode());
     }
 
-    /**
-     *
-     */
     @Override
     @PreDestroy
     public void destroy() {
@@ -63,10 +57,12 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
     }
 
     /**
+     * The <code>fetchMessages</code> method returns all messages for the 
+     * specified user.
+     * 
+     * @param userUid a valid user identifier
      *
-     * @param userUid
-     *
-     * @return
+     * @return a populated <code>AllMessages</code> object
      *
      * @throws WebServiceException
      */
@@ -76,10 +72,11 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
     }
 
     /**
+     * The <coee>sendMessage</code> method sends a message from a user
+     * to a case worker.
      *
-     *
-     * @param messageBean
-     * @param users
+     * @param messageBean a populated <code>MessageBean</code> object
+     * @param users a populated <code>User</code> object
      * @throws WebServiceException
      */
     @Override
@@ -88,10 +85,12 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
     }
 
     /**
-     *
+     * The <code>getMessagesServiceClient</code> method returns an instance of
+     * <code>MessagesServiceClient</code>
+     * 
      * @return MessagesServiceClient
      */
-    MessagesServiceClient getMessagesServiceClient() {
+    public MessagesServiceClient getMessagesServiceClient() {
 
         return new MessagesServiceClient();
     }

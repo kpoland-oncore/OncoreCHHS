@@ -54,7 +54,7 @@ import org.apache.log4j.Logger;
 /**
  * REST Web Service
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Provider
 @Path("Users")

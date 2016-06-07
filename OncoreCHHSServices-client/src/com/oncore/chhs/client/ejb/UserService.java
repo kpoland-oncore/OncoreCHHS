@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Business interface.
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public interface UserService {
 

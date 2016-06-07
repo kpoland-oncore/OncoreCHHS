@@ -43,7 +43,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("applicationManagedBean")
 @Singleton
@@ -72,7 +72,7 @@ public class ApplicationManagedBean extends BaseManagedBean {
         SelectItem item = null;
 
         try {
-
+// FUTURE ENHANCEMENT, TIE INTO REFERENCE DATA TABLE(S)
 //            stateCodes = this.referenceDataManagedBean.fetchStateCodes();
             if (CollectionUtils.isNotEmpty(stateCodes)) {
                 item = new SelectItem();
@@ -106,6 +106,7 @@ public class ApplicationManagedBean extends BaseManagedBean {
         SelectItem item = null;
 
         try {
+// FUTURE ENHANCEMENT, TIE INTO REFERENCE DATA TABLE(S)
 //            contactCodes = this.referenceDataManagedBean.fetchContactCodes();
 
             if (CollectionUtils.isNotEmpty(contactCodes)) {

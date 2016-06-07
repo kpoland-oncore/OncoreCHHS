@@ -30,7 +30,7 @@ import java.util.List;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class UsersToUserDTOConverter {
 

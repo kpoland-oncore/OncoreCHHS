@@ -25,7 +25,7 @@ package com.oncore.chhs.client.referencedata;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class ContactTypeCode {
 

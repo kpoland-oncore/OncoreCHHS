@@ -34,7 +34,7 @@ import org.apache.commons.collections4.CollectionUtils;
 /**
  * Convert a Users entity to a Profile DTO.
  * 
- * @author oncore
+ * @author OnCore LLC
  */
 public class UsersToProfileDTOConverter {
 

@@ -43,7 +43,7 @@ import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("profileMaintenanceManagedBean")
 @ViewScoped
@@ -95,8 +95,11 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
         LOG.debug("Destroying ProfileMaintenanceManagedBean: " + this.getClass().hashCode());
     }
 
-    public String handleSaveButtonClickEvent() {
-        String page = null;
+    /**
+     * The <code>handleSaveButtonClickEvent</code> method handles the click
+     * event generated from the save button on the myprofile page.
+     */
+    public void handleSaveButtonClickEvent() {
         Boolean isError = Boolean.FALSE;
         String error = null;
 
@@ -161,7 +164,6 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
         }
 
-        return page;
     }
 
     /**

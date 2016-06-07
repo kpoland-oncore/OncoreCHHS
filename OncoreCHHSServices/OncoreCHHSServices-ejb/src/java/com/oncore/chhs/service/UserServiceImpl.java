@@ -42,7 +42,7 @@ import javax.interceptor.Interceptors;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Stateless
 @Remote(UserService.class)

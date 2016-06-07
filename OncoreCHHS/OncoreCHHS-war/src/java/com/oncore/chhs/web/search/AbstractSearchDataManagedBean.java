@@ -29,7 +29,7 @@ import java.util.List;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public interface AbstractSearchDataManagedBean extends AbstractBaseManagedBean {
 

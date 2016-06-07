@@ -30,7 +30,7 @@ import com.oncore.chhs.web.profile.ProfileBean;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public interface AbstractLoginDataManagedBean extends AbstractBaseManagedBean {
 

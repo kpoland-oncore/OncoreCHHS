@@ -27,7 +27,7 @@ import com.oncore.chhs.client.dto.AllMessages;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public interface MessagesService {
 

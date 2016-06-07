@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
 /**
  * Unit test for LoginDataManagedBean class.
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class LoginDataManagedBeanTest {
 

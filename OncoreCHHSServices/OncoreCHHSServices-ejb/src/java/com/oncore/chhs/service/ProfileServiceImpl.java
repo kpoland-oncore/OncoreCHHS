@@ -48,7 +48,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Implementation class for the ProfileService.
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Stateless
 @Remote(ProfileService.class)

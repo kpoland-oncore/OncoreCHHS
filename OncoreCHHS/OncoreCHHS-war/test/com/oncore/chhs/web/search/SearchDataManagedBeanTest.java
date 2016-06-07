@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class SearchDataManagedBeanTest {
 

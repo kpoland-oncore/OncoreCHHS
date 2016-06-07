@@ -30,10 +30,17 @@ import org.primefaces.context.RequestContext;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public final class FacesUtilities {
 
+    /**
+     * The requredFieldError method returns a required field error for a
+     * component.
+     *
+     * @param context a valid FacesContext
+     * @param componentId a valid JSF component identifier
+     */
     public static void requredFieldError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
         message.setSummary(REQUIRED_ERROR);
@@ -43,6 +50,13 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    /**
+     * The invalidFormatError method returns an invalid format field error for a
+     * component.
+     *
+     * @param context a valid FacesContext
+     * @param componentId a valid JSF component identifier
+     */
     public static void invalidFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
         message.setSummary(INVALID_FORMAT_ERROR);
@@ -52,6 +66,13 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    /**
+     * The invalidTextAreaFormatError method returns an invalid format field
+     * error for an input text area component.
+     *
+     * @param context a valid FacesContext
+     * @param componentId a valid JSF component identifier
+     */
     public static void invalidTextAreaFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
         message.setSummary(INVALID_TEXT_AREA_ERROR);
@@ -61,6 +82,13 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    /**
+     * The invalidAlphaFormatError method returns an invalid alpha format field
+     * error for an input component.
+     *
+     * @param context a valid FacesContext
+     * @param componentId a valid JSF component identifier
+     */
     public static void invalidAlphaFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
         message.setSummary(INVALID_ALPHA_FORMAT_ERROR);
@@ -70,6 +98,12 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    /**
+     * The createPageLevelValidationError method creates a common validation
+     * error message for top of the page display.
+     *
+     * @param context a valid FacesContext
+     */
     public static void createPageLevelValidationError(FacesContext context) {
         FacesMessage message = new FacesMessage();
         message.setSummary(PAGE_LEVEL_VALIDATION_MESSAGE);
@@ -78,6 +112,12 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    /**
+     * The createPageLevelFatalError method creates a common fatal error message
+     * for top of the page display.
+     *
+     * @param context a valid FacesContext
+     */
     public static void createPageLevelFatalError(FacesContext context) {
         FacesMessage message = new FacesMessage();
         message.setSummary(FATAL_EXCEPTION_MESSAGE);
@@ -86,6 +126,12 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    /**
+     * The createPageLevelSaveSuccess method creates a common save message for
+     * top of the page display.
+     *
+     * @param context a valid FacesContext
+     */
     public static void createPageLevelSaveSuccess(FacesContext context) {
         FacesMessage message = new FacesMessage();
         message.setSummary(SAVE_SUCCESSFUL_MESSAGE);
@@ -94,6 +140,12 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    /**
+     * The createPageLevelCustomError method creates a custom error message for
+     * top of the page display.
+     *
+     * @param context a valid FacesContext
+     */
     public static void createPageLevelCustomError(FacesContext context, String errorMessage) {
         FacesMessage message = new FacesMessage();
         message.setSummary(errorMessage);
@@ -102,6 +154,12 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    /**
+     * The createPageLevelCustomInfo method creates a custom info message for
+     * top of the page display.
+     *
+     * @param context a valid FacesContext
+     */
     public static void createPageLevelCustomInfo(FacesContext context, String errorMessage) {
         FacesMessage message = new FacesMessage();
         message.setSummary(errorMessage);
@@ -110,6 +168,12 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    /**
+     * The invalidEmailFormatError method creates a common email validation
+     * error message for top of the page display.
+     *
+     * @param context a valid FacesContext
+     */
     public static void invalidEmailFormatError(FacesContext context, String componentId) {
         FacesMessage message = new FacesMessage();
         message.setSummary(INVALID_EMAIL_ERROR);
@@ -119,6 +183,10 @@ public final class FacesUtilities {
         context.renderResponse();
     }
 
+    /**
+     * The removeMessages method clears out any JSF page errors that may still
+     * be in the message buffer.
+     */
     public static void removeMessages() {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -127,6 +195,12 @@ public final class FacesUtilities {
         }
     }
 
+    /**
+     * The runJavaScript method executes JavaScript against the external
+     * context.
+     *
+     * @param script script to execute
+     */
     public static void runJavaScript(String script) {
         RequestContext requestContext = RequestContext.getCurrentInstance();
 

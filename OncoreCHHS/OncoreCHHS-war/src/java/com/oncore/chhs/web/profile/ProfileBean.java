@@ -28,7 +28,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class ProfileBean extends BaseBean {
 

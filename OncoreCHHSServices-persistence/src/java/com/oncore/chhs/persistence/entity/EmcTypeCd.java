@@ -42,7 +42,7 @@ import javax.validation.constraints.Size;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Entity
 @Table(name = "EMC_TYPE_CD")

@@ -30,7 +30,7 @@ import com.oncore.chhs.client.dto.profile.Profile;
  * The ProfileService provides methods for retrieving, creating and updating
  * a user's name and contact information.
  * 
- * @author oncore
+ * @author OnCore LLC
  */
 public interface ProfileService {
     

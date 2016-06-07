@@ -25,7 +25,7 @@ package com.oncore.chhs.web.utils;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public final class GpsUtils {
 

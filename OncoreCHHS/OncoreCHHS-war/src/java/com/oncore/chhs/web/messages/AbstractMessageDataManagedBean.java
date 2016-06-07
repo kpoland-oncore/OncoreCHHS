@@ -30,7 +30,7 @@ import com.oncore.chhs.web.exceptions.WebServiceException;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public interface AbstractMessageDataManagedBean extends AbstractBaseManagedBean {
 

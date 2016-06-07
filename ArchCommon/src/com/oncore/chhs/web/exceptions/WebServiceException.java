@@ -25,7 +25,7 @@ package com.oncore.chhs.web.exceptions;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class WebServiceException extends Exception {
 

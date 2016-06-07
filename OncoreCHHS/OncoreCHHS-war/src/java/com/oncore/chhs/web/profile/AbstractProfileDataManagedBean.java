@@ -30,7 +30,7 @@ import com.oncore.chhs.web.exceptions.WebServiceException;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
     
@@ -51,6 +51,7 @@ public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
      * calling this method.
      * 
      * @param profileBean a fully populated <code>ProfileBean</code> object
+     * @param user a fully populated users entity
      * 
      * @throws WebServiceException 
      */
@@ -60,7 +61,7 @@ public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
      * The <code>updateProfile</code> method updates an existing user profile.
      * 
      * @param profileBean a fully populated <code>ProfileBean</code> object
-     * @param users a fully populated users entity
+     * @param user a fully populated users entity
      * 
      * @throws WebServiceException 
      */

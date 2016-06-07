@@ -35,7 +35,7 @@
 
                 
                      <p:messages id="messages" showSummary="true" showDetail="false"
-                                autoUpdate="true" globalOnly="true" display="text"
+                                autoUpdate="true" globalOnly="true" 
                                 escape="false"/>
 
                    
@@ -51,7 +51,7 @@
                                        labelStyleClass="form_label"
                                        inputStyleClass="input_float_left"
                                        requiredLabel="true"
-                                       maxlength="45"
+                                       maxlength="32"
                                        size="25"
                                        immediate="true"
                                        errAlt=""
@@ -67,7 +67,7 @@
                      
                     <div class="row">
                         
-                          <p:outputPanel layout="block" id="outerButtonPnl">
+                          <p:outputPanel layout="block" id="outerButtonPnl" rendered="#{managedBean.isAddMode}"> 
 
                             <p:outputPanel id="cancelButtonPnl" layout="block"
                                            styleClass="innerButtonGroup">

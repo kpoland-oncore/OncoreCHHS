@@ -25,7 +25,6 @@ package com.oncore.chhs.web.navigation;
 
 import com.oncore.chhs.web.base.BaseManagedBean;
 import java.io.IOException;
-import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
@@ -38,7 +37,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("navigationManagedBean")
 @SessionScoped

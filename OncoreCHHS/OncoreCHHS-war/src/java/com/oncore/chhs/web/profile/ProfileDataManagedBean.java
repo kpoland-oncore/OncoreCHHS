@@ -38,7 +38,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * This class invokes RESTful services to find, create and update profiles.
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("profileDataManagedBean")
 @RequestScoped

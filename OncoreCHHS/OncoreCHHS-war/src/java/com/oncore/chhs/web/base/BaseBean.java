@@ -27,7 +27,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class BaseBean implements Serializable {
     

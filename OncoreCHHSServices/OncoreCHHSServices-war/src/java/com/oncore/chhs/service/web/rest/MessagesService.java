@@ -42,7 +42,7 @@ import org.apache.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Provider
 @Path("Messages")

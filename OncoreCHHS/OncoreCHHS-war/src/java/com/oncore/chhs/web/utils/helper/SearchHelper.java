@@ -28,7 +28,7 @@ import com.oncore.chhs.web.search.SearchBean;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class SearchHelper {
 

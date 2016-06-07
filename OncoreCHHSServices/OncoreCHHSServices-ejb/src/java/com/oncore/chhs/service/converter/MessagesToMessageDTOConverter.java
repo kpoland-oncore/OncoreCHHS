@@ -28,7 +28,7 @@ import com.oncore.chhs.persistence.entity.Messages;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class MessagesToMessageDTOConverter {
 

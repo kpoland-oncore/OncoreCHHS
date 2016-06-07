@@ -39,7 +39,7 @@ import javax.xml.ws.WebServiceException;
 /**
  * This service client invokes RESTful services for the Profile functionality.
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class ProfileServiceClient extends AbstractRestClient {
 

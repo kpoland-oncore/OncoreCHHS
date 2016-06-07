@@ -31,7 +31,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Stateless
 @LocalBean

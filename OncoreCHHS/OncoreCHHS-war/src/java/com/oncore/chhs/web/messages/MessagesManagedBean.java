@@ -29,7 +29,6 @@ import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.global.GlobalManagedBean;
-import com.oncore.chhs.web.navigation.NavigationManagedBean;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("messagesManagedBean")
 @ViewScoped
@@ -74,9 +73,12 @@ public class MessagesManagedBean extends BaseManagedBean {
         LOG.debug("Destroying MessagesManagedBean: " + this.getClass().hashCode());
     }
 
-    public String handleSendButtonClickEvent() {
+    /**
+     * The <code>handleSendButtonClickEvent</code> method handles the click
+     * event generated from the send button on the message page.
+     */
+    public void handleSendButtonClickEvent() {
 
-        String page = null;
         Boolean isError = Boolean.FALSE;
         String error = null;
 
@@ -97,8 +99,6 @@ public class MessagesManagedBean extends BaseManagedBean {
             LOG.error(wx);
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
         }
-
-        return page;
 
     }
 
