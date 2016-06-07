@@ -11,16 +11,17 @@
     </h:head>
 
     <ui:composition>
-<!--        <div style="height: 0;">
+        <!-- GPS ENHANCEMENT, STILL EXPERIMENTAL -->
+        <div style="height: 0;">
             <p:inputText id="cachedLatitude" value="#{globalManagedBean.latitude}" style="visibility: hidden;"/>
             <p:inputText id="cachedLongitude" value="#{globalManagedBean.longitude}" style="visibility: hidden;" />
-        </div>-->
+        </div>
 
         <!-- UNCOMMENT IF YOU WANT TO SEE THE COORDINATES -->
-                    <div>
+<!--                    <div>
                         <h:outputText value="latitude: "/><p:inputText id="cachedLatitude" value="#{globalManagedBean.latitude}" />
                         <h:outputText value="longitude: "/><p:inputText id="cachedLongitude" value="#{globalManagedBean.longitude}" />
-                    </div>
+                    </div>-->
     </ui:composition>      
 
 </html>

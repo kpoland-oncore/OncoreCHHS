@@ -99,12 +99,14 @@
                     <!-- INCLUDE FOOTER HERE -->
                 </ui:insert>
 
-                <ui:include src="../common/coordinates.xhtml"/>
+                <!-- GPS ENHANCEMENT, STILL EXPERIMENTAL -->
+                <!--<ui:include src="../common/coordinates.xhtml"/>-->
 
             </h:form>
         </f:view>
 
-         <script>
+<!-- GPS ENHANCEMENT, STILL EXPERIMENTAL -->
+<!--         <script>
 
                 $(document).ready(function() {
                     navigator.geolocation.getCurrentPosition(findLocation, errorAlert);
@@ -126,7 +128,7 @@
 
                
 
-            </script>
+            </script>-->
             
 
     </h:body>

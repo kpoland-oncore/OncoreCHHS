@@ -25,7 +25,7 @@
 
             <p:column sortBy="#{searchBean.facilityName}"
 
-                      style="width:20%; text-align: left;">
+                      style="width:25%; text-align: left;">
                 <f:facet name="header">
                     <h:outputText value="&nbsp;&nbsp;Facility Name" />
                 </f:facet>
@@ -43,20 +43,20 @@
                 <h:outputText value="#{searchBean.facilityTelephone}" />
             </p:column>
 
-            
-            <p:column sortBy="#{searchBean.distance}"
-                      style="width:10%; text-align: left;">
-                <f:facet name="header">
-                    <h:outputText value="&nbsp;&nbsp;Distance" />
-                </f:facet>
-                <h:outputText value="#{searchBean.distance}" />
-            </p:column>
+            <!-- EXPERIMENTAL GPS ENHANCEMENT -->
+            <!--            <p:column sortBy="#{searchBean.distance}"
+                                  style="width:10%; text-align: left;">
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;&nbsp;Distance" />
+                            </f:facet>
+                            <h:outputText value="#{searchBean.distance}" />
+                        </p:column>-->
 
 
             <p:column sortBy="#{searchBean.facilityAddress}"
 
 
-                      style="width:20%; text-align: left;">
+                      style="width:25%; text-align: left;">
                 <f:facet name="header">
                     <h:outputText value="&nbsp;&nbsp;Address" />
                 </f:facet>
