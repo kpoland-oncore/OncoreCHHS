@@ -10,6 +10,8 @@ RUN echo "set -o vi" >> /root/.bashrc
 # one lib and one module into glassfish in the container
 COPY libs/mysql-connector-java-5.1.39/mysql-connector-java-5.1.39-bin.jar /usr/local/glassfish4/glassfish/lib/
 COPY libs/org.eclipse.persistence.moxy.jar /usr/local/glassfish4/glassfish/modules/
+RUN /bin/rm /usr/local/glassfish4/glassfish/modules/jackson*.jar
+COPY libs/jackson-2.7.4/ /usr/local/glassfish4/glassfish/modules/
 
 # log4j.properties into the glassfish domain
 COPY docker/log4j.properties /usr/local/glassfish4/glassfish/domains/domain1/lib/classes/
