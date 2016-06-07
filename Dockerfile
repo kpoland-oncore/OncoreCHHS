@@ -1,13 +1,10 @@
 FROM glassfish:latest
 MAINTAINER kpoland kyle.poland@oncorellc.com
 
-RUN apt-get update && \
-    apt-get install -y less --no-install-recommends && \
-    apt-get install -y vim --no-install-recommends
+RUN apt-get -qq update && \
+    apt-get install -qqy less --no-install-recommends && \
+    apt-get install -qqy vim --no-install-recommends
 
-# copy built EARs into the container
-COPY OncoreCHHS/dist/OncoreCHHS.ear /
-COPY OncoreCHHSServices/dist/OncoreCHHSServices.ear /
 # one lib and one module into glassfish in the container
 COPY libs/mysql-connector-java-5.1.39/mysql-connector-java-5.1.39-bin.jar /usr/local/glassfish4/glassfish/lib/
 COPY libs/org.eclipse.persistence.moxy.jar /usr/local/glassfish4/glassfish/modules/
@@ -32,10 +29,16 @@ COPY docker/domain.xml /usr/local/glassfish4/glassfish/domains/domain1/config/
 # entrypoint start script that starts glassfish, installs the EAR, stops glassfish, then starts glassfish
 COPY docker/start_glassfish.sh /
 # make sure it has unix line endings and is executable
-RUN /bin/sed -i -e 's/\r$//' /start_glassfish.sh
-RUN /bin/chmod +x /start_glassfish.sh
+# RUN /bin/sed -i -e 's/\r$//' /start_glassfish.sh
+# RUN /bin/chmod +x /start_glassfish.sh
 
-EXPOSE 8080
+# copy built EARs into the container
+COPY OncoreCHHS/dist/OncoreCHHS.ear /
+COPY OncoreCHHSServices/dist/OncoreCHHSServices.ear /
+
+RUN mkdir /home/oncore && /bin/ln -s /usr/local/glassfish4 /home/oncore/glassfish-4.1.1
+
 EXPOSE 4848
+EXPOSE 8080
 
 ENTRYPOINT ["/start_glassfish.sh"]
