@@ -29,8 +29,8 @@ COPY docker/domain.xml /usr/local/glassfish4/glassfish/domains/domain1/config/
 # entrypoint start script that starts glassfish, installs the EAR, stops glassfish, then starts glassfish
 COPY docker/start_glassfish.sh /
 # make sure it has unix line endings and is executable
-# RUN /bin/sed -i -e 's/\r$//' /start_glassfish.sh
-# RUN /bin/chmod +x /start_glassfish.sh
+RUN /bin/sed -i -e 's/\r$//' /start_glassfish.sh
+RUN /bin/chmod +x /start_glassfish.sh
 
 # copy built EARs into the container
 COPY OncoreCHHS/dist/OncoreCHHS.ear /
