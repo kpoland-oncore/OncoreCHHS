@@ -23,15 +23,13 @@
  */
 package com.oncore.chhs.web.login;
 
-import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.client.rest.UsersServiceClient;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.profile.ProfileBean;
-import com.oncore.chhs.web.services.UsersFacadeREST;
 import com.oncore.chhs.web.utils.ErrorUtils;
-import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import org.apache.logging.log4j.LogManager;
@@ -39,71 +37,62 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("loginDataManagedBean")
 @RequestScoped
 public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
 
-    @EJB
-    private UsersFacadeREST usersFacadeREST;
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public User createUser(ProfileBean profileBean) throws WebServiceException {
+
+        User user = new User();
+        user.setFirstName(profileBean.getFirstName());
+        user.setMiddleName(profileBean.getMiddleName());
+        user.setLastName(profileBean.getLastName());
+        user.setUserName(profileBean.getUserName());
+
+        try {
+            user = this.getUsersServiceClient().createUser(user);
+        } catch (Exception ex) {
+            throw new WebServiceException(ex.getCause().toString() + "::" + ErrorUtils.getStackTrace(ex));
+        }
+
+        return user;
+    }
 
     /**
-     * Package level setter used for passing in mock objects for unit tests.
-     * 
-     * @param mockObject The mock EJB to use for testing.
+     * {@inheritDoc}
      */
-    void setUsersFacadeREST( UsersFacadeREST mockObject ) {
-        this.usersFacadeREST = mockObject;
-    }
-    
-     @Override
-    public Users createUser(ProfileBean profileBean) throws WebServiceException {
-        
-        Users users = new Users();
-        
-        try {
-            
-            users.setCreateUserId(profileBean.getUserName());
-            users.setCreateTs(new Date());
-            users.setUpdateUserId(profileBean.getUserName());
-            users.setUpdateTs(new Date());
-            users.setUsrFirstname(profileBean.getFirstName());
-            users.setUsrMiddlename(profileBean.getMiddleName());
-            users.setUsrLastname(profileBean.getLastName());
-            users.setUsrUserId(profileBean.getUserName());
-            users.setUsrPassword("notused");
-            
-            usersFacadeREST.create(users);
-            
-        } catch (Exception ex) {
-            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
-        }
-
-        return users;
-    }
-    
-    
     @Override
-    public Users authenticateUser(LoginBean loginBean) throws WebServiceException {
+    public User authenticateUser(LoginBean loginBean) throws WebServiceException {
 
-        Users users = null;
+        User users = null;
 
         try {
-            users = usersFacadeREST.findByUserId(loginBean.getUserName());
+            users = this.getUsersServiceClient().authenticateUser(loginBean.getUserName());
         } catch (Exception ex) {
-            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
+            throw new WebServiceException(ex.getCause().toString() + "::" + ErrorUtils.getStackTrace(ex));
         }
 
         return users;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing LoginDataManagedBean: " + this.getClass().hashCode());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @PreDestroy
     public void destroy() {
@@ -112,5 +101,12 @@ public class LoginDataManagedBean implements AbstractLoginDataManagedBean {
 
     private final Logger LOG = LogManager.getLogger(LoginDataManagedBean.class);
 
-   
+    /**
+     *
+     * @return UsersServiceClient
+     */
+    UsersServiceClient getUsersServiceClient() {
+
+        return new UsersServiceClient();
+    }
 }

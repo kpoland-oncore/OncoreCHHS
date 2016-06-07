@@ -41,12 +41,11 @@ public class SeleniumAgencySearchTest {
 	}
 
 	@Test
-	public void testSeleniumLogin() throws Exception {
+	public void testSeleniumAgencySearch() throws Exception {
 		selenium.open("/OncoreCHHS-war/");
-		selenium.click("link=Login");
+		selenium.click("link=Locate Services");
 		selenium.waitForPageToLoad("30000");
-		selenium.type("id=chssForm:userNameTxt:input", "testuser");
-		selenium.click("id=chssForm:loginBtn");
+		selenium.click("id=chssForm:searchBtn");
 		selenium.waitForPageToLoad("30000");
 	}
 

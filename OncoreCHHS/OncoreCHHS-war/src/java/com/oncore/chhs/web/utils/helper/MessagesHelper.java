@@ -23,32 +23,57 @@
  */
 package com.oncore.chhs.web.utils.helper;
 
-import com.oncore.chhs.web.entities.Messages;
+import com.oncore.chhs.client.dto.AllMessages;
+import com.oncore.chhs.client.dto.Message;
 import com.oncore.chhs.web.messages.MessageBean;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import org.apache.commons.collections4.CollectionUtils;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class MessagesHelper {
 
-    public static List<String> MESSAGES_RESPONSE = Arrays.asList("Thank you for your question.",
-            "Thank you for your question. We will get back to you within 5 business days.");
+    /**
+     * The getInbouds method uses the data fetched from the underlying datastore
+     * for a user and iterates through it preparing a list of messages for
+     * return to the UI level.
+     *
+     * @param allMsgs an AllMessages object containing
+     * @return a populated List of messages
+     */
+    public static List<MessageBean> getInbounds(AllMessages allMsgs) {
+        List<MessageBean> msgBeans = new ArrayList<>();
+
+        if (CollectionUtils.isNotEmpty(allMsgs.getInboundMessages())) {
+            for (Message msg : allMsgs.getInboundMessages()) {
+                msgBeans.add(buildMessageBeansFromMessages(msg));
+            }
+        }
+
+        return msgBeans;
+    }
 
     /**
-     * Gets the random responses from predefined texts.
+     * The getOutbounds method uses the data fetched from the underlying
+     * datastore for a user and iterates through it preparing a list of messages
+     * for return to the UI level.
      *
-     * @return response
+     * @param allMsgs an AllMessages object containing
+     * @return a populated List of messages
      */
-    public static String getRandomResponse() {
-        Random randomGenerator = new Random();
-        int index = randomGenerator.nextInt(MESSAGES_RESPONSE.size());
+    public static List<MessageBean> getOutbounds(AllMessages allMsgs) {
+        List<MessageBean> msgBeans = new ArrayList<>();
 
-        return MESSAGES_RESPONSE.get(index);
+        if (CollectionUtils.isNotEmpty(allMsgs.getOutboundMessages())) {
+            for (Message msg : allMsgs.getOutboundMessages()) {
+                msgBeans.add(buildMessageBeansFromMessages(msg));
+            }
+        }
 
+        return msgBeans;
     }
 
     /**
@@ -58,14 +83,14 @@ public class MessagesHelper {
      *
      * @return all messages.
      */
-    public static MessageBean buildMessageBeansFromMessages(Messages msg) {
+    private static MessageBean buildMessageBeansFromMessages(Message msgDto) {
 
         MessageBean msgBean = new MessageBean();
-        msgBean.setFrom(msg.getMsgFrom());
-        msgBean.setTo(msg.getMsgTo());
-        msgBean.setMessage(msg.getMsgText());
-        msgBean.setReceivedDate(msg.getMsgCreatedTs());
-        msgBean.setSentDate(msg.getMsgCreatedTs());
+        msgBean.setFrom(msgDto.getFrom());
+        msgBean.setTo(msgDto.getTo());
+        msgBean.setMessage(msgDto.getMessage());
+        msgBean.setReceivedDate(msgDto.getReceivedDate());
+        msgBean.setSentDate(msgDto.getSentDate());
 
         return msgBean;
     }

@@ -23,33 +23,30 @@
  */
 package com.oncore.chhs.web.global;
 
-import com.oncore.chhs.web.login.*;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.base.AbstractBaseManagedBean;
-import com.oncore.chhs.web.entities.AdrStateCd;
-import com.oncore.chhs.web.entities.EmcTypeCd;
 import java.util.List;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public interface AbstractReferenceDataManagedBean extends AbstractBaseManagedBean {
 
     /**
-     * The <code>fetchStateCodes</code> method fetches state records
+     * The fetchStateCodes method fetches state records
      *
      * @throws WebServiceException
      * @return a populated List of state codes
      */
-    public List<AdrStateCd> fetchStateCodes() throws WebServiceException;
+    public List<String> fetchStateCodes() throws WebServiceException;
 
     /**
-     * The <code>fetchContactCodes</code> method fetches contact records
+     * The fetchContactCodes method fetches contact records
      *
      * @throws WebServiceException
      * @return a populated list of contact codes
      */
-    public List<EmcTypeCd> fetchContactCodes() throws WebServiceException;
+    public List<String> fetchContactCodes() throws WebServiceException;
 
 }

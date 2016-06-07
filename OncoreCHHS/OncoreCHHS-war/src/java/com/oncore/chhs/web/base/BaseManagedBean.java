@@ -23,14 +23,13 @@
  */
 package com.oncore.chhs.web.base;
 
-import com.oncore.chhs.web.global.GlobalManagedBean;
 import com.oncore.chhs.web.navigation.NavigationManagedBean;
 import java.io.Serializable;
 import javax.inject.Inject;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serializable {
 
@@ -41,7 +40,7 @@ public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serial
     public abstract void destroy();
 
     /**
-     * The <code>handleHeaderNavigationClickEvent</code> method handles the
+     * The handleHeaderNavigationClickEvent method handles the
      * click event on the header navigation links such as Home, MyProfile,
      * Locate Services, and Messages.
      *
@@ -56,9 +55,6 @@ public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serial
     @Inject
     protected NavigationManagedBean navigationManagedBean;
 
-    @Inject
-    protected GlobalManagedBean globalManagedBean;
-
-    public static final String FORM_NAME = "chssForm:";
+    public static final String FORM_NAME = "chhsForm:";
 
 }

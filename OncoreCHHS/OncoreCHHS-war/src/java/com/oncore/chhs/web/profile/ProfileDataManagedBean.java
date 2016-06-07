@@ -23,99 +23,28 @@
  */
 package com.oncore.chhs.web.profile;
 
+import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.client.dto.profile.Profile;
+import com.oncore.chhs.client.rest.ProfileServiceClient;
 import com.oncore.chhs.web.base.BaseManagedBean;
-import com.oncore.chhs.web.entities.Address;
-import com.oncore.chhs.web.entities.Contact;
-import com.oncore.chhs.web.entities.Users;
-import com.oncore.chhs.web.enums.ContactTypeEnum;
-import com.oncore.chhs.web.exceptions.WebServiceException;
-import com.oncore.chhs.web.services.AddressFacadeREST;
-import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
-import com.oncore.chhs.web.services.ContactFacadeREST;
-import com.oncore.chhs.web.services.EmcTypeCdFacadeREST;
-import com.oncore.chhs.web.services.UsersFacadeREST;
-import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.helper.ProfileHelper;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
+ * This class invokes RESTful services to find, create and update profiles.
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("profileDataManagedBean")
 @RequestScoped
 public class ProfileDataManagedBean extends BaseManagedBean implements AbstractProfileDataManagedBean {
 
     private final Logger LOG = LogManager.getLogger(ProfileDataManagedBean.class);
-    @EJB
-    private UsersFacadeREST usersFacadeREST;
-
-    @EJB
-    private AddressFacadeREST addressFacadeREST;
-
-    @EJB
-    private ContactFacadeREST contactFacadeREST;
-
-    @EJB
-    private AdrStateCdFacadeREST adrStateCdFacadeREST;
-
-    @EJB
-    private EmcTypeCdFacadeREST emcTypeCdFacadeREST;
-
-    /**
-     * Package level setter used for passing in mock objects for unit tests.
-     *
-     * @param mockObject The mock EJB to use for testing.
-     */
-    void setUsersFacadeREST(UsersFacadeREST mockObject) {
-        this.usersFacadeREST = mockObject;
-    }
-
-    /**
-     * Package level setter used for passing in mock objects for unit tests.
-     *
-     * @param mockObject The mock EJB to use for testing.
-     */
-    void setAddressFacadeREST(AddressFacadeREST mockObject) {
-        this.addressFacadeREST = mockObject;
-    }
-
-    /**
-     * Package level setter used for passing in mock objects for unit tests.
-     *
-     * @param mockObject The mock EJB to use for testing.
-     */
-    void setContactFacadeREST(ContactFacadeREST mockObject) {
-        this.contactFacadeREST = mockObject;
-    }
-
-    /**
-     * Package level setter used for passing in mock objects for unit tests.
-     *
-     * @param mockObject The mock EJB to use for testing.
-     */
-    void setAdrStateCdFacadeREST(AdrStateCdFacadeREST mockObject) {
-        this.adrStateCdFacadeREST = mockObject;
-    }
-
-    /**
-     * Package level setter used for passing in mock objects for unit tests.
-     *
-     * @param mockObject The mock EJB to use for testing.
-     */
-    void setEmcTypeCdFacadeREST(EmcTypeCdFacadeREST mockObject) {
-        this.emcTypeCdFacadeREST = mockObject;
-    }
 
     @Override
     @PostConstruct
@@ -134,224 +63,49 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      *
      * @param userUid
      *
-     * @return <code>ProfileBean</code>
-     *
-     * @throws WebServiceException
+     * @return Profile
      */
     @Override
-    public ProfileBean findProfileByUserUid(Integer userUid) throws WebServiceException {
+    public Profile findProfileByUserUid(Integer userUid) {
 
-        ProfileBean profileBean = null;
-
-        try {
-            Users users = this.usersFacadeREST.find(userUid);
-
-            if (users != null) {
-                profileBean = ProfileHelper.buildProfile(users);
-            }
-
-        } catch (Exception ex) {
-            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
-        }
-
-        return profileBean;
+        return this.getProfileServiceClient().findProfileByUserUid(userUid);
     }
 
     /**
      * Creates the profile for the user.
      *
-     * @param profileBean
-     * @param user
-     * @throws WebServiceException
+     * @param profileBean The profile data collected from the UI.
+     * @param user The user to associate the profile with.
      */
     @Override
-    public void createProfile(ProfileBean profileBean, Users user) throws WebServiceException {
-        try {
-            this.createAddress(profileBean, user);
+    public void createProfile(ProfileBean profileBean, User user) {
 
-            if (StringUtils.isNotBlank(profileBean.getPhone())) {
-                if (null == user.getContactList()) {
-                    user.setContactList(new ArrayList<>());
-                }
+        Profile profile = ProfileHelper.convertProfileBeanToProfileDTO(profileBean);
 
-                Contact contact = ProfileHelper.convertPhoneNumberToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
-                contact.setUsrUidFk(user);
-
-                user.getContactList().add(contact);
-
-                this.contactFacadeREST.create(contact);
-            }
-
-            if (StringUtils.isNotBlank(profileBean.getEmail())) {
-                if (null == user.getContactList()) {
-                    user.setContactList(new ArrayList<>());
-                }
-
-                Contact contact = ProfileHelper.convertEmailToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
-                contact.setUsrUidFk(user);
-
-                user.getContactList().add(contact);
-
-                this.contactFacadeREST.create(contact);
-            }
-        } catch (Exception ex) {
-            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
-        }
+        this.getProfileServiceClient().createProfile(profile, user);
     }
 
     /**
      * Updates the profile information for the user.
      *
-     * @param profileBean
-     * @param users
-     * @throws WebServiceException
+     * @param profileBean The profile data collected from the UI.
+     * @param user The user the profile is associated with.
      */
     @Override
-    public void updateProfile(ProfileBean profileBean, Users users) throws WebServiceException {
-        try {
-            if (null != profileBean) {
+    public void updateProfile(ProfileBean profileBean, User user) {
+        Profile profile = ProfileHelper.convertProfileBeanToProfileDTO(profileBean);
 
-                if (users != null) {
-                    this.updateAddress(profileBean, users.getAddressList(), users);
-                    this.updateContact(profileBean, users.getContactList(), users);
-                }
-            }
-        } catch (Exception ex) {
-            throw new WebServiceException(ErrorUtils.getStackTrace(ex));
-        }
+        this.getProfileServiceClient().updateProfile(profile, user);
     }
 
     /**
-     * Updates the Address for the user.
+     * This gets an instance of the profile service client, which will invoke
+     * the RESTful services. Package level getter to allow invocation by unit
+     * tests.
      *
-     * @param profileBean
-     * @param addresses
+     * @return The profile service REST client.
      */
-    private void updateAddress(ProfileBean profileBean, List<Address> addresses, Users users) {
-        if (StringUtils.isNotBlank(profileBean.getAddressLine1())) {
-            if (CollectionUtils.isNotEmpty(addresses)) {
-
-                Address address = addresses.get(0);
-
-                ProfileHelper.mapProfileBeanToAddressEntity(profileBean, address, this.adrStateCdFacadeREST, users);
-                this.addressFacadeREST.edit(address);
-            } else {
-                this.createAddress(profileBean, users);
-            }
-        }
-    }
-
-    /**
-     * Updates the Contact for the user.
-     *
-     * @param profileBean
-     * @param contacts
-     */
-    private void updateContact(ProfileBean profileBean, List<Contact> contacts, Users users) {
-        if (CollectionUtils.isNotEmpty(contacts)) {
-
-            boolean isHomePhoneContactExists = false;
-            boolean isEmailContactExists = false;
-
-            for (Contact contactToUpdate : contacts) {
-                if (StringUtils.equals(ContactTypeEnum.HOME_PHONE.getValue(), contactToUpdate.getEmcTypeCd().getCode())) {
-                    ProfileHelper.mapProfileBeanToContactEntity(profileBean.getPhoneType(), profileBean.getPhone(), contactToUpdate, this.emcTypeCdFacadeREST, users);
-                    this.contactFacadeREST.edit(contactToUpdate);
-
-                    isHomePhoneContactExists = true;
-                }
-
-                if (StringUtils.equals(ContactTypeEnum.EMAIL_ADDRESS.getValue(), contactToUpdate.getEmcTypeCd().getCode())) {
-                    ProfileHelper.mapProfileBeanToContactEntity(ContactTypeEnum.EMAIL_ADDRESS.getValue(), profileBean.getEmail(), contactToUpdate, this.emcTypeCdFacadeREST, users);
-                    this.contactFacadeREST.edit(contactToUpdate);
-
-                    isEmailContactExists = true;
-                }
-            }
-
-            if (!isHomePhoneContactExists) {
-                this.createHomePhoneContact(profileBean, users);
-            }
-
-            if (!isEmailContactExists) {
-                this.createEmailContact(profileBean, users);
-            }
-        } else {
-            this.createContactInformation(profileBean, users);
-        }
-    }
-
-    /**
-     * Creates the address information into the contact table.
-     *
-     * @param profileBean
-     * @param user
-     */
-    private void createAddress(ProfileBean profileBean, Users user) {
-        if (StringUtils.isNotBlank(profileBean.getAddressLine1())) {
-            if (null == user.getAddressList()) {
-                user.setAddressList(new ArrayList<>());
-            }
-
-            Address address = ProfileHelper.convertProfileBeanToAddressEntity(profileBean, this.adrStateCdFacadeREST, user);
-            address.setUsrUidFk(user);
-
-            user.getAddressList().add(address);
-
-            this.addressFacadeREST.create(address);
-        }
-    }
-
-    /**
-     * Creates the phone number and/or email information into the contact table.
-     *
-     * @param profileBean
-     * @param user
-     */
-    private void createContactInformation(ProfileBean profileBean, Users user) {
-        this.createHomePhoneContact(profileBean, user);
-        this.createEmailContact(profileBean, user);
-    }
-
-    /**
-     * Creates a new home phone contact.
-     *
-     * @param profileBean
-     * @param user
-     */
-    private void createHomePhoneContact(ProfileBean profileBean, Users user) {
-        if (StringUtils.isNotBlank(profileBean.getPhone())) {
-            if (null == user.getContactList()) {
-                user.setContactList(new ArrayList<>());
-            }
-
-            Contact contact = ProfileHelper.convertPhoneNumberToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
-            contact.setUsrUidFk(user);
-
-            user.getContactList().add(contact);
-
-            this.contactFacadeREST.create(contact);
-        }
-    }
-
-    /**
-     * Creates a new email contact.
-     *
-     * @param profileBean
-     * @param user
-     */
-    private void createEmailContact(ProfileBean profileBean, Users user) {
-        if (StringUtils.isNotBlank(profileBean.getEmail())) {
-            if (null == user.getContactList()) {
-                user.setContactList(new ArrayList<>());
-            }
-
-            Contact contact = ProfileHelper.convertEmailToContactEntity(profileBean, this.emcTypeCdFacadeREST, user);
-            contact.setUsrUidFk(user);
-
-            user.getContactList().add(contact);
-
-            this.contactFacadeREST.create(contact);
-        }
+    ProfileServiceClient getProfileServiceClient() {
+        return new ProfileServiceClient();
     }
 }

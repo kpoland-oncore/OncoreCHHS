@@ -23,7 +23,7 @@
  */
 package com.oncore.chhs.web.global;
 
-import com.oncore.chhs.web.entities.Users;
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -35,7 +35,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("globalManagedBean")
 @SessionScoped
@@ -84,14 +84,14 @@ public class GlobalManagedBean extends BaseManagedBean {
     /**
      * @return the authenticatedUser
      */
-    public Users getAuthenticatedUser() {
+    public User getAuthenticatedUser() {
         return authenticatedUser;
     }
 
     /**
      * @param authenticatedUser the authenticatedUser to set
      */
-    public void setAuthenticatedUser(Users authenticatedUser) {
+    public void setAuthenticatedUser(User authenticatedUser) {
         this.authenticatedUser = authenticatedUser;
     }
 
@@ -103,16 +103,16 @@ public class GlobalManagedBean extends BaseManagedBean {
         if (this.getAuthenticatedUser() != null) {
             this.calculatedUserFullName = StringUtils.EMPTY;
 
-            if (StringUtils.isNotBlank(this.getAuthenticatedUser().getUsrFirstname())) {
-                this.calculatedUserFullName += this.getAuthenticatedUser().getUsrFirstname();
+            if (StringUtils.isNotBlank(this.getAuthenticatedUser().getFirstName())) {
+                this.calculatedUserFullName += this.getAuthenticatedUser().getFirstName();
             }
 
-            if (StringUtils.isNotBlank(this.getAuthenticatedUser().getUsrLastname())) {
-                this.calculatedUserFullName += " " + this.getAuthenticatedUser().getUsrLastname();
+            if (StringUtils.isNotBlank(this.getAuthenticatedUser().getLastName())) {
+                this.calculatedUserFullName += " " + this.getAuthenticatedUser().getLastName();
             }
 
         }
-        
+
         return calculatedUserFullName;
     }
 
@@ -123,10 +123,40 @@ public class GlobalManagedBean extends BaseManagedBean {
         this.calculatedUserFullName = calculatedUserFullName;
     }
 
+    /**
+     * @return the longitude
+     */
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    /**
+     * @param longitude the longitude to set
+     */
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    /**
+     * @return the latitude
+     */
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * @param latitude the latitude to set
+     */
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
     private Boolean authenticated = Boolean.FALSE;
     private String loginText = "Login";
-    private Users authenticatedUser;
+    private User authenticatedUser;
     private String calculatedUserFullName;
+    private Double longitude = 0d;
+    private Double latitude = 0d;
 
     private final Logger LOG = LogManager.getLogger(GlobalManagedBean.class);
 

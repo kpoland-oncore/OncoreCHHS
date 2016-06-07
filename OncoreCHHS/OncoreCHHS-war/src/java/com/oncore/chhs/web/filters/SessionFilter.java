@@ -42,7 +42,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @WebFilter(filterName = "sessionFilter", urlPatterns = {"/*"})
 public class SessionFilter implements Filter {
@@ -68,25 +68,21 @@ public class SessionFilter implements Filter {
             Boolean isResourceRequest = httpRequest.getRequestURI().startsWith(httpRequest.getContextPath() + ResourceHandler.RESOURCE_IDENTIFIER);
             Boolean isSessionValid = (httpRequest.getRequestedSessionId() != null) && !httpRequest.isRequestedSessionIdValid();
 
-//            if (isSessionValid) {
+            if (!isResourceRequest) {
+                if (isLogoutRequest) {
+                    this.globalManagedBean.setAuthenticated(Boolean.FALSE);
+                    httpRequest.getSession(false).setMaxInactiveInterval(1);
+                    httpRequest.getSession(false).invalidate();
+                    httpRequest.logout();
 
-                if (!isResourceRequest) {
-                    if (isLogoutRequest) {
-                        this.globalManagedBean.setAuthenticated(Boolean.FALSE);
-                        httpRequest.getSession(false).setMaxInactiveInterval(1);
-                        httpRequest.getSession(false).invalidate();
-                        httpRequest.logout();
+                    httpResponse.sendRedirect("sessionexpired.xhtml");
+                } else {
+                    httpResponse.setHeader("Cache-Control", "private, max-age=432000, no-cache");
+                    httpResponse.setHeader("Pragma", "no-cache");
+                    httpResponse.setDateHeader("Last-Modified", (new Date()).getTime());
 
-                        httpResponse.sendRedirect("sessionexpired.xhtml");
-                    } else {
-                        httpResponse.setHeader("Cache-Control", "private, max-age=432000, no-cache");
-                        httpResponse.setHeader("Pragma", "no-cache");
-                        httpResponse.setDateHeader("Last-Modified", (new Date()).getTime());
-
-                    }
                 }
-
-//            }
+            }
 
             if (!httpResponse.isCommitted()) {
                 chain.doFilter(httpRequest, httpResponse);

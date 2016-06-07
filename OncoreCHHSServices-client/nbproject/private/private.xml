@@ -6,5 +6,18 @@
             <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/dto/UserDTO.java</file>
             <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/rest/UsersServiceClient.java</file>
         </group>
+        <group name="OncoreCHHS">
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/dto/FosterFamilyAgency.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/ejb/UserService.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/dto/MessageDTO.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/dto/UserDTO.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/ejb/MessagesService.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/dto/Summaries.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/dto/FosterFamilyAgencies.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/rest/MessagesServiceClient.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/rest/UsersServiceClient.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/rest/LocateServiceClient.java</file>
+            <file>file:/home/oncore/workspaces/OncoreCHHS/OncoreCHHSServices-client/src/com/oncore/chhs/client/dto/AllMessages.java</file>
+        </group>
     </open-files>
 </project-private>

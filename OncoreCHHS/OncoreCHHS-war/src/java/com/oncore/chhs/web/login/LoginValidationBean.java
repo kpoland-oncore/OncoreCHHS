@@ -33,7 +33,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("loginValidationBean")
 @RequestScoped

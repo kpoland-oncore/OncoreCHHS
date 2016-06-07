@@ -23,45 +23,47 @@
  */
 package com.oncore.chhs.web.profile;
 
+import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.web.base.AbstractBaseManagedBean;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public interface AbstractProfileDataManagedBean extends AbstractBaseManagedBean{
     
     /**
-     * The <code>findProfileByUserId</code> method retrieves a user profile
+     * The findProfileByUserId method retrieves a user profile
      * by userUid
      * 
      * @param userUid a valid users uid
-     * @return a populated <code>ProfileBean</code> if a profile is found, 
+     * @return a populated Profile if a profile is found, 
      * null otherwise
      * @throws WebServiceException 
      */
-    public ProfileBean findProfileByUserUid(Integer userUid) throws WebServiceException;
+    public Profile findProfileByUserUid(Integer userUid) throws WebServiceException;
     
     /**
-     * The <code>createProfile</code> method creates a new profile. The method
+     * The createProfile method creates a new profile. The method
      * expects the Users table entry to have already been created prior to 
      * calling this method.
      * 
-     * @param profileBean a fully populated <code>ProfileBean</code> object
+     * @param profileBean a fully populated ProfileBean object
+     * @param user a fully populated users entity
      * 
      * @throws WebServiceException 
      */
-    public void createProfile(ProfileBean profileBean, Users user) throws WebServiceException;
+    public void createProfile(ProfileBean profileBean, User user) throws WebServiceException;
     
     /**
-     * The <code>updateProfile</code> method updates an existing user profile.
+     * The updateProfile method updates an existing user profile.
      * 
-     * @param profileBean a fully populated <code>ProfileBean</code> object
-     * @param users a fully populated users entity
+     * @param profileBean a fully populated ProfileBean object
+     * @param user a fully populated users entity
      * 
      * @throws WebServiceException 
      */
-    public void updateProfile(ProfileBean profileBean, Users users) throws WebServiceException;
+    public void updateProfile(ProfileBean profileBean, User user) throws WebServiceException;
 }

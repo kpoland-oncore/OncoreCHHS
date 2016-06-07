@@ -29,7 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class SearchBean extends BaseBean {
 
@@ -49,17 +49,18 @@ public class SearchBean extends BaseBean {
     private String facilityStatus;
     private Date licenseFirstDate;
     private Date closeDate;
-    private String location;
-    private String latitude;
+    private Double latitude;
+    private Double logitude;
     private String zipForSearch;
     private String zipForSearchError;
     private String calculatedAddress;
+    private String distance; 
+    
 
-    public void reset()
-    {
+    public void reset() {
         this.setZipForSearchError(StringUtils.EMPTY);
     }
-    
+
     /**
      * @return the facilityType
      */
@@ -285,20 +286,6 @@ public class SearchBean extends BaseBean {
     }
 
     /**
-     * @return the location
-     */
-    public String getLocation() {
-        return location;
-    }
-
-    /**
-     * @param location the location to set
-     */
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    /**
      * @return the zipForSearch
      */
     public String getZipForSearch() {
@@ -310,20 +297,6 @@ public class SearchBean extends BaseBean {
      */
     public void setZipForSearch(String zipForSearch) {
         this.zipForSearch = zipForSearch;
-    }
-
-    /**
-     * @return the latitude
-     */
-    public String getLatitude() {
-        return latitude;
-    }
-
-    /**
-     * @param latitude the latitude to set
-     */
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
     }
 
     /**
@@ -349,9 +322,8 @@ public class SearchBean extends BaseBean {
         if (StringUtils.isNotBlank(this.getFacilityZip())) {
             builder.append(this.getFacilityZip());
         }
-        
-        if(StringUtils.isNotBlank(builder.toString()))
-        {
+
+        if (StringUtils.isNotBlank(builder.toString())) {
             builder.append("\n").append(this.getFacilityTelephone());
         }
 
@@ -379,6 +351,48 @@ public class SearchBean extends BaseBean {
      */
     public void setZipForSearchError(String zipForSearchError) {
         this.zipForSearchError = zipForSearchError;
+    }
+
+    /**
+     * @return the latitude
+     */
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * @param latitude the latitude to set
+     */
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    /**
+     * @return the logitude
+     */
+    public Double getLogitude() {
+        return logitude;
+    }
+
+    /**
+     * @param logitude the logitude to set
+     */
+    public void setLogitude(Double logitude) {
+        this.logitude = logitude;
+    }
+
+    /**
+     * @return the distance
+     */
+    public String getDistance() {
+        return distance;
+    }
+
+    /**
+     * @param distance the distance to set
+     */
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
 }

@@ -26,6 +26,7 @@ package com.oncore.chhs.web.search;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.global.GlobalManagedBean;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("searchManagedBean")
 @ViewScoped
@@ -51,6 +52,7 @@ public class SearchManagedBean extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing SearchManagedBean: " + this.getClass().hashCode());
+
     }
 
     @Override
@@ -60,13 +62,11 @@ public class SearchManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The <code>handleLoginButtonClickEvent</code> method handles the click
+     * The handleLoginButtonClickEvent method handles the click
      * event generated from the login button on the login page.
      *
-     * @return a qualified URL or null if an exception occurs
      */
-    public String handleSearchButtonClickEvent() {
-        String page = null;
+    public void handleSearchButtonClickEvent() {
         Boolean isError = Boolean.FALSE;
         String error = null;
 
@@ -85,8 +85,6 @@ public class SearchManagedBean extends BaseManagedBean {
             LOG.error(wx);
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
         }
-
-        return page;
 
     }
 
@@ -137,6 +135,9 @@ public class SearchManagedBean extends BaseManagedBean {
 
     @Inject
     SearchValidationBean searchValidationBean;
+
+    @Inject
+    protected GlobalManagedBean globalManagedBean;
 
     private SearchBean searchBean = new SearchBean();
 

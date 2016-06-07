@@ -68,7 +68,7 @@
 
 
         
-            <p:panelGrid id="#{cc.attrs.id}_pnl" columns="2" columnClasses="column_1_class,column_2_class" role="presentation">
+            <p:panelGrid id="#{cc.attrs.id}_pnl" columns="2" columnClasses="column_1_class,column_2_class" >
              
                 <p:outputLabel for="input" styleClass="#{cc.attrs.labelStyleClass}">
                     <h:outputText value="#{cc.attrs.label}" rendered="#{!cc.attrs.requiredLabel}"/> 
@@ -102,7 +102,7 @@
                  
                 <h:outputText/>
                 
-                <p:message for="input" showDetail="false" showSummary="true" display="text"/>
+                <p:message for="input" showDetail="false" showSummary="true" />
 
                
 

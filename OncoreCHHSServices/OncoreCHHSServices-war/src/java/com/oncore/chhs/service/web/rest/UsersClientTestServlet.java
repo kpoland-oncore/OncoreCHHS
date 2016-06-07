@@ -1,16 +1,32 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * The MIT License
+ *
+ * Copyright 2016 oncore.
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 package com.oncore.chhs.service.web.rest;
 
-import com.oncore.chhs.client.dto.Summaries;
-import com.oncore.chhs.client.dto.UserDTO;
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.client.rest.UsersServiceClient;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,13 +35,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Kerry O'Brien
+ * @author OnCore LLC
  */
-@WebServlet( name = "UsersClientTestServlet", loadOnStartup = 1)
+@WebServlet(name = "UsersClientTestServlet", loadOnStartup = 1)
 public class UsersClientTestServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * Processes requests for both HTTP GET and POST
      * methods.
      *
      * @param request servlet request
@@ -38,26 +54,21 @@ public class UsersClientTestServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         UsersServiceClient client = new UsersServiceClient();
-        
+
         //UserDTO user = client.getUser( 1 );
-        
-        Summaries result = client.searchUsers( "SMITH", "TOM" );
-        
-        try (PrintWriter out = response.getWriter()) { 
+        User result = client.getUser(1);
+
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestClientServlet</title>");            
+            out.println("<title>Servlet TestClientServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet TestClientServlet at " + request.getContextPath() + "</h1>");
 
-            //out.println("<p>" + user.getFirstName() + " " + user.getLastName() );
-            
-            for (int i = 0;result != null && i < result.getItems().size();i++) {
-                out.println( "<li>" + result.getItems().get(i).getFirstName() + " " + result.getItems().get( i ).getLastName() + "</li>");
-            }
+            out.println("<li>" + result.getFirstName() + " " + result.getLastName() + "</li>");
 
             out.println("</body>");
             out.println("</html>");
@@ -66,7 +77,7 @@ public class UsersClientTestServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP GET method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -80,7 +91,7 @@ public class UsersClientTestServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP POST method.
      *
      * @param request servlet request
      * @param response servlet response

@@ -23,43 +23,36 @@
  */
 package com.oncore.chhs.web.messages;
 
+import com.oncore.chhs.client.dto.AllMessages;
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.base.AbstractBaseManagedBean;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.exceptions.WebServiceException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public interface AbstractMessageDataManagedBean extends AbstractBaseManagedBean {
 
     /**
-     * The <code>fetchMessages</code> method fetches all messages from the inbox
+     * The fetchMessages method fetches all messages from the inbox
      * and outbox for the user.
      *
-     * @param users the entity representing the user
-     * @param oldestDate fetch all messages newer than this date. If this is
-     * null fetch all messages
+     * @param userUid the entity representing the user
      *
      * @return a map containing list of populated inbox and outbox
-     * <code>MessageBean</code> objects if found, empty list otherwise
+     * MessageBean objects if found, empty list otherwise
      * @throws WebServiceException
      */
-//    public Map<String, List<MessageBean>> fetchMessages(Integer userUid, Date oldestDate) throws WebServiceException;
-    public List<MessageBean> fetchInbox(Users users, Date oldestDate) throws WebServiceException;
-
-    public List<MessageBean> fetchOutbox(Users users, Date oldestDate) throws WebServiceException;
+    public AllMessages fetchMessages(Integer userUid) throws WebServiceException;
 
     /**
-     * The <code>sendMessage</code> method sends a message.
+     * The sendMessage method sends a message.
      *
      * @param messageBean a message to send
      * @param users the entity representing the user
      *
      * @throws WebServiceException
      */
-    public void sendMessage(MessageBean messageBean, Users users) throws WebServiceException;
+    public void sendMessage(MessageBean messageBean, User users) throws WebServiceException;
 }

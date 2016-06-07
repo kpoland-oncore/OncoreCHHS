@@ -23,10 +23,11 @@
  */
 package com.oncore.chhs.web.login;
 
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.utils.FacesUtilities;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.global.GlobalManagedBean;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.context.FacesContext;
@@ -38,7 +39,7 @@ import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("loginManagedBean")
 @ViewScoped
@@ -57,7 +58,7 @@ public class LoginManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The <code>handleLoginButtonClickEvent</code> method handles the click
+     * The handleLoginButtonClickEvent method handles the click
      * event generated from the login button on the login page.
      *
      * @return a qualified URL or null if an exception occurs
@@ -66,20 +67,28 @@ public class LoginManagedBean extends BaseManagedBean {
         String page = null;
         Boolean isError = Boolean.FALSE;
         String error = null;
-        
+
         try {
             FacesUtilities.removeMessages();
             this.getLoginBean().reset();
-            
+
             if ((error = this.loginValidationBean.validateUserName(this.getLoginBean().getUserName(), FORM_NAME + "userNameTxt:input")) != null) {
                 FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
                 this.getLoginBean().setUserNameError(error);
             } else {
-                Users users = this.loginDataManagedBean.authenticateUser(loginBean);
+                User user = this.loginDataManagedBean.authenticateUser(loginBean);
 
-                if (users != null) {
+                if (user != null) {
+
+                    User users = new User();
+                    users.setFirstName(user.getFirstName());
+                    users.setMiddleName(user.getMiddleName());
+                    users.setLastName(user.getLastName());
+                    users.setUserName(user.getUserName());
+                    users.setUserUid(user.getUserUid());
+
                     this.globalManagedBean.setAuthenticated(Boolean.TRUE);
-                    this.globalManagedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
+                    this.globalManagedBean.setLoginText("Welcome " + user.getFirstName() + " " + user.getLastName());
                     this.globalManagedBean.setAuthenticatedUser(users);
                     page = this.navigationManagedBean.navigateToLink("index", Boolean.FALSE);
                 } else {
@@ -114,6 +123,9 @@ public class LoginManagedBean extends BaseManagedBean {
 
     @Inject
     LoginValidationBean loginValidationBean;
+ 
+    @Inject
+    protected GlobalManagedBean globalManagedBean;
 
     private LoginBean loginBean = new LoginBean();
 

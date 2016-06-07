@@ -23,172 +23,45 @@
  */
 package com.oncore.chhs.web.utils.helper;
 
-import com.oncore.chhs.web.entities.Address;
-import com.oncore.chhs.web.entities.Contact;
-import com.oncore.chhs.web.entities.Users;
-import com.oncore.chhs.web.enums.ContactTypeEnum;
+import com.oncore.chhs.client.dto.User;
+import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.web.profile.ProfileBean;
-import com.oncore.chhs.web.services.AdrStateCdFacadeREST;
-import com.oncore.chhs.web.services.EmcTypeCdFacadeREST;
-import com.oncore.chhs.web.utils.ErrorUtils;
-import java.util.Date;
-import java.util.List;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Utilities clss to support Profile.
+ * Utilities class to support Profile.
  *
- * @author oncore
+ * @author OnCore LLC
  */
 public class ProfileHelper {
 
-    public static final String CONTACT_TYPE_HOME_PHONE = "HPH";
-    public static final String CONTACT_TYPE_MOBILE_PHONE = "MPH";
-    public static final String CONTACT_TYPE_SMS_TEXT = "SMS";
-    public static final String CONTACT_TYPE_WORK_PHONE = "WPH";
-    public static final String CONTACT_TYPE_EMAIL = "EML";
     private final static Logger LOG = LogManager.getLogger(ProfileHelper.class);
 
     /**
-     * Builds the ProfileBean with users information. Profilebean includes user,
-     * address, contact information.
+     * Convert a ProfileBean UI object to an Profile data transfer object.
      *
-     * @param users
+     * @param profileBean The ProfileBean to convert.
      *
-     * @return profile bean
+     * @return The DTO.
      */
-    public static ProfileBean buildProfile(Users users) {
-        ProfileBean profileBean = new ProfileBean();
+    public static Profile convertProfileBeanToProfileDTO(ProfileBean profileBean) {
+        Profile profile = new Profile();
+        profile.setAddressLine1(profileBean.getAddressLine1());
+        profile.setAddressLine2(profileBean.getAddressLine2());
+        profile.setCity(profileBean.getCity());
+        profile.setEmail(profileBean.getEmail());
+        profile.setFirstName(profileBean.getFirstName());
+        profile.setLastName(profileBean.getLastName());
+        profile.setMiddleName(profileBean.getMiddleName());
+        profile.setPhone(profileBean.getPhone());
+        profile.setPhoneType(profileBean.getPhoneType());
+        profile.setState(profileBean.getState());
+        profile.setUserName(profileBean.getUserName());
+        profile.setZip(profileBean.getZip());
 
-        try {
-            populateProfileUsers(profileBean, users);
-        } catch (Exception ex) {
-            LOG.warn(ErrorUtils.getStackTrace(ex));
-        }
-
-        if (CollectionUtils.isNotEmpty(users.getAddressList()));
-        {
-            try {
-                populateProfileAddress(profileBean, users.getAddressList().get(0));
-            } catch (Exception ex) {
-                LOG.warn(ErrorUtils.getStackTrace(ex));
-            }
-        }
-
-        if (CollectionUtils.isNotEmpty(users.getContactList())) {
-            try {
-                populateProfileContact(profileBean, users.getContactList());
-            } catch (Exception ex) {
-                LOG.warn(ErrorUtils.getStackTrace(ex));
-            }
-        }
-
-        return profileBean;
-    }
-
-    /**
-     *
-     *
-     * @param profileBean
-     * @param adrStateCdFacadeREST
-     *
-     * @return
-     */
-    public static Address convertProfileBeanToAddressEntity(ProfileBean profileBean, AdrStateCdFacadeREST adrStateCdFacadeREST, Users users) {
-        Address address = new Address();
-        mapProfileBeanToAddressEntity(profileBean, address, adrStateCdFacadeREST, users);
-
-        return address;
-    }
-
-    /**
-     *
-     *
-     * @param profileBean
-     * @param address
-     * @param adrStateCdFacadeREST
-     */
-    public static void mapProfileBeanToAddressEntity(ProfileBean profileBean, Address address, AdrStateCdFacadeREST adrStateCdFacadeREST, Users users) {
-        address.setAdrLine1(profileBean.getAddressLine1());
-        address.setAdrLine2(profileBean.getAddressLine2());
-        address.setAdrCity(profileBean.getCity());
-        address.setAdrStateCd(adrStateCdFacadeREST.findByCode(profileBean.getState()));
-
-        if (StringUtils.isNotBlank(profileBean.getZip())) {
-            if (profileBean.getZip().length() > 5) {
-                address.setAdrZip5(profileBean.getZip().substring(0, 4));
-                address.setAdrZip4(profileBean.getZip().substring(5));
-            } else {
-                address.setAdrZip5(profileBean.getZip());
-            }
-        }
-
-        address.setCreateTs(new Date());
-        address.setCreateUserId(getFormattedName(users));
-        address.setUpdateTs(new Date());
-        address.setUpdateUserId(getFormattedName(users));
-
-        if (users != null) {
-            address.setUsrUidFk(users);
-        }
-    }
-
-    /**
-     *
-     *
-     * @param profileBean
-     * @param emcTypeCdFacadeREST
-     * @param users
-     *
-     * @return
-     */
-    public static Contact convertPhoneNumberToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
-        Contact contact = new Contact();
-        mapProfileBeanToContactEntity(profileBean.getPhoneType(), profileBean.getPhone(), contact, emcTypeCdFacadeREST, users);
-
-        return contact;
-    }
-
-    /**
-     *
-     *
-     * @param profileBean
-     * @param emcTypeCdFacadeREST
-     * @param users
-     *
-     * @return
-     */
-    public static Contact convertEmailToContactEntity(ProfileBean profileBean, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
-        Contact contact = new Contact();
-        mapProfileBeanToContactEntity(ContactTypeEnum.EMAIL_ADDRESS.getValue(), profileBean.getEmail(), contact, emcTypeCdFacadeREST, users);
-
-        return contact;
-    }
-
-    /**
-     *
-     *
-     * @param emcTypCd
-     * @param emcValue
-     * @param contact
-     * @param emcTypeCdFacadeREST
-     * @param users
-     */
-    public static void mapProfileBeanToContactEntity(String emcTypCd, String emcValue, Contact contact, EmcTypeCdFacadeREST emcTypeCdFacadeREST, Users users) {
-        contact.setEmcTypeCd(emcTypeCdFacadeREST.findByCode(emcTypCd));
-        contact.setEmcValue(emcValue);
-
-        contact.setCreateTs(new Date());
-        contact.setCreateUserId(getFormattedName(users));
-        contact.setUpdateTs(new Date());
-        contact.setUpdateUserId(getFormattedName(users));
-
-        if (users != null) {
-            contact.setUsrUidFk(users);
-        }
+        return profile;
     }
 
     /**
@@ -198,69 +71,23 @@ public class ProfileHelper {
      *
      * @return formatted name
      */
-    public static String getFormattedName(Users user) {
+    public static String getFormattedName(User user) {
         String formattedName = "";
 
         if (user != null) {
-            if (StringUtils.isNotBlank(user.getUsrFirstname())) {
-                formattedName = user.getUsrFirstname();
+            if (StringUtils.isNotBlank(user.getFirstName())) {
+                formattedName = user.getFirstName();
             }
-            if (StringUtils.isNotBlank(user.getUsrMiddlename())) {
+            if (StringUtils.isNotBlank(user.getMiddleName())) {
                 formattedName = " ";
-                formattedName = user.getUsrMiddlename();
+                formattedName = user.getMiddleName();
             }
-            if (StringUtils.isNotBlank(user.getUsrLastname())) {
+            if (StringUtils.isNotBlank(user.getLastName())) {
                 formattedName = " ";
-                formattedName = user.getUsrLastname();
+                formattedName = user.getLastName();
             }
         }
 
         return formattedName;
-    }
-
-    /**
-     * Populates the user information in ProfileBean.
-     *
-     * @param profileBean
-     * @param users
-     */
-    private static void populateProfileUsers(ProfileBean profileBean, Users users) {
-        profileBean.setUserName(users.getUsrUserId());
-        profileBean.setFirstName(users.getUsrFirstname());
-        profileBean.setMiddleName(users.getUsrMiddlename());
-        profileBean.setLastName(users.getUsrLastname());
-    }
-
-    /**
-     * Populates the address information in ProfileBean.
-     *
-     * @param profileBean
-     * @param address
-     */
-    private static void populateProfileAddress(ProfileBean profileBean, Address address) {
-        profileBean.setAddressLine1(address.getAdrLine1());
-        profileBean.setAddressLine2(address.getAdrLine2());
-        profileBean.setCity(address.getAdrCity());
-        profileBean.setState(address.getAdrStateCd().getCode());
-        profileBean.setZip(address.getAdrZip5() + address.getAdrZip4());
-    }
-
-    /**
-     * Populates the contact information in ProfileBean.
-     *
-     * @param profileBean
-     * @param contacts
-     */
-    private static void populateProfileContact(ProfileBean profileBean, List<Contact> contacts) {
-        for (Contact contact : contacts) {
-            if (StringUtils.equals(CONTACT_TYPE_HOME_PHONE, contact.getEmcTypeCd().getCode())
-                    || StringUtils.equals(CONTACT_TYPE_MOBILE_PHONE, contact.getEmcTypeCd().getCode())
-                    || StringUtils.equals(CONTACT_TYPE_SMS_TEXT, contact.getEmcTypeCd().getCode())
-                    || StringUtils.equals(CONTACT_TYPE_HOME_PHONE, contact.getEmcTypeCd().getCode())) {
-                profileBean.setPhone(contact.getEmcValue());
-            } else {
-                profileBean.setEmail(contact.getEmcValue());
-            }
-        }
     }
 }

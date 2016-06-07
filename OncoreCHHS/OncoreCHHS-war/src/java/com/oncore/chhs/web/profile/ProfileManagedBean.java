@@ -23,11 +23,12 @@
  */
 package com.oncore.chhs.web.profile;
 
+import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
-import com.oncore.chhs.web.entities.Users;
 import com.oncore.chhs.web.enums.ContactTypeEnum;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.global.GlobalManagedBean;
 import com.oncore.chhs.web.login.AbstractLoginDataManagedBean;
 import com.oncore.chhs.web.login.LoginBean;
 import com.oncore.chhs.web.utils.FacesUtilities;
@@ -42,7 +43,7 @@ import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("profileManagedBean")
 @ViewScoped
@@ -61,45 +62,38 @@ public class ProfileManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The <code>handleRegisterButtonClickEvent</code> method handles the click
+     * The handleRegisterButtonClickEvent method handles the click
      * event from the register button on the register screen.
-     *
-     * @return null if there is an exception, index if the operation is
-     * successful
      */
-    public String handleRegisterButtonClickEvent() {
-        String page = null;
-        Boolean isError = Boolean.FALSE;
-        String error = null;
+    public void handleRegisterButtonClickEvent() {
 
         try {
 
             FacesUtilities.removeMessages();
             this.getProfileBean().reset();
 
-            if ((error = this.profileValidationBean.validateUserName(this.getProfileBean().getUserName(), FORM_NAME + "userNameTxt:input")) != null) {
-                isError = Boolean.TRUE;
-                this.getProfileBean().setUserNameError(error);
-            }
-
-            isError = validateCommonFields(isError);
+            Boolean isError = validateFields();
 
             if (!isError) {
                 // determine if user already exists
                 LoginBean loginBean = new LoginBean();
                 loginBean.setUserName(this.getProfileBean().getUserName());
-                Users users = this.loginDataManagedBean.authenticateUser(loginBean);
 
-                if (users == null) {
-                    users = this.loginDataManagedBean.createUser(profileBean);
+                User user = this.loginDataManagedBean.authenticateUser(loginBean);
+
+                if (user == null) {
+
+                    user = this.loginDataManagedBean.createUser(profileBean);
 
                     this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
 
-                    this.profileDataManagedBean.createProfile(profileBean, users);
+                    this.profileDataManagedBean.createProfile(profileBean, user);
 
                     this.globalManagedBean.setAuthenticated(Boolean.TRUE);
-                    this.globalManagedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
-                    this.globalManagedBean.setAuthenticatedUser(users);
+                    this.globalManagedBean.setLoginText("Welcome " + user.getFirstName() + " " + user.getLastName());
+                    this.globalManagedBean.setAuthenticatedUser(user);
+
+                    this.setIsAddMode(Boolean.FALSE);
 
                     FacesUtilities.createPageLevelCustomInfo(FacesContext.getCurrentInstance(), FacesUtilities.THANK_YOU_PROFILE_MESSAGE);
 
@@ -114,54 +108,25 @@ public class ProfileManagedBean extends BaseManagedBean {
             LOG.error(wx);
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
         }
-
-        return page;
     }
 
-    public String handleUpdateButtonClickEvent() {
-        String page = null;
+    /**
+     * The validateFields method validates the input fields on the
+     * register page.
+     *
+     * @param isError true if an error is detected, false otherwise
+     *
+     * @return
+     */
+    private Boolean validateFields() {
         Boolean isError = Boolean.FALSE;
-        String error = null;
+        String error;
 
-        try {
-            FacesUtilities.removeMessages();
-            this.getProfileBean().reset();
-            
-            isError = validateCommonFields(isError);
-
-            if (!isError) {
-                // determine if user already exists
-                LoginBean loginBean = new LoginBean();
-                loginBean.setUserName(this.getProfileBean().getUserName());
-                Users users = this.loginDataManagedBean.authenticateUser(loginBean);
-
-                if (users == null) {
-                    users = this.loginDataManagedBean.createUser(profileBean);
-
-                    this.getProfileBean().setPhoneType(ContactTypeEnum.HOME_PHONE.getValue());
-
-                    this.profileDataManagedBean.createProfile(profileBean, users);
-
-                    this.globalManagedBean.setAuthenticated(Boolean.TRUE);
-                    this.globalManagedBean.setLoginText("Welcome " + users.getUsrFirstname() + " " + users.getUsrLastname());
-                    this.globalManagedBean.setAuthenticatedUser(users);
-
-                    FacesUtilities.runJavaScript("PF('saveDlgWdg').show();");
-
-                }
-            } else {
-                FacesUtilities.createPageLevelValidationError(FacesContext.getCurrentInstance());
-            }
-        } catch (WebServiceException wx) {
-            LOG.error(wx);
-            FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
+        if ((error = this.profileValidationBean.validateUserName(this.getProfileBean().getUserName(), FORM_NAME + "userNameTxt:input")) != null) {
+            isError = Boolean.TRUE;
+            this.getProfileBean().setUserNameError(error);
         }
 
-        return page;
-    }
-
-    public Boolean validateCommonFields(Boolean isError) {
-        String error;
         if ((error = this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), Boolean.TRUE, FORM_NAME + "firstNameTxt:input")) != null) {
             isError = Boolean.TRUE;
             this.getProfileBean().setFirstNameError(error);
@@ -219,6 +184,20 @@ public class ProfileManagedBean extends BaseManagedBean {
         this.profileBean = profileBean;
     }
 
+    /**
+     * @return the isAddMode
+     */
+    public Boolean getIsAddMode() {
+        return isAddMode;
+    }
+
+    /**
+     * @param isAddMode the isAddMode to set
+     */
+    public void setIsAddMode(Boolean isAddMode) {
+        this.isAddMode = isAddMode;
+    }
+
     @Inject
     AbstractProfileDataManagedBean profileDataManagedBean;
 
@@ -228,7 +207,12 @@ public class ProfileManagedBean extends BaseManagedBean {
     @Inject
     ProfileValidationBean profileValidationBean;
 
+    @Inject
+    protected GlobalManagedBean globalManagedBean;
+
     private ProfileBean profileBean = new ProfileBean();
+
+    private Boolean isAddMode = Boolean.TRUE;
 
     private final Logger LOG = LogManager.getLogger(ProfileManagedBean.class);
 

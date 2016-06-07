@@ -32,15 +32,15 @@
                         <h2>Locate</h2>
                     </header>
 
-                    
-                    <p:messages id="messages" showSummary="true" showDetail="false"
-                                    autoUpdate="true" globalOnly="true" display="text"
-                                    escape="false"/>
 
-                    
+                    <p:messages id="messages" showSummary="true" showDetail="false"
+                                autoUpdate="true" globalOnly="true"
+                                escape="false"/>
+
+
                     <p:panel id="searchPnl" header="Enter Search Criteria" toggleable="false" toggleTitle="Expand/Collapse" menuTitle="Enter Search Criteria">
 
-                         
+
 
                         <onc:inputMask id="zipMsk"
                                        label="Zip Code:"
@@ -54,6 +54,8 @@
                                        errMsgRendered="false"
                                        title="#{managedBeanContent.zipForSearchError}"
                                        value="#{managedBeanContent.zipForSearch}"/>
+
+
 
 
                         <ui:include src="/facelets/locate/search_table_large.xhtml" />
@@ -84,6 +86,7 @@
                                                  action="#{managedBean.handleSearchButtonClickEvent()}"/>
                             </p:outputPanel>
                             <p:blockUI block="searchButtonPnl" trigger="searchBtn"/>
+                            
                         </p:outputPanel>
 
 
@@ -94,6 +97,9 @@
             </div>
 
             <p:defaultCommand target="searchBtn"/>
+            
+            
+          
         </ui:define>
 
     </ui:composition>

@@ -3,36 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
    
-         
-<!--    <display-name>CHHS Foster Care Services</display-name>
-    
-    <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
-    </context-param>
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
-    <session-config>
-        <session-timeout>
-            30
-        </session-timeout>
-    </session-config>
-    <welcome-file-list>
-        <welcome-file>/faces/index.xhtml</welcome-file>
-    </welcome-file-list>
-
-    <context-param>  
-        <param-name>primefaces.THEME</param-name>  
-        <param-value>bootstrap</param-value>  
-    </context-param>  -->
-
+       
 
 
     <display-name>CHHS Foster Care Services</display-name>
@@ -60,6 +31,9 @@
     </context-param>
 
 
+
+
+    <!-- JSF OPTIMIZATIONS -->
     <context-param>
         <param-name>javax.faces.PARTIAL_STATE_SAVING</param-name>
         <param-value>false</param-value>
@@ -70,9 +44,6 @@
         <param-value>true</param-value>
     </context-param>
 
-
-
-    <!-- JSF OPTIMIZATIONS -->
 
     <context-param>
         <param-name>javax.faces.FACELETS_BUFFER_SIZE</param-name>
@@ -130,11 +101,5 @@
         <error-code>404</error-code>
         <location>/error.xhtml</location>
     </error-page>
-    
-   
  
-
-<!--    <listener>
-        <listener-class>filter.SessionListener</listener-class>
-    </listener>-->
 </web-app>

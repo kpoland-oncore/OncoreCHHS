@@ -33,7 +33,7 @@ import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("homeManagedBean")
 @ViewScoped

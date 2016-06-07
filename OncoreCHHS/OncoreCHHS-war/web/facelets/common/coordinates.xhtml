@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+    </h:head>
+
+    <ui:composition>
+        <!-- GPS ENHANCEMENT, STILL EXPERIMENTAL -->
+        <div style="height: 0;">
+            <p:inputText id="cachedLatitude" value="#{globalManagedBean.latitude}" style="visibility: hidden;"/>
+            <p:inputText id="cachedLongitude" value="#{globalManagedBean.longitude}" style="visibility: hidden;" />
+        </div>
+
+        <!-- UNCOMMENT IF YOU WANT TO SEE THE COORDINATES -->
+<!--                    <div>
+                        <h:outputText value="latitude: "/><p:inputText id="cachedLatitude" value="#{globalManagedBean.latitude}" />
+                        <h:outputText value="longitude: "/><p:inputText id="cachedLongitude" value="#{globalManagedBean.longitude}" />
+                    </div>-->
+    </ui:composition>      
+
+</html>

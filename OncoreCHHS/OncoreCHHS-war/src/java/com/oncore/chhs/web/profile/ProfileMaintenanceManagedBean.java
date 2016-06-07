@@ -23,10 +23,12 @@
  */
 package com.oncore.chhs.web.profile;
 
+import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.enums.ContactTypeEnum;
 import com.oncore.chhs.web.exceptions.WebServiceException;
+import com.oncore.chhs.web.global.GlobalManagedBean;
 import com.oncore.chhs.web.login.AbstractLoginDataManagedBean;
 import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.FacesUtilities;
@@ -41,7 +43,7 @@ import org.omnifaces.cdi.ViewScoped;
 
 /**
  *
- * @author oncore
+ * @author OnCore LLC
  */
 @Named("profileMaintenanceManagedBean")
 @ViewScoped
@@ -62,12 +64,27 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
             try {
                 FacesUtilities.removeMessages();
 
-                this.setProfileBean(this.profileDataManagedBean.findProfileByUserUid(this.globalManagedBean.getAuthenticatedUser().getUsrUid()));
+                Profile profile = this.profileDataManagedBean.findProfileByUserUid(this.globalManagedBean.getAuthenticatedUser().getUserUid().intValue());
+                this.profileBean = new ProfileBean();
 
-            } catch (WebServiceException wx) {
-                LOG.error(wx);
+                this.profileBean.setAddressLine1(profile.getAddressLine1());
+                this.profileBean.setAddressLine2(profile.getAddressLine2());
+                this.profileBean.setCity(profile.getCity());
+                this.profileBean.setEmail(profile.getEmail());
+                this.profileBean.setFirstName(profile.getFirstName());
+                this.profileBean.setLastName(profile.getLastName());
+                this.profileBean.setMiddleName(profile.getMiddleName());
+                this.profileBean.setPhone(profile.getPhone());
+                this.profileBean.setPhoneType(profile.getPhoneType());
+                this.profileBean.setState(profile.getState());
+                this.profileBean.setUserName(profile.getUserName());
+                this.profileBean.setZip(profile.getZip());
+
+            } catch (Exception e) {
+                LOG.error(e);
                 FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
             }
+
         }
 
     }
@@ -78,15 +95,18 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
         LOG.debug("Destroying ProfileMaintenanceManagedBean: " + this.getClass().hashCode());
     }
 
-    public String handleSaveButtonClickEvent() {
-        String page = null;
+    /**
+     * The handleSaveButtonClickEvent method handles the click
+     * event generated from the save button on the myprofile page.
+     */
+    public void handleSaveButtonClickEvent() {
         Boolean isError = Boolean.FALSE;
         String error = null;
 
         try {
             FacesUtilities.removeMessages();
             this.getProfileBean().reset();
-            
+
             if ((error = this.profileValidationBean.validateName(this.getProfileBean().getFirstName(), Boolean.TRUE, FORM_NAME + "firstNameTxt:input")) != null) {
                 isError = Boolean.TRUE;
                 this.getProfileBean().setFirstNameError(error);
@@ -144,7 +164,6 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
             FacesUtilities.createPageLevelFatalError(FacesContext.getCurrentInstance());
         }
 
-        return page;
     }
 
     /**
@@ -169,6 +188,9 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
 
     @Inject
     ProfileValidationBean profileValidationBean;
+
+    @Inject
+    protected GlobalManagedBean globalManagedBean;
 
     private ProfileBean profileBean = new ProfileBean();
 
