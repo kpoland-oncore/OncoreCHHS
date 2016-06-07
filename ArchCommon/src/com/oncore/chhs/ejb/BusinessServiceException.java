@@ -54,8 +54,10 @@ public class BusinessServiceException extends RuntimeException {
         super(message, cause);
     }
 
+  
     /**
-     * @cause The cause. 
+     * 
+     * @param cause 
      */
     public BusinessServiceException(Throwable cause) {
         super(cause);

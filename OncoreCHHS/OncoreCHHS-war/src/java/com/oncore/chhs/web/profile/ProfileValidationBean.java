@@ -58,7 +58,7 @@ public class ProfileValidationBean extends BaseValidationBean {
     }
 
     /**
-     * The </code>validateName</code> method validates the contents of a name
+     * The validateName method validates the contents of a name
      * field.
      *
      * @param name the value of the input field
@@ -82,7 +82,7 @@ public class ProfileValidationBean extends BaseValidationBean {
     }
 
     /**
-     * The </code>validateAddressData</code> method validates the contents of an
+     * The validateAddressData method validates the contents of an
      * address field.
      *
      * @param value the value of the inputTextArea
@@ -106,7 +106,7 @@ public class ProfileValidationBean extends BaseValidationBean {
     }
 
     /**
-     * The </code>validateEmailAddress</code> method validates the contents of
+     * The validateEmailAddress method validates the contents of
      * an email field.
      *
      * @param value the value of the inputTextArea

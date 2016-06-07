@@ -30,7 +30,7 @@ package com.oncore.chhs.web.utils;
 public final class GpsUtils {
 
     /**
-     * The <code>calculateDistance</code> method determines the distance between
+     * The calculateDistance method determines the distance between
      * two GPS cordinates.
      *
      * @param latCordinate1 latitude of first coordinate

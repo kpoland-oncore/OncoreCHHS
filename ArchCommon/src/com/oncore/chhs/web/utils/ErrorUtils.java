@@ -32,7 +32,7 @@ import org.apache.commons.lang3.StringUtils;
 public final class ErrorUtils {
 
     /**
-     * The <code>getStackTrace</code> method returns a readable
+     * The getStackTrace method returns a readable
      * string representation of a stacktrace.
      * 
      * @param t a throwable exception

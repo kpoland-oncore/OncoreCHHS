@@ -34,7 +34,7 @@ import java.util.List;
 public interface AbstractReferenceDataManagedBean extends AbstractBaseManagedBean {
 
     /**
-     * The <code>fetchStateCodes</code> method fetches state records
+     * The fetchStateCodes method fetches state records
      *
      * @throws WebServiceException
      * @return a populated List of state codes
@@ -42,7 +42,7 @@ public interface AbstractReferenceDataManagedBean extends AbstractBaseManagedBea
     public List<String> fetchStateCodes() throws WebServiceException;
 
     /**
-     * The <code>fetchContactCodes</code> method fetches contact records
+     * The fetchContactCodes method fetches contact records
      *
      * @throws WebServiceException
      * @return a populated list of contact codes

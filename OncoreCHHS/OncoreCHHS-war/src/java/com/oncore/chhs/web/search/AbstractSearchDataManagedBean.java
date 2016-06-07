@@ -34,11 +34,11 @@ import java.util.List;
 public interface AbstractSearchDataManagedBean extends AbstractBaseManagedBean {
 
     /**
-     * The <code>search</code> method hits the CHHS Facility search web service
+     * The search method hits the CHHS Facility search web service
      * attempting to locate facilities in the provided zip code
      *
      * @param zip a populated zip code
-     * @return a list of populated <code>SearchBean</code> objects if found,
+     * @return a list of populated SearchBean objects if found,
      * empty list otherwise
      * @throws WebServiceException
      */
@@ -46,12 +46,12 @@ public interface AbstractSearchDataManagedBean extends AbstractBaseManagedBean {
 
     
     /**
-     * The <code>searchArea</code> method hits the CHHS Facility search web
+     * The searchArea method hits the CHHS Facility search web
      * service attempting to locate facilities in the provided coordinate.
      *
      * @param logitude a logitude of coordinate
      * @param latitude a latitude of coordinate
-     * @return a list of populated <code>SearchBean</code> objects if found,
+     * @return a list of populated SearchBean objects if found,
      * empty list otherwise
      * @throws WebServiceException
      */

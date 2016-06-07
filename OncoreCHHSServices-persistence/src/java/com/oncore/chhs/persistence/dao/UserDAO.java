@@ -48,7 +48,7 @@ public class UserDAO extends AbstractDAO<Users> {
 
     /**
      *
-     * @param username User name.
+     * @param userName User name.
      *
      * @return A matching User.
      */
@@ -140,7 +140,8 @@ public class UserDAO extends AbstractDAO<Users> {
     }
 
     /**
-     * @{inherited}
+     * 
+     * @return an instance of EntityManager
      */
     @Override
     protected EntityManager getEntityManager() {

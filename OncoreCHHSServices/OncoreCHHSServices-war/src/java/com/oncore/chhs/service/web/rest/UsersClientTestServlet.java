@@ -41,7 +41,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UsersClientTestServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * Processes requests for both HTTP GET and POST
      * methods.
      *
      * @param request servlet request
@@ -77,7 +77,7 @@ public class UsersClientTestServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Handles the HTTP GET method.
      *
      * @param request servlet request
      * @param response servlet response
@@ -91,7 +91,7 @@ public class UsersClientTestServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Handles the HTTP POST method.
      *
      * @param request servlet request
      * @param response servlet response

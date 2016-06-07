@@ -58,7 +58,7 @@ public class LoginManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The <code>handleLoginButtonClickEvent</code> method handles the click
+     * The handleLoginButtonClickEvent method handles the click
      * event generated from the login button on the login page.
      *
      * @return a qualified URL or null if an exception occurs

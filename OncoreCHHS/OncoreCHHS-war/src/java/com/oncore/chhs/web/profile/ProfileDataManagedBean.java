@@ -63,7 +63,7 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      *
      * @param userUid
      *
-     * @return <code>Profile</code>
+     * @return Profile
      */
     @Override
     public Profile findProfileByUserUid(Integer userUid) {

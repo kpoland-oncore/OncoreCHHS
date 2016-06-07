@@ -57,12 +57,12 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
     }
 
     /**
-     * The <code>fetchMessages</code> method returns all messages for the 
+     * The fetchMessages method returns all messages for the 
      * specified user.
      * 
      * @param userUid a valid user identifier
      *
-     * @return a populated <code>AllMessages</code> object
+     * @return a populated AllMessages object
      *
      * @throws WebServiceException
      */
@@ -72,11 +72,11 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
     }
 
     /**
-     * The <coee>sendMessage</code> method sends a message from a user
+     * The sendMessage method sends a message from a user
      * to a case worker.
      *
-     * @param messageBean a populated <code>MessageBean</code> object
-     * @param users a populated <code>User</code> object
+     * @param messageBean a populated MessageBean object
+     * @param users a populated User object
      * @throws WebServiceException
      */
     @Override
@@ -85,8 +85,8 @@ public class MessageDataManagedBean implements AbstractMessageDataManagedBean {
     }
 
     /**
-     * The <code>getMessagesServiceClient</code> method returns an instance of
-     * <code>MessagesServiceClient</code>
+     * The getMessagesServiceClient method returns an instance of
+     * MessagesServiceClient
      * 
      * @return MessagesServiceClient
      */

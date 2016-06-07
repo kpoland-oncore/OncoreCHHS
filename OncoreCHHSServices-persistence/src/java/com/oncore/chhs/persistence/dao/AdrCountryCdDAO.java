@@ -36,16 +36,17 @@ import javax.persistence.PersistenceContext;
 @Stateless
 @LocalBean
 public class AdrCountryCdDAO extends AbstractDAO<AdrCountryCd> {
-    
+
     @PersistenceContext(name = "OncoreCHHSServices-persistencePU")
     private EntityManager entityManager;
-    
+
     /**
-     * @{inherited}
+     *
+     * @return an instance of EntityManager
      */
     @Override
     protected EntityManager getEntityManager() {
         return this.entityManager;
     }
-    
+
 }

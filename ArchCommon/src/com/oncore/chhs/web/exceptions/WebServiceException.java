@@ -30,14 +30,14 @@ package com.oncore.chhs.web.exceptions;
 public class WebServiceException extends Exception {
 
     /**
-     * Creates a new instance of <code>WebServiceException</code> without detail
+     * Creates a new instance of WebServiceException without detail
      * message.
      */
     public WebServiceException() {
     }
 
     /**
-     * Constructs an instance of <code>WebServiceException</code> with the
+     * Constructs an instance of WebServiceException with the
      * specified detail message.
      *
      * @param msg the detail message.

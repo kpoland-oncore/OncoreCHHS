@@ -43,7 +43,7 @@ public class MessagesServiceClient extends AbstractRestClient {
     private static final String MESSAGES_URL = "messages.rest.url.json";
 
     /**
-     * The <code>sendMessage</code> method sends a message.
+     * The sendMessage method sends a message.
      *
      * @param from message from
      * @param to message to
@@ -77,13 +77,13 @@ public class MessagesServiceClient extends AbstractRestClient {
     }
 
     /**
-     * The <code>fetchMessages</code> method fetches all messages from the inbox
+     * The fetchMessages method fetches all messages from the inbox
      * and outbox for the user.
      *
      * @param userUid the entity representing the user
      *
      * @return a map containing list of populated inbox and outbox
-     * <code>MessageDTO</code> objects if found, empty list otherwise
+     * MessageDTO objects if found, empty list otherwise
      */
     public AllMessages getAllMessages(Integer userUid) {
 

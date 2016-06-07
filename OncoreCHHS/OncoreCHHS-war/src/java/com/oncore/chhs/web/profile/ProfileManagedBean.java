@@ -62,7 +62,7 @@ public class ProfileManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The <code>handleRegisterButtonClickEvent</code> method handles the click
+     * The handleRegisterButtonClickEvent method handles the click
      * event from the register button on the register screen.
      */
     public void handleRegisterButtonClickEvent() {
@@ -111,7 +111,7 @@ public class ProfileManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The <code>validateFields</code> method validates the input fields on the
+     * The validateFields method validates the input fields on the
      * register page.
      *
      * @param isError true if an error is detected, false otherwise

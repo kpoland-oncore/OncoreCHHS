@@ -62,7 +62,7 @@ public class SearchManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The <code>handleLoginButtonClickEvent</code> method handles the click
+     * The handleLoginButtonClickEvent method handles the click
      * event generated from the login button on the login page.
      *
      */

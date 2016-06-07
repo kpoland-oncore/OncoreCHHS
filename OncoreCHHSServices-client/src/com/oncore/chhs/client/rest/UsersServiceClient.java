@@ -46,7 +46,7 @@ public class UsersServiceClient extends AbstractRestClient {
     /**
      * Gets the Users entity from the userId key.
      *
-     * @param userId The primary key.
+     * @param id The primary key.
      *
      * @return A User or null if not found.
      */
@@ -72,7 +72,7 @@ public class UsersServiceClient extends AbstractRestClient {
      * Gets the user with the matching username.
      *
      * @param userName
-     * @return a populated <code>User</code> object if found, null otherwise
+     * @return a populated User object if found, null otherwise
      * @throws WebServiceException
      */
     public User authenticateUser(String userName) throws WebServiceException {

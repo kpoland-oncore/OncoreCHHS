@@ -35,21 +35,21 @@ import com.oncore.chhs.web.profile.ProfileBean;
 public interface AbstractLoginDataManagedBean extends AbstractBaseManagedBean {
 
     /**
-     * The <code>createUser</code> method creates a new user record
+     * The createUser method creates a new user record
      *
-     * @param profileBean a populated <code>profileBean</code> object
+     * @param profileBean a populated profileBean object
      * @throws WebServiceException
-     * @return a populated <code>Users</code> object if found, null otherwise
+     * @return a populated Users object if found, null otherwise
      */
     public User createUser(ProfileBean profileBean) throws WebServiceException;
 
     /**
-     * The <code>authenticateUser</code> method determines if a user exists
+     * The authenticateUser method determines if a user exists
      * matching the user name.
      *
-     * @param loginBean a populated <code>LoginBean</code> object
+     * @param loginBean a populated LoginBean object
      * @throws WebServiceException
-     * @return a populated <code>UserDTO</code> object if found, null otherwise
+     * @return a populated UserDTO object if found, null otherwise
      */
     public User authenticateUser(LoginBean loginBean) throws WebServiceException;
 

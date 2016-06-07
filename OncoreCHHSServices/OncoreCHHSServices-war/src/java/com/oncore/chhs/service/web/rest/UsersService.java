@@ -120,7 +120,7 @@ public class UsersService {
 
     /**
      *
-     * @param message The message.
+     * @param user a valid User object
      *
      * @return InsertResponse.
      */

@@ -56,7 +56,7 @@ public class NavigationManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The <code>navigateToLink</code> method passes control from one page to
+     * The navigateToLink method passes control from one page to
      * another using JSF's built in navigation management.
      *
      * @param target a target JSF page or external address

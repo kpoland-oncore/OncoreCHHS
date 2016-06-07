@@ -96,7 +96,7 @@ public class ProfileMaintenanceManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The <code>handleSaveButtonClickEvent</code> method handles the click
+     * The handleSaveButtonClickEvent method handles the click
      * event generated from the save button on the myprofile page.
      */
     public void handleSaveButtonClickEvent() {

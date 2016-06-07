@@ -35,7 +35,7 @@ public class MessagesToMessageDTOConverter {
     /**
      * Builds the MessageBean to display on the page.
      *
-     * @param messages
+     * @param msg
      *
      * @return all messages.
      */

@@ -61,7 +61,7 @@ public class MessagesService {
 
     /**
      *
-     * @param message The message.
+     * @param createMessage a valid CreateMessage object
      *
      * @return InsertResponse.
      */

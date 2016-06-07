@@ -43,11 +43,10 @@ public class LocateServiceClient extends AbstractRestClient {
     /**
      * Retrieves the licensed foster family agencies by the zip code.
      *
-     * @param zipCode
+     * @param zip
      *
      * @return Foster Family Agencies
      *
-     * @throws Exception
      */
     public List<FosterFamilyAgency> searchFosterFamilyAgency(String zip) {
 

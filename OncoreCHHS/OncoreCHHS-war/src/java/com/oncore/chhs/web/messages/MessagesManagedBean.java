@@ -74,7 +74,7 @@ public class MessagesManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The <code>handleSendButtonClickEvent</code> method handles the click
+     * The handleSendButtonClickEvent method handles the click
      * event generated from the send button on the message page.
      */
     public void handleSendButtonClickEvent() {

@@ -35,19 +35,19 @@ import com.oncore.chhs.web.exceptions.WebServiceException;
 public interface AbstractMessageDataManagedBean extends AbstractBaseManagedBean {
 
     /**
-     * The <code>fetchMessages</code> method fetches all messages from the inbox
+     * The fetchMessages method fetches all messages from the inbox
      * and outbox for the user.
      *
      * @param userUid the entity representing the user
      *
      * @return a map containing list of populated inbox and outbox
-     * <code>MessageBean</code> objects if found, empty list otherwise
+     * MessageBean objects if found, empty list otherwise
      * @throws WebServiceException
      */
     public AllMessages fetchMessages(Integer userUid) throws WebServiceException;
 
     /**
-     * The <code>sendMessage</code> method sends a message.
+     * The sendMessage method sends a message.
      *
      * @param messageBean a message to send
      * @param users the entity representing the user

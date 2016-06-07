@@ -41,7 +41,8 @@ public class EmcTypeCdDAO extends AbstractDAO<EmcTypeCd> {
     private EntityManager entityManager;
     
     /**
-     * @{inherited}
+     * 
+     * @return an instance of EntityManager
      */
     @Override
     protected EntityManager getEntityManager() {

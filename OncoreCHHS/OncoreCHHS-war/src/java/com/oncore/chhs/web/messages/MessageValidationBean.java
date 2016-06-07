@@ -55,7 +55,7 @@ public class MessageValidationBean extends BaseValidationBean {
     }
 
     /**
-     * The </code>validateTextArea</code> method validates the contents of an
+     * The validateTextArea method validates the contents of an
      * inputTextArea.
      *
      * @param value the value of the inputTextArea

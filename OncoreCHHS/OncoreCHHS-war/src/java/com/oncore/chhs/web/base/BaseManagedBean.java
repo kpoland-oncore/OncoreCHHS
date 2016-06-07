@@ -40,7 +40,7 @@ public abstract class BaseManagedBean implements AbstractBaseManagedBean, Serial
     public abstract void destroy();
 
     /**
-     * The <code>handleHeaderNavigationClickEvent</code> method handles the
+     * The handleHeaderNavigationClickEvent method handles the
      * click event on the header navigation links such as Home, MyProfile,
      * Locate Services, and Messages.
      *

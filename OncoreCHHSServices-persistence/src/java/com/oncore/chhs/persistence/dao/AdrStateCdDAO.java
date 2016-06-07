@@ -41,7 +41,8 @@ public class AdrStateCdDAO extends AbstractDAO<AdrStateCd> {
     private EntityManager entityManager;
     
     /**
-     * @{inherited}
+     * 
+     * @return an instance of EntityManager
      */
     @Override
     protected EntityManager getEntityManager() {
