@@ -94,6 +94,8 @@ public class MessagesManagedBean extends BaseManagedBean {
                 this.messageDataManagedBean.sendMessage(this.getMessageBean(), this.globalManagedBean.getAuthenticatedUser());
 
                 this.populateBoxes();
+                
+                this.setMessageBean(new MessageBean());
             }
         } catch (WebServiceException wx) {
             LOG.error(wx);
