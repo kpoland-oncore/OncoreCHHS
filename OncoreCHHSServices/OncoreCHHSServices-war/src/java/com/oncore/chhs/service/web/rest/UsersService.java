@@ -127,13 +127,14 @@ public class UsersService {
     @POST
     @Path("/createUser/")
     @Consumes({MediaType.APPLICATION_JSON})
-    public InsertResponse createUser(User user) {
-        InsertResponse insertResponse = null;
+    public InsertResponse<User> createUser(User user) {
+        InsertResponse<User> insertResponse = null;
 
         try {
-            EJBUtils.lookupEJB(UserService.class).createUser(user);
+            User created = EJBUtils.lookupEJB(UserService.class).createUser(user);
 
             insertResponse = new InsertResponse(1);
+            insertResponse.setResult(created);
         } catch (Throwable t) {
             String errorMsg = "Error creating user.";
 

@@ -23,59 +23,112 @@
  */
 package com.oncore.chhs.web.search;
 
+import com.oncore.chhs.client.dto.locate.FosterFamilyAgency;
+import com.oncore.chhs.client.rest.LocateServiceClient;
+import com.oncore.chhs.web.global.GlobalManagedBean;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  *
  * @author oncore
  */
 public class SearchDataManagedBeanTest {
-    
+
     public SearchDataManagedBeanTest() {
     }
 
-
-
     /**
-     * Test of search method, of class SearchDataManagedBean,
-     * for a case where results should be returned.
-     * 
+     * Test of search method, of class SearchDataManagedBean.
+     *
      * @throws Exception Any unexpected exception should fail the test.
      */
     @Test
-    public void testSearchWithResults() throws Exception {
-        
-        SearchDataManagedBean instance = new SearchDataManagedBean();
-        
+    public void testSearchByZip() throws Exception {
+
+        FosterFamilyAgency testAgency = new FosterFamilyAgency();
+        testAgency.setCounty_name("countyName");
+        testAgency.setFacility_address("facilityAddress");
+        testAgency.setFacility_city("facilityCity");
+        testAgency.setFacility_name("facilityName");
+        testAgency.setFacility_state("facilityState");
+        testAgency.setFacility_zip("facilityZip");
+
+        List<FosterFamilyAgency> testAgencies = new ArrayList<>();
+        testAgencies.add(testAgency);
+
+        LocateServiceClient mockService = mock(LocateServiceClient.class);
+        when(mockService.searchFosterFamilyAgency("95608")).thenReturn(testAgencies);
+
+        SearchDataManagedBean instance = spy(new SearchDataManagedBean());
+        when(instance.getLocateServiceClient()).thenReturn(mockService);
+
+        instance.setGlobalManagedBean(new GlobalManagedBean());
+
         //search for an agency in Carmichael, CA
         List<SearchBean> result = instance.search("95608");
-        
+
         assertNotNull(result);
-        assertTrue( result.size() > 0 );
-        
+        assertTrue(result.size() > 0);
+
         SearchBean first = result.get(0);
-        
-        assertEquals( "CARMICHAEL", first.getFacilityCity() );
-        assertEquals( "CA", first.getFacilityState() );
-        assertEquals( "SACRAMENTO", first.getCounty() );
+
+        assertEquals("facilityAddress", first.getFacilityAddress());
+        assertEquals("facilityCity", first.getFacilityCity());
+        assertEquals("facilityState", first.getFacilityState());
+        assertEquals("facilityZip", first.getFacilityZip());
+        assertEquals("countyName", first.getCounty());
     }
 
     /**
-     * Test of search method, of class SearchDataManagedBean,
-     * for a case where no results should be returned.
-     * 
+     * Test of search method, of class SearchDataManagedBean, for a case where
+     * no results should be returned.
+     *
      * @throws Exception Any unexpected exception should fail the test.
      */
     @Test
-    public void testSearchWithBadData() throws Exception {
-        
-        SearchDataManagedBean instance = new SearchDataManagedBean();
-        List<SearchBean> result = instance.search("invalid");
-        
+    public void testSearchArea() throws Exception {
+
+        FosterFamilyAgency testAgency = new FosterFamilyAgency();
+        testAgency.setCounty_name("countyName");
+        testAgency.setFacility_address("facilityAddress");
+        testAgency.setFacility_city("facilityCity");
+        testAgency.setFacility_name("facilityName");
+        testAgency.setFacility_state("facilityState");
+        testAgency.setFacility_zip("facilityZip");
+
+        List<FosterFamilyAgency> testAgencies = new ArrayList<>();
+        testAgencies.add(testAgency);
+
+        LocateServiceClient mockService = mock(LocateServiceClient.class);
+
+        Double longitude = 1D;
+        Double latitude = 2D;
+
+        when(mockService.searchFosterFamilyAgencyByCircle(longitude, latitude)).thenReturn(testAgencies);
+
+        SearchDataManagedBean instance = spy(new SearchDataManagedBean());
+        when(instance.getLocateServiceClient()).thenReturn(mockService);
+
+        instance.setGlobalManagedBean(new GlobalManagedBean());
+
+        //search for an agency in Carmichael, CA
+        List<SearchBean> result = instance.searchArea(longitude, latitude);
+
         assertNotNull(result);
-        assertTrue( result.isEmpty() );
+        assertTrue(result.size() > 0);
+
+        SearchBean first = result.get(0);
+
+        assertEquals("facilityAddress", first.getFacilityAddress());
+        assertEquals("facilityCity", first.getFacilityCity());
+        assertEquals("facilityState", first.getFacilityState());
+        assertEquals("facilityZip", first.getFacilityZip());
+        assertEquals("countyName", first.getCounty());
+
     }
-    
+
 }
