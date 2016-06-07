@@ -25,9 +25,9 @@ COPY ArchCommon/src/client_service_urls.properties /usr/local/glassfish4/glassfi
 
 # domain.xml for glassfish
 # This contains jdbc URLs for the MySQL database in this form
-#   <property name="URL" value="jdbc:mysql://overridemysqlserverhostname:3306/chhsdb?zeroDateTimeBehavior=convertToNull"></property>
-#   <property name="Url" value="jdbc:mysql://overridemysqlserverhostname:3306/chhsdb?zeroDateTimeBehavior=convertToNull"></property>
-# TODO override that hostname at docker deploy time to appropriate TEST (oncorechhsjenkins.westus.cloudapp.azure.com) or PROD (oncorechhsmysql.westus.cloudapp.com) hostname
+#   <property name="URL" value="jdbc:mysql://oncorechhsmysql.westus.cloudapp.azure.com:3306/chhsdb?zeroDateTimeBehavior=convertToNull"></property>
+#   <property name="Url" value="jdbc:mysql://oncorechhsmysql.westus.cloudapp.azure.com:3306/chhsdb?zeroDateTimeBehavior=convertToNull"></property>
+# Hardcoded to prod, otherwise would need to override that hostname at docker deploy time to appropriate TEST (oncorechhsjenkins.westus.cloudapp.azure.com) or PROD (oncorechhsmysql.westus.cloudapp.com) hostname
 COPY docker/domain.xml /usr/local/glassfish4/glassfish/domains/domain1/config/
 
 # entrypoint start script that starts glassfish, installs the EAR, stops glassfish, then starts glassfish
@@ -38,8 +38,6 @@ RUN /bin/sed -i -e 's/\r$//' /start_glassfish.sh && /bin/chmod +x /start_glassfi
 # copy built EARs into the container
 COPY OncoreCHHS/dist/OncoreCHHS.ear /
 COPY OncoreCHHSServices/dist/OncoreCHHSServices.ear /
-
-RUN mkdir /home/oncore && /bin/ln -s /usr/local/glassfish4 /home/oncore/glassfish-4.1.1
 
 EXPOSE 4848
 EXPOSE 8080
