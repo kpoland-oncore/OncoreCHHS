@@ -39,7 +39,9 @@ RUN /bin/sed -i -e 's/\r$//' /start_glassfish.sh && /bin/chmod +x /start_glassfi
 COPY OncoreCHHS/dist/OncoreCHHS.ear /
 COPY OncoreCHHSServices/dist/OncoreCHHSServices.ear /
 
+RUN /bin/mkdir /home/oncore && /bin/ln -s /usr/local/glassfish4/ /home/oncore/glassfish-4.1.1
+
 EXPOSE 4848
 EXPOSE 8080
 
-ENTRYPOINT ["/start_glassfish.sh"]
+CMD ["/start_glassfish.sh"]
