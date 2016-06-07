@@ -7,11 +7,16 @@ package com.oncore.chhs.web.rest.response;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author Kerry O'Brien
  */
+@XmlRootElement
+@XmlAccessorType( XmlAccessType.FIELD )
 public abstract class AbstractResponse {
     private String errorMessage;
     private String cause;
