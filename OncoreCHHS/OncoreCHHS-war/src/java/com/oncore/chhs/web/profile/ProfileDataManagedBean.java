@@ -27,7 +27,6 @@ import com.oncore.chhs.client.dto.User;
 import com.oncore.chhs.client.dto.profile.Profile;
 import com.oncore.chhs.client.rest.ProfileServiceClient;
 import com.oncore.chhs.web.base.BaseManagedBean;
-import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.utils.helper.ProfileHelper;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -65,11 +64,9 @@ public class ProfileDataManagedBean extends BaseManagedBean implements AbstractP
      * @param userUid
      *
      * @return <code>Profile</code>
-     *
-     * @throws WebServiceException
      */
     @Override
-    public Profile findProfileByUserUid(Integer userUid) throws WebServiceException {
+    public Profile findProfileByUserUid(Integer userUid) {
 
         return this.getProfileServiceClient().findProfileByUserUid(userUid);
     }

@@ -221,36 +221,38 @@ public class ProfileServiceImpl implements ProfileService {
     private void updateUsersAddress(CreateOrUpdateProfile profile, Users users) {
         if (StringUtils.isNotBlank(profile.getAddressLine1())) {
             Set<Address> addresses = this.getUserAddresses(users);
-            Address address = addresses.iterator().next();
 
-            if (address != null) {
-                address.setAdrLine1(profile.getAddressLine1());
-                address.setAdrLine2(profile.getAddressLine2());
-                address.setAdrCity(profile.getCity());
+            if (addresses.size() > 0) {
+                Address address = addresses.iterator().next();
 
-                AdrStateCd adrStateCd = this.adrStateCdDAO.findById(profile.getState());
-                address.setAdrStateCd(adrStateCd);
+                if (address != null) {
+                    address.setAdrLine1(profile.getAddressLine1());
+                    address.setAdrLine2(profile.getAddressLine2());
+                    address.setAdrCity(profile.getCity());
 
-                if (StringUtils.isNotBlank(profile.getZip())) {
-                    String newZip = profile.getZip();
-                    if (newZip.length() > 5) {
-                        address.setAdrZip5(newZip.substring(0, 4));
-                        address.setAdrZip4(newZip.substring(5));
+                    AdrStateCd adrStateCd = this.adrStateCdDAO.findById(profile.getState());
+                    address.setAdrStateCd(adrStateCd);
+
+                    if (StringUtils.isNotBlank(profile.getZip())) {
+                        String newZip = profile.getZip();
+                        if (newZip.length() > 5) {
+                            address.setAdrZip5(newZip.substring(0, 4));
+                            address.setAdrZip4(newZip.substring(5));
+                        } else {
+                            address.setAdrZip5(newZip);
+                            address.setAdrZip4("");
+                        }
                     } else {
-                        address.setAdrZip5(newZip);
+                        address.setAdrZip5("");
                         address.setAdrZip4("");
                     }
-                } else {
-                    address.setAdrZip5("");
-                    address.setAdrZip4("");
                 }
-
             } else {
                 this.createAddress(users, profile);
             }
         } else {
             Set<Address> addresses = users.getAddressSet();
-            if (addresses != null) {
+            if (addresses != null && addresses.size() > 0) {
                 Address address = addresses.iterator().next();
                 if (address != null) {
                     addresses.remove(address);
