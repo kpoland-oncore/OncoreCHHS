@@ -81,20 +81,20 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
 
         try {
             List<FosterFamilyAgency> fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgency(zip);
-
+ 
             if (CollectionUtils.isNotEmpty(fosterFamilyAgencies)) {
                 for (FosterFamilyAgency agency : fosterFamilyAgencies) {
                     searchBean = SearchHelper.convertFosterFamilyAgencyToSearchBean(agency);
-
-                    if ((this.globalManagedBean.getLatitude() != null && this.globalManagedBean.getLongitude() != null
-                            && searchBean.getLatitude() != null && searchBean.getLogitude() != null)
-                            && (this.globalManagedBean.getLatitude() != 0 && this.globalManagedBean.getLongitude() != 0
-                            && searchBean.getLatitude() != 0 && searchBean.getLogitude() != 0)) {
-                        searchBean.setDistance(GpsUtils.calculateDistance(this.globalManagedBean.getLatitude(), this.globalManagedBean.getLongitude(),
-                                searchBean.getLatitude(), searchBean.getLogitude()).toString() + " Miles");
-                    } else {
-                        searchBean.setDistance("Unknown");
-                    }
+// FOR GPS DISTANCE ENHANCEMENT, DISABLING FOR FUTURE RELEASE
+//                    if ((this.globalManagedBean.getLatitude() != null && this.globalManagedBean.getLongitude() != null
+//                            && searchBean.getLatitude() != null && searchBean.getLogitude() != null)
+//                            && (this.globalManagedBean.getLatitude() != 0 && this.globalManagedBean.getLongitude() != 0
+//                            && searchBean.getLatitude() != 0 && searchBean.getLogitude() != 0)) {
+//                        searchBean.setDistance(GpsUtils.calculateDistance(this.globalManagedBean.getLatitude(), this.globalManagedBean.getLongitude(),
+//                                searchBean.getLatitude(), searchBean.getLogitude()).toString() + " Miles");
+//                    } else {
+//                        searchBean.setDistance("Unknown");
+//                    }
 
                     agencies.add(searchBean);
                 }
