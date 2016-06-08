@@ -1,7 +1,6 @@
 #!/bin/sh
 
-/usr/local/glassfish4/bin/asadmin start-domain --verbose
-/usr/local/glassfish4/bin/asadmin -u admin deploy --force=true /OncoreCHHSServices.ear
-/usr/local/glassfish4/bin/asadmin -u admin deploy --force=true /OncoreCHHS.ear
-#/usr/local/glassfish4/bin/asadmin stop-domain
-#/usr/local/glassfish4/bin/asadmin start-domain --verbose
+/usr/local/glassfish-4.1.1/bin/asadmin start-domain
+/usr/local/glassfish-4.1.1/bin/asadmin -u admin deploy --force=true /OncoreCHHSServices.ear
+/usr/local/glassfish-4.1.1/bin/asadmin -u admin deploy --force=true /OncoreCHHS.ear
+/bin/bash -c "while true; do sleep 60; done"
