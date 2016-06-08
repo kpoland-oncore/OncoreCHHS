@@ -1,5 +1,5 @@
 #FROM glassfish:latest
-FROM oracle/glassfish:4.1.1
+FROM kpoland/glassfish:4.1.1
 MAINTAINER kpoland kyle.poland@oncorellc.com
 
 RUN apt-get -qq update && \
