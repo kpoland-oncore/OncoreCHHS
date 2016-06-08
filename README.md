@@ -27,7 +27,8 @@ Finally, the team rapidly developed prototypical pages that the users could reac
 
 Iteration 2 focused on completing the core features, incorporating user feedback from early usability testing.  It also elaborated our use of the Azure cloud, including automated builds triggered by changes in GitHub, and automated deployments to the test environment triggered by successful builds.
 
-**Iteration 3:**  Feature Enhancements, Bug Fixes, Responsiveness, and Further Optimization to the Technology Platform 
+**Iteration 3:**  Feature Enhancements, Bug Fixes, Responsiveness, and Further Optimization to the Technology Platform  
+
 As the team entered iteration three, the core functionality was complete and we added feature enhancements. Users continued to submit input and bugs as they tested using common browsers and mobile devices. The team delivered enhancements the users considered important: improving the overall user experience, adding messaging features and fixing bugs. We increased the UI responsiveness to ensure consistency across multiple browsers and devices. We used NVDA to review the screens and addressed compliance with the Americans with Disabilities Act (ADA). Lastly, in iteration three we evolved the technical architecture to use RESTful clients for communication to the business tier and defined stereotypes and patterns to further separate the UI, business and data tiers. 
 
 In the third iteration, we used Jenkins to orchestrate a set of Ant tasks to build the current version of the application, passing through a gate of JUnit suites before moving on to the automated deployment to a Docker image, where a set of Selenium test cases were run for end-to-end regression. Integration to StatusCake was used for continuous monitoring.
