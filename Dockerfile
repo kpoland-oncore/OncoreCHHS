@@ -1,4 +1,3 @@
-#FROM glassfish:latest
 FROM kpoland/glassfish:4.1.1
 MAINTAINER kpoland kyle.poland@oncorellc.com
 
@@ -22,14 +21,14 @@ COPY docker/log4j.properties /usr/local/glassfish-4.1.1/glassfish/domains/domain
 #   users.rest.url.json=http://localhost:8080/OncoreCHHSServices-war/rest
 #   profile.rest.url.json=http://localhost:8080/OncoreCHHSServices-war/rest
 #   messages.rest.url.json=http://localhost:8080/OncoreCHHSServices-war/rest
-# TODO it will need to be adjusted if deployed as split tiers in different containers, change localhost to the hostname of the services tier
+# It will need to be overridden if deployed as split tiers in different containers, change/override localhost with the hostname of the services tier
 COPY ArchCommon/src/client_service_urls.properties /usr/local/glassfish-4.1.1/glassfish/domains/domain1/lib/classes/
 
 # domain.xml for glassfish
 # This contains jdbc URLs for the MySQL database in this form
-#   <property name="URL" value="jdbc:mysql://oncorechhsmysql.westus.cloudapp.azure.com:3306/chhsdb?zeroDateTimeBehavior=convertToNull"></property>
-#   <property name="Url" value="jdbc:mysql://oncorechhsmysql.westus.cloudapp.azure.com:3306/chhsdb?zeroDateTimeBehavior=convertToNull"></property>
-# Hardcoded to prod, otherwise would need to override that hostname at docker deploy time to appropriate TEST (oncorechhsjenkins.westus.cloudapp.azure.com) or PROD (oncorechhsmysql.westus.cloudapp.com) hostname
+#   <property name="URL" value="jdbc:mysql://127.0.0.1:3306/chhsdb?zeroDateTimeBehavior=convertToNull"></property>
+#   <property name="Url" value="jdbc:mysql://127.0.0.1:3306/chhsdb?zeroDateTimeBehavior=convertToNull"></property>
+# Hardcoded to a locally running database, will need to adjust/override when database is separate from docker container
 COPY docker/domain.xml /usr/local/glassfish-4.1.1/glassfish/domains/domain1/config/
 
 # entrypoint start script that starts glassfish, installs the EAR, stops glassfish, then starts glassfish
