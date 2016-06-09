@@ -70,10 +70,12 @@ public class SessionFilter implements Filter {
 
             if (!isResourceRequest) {
                 if (isLogoutRequest) {
+                    System.out.println("Attempting to terminate session.");
                     this.globalManagedBean.setAuthenticated(Boolean.FALSE);
-                    httpRequest.getSession(false).setMaxInactiveInterval(1);
+                  //  httpRequest.getSession(false).setMaxInactiveInterval(1);
                     httpRequest.getSession(false).invalidate();
                     httpRequest.logout();
+                    System.out.println("Session has been terminated.");
 
                     httpResponse.sendRedirect("sessionexpired.xhtml");
                 } else {
