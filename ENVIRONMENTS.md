@@ -43,7 +43,8 @@ We use the Jenkins open-source Continuous Integration server for builds and depl
 The Jenkins console is available at: http://oncorechhsjenkins.westus.cloudapp.azure.com/
 ##### Jenkins Pipeline Job
 A single continuous deployment pipeline job takes the code from GitHub push through build, unit tests, deployment to a test environment, regression tests, manual approval to deploy to Prod, and the Production deployment.
-![Jenkins screenshot][documentation/jenkins_screenshot.png]
+
+![alt text](https://github.com/OncoreLLC/OncoreCHHS/blob/master/documentation/jenkins_screenhsot.png "Jenkins screenshot")
 
 Pushes to GitHub automatically trigger the pipeline job. **NOTE: as of June 9 this automatic build has been disabled.**
 
