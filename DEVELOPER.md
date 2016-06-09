@@ -25,6 +25,7 @@ Once MySql is installed:
 
 ## Git Command Line Basics
 [Git getting started guide](https://git-scm.com/book/en/v2/Getting-Started-The-Command-Line)
+
 ```git help <command>```
 
 ### Setup
