@@ -80,7 +80,17 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
         SearchBean searchBean = null;
 
         try {
-            List<FosterFamilyAgency> fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgency(zip);
+            List<FosterFamilyAgency> fosterFamilyAgencies = null;
+
+            ZipCoordinate result = this.getLocateServiceClient().getZipCodeCoordinate(zip);
+
+            Double logitude = result.getResults()[0].getGeometry().getLocation().getLng();
+            Double latitude = result.getResults()[0].getGeometry().getLocation().getLat();
+
+            if (null != result && null != result.getResults() && null != result.getResults()[0].getGeometry()
+                    && null != result.getResults()[0].getGeometry().getLocation()) {
+                fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgencyByCircle(logitude, latitude);
+            }
  
             if (CollectionUtils.isNotEmpty(fosterFamilyAgencies)) {
                 for (FosterFamilyAgency agency : fosterFamilyAgencies) {
