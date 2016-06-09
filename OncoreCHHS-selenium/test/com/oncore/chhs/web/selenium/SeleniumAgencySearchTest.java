@@ -42,10 +42,12 @@ public class SeleniumAgencySearchTest {
 
 	@Test
 	public void testSeleniumAgencySearch() throws Exception {
-		selenium.open("/OncoreCHHS-war/");
+		selenium.open("/OncoreCHHS-war/sessionexpired.xhtml");
+		selenium.click("link=Return Home");
+		selenium.waitForPageToLoad("30000");
 		selenium.click("link=Locate Services");
 		selenium.waitForPageToLoad("30000");
-		selenium.click("id=chssForm:searchBtn");
+		selenium.click("id=chhsForm:searchBtn");
 		selenium.waitForPageToLoad("30000");
 	}
 
