@@ -40,6 +40,8 @@
                                 escape="false"/>
  
                     <div class="cleaner"/>
+                     <p><h:outputText value="*To login use the 'testuser' user name or sign up for a new account." /></p>
+        
                     <p:panel id="testpnl" header="Enter Login Information" toggleable="false" menuTitle="Enter Login Information">
                     <onc:inputText_1 id="userNameTxt"
                                      label="User Name:"
@@ -76,6 +78,15 @@
                                                  action="#{managedBean.handleLoginButtonClickEvent()}"/>
                             </p:outputPanel>
                             <p:blockUI block="loginButtonPnl" trigger="loginBtn"/>
+                            <p:outputPanel id="signupButtonPnl" layout="block"
+                                           styleClass="innerButtonGroup">
+                                <p:commandButton id="signupBtn" value="Register" 
+                                                 styleClass="buttonGroup" onstart="PF('feedbackWdg').show()"
+                                                 oncomplete="PF('feedbackWdg').hide()"
+                                                 ajax="false"
+                                                 action="#{managedBean.handleHeaderNavigationClickEvent('register')}"/>
+                            </p:outputPanel>
+                            <p:blockUI block="signupButtonPnl" trigger="signupBtn"/>
                         </p:outputPanel>
 
 
