@@ -2,39 +2,41 @@
 [README](README.md) > DevOps Environment Specifications
 
 This document describes the technical setup of various aspects of the OncoreCHHS DevOps and environment approach:
-1. GitHub
-2. Jenkins Builds
-3. Docker Containers
-4. Test Environment
-5. Production Environment
-6. Monitoring
+1. GitHub  
+2. Jenkins Builds  
+3. Docker Containers  
+4. Test Environment  
+5. Production Environment  
+6. Monitoring  
 
 ## GitHub
 All source code, test scripts, design documentation, and other documentation is maintained in this GitHub repository. **NOTE: This repo has been set to read-only as of June 9th, 2016.**
-The repository address is [https://github.com/OncoreLLC/OncoreCHHS.git](https://github.com/OncoreLLC/OncoreCHHS.git)
+
+The repository address is [https://github.com/OncoreLLC/OncoreCHHS](https://github.com/OncoreLLC/OncoreCHHS)
 ### GitHub Organization
 - several markdown files in the top level directory address
--- [README.md](README.md) - official proposal project writeup
--- [DEVELOPER.md](DEVELOPER.md) - developer documentation
--- [ENVIRONMENTS.md](ENVIRONMENTS.md) - this document, DevOps and environment documentation
+  - [README.md](README.md) - official proposal project writeup
+  - [DEVELOPER.md](DEVELOPER.md) - developer documentation
+  - [ENVIRONMENTS.md](ENVIRONMENTS.md) - this document, DevOps and environment documentation
 - a [documentation](documenation) folder containing
--- the user interface guide
--- JavaDocs for the built application
--- a folder of design specifications in Word format
--- a folder of Pivotal Tracker agile project tool information and an extract from the tool
+  - [the user interface guide](documentation/OncoreCHHSUserInterfaceGuide.pdf)
+  - [JavaDocs](documentation/JavaDocs.zip) (zip file) for the built application
+  - a [folder](documentation/DesignSpecsFromUserSessions) of design specifications in Word format
+  - a [folder](documentation/PivotalTrackerArtifacts) of Pivotal Tracker agile project tool information and an extract from the tool
 - java source and test projects are located in
--- OncoreCHHS - web tier containing an war and an ejb subproject
--- OncoreCHHSServices - services tier containing a war and an ejb project
--- OncoreCHHSServices-persistence - persistence layer used by OncoreCHHSServices
--- OncoreCHHSServices-client - REST client layer used by OncoreCHHSServices
--- ArchCommon - common architectural layer used by both OncoreCHHS and OncoreCHHSServices
--- OncoreCHHS-selenium - selenium regression tests
+  - OncoreCHHS - web tier containing an war and an ejb subproject
+  - OncoreCHHSServices - services tier containing a war and an ejb project
+  - OncoreCHHSServices-persistence - persistence layer used by OncoreCHHSServices
+  - OncoreCHHSServices-client - REST client layer used by OncoreCHHSServices
+  - rchCommon - common architectural layer used by both OncoreCHHS and OncoreCHHSServices
+  - OncoreCHHS-selenium - selenium regression tests
 - Docker materials
--- the top level Dockerfile that builds our Docker app image
--- a docker folder containing materials needed for the Docker build
+  - the top level Dockerfile that builds our Docker app image
+  - a docker folder containing materials needed for the Docker build
 
 ## Jenkins Builds
 We use the Jenkins open-source Continuous Integration server for builds and deployments. Jenkins is installed on a Azure Linux VM which also serves as our Test server.
+
 The Jenkins console is available at: http://oncorechhsjenkins.westus.cloudapp.azure.com/
 ### Jenkins Pipeline Job
 A single continuous deployment pipeline job takes the code from GitHub push through build, unit tests, deployment to a test environment, regression tests, manual approval to deploy to Prod, and the Production deployment. Pushes to GitHub automatically trigger this pipeline job. **NOTE: as of June 9 this automatic build has been disabled.**  This pipeline goes through the following stages where each stage is dependent on the successful completion of previous stages:
@@ -91,8 +93,8 @@ Password: oncorechhs
 
 We considered setting up our own independent monitoring stack, but went with StatusCake because:
 - quick implementation
--- once we got the app deployed into the Test environment we were able to immediately monitor it with little additional work
+  - once we got the app deployed into the Test environment we were able to immediately monitor it with little additional work
 - independence from our Azure stack
--- rolling our own monitoring would have required installing it in one or more different Azure regions from our main West-US region to ensure availability
+  - rolling our own monitoring would have required installing it in one or more different Azure regions from our main West-US region to ensure availability
 
 StatusCake was selected instead of standing up our own monitoring stack for several reasons:
