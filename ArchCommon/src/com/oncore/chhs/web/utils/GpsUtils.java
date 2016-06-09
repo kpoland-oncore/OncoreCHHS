@@ -23,6 +23,8 @@
  */
 package com.oncore.chhs.web.utils;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author OnCore LLC
@@ -30,8 +32,8 @@ package com.oncore.chhs.web.utils;
 public final class GpsUtils {
 
     /**
-     * The calculateDistance method determines the distance between
-     * two GPS cordinates.
+     * The calculateDistance method determines the distance between two GPS
+     * cordinates.
      *
      * @param latCordinate1 latitude of first coordinate
      * @param longCordinate1 longitude of first coordinate
@@ -39,7 +41,7 @@ public final class GpsUtils {
      * @param longCordinate2 longitude of second coordinate
      * @return
      */
-    public static Integer calculateDistance(Double latCordinate1, Double longCordinate1, Double latCordinate2, Double longCordinate2) {
+    public static double calculateDistance(Double latCordinate1, Double longCordinate1, Double latCordinate2, Double longCordinate2) {
 
         Double distance = 0d;
 
@@ -55,8 +57,8 @@ public final class GpsUtils {
 
         distance = radius * curve;
 
-        distance = (distance / 10);
+       // distance = (distance / 10);
 
-        return distance.intValue();
+        return new BigDecimal(distance).setScale(1, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 }

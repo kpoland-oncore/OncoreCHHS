@@ -54,8 +54,7 @@ public class SearchBean extends BaseBean {
     private String zipForSearch;
     private String zipForSearchError;
     private String calculatedAddress;
-    private String distance; 
-    
+    private Double distance;
 
     public void reset() {
         this.setZipForSearchError(StringUtils.EMPTY);
@@ -368,6 +367,20 @@ public class SearchBean extends BaseBean {
     }
 
     /**
+     * @return the distance
+     */
+    public Double getDistance() {
+        return distance;
+    }
+
+    /**
+     * @param distance the distance to set
+     */
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
+    /**
      * @return the logitude
      */
     public Double getLogitude() {
@@ -379,20 +392,6 @@ public class SearchBean extends BaseBean {
      */
     public void setLogitude(Double logitude) {
         this.logitude = logitude;
-    }
-
-    /**
-     * @return the distance
-     */
-    public String getDistance() {
-        return distance;
-    }
-
-    /**
-     * @param distance the distance to set
-     */
-    public void setDistance(String distance) {
-        this.distance = distance;
     }
 
 }

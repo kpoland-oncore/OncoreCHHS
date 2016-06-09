@@ -43,7 +43,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 /**
  *
  * @author OnCore LLC
@@ -78,34 +77,27 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
     @Override
     public List<SearchBean> search(String zip) throws WebServiceException {
         List<SearchBean> agencies = new ArrayList<>();
-        SearchBean searchBean = null;
 
         try {
             List<FosterFamilyAgency> fosterFamilyAgencies = null;
 
             ZipCoordinate result = this.getLocateServiceClient().getZipCodeCoordinate(zip);
 
-            Double logitude = result.getResults()[0].getGeometry().getLocation().getLng();
-            Double latitude = result.getResults()[0].getGeometry().getLocation().getLat();
+            Double logitude = null;
+            Double latitude = null;
 
             if (null != result && null != result.getResults() && null != result.getResults()[0].getGeometry()
                     && null != result.getResults()[0].getGeometry().getLocation()) {
+
+                logitude = result.getResults()[0].getGeometry().getLocation().getLng();
+                latitude = result.getResults()[0].getGeometry().getLocation().getLat();
+
                 fosterFamilyAgencies = this.getLocateServiceClient().searchFosterFamilyAgencyByCircle(logitude, latitude);
             }
- 
+
             if (CollectionUtils.isNotEmpty(fosterFamilyAgencies)) {
                 for (FosterFamilyAgency agency : fosterFamilyAgencies) {
-                    searchBean = SearchHelper.convertFosterFamilyAgencyToSearchBean(agency);
-// FOR GPS DISTANCE ENHANCEMENT, DISABLING FOR FUTURE RELEASE
-//                    if ((this.globalManagedBean.getLatitude() != null && this.globalManagedBean.getLongitude() != null
-//                            && searchBean.getLatitude() != null && searchBean.getLogitude() != null)
-//                            && (this.globalManagedBean.getLatitude() != 0 && this.globalManagedBean.getLongitude() != 0
-//                            && searchBean.getLatitude() != 0 && searchBean.getLogitude() != 0)) {
-//                        searchBean.setDistance(GpsUtils.calculateDistance(this.globalManagedBean.getLatitude(), this.globalManagedBean.getLongitude(),
-//                                searchBean.getLatitude(), searchBean.getLogitude()).toString() + " Miles");
-//                    } else {
-//                        searchBean.setDistance("Unknown");
-//                    }
+                    SearchBean searchBean = SearchHelper.convertFosterFamilyAgencyToSearchBean(agency, latitude, logitude);
 
                     agencies.add(searchBean);
                 }
@@ -131,18 +123,7 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
 
             if (CollectionUtils.isNotEmpty(fosterFamilyAgencies)) {
                 for (FosterFamilyAgency agency : fosterFamilyAgencies) {
-                    searchBean = SearchHelper.convertFosterFamilyAgencyToSearchBean(agency);
-
-                    if ((this.globalManagedBean.getLatitude() != null && this.globalManagedBean.getLongitude() != null
-                            && searchBean.getLatitude() != null && searchBean.getLogitude() != null)
-                            && (this.globalManagedBean.getLatitude() != 0 && this.globalManagedBean.getLongitude() != 0
-                            && searchBean.getLatitude() != 0 && searchBean.getLogitude() != 0)) {
-                        searchBean.setDistance(GpsUtils.calculateDistance(this.globalManagedBean.getLatitude(), this.globalManagedBean.getLongitude(),
-                                searchBean.getLatitude(), searchBean.getLogitude()).toString() + " Miles");
-                    } else {
-                        searchBean.setDistance("Unknown");
-                    }
-
+                    searchBean = SearchHelper.convertFosterFamilyAgencyToSearchBean(agency, null, null);
                     agencies.add(searchBean);
                 }
             }
@@ -164,12 +145,11 @@ public class SearchDataManagedBean implements AbstractSearchDataManagedBean {
 
     @Inject
     GlobalManagedBean globalManagedBean;
-    
+
     /**
      * Setter used for unit tests
      */
-    void setGlobalManagedBean( GlobalManagedBean globalManagedBean )
-    {
+    void setGlobalManagedBean(GlobalManagedBean globalManagedBean) {
         this.globalManagedBean = globalManagedBean;
     }
 }

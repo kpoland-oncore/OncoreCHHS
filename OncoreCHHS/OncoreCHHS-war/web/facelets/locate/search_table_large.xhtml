@@ -11,13 +11,15 @@
     </h:head>
 
 
+    
     <ui:composition>
+        
         <p:dataTable id="searchTableLarge" var="searchBean"
                      rendered="#{!managedBean.searchBeanList.isEmpty()}"
                      styleClass="contentLarge"
                      value="#{managedBean.searchBeanList}"
                      summary="Search results"  
-                     sortBy="#{searchBean.distance}" sortOrder="descending"
+                     sortBy="#{searchBean.distance}" sortOrder="ascending"
                      paginator="true" rows="20" paginatorPosition="bottom"
                      paginatorAlwaysVisible="false"
                      paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -43,14 +45,14 @@
                 <h:outputText value="#{searchBean.facilityTelephone}" />
             </p:column>
 
-            <!-- EXPERIMENTAL GPS ENHANCEMENT -->
-            <!--            <p:column sortBy="#{searchBean.distance}"
-                                  style="width:10%; text-align: left;">
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;&nbsp;Distance" />
-                            </f:facet>
-                            <h:outputText value="#{searchBean.distance}" />
-                        </p:column>-->
+
+            <p:column sortBy="#{searchBean.distance}"
+                      style="width:10%; text-align: left;">
+                <f:facet name="header">
+                    <h:outputText value="&nbsp;&nbsp;Distance" />
+                </f:facet>
+                <h:outputText value="#{searchBean.distance}" />
+            </p:column>
 
 
             <p:column sortBy="#{searchBean.facilityAddress}"

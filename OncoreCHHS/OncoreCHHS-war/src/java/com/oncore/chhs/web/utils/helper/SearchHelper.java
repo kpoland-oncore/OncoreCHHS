@@ -25,6 +25,7 @@ package com.oncore.chhs.web.utils.helper;
 
 import com.oncore.chhs.client.dto.locate.FosterFamilyAgency;
 import com.oncore.chhs.web.search.SearchBean;
+import com.oncore.chhs.web.utils.GpsUtils;
 
 /**
  *
@@ -39,7 +40,7 @@ public class SearchHelper {
      *
      * @return
      */
-    public static SearchBean convertFosterFamilyAgencyToSearchBean(FosterFamilyAgency agency) {
+    public static SearchBean convertFosterFamilyAgencyToSearchBean(FosterFamilyAgency agency, Double zipLatitude, Double zipLongitude) {
         SearchBean searchBean = new SearchBean();
 
         searchBean.setCounty(agency.getCounty_name());
@@ -57,8 +58,57 @@ public class SearchHelper {
         if (null != agency.getLocation()) {
             searchBean.setLogitude(agency.getLocation().getCoordinates()[0]);
             searchBean.setLatitude(agency.getLocation().getCoordinates()[1]);
+
+            if (null != zipLatitude && null != zipLongitude) {
+                searchBean.setDistance(GpsUtils.calculateDistance(zipLatitude, zipLongitude, searchBean.getLatitude(), searchBean.getLogitude()));
+            }
+
         }
 
         return searchBean;
     }
+
+//    /**
+//     * This routine calculates the distance between two points (given the
+//     * latitude/longitude of those points). It is being used to calculate the
+//     * distance between two locations.
+//     *
+//     * @param lat1 - latitude point 1
+//     * @param lon1 - longitude point 1
+//     * @param lat2 - latitude point 2
+//     * @param lon2 - longitude point 2
+//     *
+//     * @return the distance between the two points with precision to the .1.
+//     */
+//    public static final double getDistance(double lat1, double lon1, double lat2, double lon2) {
+//        double theta = lon1 - lon2;
+//        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+//        dist = Math.acos(dist);
+//        dist = rad2deg(dist);
+//        dist = dist * 60 * 1.1515;
+//
+//        return new BigDecimal(dist)
+//                .setScale(1, BigDecimal.ROUND_HALF_UP)
+//                .doubleValue();
+//    }
+//
+//    /**
+//     * This function converts decimal degrees to radians.
+//     *
+//     * @param deg - the decimal to convert to radians
+//     * @return the decimal converted to radians
+//     */
+//    private static final double deg2rad(double deg) {
+//        return (deg * Math.PI / 180.0);
+//    }
+//
+//    /**
+//     * This function converts radians to decimal degrees.
+//     *
+//     * @param rad - the radian to convert
+//     * @return the radian converted to decimal degrees
+//     */
+//    private static final double rad2deg(double rad) {
+//        return (rad * 180 / Math.PI);
+//    }
 }

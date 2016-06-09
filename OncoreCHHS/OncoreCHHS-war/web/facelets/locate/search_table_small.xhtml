@@ -11,20 +11,22 @@
     </h:head>
 
 
+
     <ui:composition>
+        
         <p:dataTable id="searchTableSmall" var="searchBean"
                      styleClass="contentSmall"
                      rendered="#{!managedBean.searchBeanList.isEmpty()}"
                      value="#{managedBean.searchBeanList}"
                      summary="Search results"  
-                     sortBy="#{searchBean.facilityName}" sortOrder="ascending"
+                     sortBy="#{searchBean.distance}" sortOrder="ascending"
                      paginator="true" rows="20" paginatorPosition="bottom"
                      paginatorAlwaysVisible="false"
                      paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      rowsPerPageTemplate="20,40,60">
 
             <p:column sortBy="#{searchBean.facilityName}"
-                      style=" text-align: left;">
+                      style="width:30%; text-align: left;">
                 <f:facet name="header">
                     <h:outputText value="&nbsp;&nbsp;Facility Name" />
                 </f:facet>
@@ -34,7 +36,7 @@
 
 
             <p:column sortBy="#{searchBean.calculatedAddress}"
-                      style=" text-align: left;">
+                      style="width:50%; text-align: left;">
                 <f:facet name="header">
                     <h:outputText value="&nbsp;&nbsp;Address" />
                 </f:facet>
@@ -42,14 +44,13 @@
             </p:column>
 
 
-            <!-- EXPERIMENTAL GPS ENHANCEMENT -->
-<!--              <p:column sortBy="#{searchBean.distance}"
-                      style="text-align: left;">
+            <p:column sortBy="#{searchBean.distance}"
+                      style="width:20%; text-align: left;">
                 <f:facet name="header">
-                    <h:outputText value="&nbsp;&nbsp;Distance" />
+                    <h:outputText value="&nbsp;&nbsp;Dist" />
                 </f:facet>
                 <h:outputText value="#{searchBean.distance}" />
-            </p:column>-->
+            </p:column>
 
 
         </p:dataTable>
