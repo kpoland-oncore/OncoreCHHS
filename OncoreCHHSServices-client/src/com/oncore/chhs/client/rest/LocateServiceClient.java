@@ -84,12 +84,9 @@ public class LocateServiceClient extends AbstractRestClient {
 
         try {
             if (logitude != null && latitude != null) {
-
-                String whereQueryParam = "within_circle(location, " + logitude.toString() + "," + latitude.toString() + ", 15000)";
-
-                WebTarget target = this.getTarget(LOCATE_SERVICE).
-                        queryParam("facility_status", "LICENSED").queryParam("$where", whereQueryParam).
-                        queryParam("$$app_token", APP_TOKEN);
+                String whereQueryParam = "within_circle(location," + latitude.toString() + "," + logitude.toString() + ",15000)";
+                WebTarget target = this.getTarget(LOCATE_SERVICE).queryParam("facility_status", "LICENSED").
+                        queryParam("$where", whereQueryParam).queryParam("$$app_token", APP_TOKEN);
 
                 familyAgencyList = target.request(MediaType.APPLICATION_JSON)
                         .get(new GenericType<List<FosterFamilyAgency>>() {
@@ -100,5 +97,31 @@ public class LocateServiceClient extends AbstractRestClient {
         } catch (Throwable t) {
             throw new WebServiceException("Unable to retreive foster family agencies for coodinates " + logitude + "," + latitude, t);
         }
+    }
+
+    /**
+     * Get the coordinate for a zip code.
+     *
+     * @param zip zip code
+     *
+     * @return zipcoordiante object that contains zip code information.
+     *
+     * @throws Exception
+     */
+    public ZipCoordinate getZipCodeCoordinate(
+            String zip) throws Exception {
+        ZipCoordinate results = null;
+
+        try {
+            WebTarget target = this.getTarget(ZIP_SERVICE).
+                    queryParam("sensor", "false").queryParam("address", zip);
+
+            results = target.request(MediaType.APPLICATION_JSON)
+                    .get(ZipCoordinate.class);
+        } catch (Throwable t) {
+            throw new WebServiceException("Unable to retreive zip code coodinates " + zip, t);
+        }
+
+        return results;
     }
 }
