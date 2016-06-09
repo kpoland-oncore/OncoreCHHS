@@ -1,18 +1,12 @@
 # Developer Instructions
 [README](README.md) > DEVELOPER
 
-_Work In Progress_
-
 ## VMWare - to run the developer image
-**TODO Royce (or Kyle if not Royce)** instructions on buying/downloading/installing VMWare player
 
-Uploaded the VMWare developer image to OneDrive: https://oncore-my.sharepoint.com/personal/michael_tsay_oncorellc_com/_layouts/15/guestaccess.aspx?guestaccesstoken=BD046UtB%2fc8cpOFYxXVoJMTE4XjaFR45zunjZTl4uQQ%3d&docid=0e8da6e22ff2443b3992a86f57cb38e4c&expiration=2016-07-13T18%3a41%3a15.000Z
-
-Install this VM image, then follow the developer workstation instructions in the documentation directory to setup your developer workstation.  Tasks such repository clone, DB setup and datsource conciguration are covered in that document.
-
-_ISSUE_: [Kyle] for Vagrant to use VMWare you have to buy both VMWare $150-$250 and a Vagrant plugin $79. They recommend only using VMWare Workstation Pro, not Player. Vagrant uses VirtualBox by default with no paid plugin.
-
-
+We have uploaded the VMWare developer image to OneDrive: https://oncore-my.sharepoint.com/personal/michael_tsay_oncorellc_com/_layouts/15/guestaccess.aspx?guestaccesstoken=BD046UtB%2fc8cpOFYxXVoJMTE4XjaFR45zunjZTl4uQQ%3d&docid=0e8da6e22ff2443b3992a86f57cb38e4c&expiration=2016-07-13T18%3a41%3a15.000Z  
+  
+Install this VM image, then follow the developer workstation instructions in the documentation directory to setup your developer workstation.  Tasks such as repository clone, DB setup and datasource configuration are covered in that document.
+  
 ## Git
 [Git getting started guide](https://git-scm.com/book/en/v2/Getting-Started-The-Command-Line)
 ```git help <command>```
