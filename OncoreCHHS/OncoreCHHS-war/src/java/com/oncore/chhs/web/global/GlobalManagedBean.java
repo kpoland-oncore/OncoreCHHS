@@ -45,6 +45,7 @@ public class GlobalManagedBean extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing GlobalManagedBean: " + this.getClass().hashCode());
+        this.sessionActive = Boolean.TRUE;
     }
 
     @Override
@@ -151,12 +152,27 @@ public class GlobalManagedBean extends BaseManagedBean {
         this.latitude = latitude;
     }
 
+    /**
+     * @return the sessionActive
+     */
+    public Boolean getSessionActive() {
+        return sessionActive;
+    }
+
+    /**
+     * @param sessionActive the sessionActive to set
+     */
+    public void setSessionActive(Boolean sessionActive) {
+        this.sessionActive = sessionActive;
+    }
+
     private Boolean authenticated = Boolean.FALSE;
     private String loginText = "Login";
     private User authenticatedUser;
     private String calculatedUserFullName;
     private Double longitude = 0d;
     private Double latitude = 0d;
+    private Boolean sessionActive = Boolean.FALSE;
 
     private final Logger LOG = LogManager.getLogger(GlobalManagedBean.class);
 

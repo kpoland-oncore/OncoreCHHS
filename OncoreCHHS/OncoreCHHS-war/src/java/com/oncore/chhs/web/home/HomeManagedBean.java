@@ -24,9 +24,14 @@
 package com.oncore.chhs.web.home;
 
 import com.oncore.chhs.web.base.BaseManagedBean;
+import com.oncore.chhs.web.global.GlobalManagedBean;
+import com.oncore.chhs.web.utils.ErrorUtils;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.omnifaces.cdi.ViewScoped;
@@ -43,6 +48,15 @@ public class HomeManagedBean extends BaseManagedBean {
     @PostConstruct
     public void initialize() {
         LOG.debug("Initializing HomeManagedBean: " + this.getClass().hashCode());
+ 
+        if (!this.globalManagedBean.getSessionActive()) {
+            try {
+                LOG.debug("Attempting to redirect to home");
+                FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "home_redirect");
+            } catch (IllegalStateException ix) {
+                LOG.warn(ErrorUtils.getStackTrace(ix));
+            }
+        }
     }
 
     @Override
@@ -50,7 +64,26 @@ public class HomeManagedBean extends BaseManagedBean {
     public void destroy() {
         LOG.debug("Destroying HomeManagedBean: " + this.getClass().hashCode());
     }
-   
+
+    /**
+     * @return the page
+     */
+    public String getPage() {
+        return page;
+    }
+
+    /**
+     * @param page the page to set
+     */
+    public void setPage(String page) {
+        this.page = page;
+    }
+
+    private String page = StringUtils.EMPTY;
+
+    @Inject
+    protected GlobalManagedBean globalManagedBean;
+
     private final Logger LOG = LogManager.getLogger(HomeManagedBean.class);
 
 }

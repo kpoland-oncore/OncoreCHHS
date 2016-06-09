@@ -13,11 +13,10 @@ This document describes the technical setup of various aspects of the OncoreCHHS
 ## GitHub
 All source code, test scripts, design documentation, and other documentation is maintained in this GitHub repository.
 
-The repository address is [https://github.com/OncoreLLC/OncoreCHHS](https://github.com/OncoreLLC/OncoreCHHS)
-
+The repository address is [https://github.com/OncoreLLC/OncoreCHHS](https://github.com/OncoreLLC/OncoreCHHS)  
 **NOTE: This repo has been set to read-only as of June 9th, 2016.**
 
-### GitHub Organization
+##### GitHub Organization
 - several markdown files in the top level directory address
   - [README.md](README.md) - official proposal project writeup
   - [DEVELOPER.md](DEVELOPER.md) - developer documentation
@@ -42,26 +41,25 @@ The repository address is [https://github.com/OncoreLLC/OncoreCHHS](https://gith
 We use the Jenkins open-source Continuous Integration server for builds and deployments. Jenkins is installed on a Azure Linux VM which also serves as our Test server.
 
 The Jenkins console is available at: http://oncorechhsjenkins.westus.cloudapp.azure.com/
-### Jenkins Pipeline Job
+##### Jenkins Pipeline Job
 A single continuous deployment pipeline job takes the code from GitHub push through build, unit tests, deployment to a test environment, regression tests, manual approval to deploy to Prod, and the Production deployment.
+![Jenkins screenshot][documentation/jenkins_screenshot.png]
 
 Pushes to GitHub automatically trigger the pipeline job. **NOTE: as of June 9 this automatic build has been disabled.**
 
 This pipeline goes through the following stages where each stage is dependent on the successful completion of previous stages:
-1. Checkout - get the latest code from GitHub  
-2. Clean - run ant targets to clean the workspaces   
-3. Build Web Tier - run ant target to build the web tier into the OncoreCHHS.ear  
-4. Build Services Tier - run ant target to build the REST services tier into the OncoreCHHSServices.ear  
-5. Unit Test - run ant target to build and run the JUnit tests  
-6. Dockerize - build a new Docker image based on the Dockerfile consisting of the built EARs plus supporting files on top of a Glassfish on Ubuntu Linux base image  
-7. Deploy To Test - deploy the newly built Docker image into a container on the Jenkins server, this is the Test environment  
-8. Regression Test - run selenium regression tests against the Test environment  
-9. Push to DockerHub - tag and push the image to DockerHub  
-10. Pause for Approval - a manual approval in Jenkins is necessary to proceed with the Production deployment. This allows time for additional manual regression testing in the test environment, testing from multiple devices, and consensus that the build is suitable for Production.  
-10. Deploy to Prod - pull the latest Docker image to the Production server, deploy it  
 
-A graphical depiction of the stages is visible on the job page:
-http://oncorechhsjenkins.westus.cloudapp.azure.com/jenkins/job/continuous-deployment-pipeline/
+1. __Checkout__ - get the latest code from GitHub  
+2. __Clean__ - run ant targets to clean the workspaces   
+3. __Build Web Tier__ - run ant target to build the web tier into the OncoreCHHS.ear  
+4. __Build Services Tier__ - run ant target to build the REST services tier into the OncoreCHHSServices.ear  
+5. __Unit Test__ - run ant target to build and run the JUnit tests  
+6. __Dockerize__ - build a new Docker image based on the Dockerfile consisting of the built EARs plus supporting files on top of a Glassfish on Ubuntu Linux base image  
+7. __Deploy To Test__ - deploy the newly built Docker image into a container on the Jenkins server, this is the Test environment  
+8. __Regression Test__ - run selenium regression tests against the Test environment  
+9. __Push to DockerHub__ - tag and push the image to DockerHub  
+10. __Pause for Approval__ - a manual approval in Jenkins is necessary to proceed with the Production deployment. This allows time for additional manual regression testing in the test environment, testing from multiple devices, and consensus that the build is suitable for Production.  
+11. __Deploy to Prod__ - pull the latest Docker image to the Production server, deploy it.
 
 ## Docker Containers
 Our solution uses Docker for container-based deployment. Our Docker image, defined by the [Dockerfile](Dockerfile) in the root of the GitHub repository, consists of:
@@ -71,7 +69,7 @@ Our solution uses Docker for container-based deployment. Our Docker image, defin
 - the two built EARs copied into the image
 - a container startup script that starts glassfish and deploys the two EARs
 
-### Docker in the Build Pipeline
+##### Docker in the Build Pipeline
 The docker image is built in step 6 of the pipeline, after the build and unit tests have succeeded. The docker image we build is tagged with the Jenkins build id.
 
 The docker image is deployed into a container on the Jenkins server in step 7 of the pipeline. This is now a running instance of the application - our Test environment.
@@ -80,7 +78,7 @@ After selenium regression tests run the docker image is tagged as latest and pus
 
 The Production deployment in step 10 pulls the latest image from DockerHub and runs it on our Production server.
 
-### DockerHub
+##### DockerHub
 Our repository on DockerHub is: https://hub.docker.com/r/kpoland/oncorechhsapp/
 The image can be pulled with: docker pull kpoland/oncorechhsapp:latest
 

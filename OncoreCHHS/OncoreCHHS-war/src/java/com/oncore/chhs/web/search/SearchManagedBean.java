@@ -27,6 +27,7 @@ import com.oncore.chhs.web.base.BaseManagedBean;
 import static com.oncore.chhs.web.base.BaseManagedBean.FORM_NAME;
 import com.oncore.chhs.web.exceptions.WebServiceException;
 import com.oncore.chhs.web.global.GlobalManagedBean;
+import com.oncore.chhs.web.utils.ErrorUtils;
 import com.oncore.chhs.web.utils.FacesUtilities;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,15 @@ public class SearchManagedBean extends BaseManagedBean {
     public void initialize() {
         LOG.debug("Initializing SearchManagedBean: " + this.getClass().hashCode());
 
+        if (!this.globalManagedBean.getSessionActive()) {
+            try {
+                LOG.debug("Attempting to redirect to home");
+                FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "home_redirect");
+            } catch (IllegalStateException ix) {
+                LOG.warn(ErrorUtils.getStackTrace(ix));
+            }
+        }
+
     }
 
     @Override
@@ -62,8 +72,8 @@ public class SearchManagedBean extends BaseManagedBean {
     }
 
     /**
-     * The handleLoginButtonClickEvent method handles the click
-     * event generated from the login button on the login page.
+     * The handleLoginButtonClickEvent method handles the click event generated
+     * from the login button on the login page.
      *
      */
     public void handleSearchButtonClickEvent() {
