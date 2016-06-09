@@ -24,6 +24,7 @@
 package com.oncore.chhs.client.rest;
 
 import com.oncore.chhs.client.dto.locate.FosterFamilyAgency;
+import com.oncore.chhs.client.dto.zipcoordinate.ZipCoordinate;
 import com.oncore.chhs.web.rest.client.AbstractRestClient;
 import java.util.List;
 import javax.ws.rs.client.WebTarget;
@@ -37,6 +38,7 @@ import javax.xml.ws.WebServiceException;
  */
 public class LocateServiceClient extends AbstractRestClient {
 
+    private static final String ZIP_SERVICE = "zip.rest.url.json";
     private static final String LOCATE_SERVICE = "locate.rest.url.json";
     private static final String APP_TOKEN = "98mLn8GscN2Q78YuzLWkp9Z7m";
 

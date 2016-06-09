@@ -24,6 +24,7 @@
 package com.oncore.chhs.web.search;
 
 import com.oncore.chhs.client.dto.locate.FosterFamilyAgency;
+import com.oncore.chhs.client.dto.zipcoordinate.ZipCoordinate;
 import com.oncore.chhs.client.rest.LocateServiceClient;
 
 import com.oncore.chhs.web.exceptions.WebServiceException;
