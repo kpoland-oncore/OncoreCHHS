@@ -100,7 +100,7 @@ We are using the free tier of the StatusCake monitoring service for site monitor
 - the Test environment Home page
 - Jenkins
 
-![alt text](https://github.com/OncoreLLC/OncoreCHHS/blob/master/documentation/statuscake_screenhsot.png "StatusCake screenshot")
+![alt text](https://github.com/OncoreLLC/OncoreCHHS/blob/master/documentation/statuscake_screenshot.png "StatusCake screenshot")
 
 Our monitoring dashboard is available at: https://www.statuscake.com/App/Login/
 - use username: kyle.poland@oncorellc.com
