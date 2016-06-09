@@ -106,8 +106,4 @@ Our monitoring dashboard is available at: https://www.statuscake.com/App/Login/
 - use username: kyle.poland@oncorellc.com
 - password: oncorechhs
 
-We considered setting up our own independent monitoring stack, but went with StatusCake because:
-- quick implementation
-  - once we got the app deployed into the Test environment we were able to immediately monitor it with little additional work
-- independence from our Azure stack
-  - rolling our own monitoring would have required installing it in one or more different Azure regions from our main West-US region to ensure availability
+We considered setting up our own independent monitoring stack, but went with StatusCake for two primary reasons.  First it was very quick and simple to implement, within a few minutes of our first successful deployment to the Test environment we were able to stand up monitoring of the site. Second, using a hosted monitoring solution ensured that it is independent of the health of our Azure stack and VMs.
