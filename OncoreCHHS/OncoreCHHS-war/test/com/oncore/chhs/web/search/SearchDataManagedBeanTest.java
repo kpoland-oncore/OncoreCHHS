@@ -60,8 +60,22 @@ public class SearchDataManagedBeanTest {
         List<FosterFamilyAgency> testAgencies = new ArrayList<>();
         testAgencies.add(testAgency);
 
+        ZipCoordinate zipCoordinate = new ZipCoordinate();
+        Results[] resultsArray = new Results[1];
+        Results results = new Results();
+        Geometry geometry = new Geometry();
+        Location location = new Location();
+        location.setLat(1D);
+        location.setLng(2D);
+
+        geometry.setLocation(location);
+        results.setGeometry(geometry);
+        resultsArray[0] = results;
+        zipCoordinate.setResults(resultsArray);
+
         LocateServiceClient mockService = mock(LocateServiceClient.class);
-        when(mockService.searchFosterFamilyAgency("95608")).thenReturn(testAgencies);
+        when(mockService.getZipCodeCoordinate("95608")).thenReturn(zipCoordinate);
+        when(mockService.searchFosterFamilyAgencyByCircle(2D, 1D)).thenReturn(testAgencies);
 
         SearchDataManagedBean instance = spy(new SearchDataManagedBean());
         when(instance.getLocateServiceClient()).thenReturn(mockService);
