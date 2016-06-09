@@ -42,11 +42,13 @@ public class SeleniumLoginTest {
 
 	@Test
 	public void testSeleniumLogin() throws Exception {
-		selenium.open("/OncoreCHHS-war/");
+		selenium.open("/OncoreCHHS-war/sessionexpired.xhtml");
+		selenium.click("link=Return Home");
+		selenium.waitForPageToLoad("30000");
 		selenium.click("link=Login");
 		selenium.waitForPageToLoad("30000");
-		selenium.type("id=chssForm:userNameTxt:input", "testuser");
-		selenium.click("id=chssForm:loginBtn");
+		selenium.type("id=chhsForm:userNameTxt:input", "testuser");
+		selenium.click("id=chhsForm:loginBtn");
 		selenium.waitForPageToLoad("30000");
 	}
 
