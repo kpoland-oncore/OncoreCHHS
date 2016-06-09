@@ -79,10 +79,6 @@ public class SessionFilter implements Filter {
 
                     httpResponse.sendRedirect("sessionexpired.xhtml");
                 } else {
-//                    httpResponse.setHeader("Cache-Control", "private, max-age=432000, no-cache");
-//                    httpResponse.setHeader("Pragma", "no-cache");
-//                    httpResponse.setDateHeader("Last-Modified", (new Date()).getTime());
-
                     httpResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0, proxy-revalidate, no-transform, pre-check=0, post-check=0, private");
                     httpResponse.setHeader("Pragma", "no-cache");
                     httpResponse.setDateHeader("Expires", 0);
